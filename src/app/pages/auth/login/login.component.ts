@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UserFacadeService } from 'src/app/services/auth/user-facade.service';
 
 @Component({
   selector: 'app-login',
@@ -6,10 +8,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
+  form: FormGroup;
+  constructor(private fb: FormBuilder, private userFacade: UserFacadeService) {
+    this.form = this.fb.group({
+      login: [null, Validators.required],
+      password: [null, Validators.required]
+    });
   }
 
+  ngOnInit() {}
+
+  onSubmit() {
+    if (this.form.valid) {
+      console.log('submit form action');
+      this.userFacade.loginUser(this.form.value);
+    }
+  }
 }

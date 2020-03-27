@@ -51,7 +51,9 @@ export class AdminComponent implements OnInit {
         filter(event => event instanceof NavigationEnd),
         filter((e: NavigationEnd) => e.urlAfterRedirects !== '/login')
       )
-      .subscribe(event => {});
+      .subscribe(event => {
+        console.log(event);
+      });
   }
 
   ngOnInit() {}

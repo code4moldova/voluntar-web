@@ -1,4 +1,5 @@
-import { Component, OnInit, EventEmitter } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { UserFacadeService } from 'src/app/services/auth/user-facade.service';
 
 @Component({
   selector: 'app-header',
@@ -6,9 +7,9 @@ import { Component, OnInit, EventEmitter } from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  toggle = new EventEmitter();
+  @Output() toggle = new EventEmitter();
 
-  constructor() {}
+  constructor(private userFacade: UserFacadeService) {}
 
   ngOnInit(): void {}
 
@@ -18,5 +19,6 @@ export class HeaderComponent implements OnInit {
 
   onLogout() {
     console.log('logout');
+    this.userFacade.logout();
   }
 }
