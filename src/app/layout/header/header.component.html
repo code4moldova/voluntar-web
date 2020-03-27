@@ -1,0 +1,24 @@
+<mat-toolbar class="mat-elevation-z6 app-navbar">
+  <div class="header-logo">
+    <span class="logo"></span>
+    <button
+      color="primary"
+      type="button"
+      aria-label="Toggle sidenav"
+      mat-icon-button
+      (click)="onDrawerClick()"
+    >
+      <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+    </button>
+  </div>
+  <div class="toolbar-spacer"></div>
+  <div class="user-nav">
+    <button mat-button [matMenuTriggerFor]="menu">
+      <mat-icon>account_box</mat-icon> <span class="user-name">User Name</span>
+      <mat-icon>arrow_drop_down</mat-icon>
+    </button>
+    <mat-menu #menu>
+      <button mat-menu-item (click)="onLogout()">Logout</button>
+    </mat-menu>
+  </div>
+</mat-toolbar>
