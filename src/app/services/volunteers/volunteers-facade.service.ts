@@ -5,10 +5,15 @@ import { saveVolunteerAction } from '@store/volunteers-store/actions';
 import { of } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { RootState } from '@store/root-state';
-import { getVolunteersAction } from '@store/volunteers-store/actions';
+import {
+  getVolunteersAction,
+  getVolunteerAction
+} from '@store/volunteers-store/actions';
 import {
   selectVolunteersData,
-  selectIsLoading
+  selectIsLoading,
+  selectVolunteersDetails,
+  selectError
 } from '@store/volunteers-store/selectors';
 import { IVolunteer } from '@models/volunteers';
 
@@ -17,8 +22,10 @@ import { IVolunteer } from '@models/volunteers';
 })
 export class VolunteersFacadeService {
   volunteers$ = this.store.pipe(select(selectVolunteersData));
+  volunteerDetails$ = this.store.pipe(select(selectVolunteersDetails));
   isLoading$ = this.store.pipe(select(selectIsLoading));
-  constructor(private store: Store<RootState>) { }
+  error$ = this.store.pipe(select(selectError));
+  constructor(private store: Store<RootState>) {}
 
   saveVolunteer(volunteer: IVolunteer) {
     this.store.dispatch(saveVolunteerAction(volunteer));
@@ -26,5 +33,9 @@ export class VolunteersFacadeService {
 
   getVolunteers() {
     this.store.dispatch(getVolunteersAction());
+  }
+
+  getVolunteerById(id: number) {
+    this.store.dispatch(getVolunteerAction({ id }));
   }
 }

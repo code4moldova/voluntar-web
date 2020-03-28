@@ -6,7 +6,10 @@ import {
   getVolunteersSuccessAction,
   getVolunteersFailureAction,
   saveVolunteerSuccessAction,
-  saveVolunteerFailureAction
+  saveVolunteerFailureAction,
+  getVolunteerAction,
+  getVolunteerSuccessAction,
+  getVolunteerFailureAction
 } from './actions';
 
 const volunteerReducer = createReducer(
@@ -29,18 +32,38 @@ const volunteerReducer = createReducer(
   on(saveVolunteerAction, (state, volunteer) => ({
     ...state,
     error: null,
-    isLoading: true,
+    isLoading: true
   })),
   on(saveVolunteerSuccessAction, (state, { payload }) => ({
     ...state,
-    isLoading: false,
+    isLoading: false
     // data: payload
   })),
   on(saveVolunteerFailureAction, (state, { error }) => ({
     ...state,
     isLoading: false,
     error
-  }))
+  })),
+
+  on(getVolunteerAction, state => ({
+    ...state,
+    details: null,
+    isLoading: true
+  })),
+  on(getVolunteerSuccessAction, (state, { payload }) => {
+    return {
+      ...state,
+      isLoading: false,
+      details: payload
+    };
+  }),
+  on(getVolunteerFailureAction, (state, { error }) => {
+    return {
+      ...state,
+      isLoading: false,
+      error
+    };
+  })
 );
 
 export function reducer(state: VolunteersState | undefined, action: Action) {

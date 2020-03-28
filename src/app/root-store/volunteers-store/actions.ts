@@ -7,6 +7,8 @@ export enum ActionTypes {
   GET_VOLUNTEERS_FAILURE = '[Volunteers] Get Volunteers Failure',
 
   GET_VOLUNTEER = '[Volunteer] Get Volunteer',
+  GET_VOLUNTEER_SUCCESS = '[Volunteer] Get Volunteer Success',
+  GET_VOLUNTEER_FAILURE = '[Volunteer] Get Volunteer Failure',
 
   SAVE_VOLUNTEER = '[Volunteer] Save Volunteer',
   SAVE_VOLUNTEER_SUCCESS = '[Volunteer] Save Volunteer Success',
@@ -25,7 +27,15 @@ export const getVolunteersSuccessAction = createAction(
 
 export const getVolunteerAction = createAction(
   ActionTypes.GET_VOLUNTEER,
+  props<{ id: number }>()
+);
+export const getVolunteerSuccessAction = createAction(
+  ActionTypes.GET_VOLUNTEER_SUCCESS,
   props<{ payload: IVolunteer }>()
+);
+export const getVolunteerFailureAction = createAction(
+  ActionTypes.GET_VOLUNTEER_FAILURE,
+  props<{ error: any }>()
 );
 
 export const saveVolunteerAction = createAction(

@@ -12,10 +12,23 @@ export const selectIsLoading = createSelector(
     return state.isLoading;
   }
 );
+export const selectError = createSelector(
+  selectVolunteers,
+  (state: VolunteersState): any => {
+    return state.error;
+  }
+);
 
 export const selectVolunteersData = createSelector(
   selectVolunteers,
   (state: VolunteersState): IVolunteer[] => {
     return state.data;
+  }
+);
+
+export const selectVolunteersDetails = createSelector(
+  selectVolunteers,
+  (state: VolunteersState): IVolunteer => {
+    return state.details;
   }
 );

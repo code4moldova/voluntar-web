@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { VolunteersFacadeService } from '@services/volunteers/volunteers-facade.service';
-import { map, switchMap, takeUntil } from 'rxjs/operators';
+import { map, switchMap, takeUntil, filter } from 'rxjs/operators';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Subject } from 'rxjs';
 
@@ -13,19 +13,23 @@ import { Subject } from 'rxjs';
 export class VolunteersDetailsComponent implements OnInit, OnDestroy {
   form: FormGroup;
   componentDestroyed$ = new Subject();
-  volunteer$ = this.route.paramMap.pipe(
-    switchMap((params: ParamMap) => this.volunteerFacade.volunteers$.pipe(
-      // tap((volunteers) => !volunteers.length && this.volunteerFacade.getVolunteers()),
-      map(volunteeers => volunteeers.find(v => v.id === +params.get('id'))),
-    )),
-    takeUntil(this.componentDestroyed$)
-  );
+  isLoading$ = this.volunteerFacade.isLoading$;
+  error$ = this.volunteerFacade.error$;
 
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private volunteerFacade: VolunteersFacadeService
   ) {
+    this.route.paramMap
+      .pipe(
+        takeUntil(this.componentDestroyed$),
+        map(params => params.get('id'))
+      )
+      .subscribe(id => {
+        this.volunteerFacade.getVolunteerById(Number(id));
+      });
+
     this.form = this.fb.group({
       id: [null],
       first_name: [null, Validators.required],
@@ -39,16 +43,19 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
       social_profile: [null, Validators.required],
       age: [null, Validators.required],
       available_hours: [null, Validators.required],
-      activity_type: [null, Validators.required], // Not sure what's this
+      activity_type: [null, Validators.required] // Not sure what's this
     });
   }
 
   ngOnInit(): void {
-    this.volunteer$.subscribe(volunteer => {
-      if (volunteer) {
-        this.form.setValue(volunteer);
-      }
-    });
+    this.volunteerFacade.volunteerDetails$
+      .pipe(
+        takeUntil(this.componentDestroyed$),
+        filter(details => Boolean(details))
+      )
+      .subscribe(volunteer => {
+        this.form.patchValue(volunteer);
+      });
   }
 
   ngOnDestroy() {
@@ -61,5 +68,4 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
       this.volunteerFacade.saveVolunteer(this.form.value);
     }
   }
-
 }
