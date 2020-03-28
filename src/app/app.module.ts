@@ -7,10 +7,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RootStoreModule } from './root-store/root-store.module';
 import { HttpClientModule } from '@angular/common/http';
-import { VolunteersNewComponent } from './pages/volunteers/volunteers-new/volunteers-new.component';
 
 @NgModule({
-  declarations: [AppComponent, VolunteersNewComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
