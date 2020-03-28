@@ -9,7 +9,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'volunteers',
+        redirectTo: 'requests',
         pathMatch: 'full'
       },
       {
