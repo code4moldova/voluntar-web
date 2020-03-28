@@ -5,11 +5,13 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
 import { UserStoreModule } from './user-store/user-store.module';
+import { VolunteersStoreModule } from './volunteers-store/volunteers-store.module';
 
 @NgModule({
   imports: [
     CommonModule,
     UserStoreModule,
+    VolunteersStoreModule,
     StoreModule.forRoot({}, {}),
     EffectsModule.forRoot([]),
     environment.production
