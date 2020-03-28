@@ -1,8 +1,9 @@
 import { Volunteer } from '@models/volunteer';
+import { IVolunteer } from '@models/volunteers';
 
 export interface VolunteersState {
-  data: Volunteer[];
-  details: any;
+  data: IVolunteer[];
+  details: IVolunteer;
   isLoading: boolean;
   error: string;
 }

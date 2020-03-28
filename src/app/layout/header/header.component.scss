@@ -6,6 +6,15 @@
   }
 }
 
+.app-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  background: #fff;
+}
+
 .user-name {
   margin-left: 5px;
   text-transform: none;
@@ -28,8 +37,9 @@
 }
 
 .header-logo {
-  width: 223px;
+  width: 234px;
   display: flex;
+  box-sizing: border-box;
   justify-content: space-between;
   border-right: 1px solid #ebebeb;
   margin-right: 25px;

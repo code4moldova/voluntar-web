@@ -8,7 +8,16 @@ import { MaterialComponentsModule } from '@shared/material.module';
 import { SharedModule } from '@shared/shared.module';
 
 @NgModule({
-  declarations: [VolunteersComponent, VolunteersListComponent, VolunteersDetailsComponent],
-  imports: [CommonModule, VolunteersRoutingModule, MaterialComponentsModule, SharedModule]
+  declarations: [
+    VolunteersComponent,
+    VolunteersListComponent,
+    VolunteersDetailsComponent
+  ],
+  imports: [
+    CommonModule,
+    VolunteersRoutingModule,
+    MaterialComponentsModule,
+    SharedModule
+  ]
 })
-export class VolunteersModule { }
+export class VolunteersModule {}

@@ -2,8 +2,15 @@ mat-sidenav-container {
   height: 100%;
   position: relative;
   background: #eee;
+  padding-top: 64px;
 }
 
 mat-sidenav {
   width: 250px;
+  padding-top: 64px;
+}
+
+.main-container {
+  padding: 25px;
+  box-sizing: border-box;
 }

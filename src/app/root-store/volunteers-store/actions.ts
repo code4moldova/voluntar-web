@@ -11,10 +11,7 @@ export enum ActionTypes {
   SAVE_VOLUNTEER_FAILURE = '[Volunteer] Save Volunteer Failure'
 }
 
-export const getVolunteersAction = createAction(
-  ActionTypes.GET_VOLUNTEERS,
-  props<{ payload: any }>()
-);
+export const getVolunteersAction = createAction(ActionTypes.GET_VOLUNTEERS);
 export const getVolunteersFailureAction = createAction(
   ActionTypes.GET_VOLUNTEERS_FAILURE,
   props<{ error: any }>()

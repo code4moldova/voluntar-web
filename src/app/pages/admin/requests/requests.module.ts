@@ -4,6 +4,7 @@ import { RequestsComponent } from './requests.component';
 import { RequestDetailsComponent } from './request-details/request-details.component';
 import { RequestsListComponent } from './requests-list/requests-list.component';
 import { RequestsRoutingModule } from './requests-routing.module';
+import { MaterialComponentsModule } from '@shared/material.module';
 
 @NgModule({
   declarations: [
@@ -11,6 +12,6 @@ import { RequestsRoutingModule } from './requests-routing.module';
     RequestDetailsComponent,
     RequestsListComponent
   ],
-  imports: [CommonModule, RequestsRoutingModule]
+  imports: [CommonModule, RequestsRoutingModule, MaterialComponentsModule]
 })
 export class RequestsModule {}

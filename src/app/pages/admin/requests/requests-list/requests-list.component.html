@@ -1,1 +1,55 @@
-<p>requests-list works!</p>
+<mat-card>
+  <table mat-table [dataSource]="dataSource$ | async">
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Nume</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.first_name }} {{ element.last_name }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="phone">
+      <th mat-header-cell *matHeaderCellDef>Telefon</th>
+      <td mat-cell *matCellDef="let element">{{ element.phone }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="hasMoney">
+      <th mat-header-cell *matHeaderCellDef>Are bani</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.has_money ? "Da" : "Nu" }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="city">
+      <th mat-header-cell *matHeaderCellDef>Oras</th>
+      <td mat-cell *matCellDef="let element">{{ element.city }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>Activ</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.status ? "Da" : "Nu" }}
+      </td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="availableHours">
+      <th mat-header-cell *matHeaderCellDef>Ore pe zi</th>
+      <td mat-cell *matCellDef="let element">{{ element.available_hours }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr
+      mat-row
+      *matRowDef="let row; columns: displayedColumns"
+      class="clickable-row"
+      [routerLink]="['/requests/details', row.id]"
+    ></tr>
+  </table>
+
+  <div class="loading-shade" *ngIf="isLoading$ | async">
+    <mat-spinner></mat-spinner>
+  </div>
+  <mat-card-footer>
+    <mat-paginator [pageSizeOptions]="[20, 50, 100]"></mat-paginator>
+  </mat-card-footer>
+</mat-card>
