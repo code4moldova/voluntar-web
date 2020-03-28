@@ -10,6 +10,7 @@ import {
   selectVolunteersData,
   selectIsLoading
 } from '@store/volunteers-store/selectors';
+import { IVolunteer } from '@models/volunteers';
 
 @Injectable({
   providedIn: 'root'
@@ -17,9 +18,9 @@ import {
 export class VolunteersFacadeService {
   volunteers$ = this.store.pipe(select(selectVolunteersData));
   isLoading$ = this.store.pipe(select(selectIsLoading));
-  constructor(private store: Store<RootState>) {}
+  constructor(private store: Store<RootState>) { }
 
-  createNewVolunteer(volunteer: Volunteer) {
+  saveVolunteer(volunteer: IVolunteer) {
     this.store.dispatch(saveVolunteerAction(volunteer));
   }
 

@@ -1,10 +1,12 @@
-import { Action, createAction, props } from '@ngrx/store';
-import { Volunteer } from '@models/volunteer';
+import { createAction, props } from '@ngrx/store';
+import { IVolunteer } from '@models/volunteers';
 
 export enum ActionTypes {
   GET_VOLUNTEERS = '[Volunteers] Get Volunteers',
   GET_VOLUNTEERS_SUCCESS = '[Volunteers] Get Volunteers Success',
   GET_VOLUNTEERS_FAILURE = '[Volunteers] Get Volunteers Failure',
+
+  GET_VOLUNTEER = '[Volunteer] Get Volunteer',
 
   SAVE_VOLUNTEER = '[Volunteer] Save Volunteer',
   SAVE_VOLUNTEER_SUCCESS = '[Volunteer] Save Volunteer Success',
@@ -21,9 +23,14 @@ export const getVolunteersSuccessAction = createAction(
   props<{ payload: any }>()
 );
 
+export const getVolunteerAction = createAction(
+  ActionTypes.GET_VOLUNTEER,
+  props<{ payload: IVolunteer }>()
+);
+
 export const saveVolunteerAction = createAction(
   ActionTypes.SAVE_VOLUNTEER,
-  props<Volunteer>()
+  props<IVolunteer>()
 );
 export const saveVolunteerFailureAction = createAction(
   ActionTypes.SAVE_VOLUNTEER_FAILURE,

@@ -20,9 +20,9 @@ export class VolunteersEffects {
     private actions$: Actions,
     private router: Router,
     private volunteerService: VolunteersService
-  ) {}
+  ) { }
 
-  saveVolunteer$: Observable<Action> = createEffect(() => {
+  saveVolunteerEffect$: Observable<Action> = createEffect(() => {
     return this.actions$.pipe(
       ofType(saveVolunteerAction),
       switchMap(volunteer =>

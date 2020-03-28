@@ -4,7 +4,9 @@ import {
   saveVolunteerAction,
   getVolunteersAction,
   getVolunteersSuccessAction,
-  getVolunteersFailureAction
+  getVolunteersFailureAction,
+  saveVolunteerSuccessAction,
+  saveVolunteerFailureAction
 } from './actions';
 
 const volunteerReducer = createReducer(
@@ -24,10 +26,21 @@ const volunteerReducer = createReducer(
     isLoading: false,
     error
   })),
-  on(saveVolunteerAction, (state, volunteer) => {
-    console.log(volunteer);
-    return state;
-  })
+  on(saveVolunteerAction, (state, volunteer) => ({
+    ...state,
+    error: null,
+    isLoading: true,
+  })),
+  on(saveVolunteerSuccessAction, (state, { payload }) => ({
+    ...state,
+    isLoading: false,
+    // data: payload
+  })),
+  on(saveVolunteerFailureAction, (state, { error }) => ({
+    ...state,
+    isLoading: false,
+    error
+  }))
 );
 
 export function reducer(state: VolunteersState | undefined, action: Action) {

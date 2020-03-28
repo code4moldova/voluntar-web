@@ -1,4 +1,3 @@
-import { Volunteer } from '@models/volunteer';
 import { IVolunteer } from '@models/volunteers';
 
 export interface VolunteersState {
