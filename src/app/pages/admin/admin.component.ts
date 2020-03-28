@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatSidenav, MatSidenavContent } from '@angular/material/sidenav';
 import {
@@ -8,8 +8,8 @@ import {
   transition,
   animate
 } from '@angular/animations';
-import { Observable } from 'rxjs';
-import { map, filter } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+import { map, filter, takeUntil } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { Router, NavigationEnd } from '@angular/router';
 
@@ -34,9 +34,10 @@ import { Router, NavigationEnd } from '@angular/router';
     ])
   ]
 })
-export class AdminComponent implements OnInit {
+export class AdminComponent implements OnInit, OnDestroy {
   @ViewChild(MatSidenav) drawer: MatSidenav;
 
+  destroyComponent$ = new Subject<any>();
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe('(max-width: 1200px)')
     .pipe(map(result => result.matches));
@@ -49,14 +50,19 @@ export class AdminComponent implements OnInit {
     this.router.events
       .pipe(
         filter(event => event instanceof NavigationEnd),
-        filter((e: NavigationEnd) => e.urlAfterRedirects !== '/login')
+        filter((e: NavigationEnd) => e.urlAfterRedirects !== '/login'),
+        takeUntil(this.destroyComponent$)
       )
       .subscribe(event => {
         console.log(event);
       });
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
+
+  ngOnDestroy() {
+    this.destroyComponent$.next();
+  }
 
   close(reson: string) {
     this.drawer.close();

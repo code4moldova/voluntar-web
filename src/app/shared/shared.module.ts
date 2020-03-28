@@ -13,4 +13,4 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FlexLayoutModule
   ]
 })
-export class SharedModule {}
+export class SharedModule { }

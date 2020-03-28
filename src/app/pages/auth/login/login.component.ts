@@ -16,7 +16,8 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
+
 
   onSubmit() {
     if (this.form.valid) {

@@ -15,18 +15,22 @@ const routes: Routes = [
         pathMatch: 'full'
       },
       {
-        path: 'details',
+        path: 'details/:id',
         component: VolunteersDetailsComponent
       },
       {
         path: 'list',
         component: VolunteersListComponent
+      },
+      {
+        path: 'new',
+        component: VolunteersDetailsComponent
+      },
+      {
+        path: '**',
+        redirectTo: 'list',
+        pathMatch: 'full'
       }
-      // {
-      //   path: '**',
-      //   redirectTo: 'list',
-      //   pathMatch: 'full'
-      // }
     ]
   }
 ];
@@ -35,4 +39,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class VolunteersRoutingModule {}
+export class VolunteersRoutingModule { }

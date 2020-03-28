@@ -1,1 +1,67 @@
-<p>volunteers-details works!</p>
+<div class="container" fxLayout="row" fxLayoutAlign="center center">
+  <mat-card>
+    <mat-card-content>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <h2>Add new Volunteer</h2>
+        <mat-form-field class="full-width-input">
+          <input matInput placeholder="Name" formControlName="name" required />
+          <mat-error>
+            Please provide the name of volunteer
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width-input">
+          <input matInput placeholder="Email" formControlName="email" required />
+          <mat-error>
+            Please provide a valid email address
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width-input">
+          <input matInput placeholder="Address" formControlName="address" required />
+          <mat-error>
+            Please provide a valid address
+          </mat-error>
+        </mat-form-field>
+        <div>
+          <mat-slide-toggle formControlName="active">Active?</mat-slide-toggle>
+        </div>
+        <mat-form-field class="full-width-input">
+          <input matInput placeholder="Zone" formControlName="zone" required />
+          <mat-error>
+            Please provide a valid zone
+          </mat-error>
+        </mat-form-field>
+        <!-- <mat-form-field class="full-width-input">
+          <input matInput placeholder="Date" formControlName="date" required type="date" />
+          <mat-error>
+            Please provide a valid date
+          </mat-error>
+        </mat-form-field> -->
+        <mat-form-field class="full-width-input">
+          <input matInput placeholder="Facebook Profile" formControlName="fbProfile" required />
+          <mat-error>
+            Please provide a Facebook Profile
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width-input">
+          <input matInput placeholder="Age" formControlName="age" required type="number" />
+          <mat-error>
+            Please provide Volunteer age
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width-input">
+          <input matInput placeholder="Hours per day" formControlName="hoursPerDay" required type="number" />
+          <mat-error>
+            Please provide a valid number
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width-input">
+          <input matInput placeholder="Activities Type" formControlName="activitiesType" />
+          <!-- <mat-error>
+            Please provide a valid number
+          </mat-error> -->
+        </mat-form-field>
+        <button mat-raised-button color="primary">Add Volunteer</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
