@@ -13,26 +13,17 @@
 
 <ng-template #formTemplate>
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <h2>Add new Volunteer</h2>
+    <h2 *ngIf="!currentVolunteeerId">Add new Volunteer</h2>
+    <h2 *ngIf="currentVolunteeerId">Update Volunteer</h2>
     <input type="hidden" formControlName="id" />
     <mat-form-field class="full-width-input">
-      <input
-        matInput
-        placeholder="First Name"
-        formControlName="first_name"
-        required
-      />
+      <input matInput placeholder="First Name" formControlName="first_name" required />
       <mat-error>
         Please provide the name of volunteer
       </mat-error>
     </mat-form-field>
     <mat-form-field class="full-width-input">
-      <input
-        matInput
-        placeholder="Last Name"
-        formControlName="last_name"
-        required
-      />
+      <input matInput placeholder="Last Name" formControlName="last_name" required />
       <mat-error>
         Please provide the name of volunteer
       </mat-error>
@@ -59,50 +50,30 @@
       </mat-error>
     </mat-form-field> -->
     <mat-form-field class="full-width-input">
-      <input
-        matInput
-        placeholder="Facebook Profile"
-        formControlName="social_profile"
-        required
-      />
+      <input matInput placeholder="Facebook Profile" formControlName="social_profile" required />
       <mat-error>
         Please provide a Facebook Profile
       </mat-error>
     </mat-form-field>
     <mat-form-field class="full-width-input">
-      <input
-        matInput
-        placeholder="Age"
-        formControlName="age"
-        required
-        type="number"
-      />
+      <input matInput placeholder="Age" formControlName="age" required type="number" />
       <mat-error>
         Please provide Volunteer age
       </mat-error>
     </mat-form-field>
     <mat-form-field class="full-width-input">
-      <input
-        matInput
-        placeholder="Hours per day"
-        formControlName="available_hours"
-        required
-        type="number"
-      />
+      <input matInput placeholder="Hours per day" formControlName="available_hours" required type="number" />
       <mat-error>
         Please provide a valid number
       </mat-error>
     </mat-form-field>
     <mat-form-field class="full-width-input">
-      <input
-        matInput
-        placeholder="Activities Type"
-        formControlName="activity_type"
-      />
+      <input matInput placeholder="Activities Type" formControlName="activity_type" />
       <!-- <mat-error>
         Please provide a valid number
       </mat-error> -->
     </mat-form-field>
-    <button mat-raised-button color="primary">Add Volunteer</button>
+    <button mat-raised-button *ngIf="!currentVolunteeerId" color="primary">Add Volunteer</button>
+    <button mat-raised-button *ngIf="currentVolunteeerId" color="primary">Update Volunteer</button>
   </form>
 </ng-template>

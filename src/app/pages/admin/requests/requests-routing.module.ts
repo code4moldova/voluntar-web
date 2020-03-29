@@ -19,14 +19,18 @@ const routes: Routes = [
         component: RequestDetailsComponent
       },
       {
+        path: 'new',
+        component: RequestDetailsComponent
+      },
+      {
         path: 'list',
         component: RequestsListComponent
+      },
+      {
+        path: '**',
+        redirectTo: 'list',
+        pathMatch: 'full'
       }
-      // {
-      //   path: '**',
-      //   redirectTo: 'list',
-      //   pathMatch: 'full'
-      // }
     ]
   }
 ];
@@ -35,4 +39,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class RequestsRoutingModule {}
+export class RequestsRoutingModule { }

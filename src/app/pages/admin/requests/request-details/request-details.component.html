@@ -1,1 +1,90 @@
-<p>request-details works!</p>
+<div class="container" fxLayout="row" fxLayoutAlign="center center">
+  <mat-card>
+    <mat-card-content>
+      <ng-container *ngIf="error$ | async as error; else formTemplate">
+        {{ error }}
+      </ng-container>
+    </mat-card-content>
+    <div class="loading-shade" *ngIf="isLoading$ | async">
+      <mat-spinner></mat-spinner>
+    </div>
+  </mat-card>
+</div>
+
+<ng-template #formTemplate>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <h2 *ngIf="!currentRequestId">Add new Beneficiar</h2>
+    <h2 *ngIf="currentRequestId">Update Beneficiar</h2>
+    <input type="hidden" formControlName="id" />
+    <mat-form-field class="full-width-input">
+      <input matInput placeholder="First Name" formControlName="first_name" required />
+      <mat-error>
+        Please provide the name of Beneficiar
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="full-width-input">
+      <input matInput placeholder="Last Name" formControlName="last_name" required />
+      <mat-error>
+        Please provide the name of Beneficiar
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="full-width-input">
+      <input matInput placeholder="Address" formControlName="address" required />
+      <mat-error>
+        Please provide a valid email address
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="full-width-input">
+      <input matInput placeholder="City" formControlName="city" required />
+      <mat-error>
+        Please provide a valid city
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="full-width-input">
+      <input matInput placeholder="Geo" formControlName="geo" required type="number" />
+      <!-- <mat-error>
+        Please provide Beneficiar age
+      </mat-error> -->
+    </mat-form-field>
+    <mat-form-field class="full-width-input">
+      <input matInput placeholder="Date" formControlName="date" required />
+      <!-- <mat-error>
+        Please provide a valid number
+      </mat-error> -->
+    </mat-form-field>
+    <div>
+      <mat-slide-toggle formControlName="status">Active?</mat-slide-toggle>
+    </div>
+    <mat-form-field class="full-width-input">
+      <input matInput placeholder="Phone" formControlName="phone" />
+      <!-- <mat-error>
+        Please provide a valid number
+      </mat-error> -->
+    </mat-form-field>
+    <mat-form-field class="full-width-input">
+      <input matInput placeholder="Apart. Nr." formControlName="apartment_nr" type="number" />
+      <!-- <mat-error>
+        Please provide a valid number
+      </mat-error> -->
+    </mat-form-field>
+    <mat-form-field class="full-width-input">
+      <input matInput placeholder="Request" formControlName="request" />
+      <!-- <mat-error>
+        Please provide a valid number
+      </mat-error> -->
+    </mat-form-field>
+    <div>
+      <mat-slide-toggle formControlName="has_money">Has Money?</mat-slide-toggle>
+    </div>
+    <div>
+      <mat-form-field class="full-width-input">
+        <input matInput placeholder="Curator" formControlName="curator" />
+        <!-- <mat-error>
+                  Please provide a valid number
+                </mat-error> -->
+      </mat-form-field>
+    </div>
+    <button mat-raised-button *ngIf="!currentRequestId" color="primary">Add Beneficiar</button>
+    <button mat-raised-button *ngIf="currentRequestId" color="primary">Update Beneficiar</button>
+  </form>
+</ng-template>

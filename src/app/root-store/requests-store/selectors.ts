@@ -19,3 +19,6 @@ export const selectRequestsData = createSelector(
     return state.data;
   }
 );
+
+export const selectRequestsError = createSelector(selectRequests, (state: RequestsState) => state.error);
+export const selectRequestsDetails = createSelector(selectRequests, (state: RequestsState) => state.details);

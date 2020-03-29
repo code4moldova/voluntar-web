@@ -12,7 +12,7 @@ export interface IRequest {
   request: string;
   has_money: boolean;
   curator: boolean;
-  comments?: Comment[];
+  comments?: IComment[];
 }
 
-export interface Comment {}
+export interface IComment { }
