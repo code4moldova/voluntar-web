@@ -54,6 +54,7 @@ const volunteerReducer = createReducer(
   on(getRequestSuccessAction, (state, { payload }) => ({
     ...state,
     isLoading: false,
+    error: null,
     details: payload
   })),
   on(getRequestFailureAction, (state, { error }) => ({

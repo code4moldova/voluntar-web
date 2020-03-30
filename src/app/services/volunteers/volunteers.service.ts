@@ -9,10 +9,10 @@ import { delay } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class VolunteersService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   saveVolunteer(volunteer: IVolunteer) {
-    return of<any>({ success: true }).pipe(delay(1000));
+    return of<IVolunteer>(volunteer).pipe(delay(1000));
     // return this.http.post('', volunteer);
   }
 
@@ -26,6 +26,6 @@ export class VolunteersService {
       return of(volunteerById).pipe(delay(1000));
     }
 
-    return throwError('Coudn\'t find Volunteer');
+    return throwError("Coudn't find Volunteer");
   }
 }

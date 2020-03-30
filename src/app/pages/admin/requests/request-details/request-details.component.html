@@ -17,19 +17,34 @@
     <h2 *ngIf="currentRequestId">Update Beneficiar</h2>
     <input type="hidden" formControlName="id" />
     <mat-form-field class="full-width-input">
-      <input matInput placeholder="First Name" formControlName="first_name" required />
+      <input
+        matInput
+        placeholder="First Name"
+        formControlName="first_name"
+        required
+      />
       <mat-error>
         Please provide the name of Beneficiar
       </mat-error>
     </mat-form-field>
     <mat-form-field class="full-width-input">
-      <input matInput placeholder="Last Name" formControlName="last_name" required />
+      <input
+        matInput
+        placeholder="Last Name"
+        formControlName="last_name"
+        required
+      />
       <mat-error>
         Please provide the name of Beneficiar
       </mat-error>
     </mat-form-field>
     <mat-form-field class="full-width-input">
-      <input matInput placeholder="Address" formControlName="address" required />
+      <input
+        matInput
+        placeholder="Address"
+        formControlName="address"
+        required
+      />
       <mat-error>
         Please provide a valid email address
       </mat-error>
@@ -41,7 +56,13 @@
       </mat-error>
     </mat-form-field>
     <mat-form-field class="full-width-input">
-      <input matInput placeholder="Geo" formControlName="geo" required type="number" />
+      <input
+        matInput
+        placeholder="Geo"
+        formControlName="geo"
+        required
+        type="number"
+      />
       <!-- <mat-error>
         Please provide Beneficiar age
       </mat-error> -->
@@ -62,29 +83,45 @@
       </mat-error> -->
     </mat-form-field>
     <mat-form-field class="full-width-input">
-      <input matInput placeholder="Apart. Nr." formControlName="apartment_nr" type="number" />
+      <input
+        matInput
+        placeholder="Apart. Nr."
+        formControlName="apartment_nr"
+        type="number"
+      />
       <!-- <mat-error>
         Please provide a valid number
       </mat-error> -->
     </mat-form-field>
     <mat-form-field class="full-width-input">
-      <input matInput placeholder="Request" formControlName="request" />
-      <!-- <mat-error>
-        Please provide a valid number
-      </mat-error> -->
+      <textarea
+        matInput
+        placeholder="Request"
+        formControlName="request"
+        cdkTextareaAutosize
+        cdkAutosizeMinRows="4"
+      ></textarea>
+      <mat-error>
+        Request is required
+      </mat-error>
     </mat-form-field>
     <div>
-      <mat-slide-toggle formControlName="has_money">Has Money?</mat-slide-toggle>
+      <mat-slide-toggle formControlName="has_money"
+        >Has Money?</mat-slide-toggle
+      >
     </div>
     <div>
-      <mat-form-field class="full-width-input">
-        <input matInput placeholder="Curator" formControlName="curator" />
-        <!-- <mat-error>
-                  Please provide a valid number
-                </mat-error> -->
-      </mat-form-field>
+      <mat-slide-toggle formControlName="curator"
+        >Has Curator?</mat-slide-toggle
+      >
     </div>
-    <button mat-raised-button *ngIf="!currentRequestId" color="primary">Add Beneficiar</button>
-    <button mat-raised-button *ngIf="currentRequestId" color="primary">Update Beneficiar</button>
+    <div class="form-action-container">
+      <button mat-raised-button *ngIf="!currentRequestId" color="primary">
+        Add Beneficiar
+      </button>
+      <button mat-raised-button *ngIf="currentRequestId" color="primary">
+        Update Beneficiar
+      </button>
+    </div>
   </form>
 </ng-template>

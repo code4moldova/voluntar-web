@@ -40,7 +40,7 @@ export const getRequestSuccessAction = createAction(
 
 export const saveRequestAction = createAction(
   ActionTypes.SAVE_REQUEST,
-  props<IRequest>()
+  props<{ payload: IRequest }>()
 );
 export const saveRequestFailureAction = createAction(
   ActionTypes.SAVE_REQUEST_FAILURE,

@@ -1,7 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Observable, of } from 'rxjs';
-import { catchError, switchMap, tap, flatMap, map, exhaustMap } from 'rxjs/operators';
+import {
+  catchError,
+  switchMap,
+  tap,
+  flatMap,
+  map,
+  exhaustMap
+} from 'rxjs/operators';
 import { Action } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { RequestsService } from '@services/requests/requests.service';
@@ -23,7 +30,7 @@ export class RequestsEffects {
     private actions$: Actions,
     private router: Router,
     private requestService: RequestsService
-  ) { }
+  ) {}
 
   getRequestsEffect$: Observable<Action> = createEffect(() => {
     return this.actions$.pipe(
@@ -52,12 +59,12 @@ export class RequestsEffects {
   saveRequestDetailsEffect$: Observable<Action> = createEffect(() => {
     return this.actions$.pipe(
       ofType(saveRequestAction),
-      exhaustMap(request =>
-        this.requestService.saveRequest(request).pipe(
+      exhaustMap(({ payload }) =>
+        this.requestService.saveRequest(payload).pipe(
           map(res => saveRequestSuccessAction({ payload: res })),
           catchError(error => of(saveRequestFailureAction({ error })))
         )
       )
-    )
-  })
+    );
+  });
 }

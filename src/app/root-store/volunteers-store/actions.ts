@@ -40,7 +40,7 @@ export const getVolunteerFailureAction = createAction(
 
 export const saveVolunteerAction = createAction(
   ActionTypes.SAVE_VOLUNTEER,
-  props<IVolunteer>()
+  props<{ payload: IVolunteer }>()
 );
 export const saveVolunteerFailureAction = createAction(
   ActionTypes.SAVE_VOLUNTEER_FAILURE,

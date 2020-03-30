@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { RootState } from '@store/root-state';
-import { getRequestsAction, getRequestAction, saveRequestAction } from '@store/requests-store/actions';
+import {
+  getRequestsAction,
+  getRequestAction,
+  saveRequestAction
+} from '@store/requests-store/actions';
 import {
   selectIsLoading,
   selectRequestsData,
@@ -18,7 +22,7 @@ export class RequestsFacadeService {
   isLoading$ = this.store.pipe(select(selectIsLoading));
   error$ = this.store.pipe(select(selectRequestsError));
   requestDetails$ = this.store.pipe(select(selectRequestsDetails));
-  constructor(private store: Store<RootState>) { }
+  constructor(private store: Store<RootState>) {}
 
   getRequests() {
     this.store.dispatch(getRequestsAction());
@@ -29,6 +33,6 @@ export class RequestsFacadeService {
   }
 
   saveRequest(request: IRequest) {
-    this.store.dispatch(saveRequestAction(request));
+    this.store.dispatch(saveRequestAction({ payload: request }));
   }
 }

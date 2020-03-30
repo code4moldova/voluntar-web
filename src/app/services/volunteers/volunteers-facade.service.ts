@@ -22,10 +22,10 @@ export class VolunteersFacadeService {
   volunteerDetails$ = this.store.pipe(select(selectVolunteersDetails));
   isLoading$ = this.store.pipe(select(selectIsLoading));
   error$ = this.store.pipe(select(selectError));
-  constructor(private store: Store<RootState>) { }
+  constructor(private store: Store<RootState>) {}
 
   saveVolunteer(volunteer: IVolunteer) {
-    this.store.dispatch(saveVolunteerAction(volunteer));
+    this.store.dispatch(saveVolunteerAction({ payload: volunteer }));
   }
 
   getVolunteers() {

@@ -27,10 +27,10 @@ export class VolunteersEffects {
   saveVolunteerEffect$: Observable<Action> = createEffect(() => {
     return this.actions$.pipe(
       ofType(saveVolunteerAction),
-      switchMap(volunteer =>
-        this.volunteerService.saveVolunteer(volunteer).pipe(
-          flatMap(res => {
-            return [saveVolunteerSuccessAction(res)];
+      switchMap(({ payload }) =>
+        this.volunteerService.saveVolunteer(payload).pipe(
+          map(res => {
+            return saveVolunteerSuccessAction({ payload: res });
           }),
           catchError(error => of(saveVolunteerFailureAction({ error })))
         )

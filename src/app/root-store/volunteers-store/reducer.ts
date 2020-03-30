@@ -55,7 +55,8 @@ const volunteerReducer = createReducer(
     return {
       ...state,
       isLoading: false,
-      details: payload
+      details: payload,
+      error: null
     };
   }),
   on(getVolunteerFailureAction, (state, { error }) => {

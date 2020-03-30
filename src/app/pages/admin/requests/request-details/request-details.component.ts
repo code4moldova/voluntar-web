@@ -24,7 +24,7 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
     apartment_nr: [null, Validators.required],
     request: [null, Validators.required],
     has_money: [false, Validators.required],
-    curator: [null, Validators.required],
+    curator: [false, Validators.required]
     // comments: [null, Validators.required],
   });
 
@@ -39,25 +39,29 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private requestsFacade: RequestsFacadeService
   ) {
-    this.route.paramMap.pipe(
-      map(params => params.get('id')),
-      takeUntil(this.componentDestroyed$)
-    ).subscribe(id => {
-      this.currentRequestId = id;
-      if (id) {
-        this.requestsFacade.getRequestById(+id);
-      }
-    });
+    this.route.paramMap
+      .pipe(
+        map(params => params.get('id')),
+        takeUntil(this.componentDestroyed$)
+      )
+      .subscribe(id => {
+        this.currentRequestId = id;
+        if (id) {
+          this.requestsFacade.getRequestById(+id);
+        }
+      });
   }
 
   ngOnInit() {
-    this.requestsFacade.requestDetails$.pipe(
-      filter(request => !!request),
-      map(request => this.currentRequestId ? request : {}),
-      takeUntil(this.componentDestroyed$)
-    ).subscribe(request => {
-      this.form.patchValue(request);
-    });
+    this.requestsFacade.requestDetails$
+      .pipe(
+        filter(request => !!request),
+        map(request => (this.currentRequestId ? request : {})),
+        takeUntil(this.componentDestroyed$)
+      )
+      .subscribe(request => {
+        this.form.patchValue(request);
+      });
   }
 
   ngOnDestroy() {
@@ -71,5 +75,4 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
       this.requestsFacade.saveRequest(this.form.value);
     }
   }
-
 }
