@@ -2,8 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { RequestsFacadeService } from '@services/requests/requests-facade.service';
-import { map, takeUntil, filter } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import { map, takeUntil, switchMap, skipWhile, tap } from 'rxjs/operators';
+import { Subject, of, EMPTY } from 'rxjs';
+import { IRequest } from '@models/requests';
 
 @Component({
   selector: 'app-request-details',
@@ -42,26 +43,32 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
     this.route.paramMap
       .pipe(
         map(params => params.get('id')),
-        takeUntil(this.componentDestroyed$)
-      )
-      .subscribe(id => {
-        this.currentRequestId = id;
-        if (id) {
-          this.requestsFacade.getRequestById(+id);
-        }
-      });
-  }
-
-  ngOnInit() {
-    this.requestsFacade.requestDetails$
-      .pipe(
-        filter(request => !!request),
-        map(request => (this.currentRequestId ? request : {})),
+        tap(id => (this.currentRequestId = id)),
+        tap(id => id && this.requestsFacade.getRequestById(+id)),
+        switchMap(id => {
+          if (id) {
+            return this.requestsFacade.requestDetails$;
+          }
+          return of({} as IRequest);
+        }),
+        switchMap(request => request ? of(request) : EMPTY),
         takeUntil(this.componentDestroyed$)
       )
       .subscribe(request => {
         this.form.patchValue(request);
       });
+  }
+
+  ngOnInit() {
+    // this.requestsFacade.requestDetails$
+    //   .pipe(
+    //     filter(request => !!request),
+    //     map(request => (this.currentRequestId ? request : {})),
+    //     takeUntil(this.componentDestroyed$)
+    //   )
+    //   .subscribe(request => {
+    //     this.form.patchValue(request);
+    //   });
   }
 
   ngOnDestroy() {

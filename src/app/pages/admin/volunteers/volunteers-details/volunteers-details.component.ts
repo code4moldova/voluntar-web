@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { VolunteersFacadeService } from '@services/volunteers/volunteers-facade.service';
-import { map, takeUntil, filter } from 'rxjs/operators';
+import { map, takeUntil, filter, tap, switchMap, skipWhile } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
-import { Subject } from 'rxjs';
+import { Subject, of, EMPTY } from 'rxjs';
+import { IVolunteer } from '@models/volunteers';
 
 @Component({
   selector: 'app-volunteers-details',
@@ -39,27 +40,33 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
     this.route.paramMap
       .pipe(
         map(params => params.get('id')),
-        takeUntil(this.componentDestroyed$)
-      )
-      .subscribe(id => {
-        this.currentVolunteeerId = id;
-        if (id) {
-          this.volunteerFacade.getVolunteerById(+id);
-        }
-      });
-  }
-
-  ngOnInit() {
-    this.volunteerFacade.volunteerDetails$
-      .pipe(
-        filter(volunteer => !!volunteer),
-        // Fix issue switching between 'new' and 'details' page
-        map(volunteer => this.currentVolunteeerId ? volunteer : {}),
+        tap(id => (this.currentVolunteeerId = id)),
+        tap(id => id && this.volunteerFacade.getVolunteerById(+id)),
+        switchMap(id => {
+          if (id) {
+            return this.volunteerFacade.volunteerDetails$;
+          }
+          return of({} as IVolunteer);
+        }),
+        switchMap(volunteer => volunteer ? of(volunteer) : EMPTY),
         takeUntil(this.componentDestroyed$)
       )
       .subscribe(volunteer => {
         this.form.patchValue(volunteer);
       });
+  }
+
+  ngOnInit() {
+    // this.volunteerFacade.volunteerDetails$
+    //   .pipe(
+    //     filter(volunteer => !!volunteer),
+    //     // Fix issue switching between 'new' and 'details' page
+    //     map(volunteer => this.currentVolunteeerId ? volunteer : {}),
+    //     takeUntil(this.componentDestroyed$)
+    //   )
+    //   .subscribe(volunteer => {
+    //     this.form.patchValue(volunteer);
+    //   });
   }
 
   ngOnDestroy() {
