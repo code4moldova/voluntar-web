@@ -1,7 +1,14 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { VolunteersFacadeService } from '@services/volunteers/volunteers-facade.service';
-import { map, takeUntil, filter, tap, switchMap, skipWhile } from 'rxjs/operators';
+import {
+  map,
+  takeUntil,
+  filter,
+  tap,
+  switchMap,
+  skipWhile
+} from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, of, EMPTY } from 'rxjs';
 import { IVolunteer } from '@models/volunteers';
@@ -12,20 +19,28 @@ import { IVolunteer } from '@models/volunteers';
   styleUrls: ['./volunteers-details.component.scss']
 })
 export class VolunteersDetailsComponent implements OnInit, OnDestroy {
+  zones = [
+    {
+      label: 'Centru',
+      value: 'centru'
+    }
+  ];
   form = this.fb.group({
-    id: [null],
+    _id: [null],
     first_name: [null, Validators.required],
     last_name: [null, Validators.required],
     email: [null, [Validators.required, Validators.email]],
-    gender: ['male', Validators.required],
-    // address: [null, Validators.required],
-    status: [false, Validators.required],
-    // zone: [null, Validators.required],
-    // date: [null, Validators.required], // Im not sure if it needs to be here
-    social_profile: [null, Validators.required],
+    phone: [null, Validators.required],
+    telegram_id: [null],
+    // gender: ['male', Validators.required],
+    address: [null, Validators.required],
+    zone_address: [null, Validators.required],
+    is_active: [false, Validators.required],
+    facebook_profile: [null, Validators.required],
     age: [null, Validators.required],
-    available_hours: [null, Validators.required],
-    activity_type: [null, Validators.required] // Not sure what's this
+    availability: [null, Validators.required],
+    activity_types: [null, Validators.required],
+    password: [{ value: 'random', disabled: true }, Validators.required]
   });
   currentVolunteeerId: string;
   componentDestroyed$ = new Subject();
@@ -41,32 +56,32 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
       .pipe(
         map(params => params.get('id')),
         tap(id => (this.currentVolunteeerId = id)),
-        tap(id => id && this.volunteerFacade.getVolunteerById(+id)),
-        switchMap(id => {
-          if (id) {
-            return this.volunteerFacade.volunteerDetails$;
-          }
-          return of({} as IVolunteer);
-        }),
-        switchMap(volunteer => volunteer ? of(volunteer) : EMPTY),
         takeUntil(this.componentDestroyed$)
       )
-      .subscribe(volunteer => {
-        this.form.patchValue(volunteer);
+      // .subscribe(volunteer => {
+      .subscribe(id => {
+        this.currentVolunteeerId = id;
+        if (id) {
+          this.volunteerFacade.getVolunteerById(id);
+          this.form.get('password').disable();
+        } else {
+          this.form.get('password').enable();
+        }
       });
   }
 
   ngOnInit() {
-    // this.volunteerFacade.volunteerDetails$
-    //   .pipe(
-    //     filter(volunteer => !!volunteer),
-    //     // Fix issue switching between 'new' and 'details' page
-    //     map(volunteer => this.currentVolunteeerId ? volunteer : {}),
-    //     takeUntil(this.componentDestroyed$)
-    //   )
-    //   .subscribe(volunteer => {
-    //     this.form.patchValue(volunteer);
-    //   });
+    this.volunteerFacade.volunteerDetails$
+      .pipe(
+        filter(volunteer => !!volunteer),
+        // Fix issue switching between 'new' and 'details' page
+        map(volunteer => (this.currentVolunteeerId ? volunteer : {})),
+        takeUntil(this.componentDestroyed$)
+      )
+      .subscribe(volunteer => {
+        console.log(volunteer);
+        this.form.patchValue(volunteer);
+      });
   }
 
   ngOnDestroy() {
@@ -76,7 +91,9 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     if (this.form.valid) {
-      this.volunteerFacade.saveVolunteer(this.form.value);
+      this.volunteerFacade.saveVolunteer(this.form.getRawValue());
+    } else {
+      console.log('invalid form', this.form);
     }
   }
 }

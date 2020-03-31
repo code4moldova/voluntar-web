@@ -4,6 +4,7 @@ import { data } from './mock';
 import { of, Observable, throwError } from 'rxjs';
 import { IVolunteer } from '@models/volunteers';
 import { delay } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -12,20 +13,25 @@ export class VolunteersService {
   constructor(private http: HttpClient) {}
 
   saveVolunteer(volunteer: IVolunteer) {
-    return of<IVolunteer>(volunteer).pipe(delay(1000));
-    // return this.http.post('', volunteer);
+    return this.http.post<any>(`${environment.url}/api/volunteer`, volunteer);
   }
 
-  getVolunteers(): Observable<IVolunteer[]> {
-    return of(data).pipe(delay(1000));
+  updateVolunteer(volunteer: IVolunteer) {
+    return this.http.put<any>(
+      `${environment.url}/api/volunteer?id=${volunteer._id}`,
+      volunteer
+    );
   }
 
-  getVolunteerById(id: number): Observable<IVolunteer> {
-    const volunteerById = data.find(v => v.id === id);
-    if (volunteerById) {
-      return of(volunteerById).pipe(delay(1000));
-    }
+  getVolunteers(): Observable<{ list: IVolunteer[] }> {
+    return this.http.get<{ list: IVolunteer[] }>(
+      `${environment.url}/api/volunteer`
+    );
+  }
 
-    return throwError("Coudn't find Volunteer");
+  getVolunteerById(id: string): Observable<IVolunteer> {
+    return this.http.get<IVolunteer>(
+      `${environment.url}/api/volunteer?id=${id}`
+    );
   }
 }

@@ -12,7 +12,8 @@ import {
   getVolunteersSuccessAction,
   getVolunteersFailureAction,
   getVolunteerAction,
-  getVolunteerSuccessAction
+  getVolunteerSuccessAction,
+  updateVolunteerAction
 } from './actions';
 import { VolunteersService } from '@services/volunteers/volunteers.service';
 
@@ -27,14 +28,30 @@ export class VolunteersEffects {
   saveVolunteerEffect$: Observable<Action> = createEffect(() => {
     return this.actions$.pipe(
       ofType(saveVolunteerAction),
-      switchMap(({ payload }) =>
-        this.volunteerService.saveVolunteer(payload).pipe(
+      switchMap(({ payload }) => {
+        const { _id, ...withoutId } = payload;
+        return this.volunteerService.saveVolunteer(withoutId).pipe(
+          map(({ user }) => {
+            this.router.navigate(['volunteers/details', user._id]);
+            return saveVolunteerSuccessAction({ payload: user });
+          }),
+          catchError(error => of(saveVolunteerFailureAction({ error })))
+        );
+      })
+    );
+  });
+
+  updateVolunteerEffect$: Observable<Action> = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(updateVolunteerAction),
+      switchMap(({ payload }) => {
+        return this.volunteerService.updateVolunteer(payload).pipe(
           map(res => {
             return saveVolunteerSuccessAction({ payload: res });
           }),
           catchError(error => of(saveVolunteerFailureAction({ error })))
-        )
-      )
+        );
+      })
     );
   });
 
@@ -44,7 +61,7 @@ export class VolunteersEffects {
       switchMap(() =>
         this.volunteerService.getVolunteers().pipe(
           map(res => {
-            return getVolunteersSuccessAction({ payload: res });
+            return getVolunteersSuccessAction({ payload: res.list });
           }),
           catchError(error => of(getVolunteersFailureAction({ error })))
         )

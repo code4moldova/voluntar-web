@@ -33,7 +33,7 @@
       mat-row
       *matRowDef="let row; columns: displayedColumns"
       class="clickable-row"
-      [routerLink]="['/volunteers/details', row.id]"
+      [routerLink]="['/volunteers/details', row._id]"
     ></tr>
   </table>
 

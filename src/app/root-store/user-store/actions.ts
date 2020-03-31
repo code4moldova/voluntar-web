@@ -18,7 +18,7 @@ export const loginFailureAction = createAction(
 );
 export const loginSuccessAction = createAction(
   ActionTypes.LOGIN_SUCCESS,
-  props<{ accessToken: string; refreshToken: string }>()
+  props<{ accessToken: string; refreshToken?: string }>()
 );
 
 export const logoutAction = createAction(ActionTypes.LOGOUT);

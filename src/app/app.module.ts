@@ -6,7 +6,10 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RootStoreModule } from './root-store/root-store.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from '@services/interceptors/auth.interceptor';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { ErrorInterceptor } from '@services/interceptors/error.interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,9 +19,21 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
-    RootStoreModule
+    RootStoreModule,
+    MatSnackBarModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

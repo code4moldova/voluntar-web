@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
-import { saveVolunteerAction } from '@store/volunteers-store/actions';
+import {
+  saveVolunteerAction,
+  updateVolunteerAction
+} from '@store/volunteers-store/actions';
 import { Store, select } from '@ngrx/store';
 import { RootState } from '@store/root-state';
 import {
@@ -25,14 +28,18 @@ export class VolunteersFacadeService {
   constructor(private store: Store<RootState>) {}
 
   saveVolunteer(volunteer: IVolunteer) {
-    this.store.dispatch(saveVolunteerAction({ payload: volunteer }));
+    if (volunteer._id) {
+      this.store.dispatch(updateVolunteerAction({ payload: volunteer }));
+    } else {
+      this.store.dispatch(saveVolunteerAction({ payload: volunteer }));
+    }
   }
 
   getVolunteers() {
     this.store.dispatch(getVolunteersAction());
   }
 
-  getVolunteerById(id: number) {
+  getVolunteerById(id: string) {
     this.store.dispatch(getVolunteerAction({ id }));
   }
 }

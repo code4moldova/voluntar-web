@@ -1,116 +1,188 @@
-<div class="container" fxLayout="row" fxLayoutAlign="center center">
-  <mat-card>
-    <mat-card-content>
-      <ng-container *ngIf="error$ | async as error; else formTemplate">
-        {{ error }}
-      </ng-container>
-    </mat-card-content>
-    <div class="loading-shade" *ngIf="isLoading$ | async">
-      <mat-spinner></mat-spinner>
-    </div>
-  </mat-card>
-</div>
-
-<ng-template #formTemplate>
-  <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <h2 *ngIf="!currentVolunteeerId">Add new Volunteer</h2>
-    <h2 *ngIf="currentVolunteeerId">Update Volunteer</h2>
-    <input type="hidden" formControlName="id" />
-    <mat-form-field class="full-width-input">
-      <input
-        matInput
-        placeholder="First Name"
-        formControlName="first_name"
-        required
-      />
-      <mat-error>
-        Please provide the name of volunteer
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field class="full-width-input">
-      <input
-        matInput
-        placeholder="Last Name"
-        formControlName="last_name"
-        required
-      />
-      <mat-error>
-        Please provide the name of volunteer
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field class="full-width-input">
-      <input matInput placeholder="Email" formControlName="email" required />
-      <mat-error>
-        Please provide a valid email address
-      </mat-error>
-    </mat-form-field>
-    <div>
-      <mat-slide-toggle formControlName="status">Active?</mat-slide-toggle>
-    </div>
-    <!-- <mat-form-field class="full-width-input">
-      <input matInput placeholder="Zone" formControlName="zone" required />
-      <mat-error>
-        Please provide a valid zone
-      </mat-error>
-    </mat-form-field> -->
-    <!-- <mat-form-field class="full-width-input">
+<div class="container">
+  <form
+    [formGroup]="form"
+    (ngSubmit)="onSubmit()"
+    fxLayout="row"
+    fxLayoutAlign="start start"
+    fxLayoutGap="25px"
+  >
+    <mat-card fxFlex="75">
+      <mat-card-content>
+        <h2 *ngIf="!currentVolunteeerId">Create Volunteer</h2>
+        <h2 *ngIf="currentVolunteeerId">Volunteer Details</h2>
+        <mat-form-field class="full-width-input">
+          <input
+            matInput
+            placeholder="First Name"
+            formControlName="first_name"
+            required
+          />
+          <mat-error>
+            Please provide the name of volunteer
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width-input">
+          <input
+            matInput
+            placeholder="Last Name"
+            formControlName="last_name"
+            required
+          />
+          <mat-error>
+            Please provide the name of volunteer
+          </mat-error>
+        </mat-form-field>
+        <div fxLayout fxLayoutGap="15px">
+          <div fxFlex>
+            <mat-form-field class="full-width-input">
+              <input
+                matInput
+                placeholder="Email"
+                formControlName="email"
+                required
+              />
+              <mat-error>
+                Please provide a valid email address
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div fxFlex *ngIf="!currentVolunteeerId">
+            <mat-form-field class="full-width-input">
+              <input
+                matInput
+                type="password"
+                placeholder="Password"
+                formControlName="password"
+                required
+              />
+              <mat-error>
+                Please provide a valid password
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxLayout fxLayoutGap="15px">
+          <div>
+            <mat-form-field class="full-width-input">
+              <input
+                matInput
+                type="number"
+                placeholder="Phone"
+                formControlName="phone"
+                appPhoneMask
+                required
+              />
+              <mat-error>
+                Please provide a valid phone number
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field class="full-width-input">
+              <input
+                matInput
+                placeholder="Telegram ID"
+                formControlName="telegram_id"
+              />
+              <mat-error>
+                Please provide a Telegram ID
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <mat-form-field class="full-width-input">
+          <input matInput placeholder="Address" formControlName="address" />
+          <mat-error>
+            Please provide an Address
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width-input">
+          <mat-select
+            placeholder="Raion"
+            formControlName="zone_address"
+            required
+          >
+            <mat-option *ngFor="let zone of zones" [value]="zone.value">
+              {{ zone.label }}
+            </mat-option>
+          </mat-select>
+          <mat-error>
+            Please provide a valid zone
+          </mat-error>
+        </mat-form-field>
+        <!-- <mat-form-field class="full-width-input">
       <input matInput placeholder="Date" formControlName="date" required type="date" />
       <mat-error>
         Please provide a valid date
       </mat-error>
     </mat-form-field> -->
-    <mat-form-field class="full-width-input">
-      <input
-        matInput
-        placeholder="Facebook Profile"
-        formControlName="social_profile"
-        required
-      />
-      <mat-error>
-        Please provide a Facebook Profile
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field class="full-width-input">
-      <input
-        matInput
-        placeholder="Age"
-        formControlName="age"
-        required
-        type="number"
-      />
-      <mat-error>
-        Please provide Volunteer age
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field class="full-width-input">
-      <input
-        matInput
-        placeholder="Hours per day"
-        formControlName="available_hours"
-        required
-        type="number"
-      />
-      <mat-error>
-        Please provide a valid number
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field class="full-width-input">
-      <input
-        matInput
-        placeholder="Activities Type"
-        formControlName="activity_type"
-      />
-      <!-- <mat-error>
+        <mat-form-field class="full-width-input">
+          <input
+            matInput
+            placeholder="Facebook Profile"
+            formControlName="facebook_profile"
+            required
+          />
+          <mat-error>
+            Please provide a Facebook Profile
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width-input">
+          <input
+            matInput
+            placeholder="Age"
+            formControlName="age"
+            required
+            type="number"
+          />
+          <mat-error>
+            Please provide Volunteer age
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width-input">
+          <input
+            matInput
+            placeholder="Hours per day"
+            formControlName="availability"
+            required
+            type="number"
+          />
+          <mat-error>
+            Please provide a valid number
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width-input">
+          <input
+            matInput
+            placeholder="Activities Type"
+            formControlName="activity_types"
+            required
+          />
+          <!-- <mat-error>
         Please provide a valid number
       </mat-error> -->
-    </mat-form-field>
-    <div class="form-action-container">
-      <button mat-raised-button *ngIf="!currentVolunteeerId" color="primary">
-        Add Volunteer
-      </button>
-      <button mat-raised-button *ngIf="currentVolunteeerId" color="primary">
-        Update Volunteer
-      </button>
-    </div>
+        </mat-form-field>
+        <div class="form-action-container">
+          <button mat-raised-button color="primary">
+            Save
+          </button>
+        </div>
+        <ng-container *ngIf="error$ | async as error">
+          <div>{{ error }}</div>
+        </ng-container>
+      </mat-card-content>
+      <div class="loading-shade" *ngIf="isLoading$ | async">
+        <mat-spinner></mat-spinner>
+      </div>
+    </mat-card>
+    <mat-card fxFlex="25">
+      <mat-card-content>
+        <div>
+          <mat-slide-toggle formControlName="is_active"
+            >Active?</mat-slide-toggle
+          >
+        </div>
+      </mat-card-content>
+    </mat-card>
   </form>
-</ng-template>
+</div>

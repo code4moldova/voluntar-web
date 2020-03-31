@@ -26,6 +26,7 @@
     "@ngrx/entity": "^9.0.0",
     "@ngrx/store": "^9.0.0",
     "@ngrx/store-devtools": "^9.0.0",
+    "ngx-mask": "^8.1.7",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"

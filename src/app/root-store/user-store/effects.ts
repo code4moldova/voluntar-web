@@ -31,9 +31,8 @@ export class UserEffects {
             this.router.navigate(['/']);
           }),
           flatMap(res => {
-            this.tokenStorage.setAccessToken(res.accessToken);
-            this.tokenStorage.setRefreshToken(res.refreshToken);
-            return [loginSuccessAction(res)];
+            this.tokenStorage.setAccessToken(res.token);
+            return [loginSuccessAction({ accessToken: res.token })];
           }),
           catchError(error => of(loginFailureAction({ error })))
         )

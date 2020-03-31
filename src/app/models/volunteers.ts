@@ -1,12 +1,35 @@
 export interface IVolunteer {
-  id: number;
+  _id?: string;
+  activity_types: string;
+  address: string;
+  age: number;
+  availability: number;
+  created_at: string;
+  email: string;
+  facebook_profile: string;
+  first_name: string;
+  is_active: boolean;
+  last_name: string;
+  latitude: number;
+  longitude: number;
+  phone: number;
+  zone_address: string;
+}
+
+export interface V2 {
+  email: string;
+  password: string;
   first_name: string;
   last_name: string;
-  email: string;
-  gender: string;
+  phone: number;
+  is_active: boolean;
+  address: string;
+  zone_address: string;
+  facebook_profile: string;
   age: number;
-  status: boolean;
-  social_profile: string;
-  available_hours: number;
-  activity_type: string;
+  availability: number;
+  telegram_id: string;
+  latitude: number;
+  longitude: number;
+  activity_types: string;
 }
