@@ -35,7 +35,7 @@ export class VolunteersEffects {
             this.router.navigate(['volunteers/details', user._id]);
             return saveVolunteerSuccessAction({ payload: user });
           }),
-          catchError(error => of(saveVolunteerFailureAction({ error })))
+          catchError(({ error }) => of(saveVolunteerFailureAction({ error })))
         );
       })
     );
@@ -49,7 +49,7 @@ export class VolunteersEffects {
           map(res => {
             return saveVolunteerSuccessAction({ payload: res });
           }),
-          catchError(error => of(saveVolunteerFailureAction({ error })))
+          catchError(({ error }) => of(saveVolunteerFailureAction({ error })))
         );
       })
     );

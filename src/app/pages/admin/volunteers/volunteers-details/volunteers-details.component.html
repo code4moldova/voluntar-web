@@ -69,7 +69,6 @@
                 type="number"
                 placeholder="Phone"
                 formControlName="phone"
-                appPhoneMask
                 required
               />
               <mat-error>
@@ -167,9 +166,6 @@
             Save
           </button>
         </div>
-        <ng-container *ngIf="error$ | async as error">
-          <div>{{ error }}</div>
-        </ng-container>
       </mat-card-content>
       <div class="loading-shade" *ngIf="isLoading$ | async">
         <mat-spinner></mat-spinner>

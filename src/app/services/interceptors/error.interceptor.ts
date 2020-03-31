@@ -31,12 +31,12 @@ export class ErrorInterceptor implements HttpInterceptor {
         let message = '';
         if (error.status === 500) {
           message = 'Server error';
-        }
-
-        if (error.status === 401) {
+        } else if (error.status === 401) {
           message = 'Unauthorized request';
           this.tokenStorage.clear();
           this.store.dispatch(logoutAction());
+        } else {
+          message = error.error.error || 'Undefined error';
         }
 
         this.snackBar.open(message, '', {
