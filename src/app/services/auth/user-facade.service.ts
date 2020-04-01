@@ -15,7 +15,6 @@ export class UserFacadeService {
   userRoles$ = this.tokenStorage.getParsedToken().pipe(
     filter(user => Boolean(user)),
     map(user => {
-      console.log(user);
       return user.roles;
     })
   );
