@@ -1,11 +1,11 @@
 import { Action, createAction, props } from '@ngrx/store';
 
 export enum ActionTypes {
-  LOGIN = '[User] Login',
-  LOGIN_SUCCESS = '[User] Login Success',
-  LOGIN_FAILURE = '[User] Login Failure',
+  LOGIN = '[AUTH] Login',
+  LOGIN_SUCCESS = '[AUTH] Login Success',
+  LOGIN_FAILURE = '[AUTH] Login Failure',
 
-  LOGOUT = '[User] Logout'
+  LOGOUT = '[AUTH] Logout'
 }
 
 export const loginAction = createAction(

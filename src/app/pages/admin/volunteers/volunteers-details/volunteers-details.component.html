@@ -1,9 +1,23 @@
+<div class="mb-25">
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+    <div fxFlex>
+      <h1 class="mb-10 mt-0">
+        {{ currentVolunteeerId ? "Volunteer Details" : "Create Volunteer" }}
+      </h1>
+      <a routerLink="/volunteers/list" class="go-back">
+        <div fxFlex fxLayoutAlign="start center">
+          <mat-icon>arrow_back</mat-icon>
+          <span>Back to List</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
 <div class="container">
   <form [formGroup]="form" (ngSubmit)="onSubmit()" fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="25px">
     <mat-card fxFlex="75">
       <mat-card-content>
-        <h2 *ngIf="!currentVolunteeerId">Create Volunteer</h2>
-        <h2 *ngIf="currentVolunteeerId">Volunteer Details</h2>
         <mat-form-field class="full-width-input">
           <input matInput placeholder="First Name" formControlName="first_name" required />
           <mat-error>

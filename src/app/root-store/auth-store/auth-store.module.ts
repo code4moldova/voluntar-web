@@ -2,15 +2,15 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { UserEffects } from './effects';
+import { AuthEffects } from './effects';
 import { reducer } from './reducer';
 
 @NgModule({
   imports: [
     CommonModule,
-    StoreModule.forFeature('user', reducer),
-    EffectsModule.forFeature([UserEffects])
+    StoreModule.forFeature('auth', reducer),
+    EffectsModule.forFeature([AuthEffects])
   ],
-  providers: [UserEffects]
+  providers: [AuthEffects]
 })
-export class UserStoreModule {}
+export class AuthStoreModule {}

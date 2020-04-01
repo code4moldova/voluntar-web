@@ -30,7 +30,10 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
     first_name: [null, Validators.required],
     last_name: [null, Validators.required],
     email: [null, [Validators.required, Validators.email]],
-    phone: [null, Validators.required],
+    phone: [
+      null,
+      [Validators.required, Validators.minLength(8), Validators.maxLength(8)]
+    ],
     telegram_id: [null],
     // gender: ['male', Validators.required],
     address: [null, Validators.required],
@@ -79,7 +82,6 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
         takeUntil(this.componentDestroyed$)
       )
       .subscribe(volunteer => {
-        console.log(volunteer);
         this.form.patchValue(volunteer);
       });
   }

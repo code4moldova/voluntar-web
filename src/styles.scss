@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import "form";
+@import "spacing";
 
 html,
 body {
@@ -36,4 +37,31 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.mat-flat-button,
+.mat-raised-button,
+.mat-fab,
+.mat-mini-fab {
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.mat-flat-button,
+.mat-raised-button,
+.mat-stroked-button {
+  .mat-icon {
+    margin-right: 5px;
+    margin-left: -5px;
+    margin-top: -2px;
+  }
+}
+
+a {
+  color: #3f51b5;
+  background-color: transparent;
+}
+
+.go-back {
+  text-decoration: none !important;
 }
