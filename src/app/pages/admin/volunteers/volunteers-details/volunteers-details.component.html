@@ -175,6 +175,131 @@
         Please provide a valid number
       </mat-error> -->
         </mat-form-field>
+
+        <mat-form-field class="full-width-input">
+          <input
+            matInput
+            placeholder="Created By"
+            formControlName="created_by"
+            type="string"
+          />
+          <mat-error *ngIf="created_by.errors?.maxlength">
+            Created by can be max {{created_by.errors?.maxlength.requiredLength}} characters long.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width-input">
+          <input
+            matInput
+            placeholder="Team"
+            formControlName="team"
+            type="string"
+          />
+          <mat-error *ngIf="team.errors?.maxlength">
+           Team  can be max {{team.errors?.maxlength.requiredLength}}  characters long.
+          </mat-error>
+        </mat-form-field>
+
+      <mat-form-field class="full-width-input">
+          <input
+            matInput
+            placeholder="Profession"
+            formControlName="profession"
+            type="string"
+          />
+          <mat-error *ngIf="profession.errors?.maxlength">
+            Profession can be max {{profession.errors?.maxlength.requiredLength}}  characters long.
+          </mat-error>
+        </mat-form-field>
+
+     <mat-form-field class="full-width-input">
+          <input
+            matInput
+            placeholder="Comments"
+            formControlName="comments"
+            type="string"
+          />
+          <mat-error *ngIf="comments.errors?.maxlength">
+            Comments can be max {{comments.errors?.maxlength.requiredLength}} characters long.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width-input">
+          <input
+            matInput
+            placeholder="Last tempreture"
+            formControlName="last_temperature"
+            type="number"
+            [step] ="tempStep"
+            required
+          />
+          <mat-error *ngIf="last_temperature.errors?.required">
+            Please provide a valid last tempreture
+          </mat-error>
+          <mat-error *ngIf="last_temperature.errors?.minlength">
+            Last temperature must be at least {{last_temperature.errors?.minlength.requiredLength}} characters long.
+          </mat-error>
+         <mat-error *ngIf="last_temperature.errors?.maxlength">
+          Last temperature can be max {{last_temperature.errors?.maxlength.requiredLength}}  characters long.
+          </mat-error>
+        </mat-form-field>
+
+        <div>
+          <mat-radio-group formControlName="need_sim_unite"  aria-label="Select an option">
+            <label for="need_sim_unite" class="col-md-12"> Need sim unite ?</label>
+             <div class="col-md-12" class="radio_buton_container">
+               <mat-radio-button [value]="false" [checked]="need_sim_unite.value === false"> No</mat-radio-button>
+              <mat-radio-button [value]="true" [checked]="need_sim_unite.value === true"> Yes</mat-radio-button>
+              </div>
+          </mat-radio-group>
+          <mat-divider></mat-divider>
+        </div>
+
+
+        <div [style.margin-top]="'12px'">
+        <mat-radio-group formControlName="new_volunteer"  aria-label="Select an option" >
+          <label for="new_volunteer" class="col-md-12"> New volunteer ?</label>
+          <div class="col-md-12" class="radio_buton_container">
+            <mat-radio-button [value]="false" [checked]="new_volunteer.value === false"> No</mat-radio-button>
+            <mat-radio-button [value]="true" [checked]="new_volunteer.value === true"> Yes</mat-radio-button>
+            </div>
+            <mat-divider></mat-divider>
+        </mat-radio-group>
+        </div>
+
+        <div [style.margin-top]="'12px'">
+        <mat-radio-group formControlName="black_list"  aria-label="Select an option" >
+          <label for="black_list" class="col-md-12"> Black list ?</label>
+           <div class="col-md-12" class="radio_buton_container">
+             <mat-radio-button [value]="false" [checked]="black_list.value === false"> No</mat-radio-button>
+            <mat-radio-button [value]="true" [checked]="black_list.value === true"> Yes</mat-radio-button>
+            </div>
+            <mat-divider></mat-divider>
+        </mat-radio-group>
+        </div>
+
+      <div [style.margin-top]="'12px'">
+        <mat-radio-group formControlName="received_cards"  aria-label="Select an option" >
+          <label for="received_cards" class="col-md-12"> Received cards ?</label>
+           <div class="col-md-12" class="radio_buton_container">
+             <mat-radio-button [value]="false" [checked]="received_cards.value === false"> No</mat-radio-button>
+            <mat-radio-button [value]="true" [checked]="received_cards.value === true"> Yes</mat-radio-button>
+            </div>
+            <mat-divider></mat-divider>
+        </mat-radio-group>
+        </div>
+
+      <div [style.margin-top]="'12px'">
+        <mat-radio-group formControlName="sent_photo"  aria-label="Select an option" >
+          <label for="sent_photo" class="col-md-12"> Sent photo ?</label>
+           <div class="col-md-12" class="radio_buton_container">
+             <mat-radio-button [value]="false" [checked]="sent_photo.value === false"> No</mat-radio-button>
+            <mat-radio-button [value]="true" [checked]="sent_photo.value === true"> Yes</mat-radio-button>
+            </div>
+            <mat-divider></mat-divider>
+        </mat-radio-group>
+        </div>
+
         <div class="form-action-container">
           <button mat-raised-button color="primary">
             Save
