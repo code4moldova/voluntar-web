@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { data } from './mock';
-import { of, Observable, throwError } from 'rxjs';
-import { delay } from 'rxjs/operators';
-import { IRequest } from '@models/requests';
+import { Observable } from 'rxjs';
+import { IRequest, IRequestDetails } from '@models/requests';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,20 +10,19 @@ import { IRequest } from '@models/requests';
 export class RequestsService {
   constructor(private http: HttpClient) { }
 
-  getRequests(): Observable<IRequest[]> {
-    return of(data).pipe(delay(1000));
+  getRequests(): Observable<{ list: IRequestDetails[] }> {
+    return this.http.get<{ list: IRequestDetails[] }>(`${environment.url}/api/beneficiary/filters/1/1000`);
   }
 
-  getRequstById(id: number) {
-    const request = data.find(r => r.id === id);
-    if (request) {
-      return of(request).pipe(delay(1000));
-    }
-
-    return throwError('Coudn\'t find Request');
+  getRequstById(id: string) {
+    return this.http.get<IRequestDetails>(`${environment.url}/api/beneficiary?id=${id}`);
   }
 
   saveRequest(request: IRequest) {
-    return of(request).pipe(delay(1000));
+    return this.http.post<any>(`${environment.url}/api/beneficiary`, request);
+  }
+
+  updateRequest(request: IRequestDetails) {
+    return this.http.put<any>(`${environment.url}/api/beneficiary?id=${request._id}`, request);
   }
 }

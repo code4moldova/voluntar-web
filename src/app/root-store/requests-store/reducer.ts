@@ -9,7 +9,10 @@ import {
   getRequestFailureAction,
   saveRequestAction,
   saveRequestSuccessAction,
-  saveRequestFailureAction
+  saveRequestFailureAction,
+  updateRequestAction,
+  updateRequestSuccessAction,
+  updateRequestFailureAction
 } from './actions';
 
 const volunteerReducer = createReducer(
@@ -58,6 +61,23 @@ const volunteerReducer = createReducer(
     details: payload
   })),
   on(getRequestFailureAction, (state, { error }) => ({
+    ...state,
+    isLoading: false,
+    error
+  })),
+
+  on(updateRequestAction, state => ({
+    ...state,
+    error: null,
+    isLoading: true
+  })),
+  on(updateRequestSuccessAction, (state, { payload }) => ({
+    ...state,
+    isLoading: false,
+    error: null,
+    details: payload
+  })),
+  on(updateRequestFailureAction, (state, { error }) => ({
     ...state,
     isLoading: false,
     error

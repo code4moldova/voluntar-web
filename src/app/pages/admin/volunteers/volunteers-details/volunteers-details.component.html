@@ -1,33 +1,17 @@
 <div class="container">
-  <form
-    [formGroup]="form"
-    (ngSubmit)="onSubmit()"
-    fxLayout="row"
-    fxLayoutAlign="start start"
-    fxLayoutGap="25px"
-  >
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="25px">
     <mat-card fxFlex="75">
       <mat-card-content>
         <h2 *ngIf="!currentVolunteeerId">Create Volunteer</h2>
         <h2 *ngIf="currentVolunteeerId">Volunteer Details</h2>
         <mat-form-field class="full-width-input">
-          <input
-            matInput
-            placeholder="First Name"
-            formControlName="first_name"
-            required
-          />
+          <input matInput placeholder="First Name" formControlName="first_name" required />
           <mat-error>
             Please provide the name of volunteer
           </mat-error>
         </mat-form-field>
         <mat-form-field class="full-width-input">
-          <input
-            matInput
-            placeholder="Last Name"
-            formControlName="last_name"
-            required
-          />
+          <input matInput placeholder="Last Name" formControlName="last_name" required />
           <mat-error>
             Please provide the name of volunteer
           </mat-error>
@@ -35,12 +19,7 @@
         <div fxLayout fxLayoutGap="15px">
           <div fxFlex>
             <mat-form-field class="full-width-input">
-              <input
-                matInput
-                placeholder="Email"
-                formControlName="email"
-                required
-              />
+              <input matInput placeholder="Email" formControlName="email" required />
               <mat-error>
                 Please provide a valid email address
               </mat-error>
@@ -48,13 +27,7 @@
           </div>
           <div fxFlex *ngIf="!currentVolunteeerId">
             <mat-form-field class="full-width-input">
-              <input
-                matInput
-                type="password"
-                placeholder="Password"
-                formControlName="password"
-                required
-              />
+              <input matInput type="password" placeholder="Password" formControlName="password" required />
               <mat-error>
                 Please provide a valid password
               </mat-error>
@@ -64,13 +37,7 @@
         <div fxLayout fxLayoutGap="15px">
           <div>
             <mat-form-field class="full-width-input">
-              <input
-                matInput
-                type="number"
-                placeholder="Phone"
-                formControlName="phone"
-                required
-              />
+              <input matInput type="number" placeholder="Phone" formControlName="phone" required />
               <mat-error>
                 Please provide a valid phone number
               </mat-error>
@@ -78,11 +45,7 @@
           </div>
           <div>
             <mat-form-field class="full-width-input">
-              <input
-                matInput
-                placeholder="Telegram ID"
-                formControlName="telegram_id"
-              />
+              <input matInput placeholder="Telegram ID" formControlName="telegram_id" />
               <mat-error>
                 Please provide a Telegram ID
               </mat-error>
@@ -96,11 +59,7 @@
           </mat-error>
         </mat-form-field>
         <mat-form-field class="full-width-input">
-          <mat-select
-            placeholder="Raion"
-            formControlName="zone_address"
-            required
-          >
+          <mat-select placeholder="Raion" formControlName="zone_address" required>
             <mat-option *ngFor="let zone of zones" [value]="zone.value">
               {{ zone.label }}
             </mat-option>
@@ -116,47 +75,25 @@
       </mat-error>
     </mat-form-field> -->
         <mat-form-field class="full-width-input">
-          <input
-            matInput
-            placeholder="Facebook Profile"
-            formControlName="facebook_profile"
-            required
-          />
+          <input matInput placeholder="Facebook Profile" formControlName="facebook_profile" required />
           <mat-error>
             Please provide a Facebook Profile
           </mat-error>
         </mat-form-field>
         <mat-form-field class="full-width-input">
-          <input
-            matInput
-            placeholder="Age"
-            formControlName="age"
-            required
-            type="number"
-          />
+          <input matInput placeholder="Age" formControlName="age" required type="number" />
           <mat-error>
             Please provide Volunteer age
           </mat-error>
         </mat-form-field>
         <mat-form-field class="full-width-input">
-          <input
-            matInput
-            placeholder="Hours per day"
-            formControlName="availability"
-            required
-            type="number"
-          />
+          <input matInput placeholder="Hours per day" formControlName="availability" required type="number" />
           <mat-error>
             Please provide a valid number
           </mat-error>
         </mat-form-field>
         <mat-form-field class="full-width-input">
-          <input
-            matInput
-            placeholder="Activities Type"
-            formControlName="activity_types"
-            required
-          />
+          <input matInput placeholder="Activities Type" formControlName="activity_types" required />
           <!-- <mat-error>
         Please provide a valid number
       </mat-error> -->
@@ -174,9 +111,7 @@
     <mat-card fxFlex="25">
       <mat-card-content>
         <div>
-          <mat-slide-toggle formControlName="is_active"
-            >Active?</mat-slide-toggle
-          >
+          <mat-slide-toggle formControlName="is_active">Active?</mat-slide-toggle>
         </div>
       </mat-card-content>
     </mat-card>

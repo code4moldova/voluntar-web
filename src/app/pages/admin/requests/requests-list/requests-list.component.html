@@ -38,12 +38,8 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr
-      mat-row
-      *matRowDef="let row; columns: displayedColumns"
-      class="clickable-row"
-      [routerLink]="['/requests/details', row.id]"
-    ></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns" class="clickable-row"
+      [routerLink]="['/requests/details', row._id]"></tr>
   </table>
 
   <div class="loading-shade" *ngIf="isLoading$ | async">

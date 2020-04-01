@@ -21,7 +21,10 @@ import {
   getRequestFailureAction,
   saveRequestAction,
   saveRequestFailureAction,
-  saveRequestSuccessAction
+  saveRequestSuccessAction,
+  updateRequestAction,
+  updateRequestSuccessAction,
+  updateRequestFailureAction
 } from './actions';
 
 @Injectable()
@@ -30,14 +33,15 @@ export class RequestsEffects {
     private actions$: Actions,
     private router: Router,
     private requestService: RequestsService
-  ) {}
+  ) { }
 
   getRequestsEffect$: Observable<Action> = createEffect(() => {
     return this.actions$.pipe(
       ofType(getRequestsAction),
       switchMap(() =>
         this.requestService.getRequests().pipe(
-          map(res => getRequestsSuccessAction({ payload: res })),
+          tap(res => console.log(res)),
+          map(res => getRequestsSuccessAction({ payload: res.list })),
           catchError(error => of(getRequestsFailureAction({ error })))
         )
       )
@@ -59,12 +63,31 @@ export class RequestsEffects {
   saveRequestDetailsEffect$: Observable<Action> = createEffect(() => {
     return this.actions$.pipe(
       ofType(saveRequestAction),
-      exhaustMap(({ payload }) =>
-        this.requestService.saveRequest(payload).pipe(
-          map(res => saveRequestSuccessAction({ payload: res })),
+      exhaustMap(({ payload }) => {
+        const { _id, ...withoutId } = payload;
+        return this.requestService.saveRequest(withoutId).pipe(
+          map(res => {
+            this.router.navigate(['/requests/list']);
+            return saveRequestSuccessAction({ payload: res });
+          }),
           catchError(error => of(saveRequestFailureAction({ error })))
-        )
-      )
+        );
+      })
+    );
+  });
+
+  updateRequestDetailsEffect$: Observable<Action> = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(updateRequestAction),
+      exhaustMap(({ payload }) => {
+        return this.requestService.updateRequest(payload).pipe(
+          map(res => {
+            this.router.navigate(['/requests/list']);
+            return updateRequestSuccessAction({ payload: res })
+          }),
+          catchError(error => of(updateRequestFailureAction({ error })))
+        );
+      })
     );
   });
 }
