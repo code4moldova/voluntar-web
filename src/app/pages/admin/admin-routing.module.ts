@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AdminComponent } from './admin.component';
+import { RoleService } from '@services/roles/role.service';
+import { RolesGuard } from 'src/app/guards/roles.guard';
 
 const routes: Routes = [
   {
@@ -21,6 +23,15 @@ const routes: Routes = [
         path: 'requests',
         loadChildren: () =>
           import('./requests/requests.module').then(m => m.RequestsModule)
+      },
+      {
+        path: 'users',
+        data: {
+          ...RoleService.GET_FROM_CONFIG('users')
+        },
+        canActivate: [RolesGuard],
+        loadChildren: () =>
+          import('./users/users.module').then(m => m.UsersModule)
       }
       // {
       //   path: '**',

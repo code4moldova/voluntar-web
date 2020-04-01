@@ -4,16 +4,18 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
-import { UserStoreModule } from './user-store/user-store.module';
+import { AuthStoreModule } from './auth-store/auth-store.module';
 import { VolunteersStoreModule } from './volunteers-store/volunteers-store.module';
 import { RequestsStoreModule } from './requests-store/requests-store.module';
+import { UsersStoreModule } from './users-store/users-store.module';
 
 @NgModule({
   imports: [
     CommonModule,
-    UserStoreModule,
+    AuthStoreModule,
     VolunteersStoreModule,
     RequestsStoreModule,
+    UsersStoreModule,
     StoreModule.forRoot({}, {}),
     EffectsModule.forRoot([]),
     environment.production

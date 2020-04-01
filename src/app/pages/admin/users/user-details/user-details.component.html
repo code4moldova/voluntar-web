@@ -2,9 +2,9 @@
   <div fxLayout="row" fxLayoutAlign="space-between center">
     <div fxFlex>
       <h1 class="mb-10 mt-0">
-        {{ currentVolunteeerId ? "Volunteer Details" : "Create Volunteer" }}
+        {{ id ? "User Details" : "Create User" }}
       </h1>
-      <a routerLink="/volunteers/list" class="go-back">
+      <a routerLink="/users/list" class="go-back">
         <div fxFlex fxLayoutAlign="start center">
           <mat-icon>arrow_back</mat-icon>
           <span>Back to List</span>
@@ -32,7 +32,7 @@
             required
           />
           <mat-error>
-            Please provide the name of volunteer
+            Please provide First name
           </mat-error>
         </mat-form-field>
         <mat-form-field class="full-width-input">
@@ -43,7 +43,7 @@
             required
           />
           <mat-error>
-            Please provide the name of volunteer
+            Please provide the Last name
           </mat-error>
         </mat-form-field>
         <div fxLayout fxLayoutGap="15px">
@@ -60,7 +60,7 @@
               </mat-error>
             </mat-form-field>
           </div>
-          <div fxFlex *ngIf="!currentVolunteeerId">
+          <div fxFlex *ngIf="!id">
             <mat-form-field class="full-width-input">
               <input
                 matInput
@@ -90,90 +90,14 @@
               </mat-error>
             </mat-form-field>
           </div>
-          <div>
-            <mat-form-field class="full-width-input">
-              <input
-                matInput
-                placeholder="Telegram ID"
-                formControlName="telegram_id"
-              />
-              <mat-error>
-                Please provide a Telegram ID
-              </mat-error>
-            </mat-form-field>
-          </div>
         </div>
         <mat-form-field class="full-width-input">
-          <input matInput placeholder="Address" formControlName="address" />
-          <mat-error>
-            Please provide an Address
-          </mat-error>
-        </mat-form-field>
-        <mat-form-field class="full-width-input">
-          <mat-select
-            placeholder="Raion"
-            formControlName="zone_address"
-            required
-          >
-            <mat-option *ngFor="let zone of zones" [value]="zone.value">
-              {{ zone.label }}
-            </mat-option>
+          <mat-label>Roles</mat-label>
+          <mat-select formControlName="roles" multiple>
+            <mat-option *ngFor="let role of availableRoles" [value]="role">{{
+              role
+            }}</mat-option>
           </mat-select>
-          <mat-error>
-            Please provide a valid zone
-          </mat-error>
-        </mat-form-field>
-        <!-- <mat-form-field class="full-width-input">
-      <input matInput placeholder="Date" formControlName="date" required type="date" />
-      <mat-error>
-        Please provide a valid date
-      </mat-error>
-    </mat-form-field> -->
-        <mat-form-field class="full-width-input">
-          <input
-            matInput
-            placeholder="Facebook Profile"
-            formControlName="facebook_profile"
-            required
-          />
-          <mat-error>
-            Please provide a Facebook Profile
-          </mat-error>
-        </mat-form-field>
-        <mat-form-field class="full-width-input">
-          <input
-            matInput
-            placeholder="Age"
-            formControlName="age"
-            required
-            type="number"
-          />
-          <mat-error>
-            Please provide Volunteer age
-          </mat-error>
-        </mat-form-field>
-        <mat-form-field class="full-width-input">
-          <input
-            matInput
-            placeholder="Hours per day"
-            formControlName="availability"
-            required
-            type="number"
-          />
-          <mat-error>
-            Please provide a valid number
-          </mat-error>
-        </mat-form-field>
-        <mat-form-field class="full-width-input">
-          <input
-            matInput
-            placeholder="Activities Type"
-            formControlName="activity_types"
-            required
-          />
-          <!-- <mat-error>
-        Please provide a valid number
-      </mat-error> -->
         </mat-form-field>
         <div class="form-action-container">
           <button mat-raised-button color="primary">

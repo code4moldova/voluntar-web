@@ -12,7 +12,7 @@ import { catchError } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TokenStorage } from '@services/auth/token-storage.service';
-import { logoutAction } from '@store/user-store/actions';
+import { logoutAction } from '@store/auth-store/actions';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {

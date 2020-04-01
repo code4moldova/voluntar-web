@@ -14,7 +14,8 @@
   <div class="toolbar-spacer"></div>
   <div class="user-nav">
     <button mat-button [matMenuTriggerFor]="menu">
-      <mat-icon>account_box</mat-icon> <span class="user-name">User Name</span>
+      <mat-icon>account_box</mat-icon>
+      <span class="user-name">{{ userName$ | async }}</span>
       <mat-icon>arrow_drop_down</mat-icon>
     </button>
     <mat-menu #menu>

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { of } from 'rxjs';
 import { AuthCredentials } from '@models/user';
 import { environment } from 'src/environments/environment';
 
