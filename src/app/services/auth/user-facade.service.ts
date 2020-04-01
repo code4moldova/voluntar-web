@@ -11,10 +11,13 @@ import { TokenStorage } from './token-storage.service';
   providedIn: 'root'
 })
 export class UserFacadeService {
-  userData$ = this.store.pipe(select(selectAuthUserData));
+  userData$ = this.tokenStorage.getParsedToken();
   userRoles$ = this.tokenStorage.getParsedToken().pipe(
     filter(user => Boolean(user)),
-    map(user => user.roles)
+    map(user => {
+      console.log(user);
+      return user.roles;
+    })
   );
   constructor(
     private store: Store<RootState>,
