@@ -1,16 +1,17 @@
-import { Volunteer } from '@models/volunteer';
-import { IRequest } from '@models/requests';
+import { IRequestDetails } from '@models/requests';
 
 export interface RequestsState {
-  data: IRequest[];
-  details: IRequest;
+  data: IRequestDetails[];
+  details: IRequestDetails;
   isLoading: boolean;
   error: string;
+  zones: any[];
 }
 
 export const initialState: RequestsState = {
   data: [],
   details: null,
   isLoading: false,
-  error: null
+  error: null,
+  zones: []
 };

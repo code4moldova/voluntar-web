@@ -1,127 +1,174 @@
-<div class="container" fxLayout="row" fxLayoutAlign="center center">
-  <mat-card>
-    <mat-card-content>
-      <ng-container *ngIf="error$ | async as error; else formTemplate">
-        {{ error }}
-      </ng-container>
-    </mat-card-content>
-    <div class="loading-shade" *ngIf="isLoading$ | async">
-      <mat-spinner></mat-spinner>
+<div class="mb-25">
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+    <div fxFlex>
+      <h1 class="mb-10 mt-0">
+        {{ currentRequestId ? "Beneficiar Details" : "Create Beneficiar" }}
+      </h1>
+      <a routerLink="/beneficiars/list" class="go-back">
+        <div fxFlex fxLayoutAlign="start center">
+          <mat-icon>arrow_back</mat-icon>
+          <span>Back to List</span>
+        </div>
+      </a>
     </div>
-  </mat-card>
+  </div>
 </div>
 
-<ng-template #formTemplate>
-  <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <h2 *ngIf="!currentRequestId">Add new Beneficiar</h2>
-    <h2 *ngIf="currentRequestId">Update Beneficiar</h2>
-    <input type="hidden" formControlName="id" />
-    <mat-form-field class="full-width-input">
-      <input
-        matInput
-        placeholder="First Name"
-        formControlName="first_name"
-        required
-      />
-      <mat-error>
-        Please provide the name of Beneficiar
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field class="full-width-input">
-      <input
-        matInput
-        placeholder="Last Name"
-        formControlName="last_name"
-        required
-      />
-      <mat-error>
-        Please provide the name of Beneficiar
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field class="full-width-input">
-      <input
-        matInput
-        placeholder="Address"
-        formControlName="address"
-        required
-      />
-      <mat-error>
-        Please provide a valid email address
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field class="full-width-input">
-      <input matInput placeholder="City" formControlName="city" required />
-      <mat-error>
-        Please provide a valid city
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field class="full-width-input">
-      <input
-        matInput
-        placeholder="Geo"
-        formControlName="geo"
-        required
-        type="number"
-      />
-      <!-- <mat-error>
-        Please provide Beneficiar age
-      </mat-error> -->
-    </mat-form-field>
-    <mat-form-field class="full-width-input">
-      <input matInput placeholder="Date" formControlName="date" required />
-      <!-- <mat-error>
-        Please provide a valid number
-      </mat-error> -->
-    </mat-form-field>
-    <div>
-      <mat-slide-toggle formControlName="status">Active?</mat-slide-toggle>
-    </div>
-    <mat-form-field class="full-width-input">
-      <input matInput placeholder="Phone" formControlName="phone" />
-      <!-- <mat-error>
-        Please provide a valid number
-      </mat-error> -->
-    </mat-form-field>
-    <mat-form-field class="full-width-input">
-      <input
-        matInput
-        placeholder="Apart. Nr."
-        formControlName="apartment_nr"
-        type="number"
-      />
-      <!-- <mat-error>
-        Please provide a valid number
-      </mat-error> -->
-    </mat-form-field>
-    <mat-form-field class="full-width-input">
-      <textarea
-        matInput
-        placeholder="Request"
-        formControlName="request"
-        cdkTextareaAutosize
-        cdkAutosizeMinRows="4"
-      ></textarea>
-      <mat-error>
-        Request is required
-      </mat-error>
-    </mat-form-field>
-    <div>
-      <mat-slide-toggle formControlName="has_money"
-        >Has Money?</mat-slide-toggle
-      >
-    </div>
-    <div>
-      <mat-slide-toggle formControlName="curator"
-        >Has Curator?</mat-slide-toggle
-      >
-    </div>
-    <div class="form-action-container">
-      <button mat-raised-button *ngIf="!currentRequestId" color="primary">
-        Add Beneficiar
-      </button>
-      <button mat-raised-button *ngIf="currentRequestId" color="primary">
-        Update Beneficiar
-      </button>
-    </div>
+<div class="container">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" fxLayoutAlign="start start" fxLayoutGap="25px">
+    <mat-card fxFlex="75">
+      <mat-card-content>
+        <input type="hidden" formControlName="_id" />
+        <div fxLayoutGap="15px">
+          <mat-form-field fxFlex class="full-width-input">
+            <input matInput placeholder="First Name" formControlName="first_name" required />
+            <mat-error>
+              Please provide the name of Beneficiar
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field fxFlex class="full-width-input">
+            <input matInput placeholder="Last Name" formControlName="last_name" required />
+            <mat-error>
+              Please provide the name of Beneficiar
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div fxLayoutGap="15px">
+          <mat-form-field fxFlex class="full-width-input">
+            <input matInput placeholder="Email" formControlName="email" required type="email" />
+            <mat-error>
+              Please provide a valid email address
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field fxFlex class="full-width-input">
+            <input matInput placeholder="Password" formControlName="password" required type="password" />
+            <!-- <mat-error>
+                  Please provide a valid email address
+                </mat-error> -->
+          </mat-form-field>
+        </div>
+        <div fxLayoutGap="15px">
+          <mat-form-field fxFlex class="full-width-input">
+            <input matInput placeholder="Phone" formControlName="phone" required type="tel" />
+            <mat-error>
+              Please provide a valid phone number
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field fxFlex class="full-width-input">
+            <input matInput placeholder="Age" formControlName="age" type="number" required />
+          </mat-form-field>
+        </div>
+
+        <div>
+          <h3>Address</h3>
+          <mat-divider></mat-divider>
+          <div class="pad-t-10">
+            <mat-form-field fxFlex class="full-width-input">
+              <input matInput
+                     placeholder="Address autocomplete"
+                     aria-label="Address autocomplete"
+                     [matAutocomplete]="auto"
+                     [formControl]="fakeAddressControl" />
+              <mat-hint>Use to prefill address data</mat-hint>
+              <mat-progress-bar *ngIf="addressIsLoading$ | async" mode="query"></mat-progress-bar>
+              <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onAddressSelected($event)" [displayWith]="displayFn">
+                <mat-option *ngFor="let address of addresses$ | async" [value]="address">
+                  <span>{{address.address}}</span> |
+                  <small>Score: {{address.score}}</small>
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+          <div fxLayoutGap="15px" class="pad-t-10">
+            <mat-form-field fxFlex class="full-width-input">
+              <input matInput
+                     placeholder="Address"
+                     aria-label="Address"
+                     formControlName="address"
+                     required />
+            </mat-form-field>
+          </div>
+          <div fxLayoutGap="15px">
+            <mat-form-field fxFlex class="full-width-input">
+              <input matInput
+                     placeholder="Sector"
+                     aria-label="Sector"
+                     [matAutocomplete]="zoneAuto"
+                     formControlName="zone_address"
+                     required />
+              <mat-autocomplete #zoneAuto="matAutocomplete" [displayWith]="showZoneLabel.bind(this)">
+                <mat-option *ngFor="let zone of zones$ | async" [value]="zone">
+                  <span>{{zone.ro}}</span>
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+        </div>
+
+
+        <div fxLayout="column" fxLayoutGap="15px" style="margin-bottom: 1.25em;">
+          <mat-label>Activity Types</mat-label>
+          <div fxLayout="column" fxLayoutGap="5px">
+            <mat-checkbox *ngFor="let activity of activityTypes$ | async" [value]="activity._id"
+              (change)="activityChange($event)" [checked]="isActivitySelected(activity._id)">
+              {{ activity.ro }}
+            </mat-checkbox>
+          </div>
+        </div>
+
+        <mat-form-field class="full-width-input">
+          <textarea matInput placeholder="Questions" formControlName="questions" cdkTextareaAutosize
+            cdkAutosizeMinRows="4" required></textarea>
+          <!-- <mat-error>
+            Questions is required
+          </mat-error> -->
+        </mat-form-field>
+        <mat-form-field class="full-width-input">
+          <textarea matInput placeholder="Comments" formControlName="comments" cdkTextareaAutosize
+            cdkAutosizeMinRows="4" required></textarea>
+          <!-- <mat-error>
+            Questions is required
+          </mat-error> -->
+        </mat-form-field>
+        <div fxLayoutGap="15px">
+          <mat-form-field fxFlex class="full-width-input">
+            <input matInput placeholder="Secret" formControlName="secret" required />
+          </mat-form-field>
+          <mat-form-field fxFlex class="full-width-input">
+            <mat-select placeholder="Status" formControlName="status" required>
+              <mat-option *ngFor="let status of statusOptions" [value]="status.value">
+                {{ status.label }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field fxFlex class="full-width-input">
+            <input matInput placeholder="Available" required formControlName="availability_volunteer" type="number" />
+            <mat-error>
+              Please provide a value between 0 and 23
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-action-container">
+          <button mat-raised-button *ngIf="!currentRequestId" color="primary">
+            Add Beneficiar
+          </button>
+          <button mat-raised-button *ngIf="currentRequestId" color="primary">
+            Update Beneficiar
+          </button>
+        </div>
+        <div class="loading-shade" *ngIf="isLoading$ | async">
+          <mat-spinner></mat-spinner>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    <mat-card fxFlex="25">
+      <mat-card-content>
+        <div fxLayout="column" fxLayoutGap="15px">
+          <mat-slide-toggle formControlName="is_active">Active?</mat-slide-toggle>
+          <mat-slide-toggle formControlName="have_money">Has Money?</mat-slide-toggle>
+        </div>
+      </mat-card-content>
+    </mat-card>
   </form>
-</ng-template>
+</div>

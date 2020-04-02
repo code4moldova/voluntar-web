@@ -9,7 +9,11 @@ import {
   getRequestFailureAction,
   saveRequestAction,
   saveRequestSuccessAction,
-  saveRequestFailureAction
+  saveRequestFailureAction,
+  updateRequestAction,
+  updateRequestSuccessAction,
+  updateRequestFailureAction,
+  getZonesSuccessAction
 } from './actions';
 
 const volunteerReducer = createReducer(
@@ -61,6 +65,28 @@ const volunteerReducer = createReducer(
     ...state,
     isLoading: false,
     error
+  })),
+
+  on(updateRequestAction, state => ({
+    ...state,
+    error: null,
+    isLoading: true
+  })),
+  on(updateRequestSuccessAction, (state, { payload }) => ({
+    ...state,
+    isLoading: false,
+    error: null,
+    details: payload
+  })),
+  on(updateRequestFailureAction, (state, { error }) => ({
+    ...state,
+    isLoading: false,
+    error
+  })),
+
+  on(getZonesSuccessAction, (state, { zones }) => ({
+    ...state,
+    zones
   }))
 );
 

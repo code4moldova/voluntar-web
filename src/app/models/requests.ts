@@ -1,18 +1,27 @@
 export interface IRequest {
-  id: number;
+  _id?: number;
+  email: string;
   first_name: string;
   last_name: string;
+  phone: number;
+
+  is_active: true;
   address: string;
-  city: string;
-  geo: number;
-  date: string;
-  status: boolean;
-  phone: string;
-  apartment_nr: string;
-  request: string;
-  has_money: boolean;
-  curator: boolean;
-  comments?: IComment[];
+  zone_address: string;
+  age: boolean;
+  latitude: boolean;
+  longitude: boolean;
+  activity_types: string;
+  have_money: true;
+  comments: string;
+  questions: string;
+  status: string;
+  secret: string;
+  availability_volunteer: boolean;
+}
+
+export interface IRequestDetails extends IRequest {
+  created_at: string;
 }
 
 export interface IComment { }

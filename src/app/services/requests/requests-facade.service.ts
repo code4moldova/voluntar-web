@@ -4,15 +4,17 @@ import { RootState } from '@store/root-state';
 import {
   getRequestsAction,
   getRequestAction,
-  saveRequestAction
+  saveRequestAction,
+  updateRequestAction
 } from '@store/requests-store/actions';
 import {
   selectIsLoading,
   selectRequestsData,
   selectRequestsError,
-  selectRequestsDetails
+  selectRequestsDetails,
+  selectZones
 } from '@store/requests-store/selectors';
-import { IRequest } from '@models/requests';
+import { IRequest, IRequestDetails } from '@models/requests';
 
 @Injectable({
   providedIn: 'root'
@@ -22,17 +24,25 @@ export class RequestsFacadeService {
   isLoading$ = this.store.pipe(select(selectIsLoading));
   error$ = this.store.pipe(select(selectRequestsError));
   requestDetails$ = this.store.pipe(select(selectRequestsDetails));
+  zones$ = this.store.pipe(select(selectZones));
+
   constructor(private store: Store<RootState>) {}
 
   getRequests() {
     this.store.dispatch(getRequestsAction());
   }
 
-  getRequestById(id: number) {
+  getRequestById(id: string) {
     this.store.dispatch(getRequestAction({ id }));
   }
 
-  saveRequest(request: IRequest) {
-    this.store.dispatch(saveRequestAction({ payload: request }));
+  saveRequest(request: IRequest | IRequestDetails) {
+    if (request._id) {
+      this.store.dispatch(
+        updateRequestAction({ payload: request as IRequestDetails })
+      );
+    } else {
+      this.store.dispatch(saveRequestAction({ payload: request }));
+    }
   }
 }

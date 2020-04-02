@@ -1,16 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { data } from './mock';
-import { of, Observable, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { IVolunteer } from '@models/volunteers';
-import { delay } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class VolunteersService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   saveVolunteer(volunteer: IVolunteer) {
     return this.http.post<any>(`${environment.url}/api/volunteer`, volunteer);
