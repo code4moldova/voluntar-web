@@ -13,6 +13,12 @@ import { SharedModule } from '@shared/shared.module';
     RequestDetailsComponent,
     RequestsListComponent
   ],
-  imports: [CommonModule, RequestsRoutingModule, MaterialComponentsModule, SharedModule]
+  imports: [
+    CommonModule,
+    RequestsRoutingModule,
+    MaterialComponentsModule,
+    SharedModule
+  ],
+  providers: []
 })
-export class RequestsModule { }
+export class RequestsModule {}

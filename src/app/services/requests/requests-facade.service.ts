@@ -11,7 +11,8 @@ import {
   selectIsLoading,
   selectRequestsData,
   selectRequestsError,
-  selectRequestsDetails
+  selectRequestsDetails,
+  selectZones
 } from '@store/requests-store/selectors';
 import { IRequest, IRequestDetails } from '@models/requests';
 
@@ -23,8 +24,9 @@ export class RequestsFacadeService {
   isLoading$ = this.store.pipe(select(selectIsLoading));
   error$ = this.store.pipe(select(selectRequestsError));
   requestDetails$ = this.store.pipe(select(selectRequestsDetails));
+  zones$ = this.store.pipe(select(selectZones));
 
-  constructor(private store: Store<RootState>) { }
+  constructor(private store: Store<RootState>) {}
 
   getRequests() {
     this.store.dispatch(getRequestsAction());
@@ -36,7 +38,9 @@ export class RequestsFacadeService {
 
   saveRequest(request: IRequest | IRequestDetails) {
     if (request._id) {
-      this.store.dispatch(updateRequestAction({ payload: request as IRequestDetails }));
+      this.store.dispatch(
+        updateRequestAction({ payload: request as IRequestDetails })
+      );
     } else {
       this.store.dispatch(saveRequestAction({ payload: request }));
     }

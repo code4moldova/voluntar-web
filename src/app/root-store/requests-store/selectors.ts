@@ -20,5 +20,18 @@ export const selectRequestsData = createSelector(
   }
 );
 
-export const selectRequestsError = createSelector(selectRequests, (state: RequestsState) => state.error);
-export const selectRequestsDetails = createSelector(selectRequests, (state: RequestsState) => state.details);
+export const selectRequestsError = createSelector(
+  selectRequests,
+  (state: RequestsState) => state.error
+);
+export const selectRequestsDetails = createSelector(
+  selectRequests,
+  (state: RequestsState) => state.details
+);
+
+export const selectZones = createSelector(
+  selectRequests,
+  (state: RequestsState): any => {
+    return state.zones;
+  }
+);
