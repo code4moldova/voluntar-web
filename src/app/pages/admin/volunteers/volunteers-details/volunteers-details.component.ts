@@ -29,6 +29,7 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
       value: 'centru'
     }
   ];
+  public cities = [{ name: 'Chisinau', value: 'chisinau' }, { name: 'Balti', value: 'balti' }];
 
   form = this.fb.group({
     _id: [null],
@@ -65,6 +66,10 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
     black_list: [null, Validators.required],
     received_cards: [null, Validators.required],
     sent_photo: [null, Validators.required],
+    offer: [null],
+    received_contract: [null],
+    aggreed_terms: [true],
+    city: ['chisinau'],
   });
   currentVolunteeerId: string;
   componentDestroyed$ = new Subject();
@@ -131,6 +136,8 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
   get black_list() { return this.form.get('black_list'); }
   get received_cards() { return this.form.get('received_cards'); }
   get sent_photo() { return this.form.get('sent_photo'); }
+  get received_contract() { return this.form.get('received_contract'); }
+  get aggreed_terms() { return this.form.get('aggreed_terms'); }
 
 }
 
