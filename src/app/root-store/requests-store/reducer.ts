@@ -12,7 +12,8 @@ import {
   saveRequestFailureAction,
   updateRequestAction,
   updateRequestSuccessAction,
-  updateRequestFailureAction
+  updateRequestFailureAction,
+  getZonesSuccessAction
 } from './actions';
 
 const volunteerReducer = createReducer(
@@ -81,6 +82,11 @@ const volunteerReducer = createReducer(
     ...state,
     isLoading: false,
     error
+  })),
+
+  on(getZonesSuccessAction, (state, { zones }) => ({
+    ...state,
+    zones
   }))
 );
 

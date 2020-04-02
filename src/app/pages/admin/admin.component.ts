@@ -12,6 +12,10 @@ import { Observable, Subject } from 'rxjs';
 import { map, filter, takeUntil } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { Router, NavigationEnd } from '@angular/router';
+import {
+  getZonesFailureAction,
+  getZonesAction
+} from '@store/requests-store/actions';
 
 @Component({
   selector: 'app-admin',
@@ -58,7 +62,9 @@ export class AdminComponent implements OnInit, OnDestroy {
       });
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.store.dispatch(getZonesAction());
+  }
 
   ngOnDestroy() {
     this.destroyComponent$.next();

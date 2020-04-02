@@ -16,7 +16,11 @@ export enum ActionTypes {
 
   UPDATE_REQUEST = '[Request] Update Request',
   UPDATE_REQUEST_SUCCESS = '[Request] Update Request Success',
-  UPDATE_REQUEST_FAILURE = '[Request] Update Request Failure'
+  UPDATE_REQUEST_FAILURE = '[Request] Update Request Failure',
+
+  GET_ZONES = '[Request] Get Zones',
+  GET_ZONES_SUCCESS = '[Request] Get Zones Success',
+  GET_ZONES_FAILURE = '[Request] Get Zones Failure'
 }
 
 export const getRequestsAction = createAction(ActionTypes.GET_REQUESTS);
@@ -66,4 +70,14 @@ export const updateRequestFailureAction = createAction(
 export const updateRequestSuccessAction = createAction(
   ActionTypes.UPDATE_REQUEST_SUCCESS,
   props<{ payload: IRequestDetails }>()
+);
+
+export const getZonesAction = createAction(ActionTypes.GET_ZONES);
+export const getZonesSuccessAction = createAction(
+  ActionTypes.GET_ZONES_SUCCESS,
+  props<{ zones: any[] }>()
+);
+export const getZonesFailureAction = createAction(
+  ActionTypes.GET_ZONES_FAILURE,
+  props<{ error: any }>()
 );

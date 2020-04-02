@@ -18,19 +18,19 @@ import {
   debounceTime,
   distinctUntilChanged
 } from 'rxjs/operators';
-import { Subject, of, EMPTY, concat, fromEvent } from 'rxjs';
+import { Subject, of, EMPTY, concat, fromEvent, Observable } from 'rxjs';
 import { IRequestDetails } from '@models/requests';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { TagsFacadeService } from '@services/tags/tags-facade.service';
 import { GeolocationService } from '@services/geolocation/geolocation.service';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 @Component({
   selector: 'app-request-details',
   templateUrl: './request-details.component.html',
   styleUrls: ['./request-details.component.scss']
 })
-export class RequestDetailsComponent
-  implements OnInit, AfterViewInit, OnDestroy {
+export class RequestDetailsComponent implements OnInit, OnDestroy {
   statusOptions = [
     {
       label: 'New',
@@ -50,20 +50,21 @@ export class RequestDetailsComponent
     }
   ];
 
+  fakeAddressControl = this.fb.control(null);
+
   form = this.fb.group({
     _id: [null],
     first_name: [null, Validators.required],
     last_name: [null, Validators.required],
     email: [null, [Validators.required, Validators.email]],
     password: [{ value: 'random', disabled: true }, Validators.required],
-    phone: [
-      null,
-      [Validators.required, Validators.minLength(8), Validators.maxLength(8)]
-    ],
+    phone: [null, Validators.required],
     is_active: [false, Validators.required],
-    city: [null, Validators.required],
+    // city: [null, Validators.required],
     address: [null, Validators.required],
-    geo: [null, Validators.required],
+    // geo: [null, Validators.required],
+    latitude: [null, Validators.required],
+    longitude: [null, Validators.required],
     zone_address: [null, Validators.required],
     age: [null, [Validators.required, Validators.max(120)]],
     activity_types: [[], Validators.required],
@@ -87,8 +88,9 @@ export class RequestDetailsComponent
   error$ = concat(this.requestsFacade.error$, this.tagsFacade.error$);
 
   componentDestroyed$ = new Subject();
-  addresses: any[];
-  @ViewChild('addressInput') addressInput: ElementRef;
+  addresses$: Observable<any[]>;
+  addressIsLoading$ = new Subject();
+  zones$ = this.requestsFacade.zones$;
 
   constructor(
     private fb: FormBuilder,
@@ -145,22 +147,15 @@ export class RequestDetailsComponent
 
   ngOnInit() {
     this.tagsFacade.getActivityTypesTags();
-  }
 
-  ngAfterViewInit() {
-    fromEvent(this.addressInput.nativeElement, 'keyup')
-      .pipe(
-        debounceTime(900),
-        distinctUntilChanged(),
-        tap(() => {
-          if (this.form.controls.address.value.length) {
-            this.onAddressChange();
-          } else {
-            this.addresses = null;
-          }
-        })
-      )
-      .subscribe();
+    this.addresses$ = this.fakeAddressControl.valueChanges.pipe(
+      debounceTime(350),
+      distinctUntilChanged(),
+      filter(address => address && address.length > 0),
+      switchMap(address => {
+        return this.onAddressChange(address);
+      })
+    );
   }
 
   ngOnDestroy() {
@@ -170,21 +165,63 @@ export class RequestDetailsComponent
 
   onSubmit() {
     if (this.form.valid) {
-      this.requestsFacade.saveRequest(this.form.getRawValue());
+      let data = this.form.getRawValue();
+      const sector = data.zone_address;
+      if (typeof sector === 'object') {
+        data = {
+          ...data,
+          zone_address: sector._id
+        };
+      }
+      this.requestsFacade.saveRequest(data);
     } else {
       console.log('Invalid form', this.form);
     }
   }
 
-  onAddressChange() {
-    this.geolocationService
-      .getLocation(
-        this.form.controls.city.value,
-        this.form.controls.address.value
-      )
-      .subscribe(resp => {
-        this.addresses = resp.candidates;
-      });
+  onAddressChange(address: string) {
+    this.addressIsLoading$.next(true);
+    return this.geolocationService.getLocation(null, address).pipe(
+      map(resp => resp.candidates),
+      tap(() => {
+        this.addressIsLoading$.next(false);
+      })
+    );
+  }
+
+  displayFn(value: any) {
+    if (value) {
+      return value.address;
+    }
+  }
+
+  showZoneLabel(value: any) {
+    if (value) {
+      return typeof value === 'string' ? value : value.ro;
+    }
+    return '';
+  }
+
+  patchZoneControl(event: MatAutocompleteSelectedEvent) {
+    const value = event.option.value;
+    if (value) {
+      this.form.get('zone_address').patchValue(value._id);
+    }
+  }
+
+  onAddressSelected(event: MatAutocompleteSelectedEvent) {
+    const value = event.option.value;
+    if (value) {
+      const [street, city] = value.address.split(', ');
+      const geo = value.location
+        ? `${value.location.y}, ${value.location.x}`
+        : null;
+      this.form.get('address').patchValue(street);
+      // this.form.get('city').patchValue(city);
+      // this.form.get('geo').patchValue(geo);
+      this.form.get('latitude').patchValue(value.location.y);
+      this.form.get('longitude').patchValue(value.location.x);
+    }
   }
 
   updateAddress(address) {
@@ -192,6 +229,5 @@ export class RequestDetailsComponent
       address: address.address,
       geo: address.location.y + ',' + address.location.x
     });
-    this.addresses = null;
   }
 }

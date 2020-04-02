@@ -6,7 +6,6 @@ import { RequestsListComponent } from './requests-list/requests-list.component';
 import { RequestsRoutingModule } from './requests-routing.module';
 import { MaterialComponentsModule } from '@shared/material.module';
 import { SharedModule } from '@shared/shared.module';
-import { GeolocationService } from '@services/geolocation/geolocation.service';
 
 @NgModule({
   declarations: [
@@ -14,7 +13,12 @@ import { GeolocationService } from '@services/geolocation/geolocation.service';
     RequestDetailsComponent,
     RequestsListComponent
   ],
-  imports: [CommonModule, RequestsRoutingModule, MaterialComponentsModule, SharedModule],
-  providers: [GeolocationService]
+  imports: [
+    CommonModule,
+    RequestsRoutingModule,
+    MaterialComponentsModule,
+    SharedModule
+  ],
+  providers: []
 })
-export class RequestsModule { }
+export class RequestsModule {}

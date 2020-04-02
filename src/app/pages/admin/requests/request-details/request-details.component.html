@@ -59,31 +59,50 @@
           </mat-form-field>
         </div>
 
-
-        <div fxLayoutGap="15px">
-          <mat-form-field fxFlex class="full-width-input">
-            <input matInput placeholder="City" formControlName="city" required />
-            <mat-error>
-              Please provide a valid city
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field fxFlex class="full-width-input">
-            <input matInput placeholder="Address" #addressInput formControlName="address" required />
-            <div *ngIf="addresses" class="place-search-list">
-              <div *ngFor="let address of addresses" (click)="updateAddress(address)" class="place-item">
-                {{address.address}}
-              </div>
-            </div>
-          </mat-form-field>
-        </div>
-
-        <div fxLayoutGap="15px">
-          <mat-form-field fxFlex class="full-width-input">
-            <input matInput placeholder="Geo" formControlName="geo" required type="text" />
-          </mat-form-field>
-          <mat-form-field fxFlex class="full-width-input">
-            <input matInput placeholder="Zone Address" formControlName="zone_address" required />
-          </mat-form-field>
+        <div>
+          <h3>Address</h3>
+          <mat-divider></mat-divider>
+          <div class="pad-t-10">
+            <mat-form-field fxFlex class="full-width-input">
+              <input matInput
+                     placeholder="Address autocomplete"
+                     aria-label="Address autocomplete"
+                     [matAutocomplete]="auto"
+                     [formControl]="fakeAddressControl" />
+              <mat-hint>Use to prefill address data</mat-hint>
+              <mat-progress-bar *ngIf="addressIsLoading$ | async" mode="query"></mat-progress-bar>
+              <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onAddressSelected($event)" [displayWith]="displayFn">
+                <mat-option *ngFor="let address of addresses$ | async" [value]="address">
+                  <span>{{address.address}}</span> |
+                  <small>Score: {{address.score}}</small>
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+          <div fxLayoutGap="15px" class="pad-t-10">
+            <mat-form-field fxFlex class="full-width-input">
+              <input matInput
+                     placeholder="Address"
+                     aria-label="Address"
+                     formControlName="address"
+                     required />
+            </mat-form-field>
+          </div>
+          <div fxLayoutGap="15px">
+            <mat-form-field fxFlex class="full-width-input">
+              <input matInput
+                     placeholder="Sector"
+                     aria-label="Sector"
+                     [matAutocomplete]="zoneAuto"
+                     formControlName="zone_address"
+                     required />
+              <mat-autocomplete #zoneAuto="matAutocomplete" [displayWith]="showZoneLabel.bind(this)">
+                <mat-option *ngFor="let zone of zones$ | async" [value]="zone">
+                  <span>{{zone.ro}}</span>
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
         </div>
 
 

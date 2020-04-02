@@ -6,3 +6,8 @@
 .form-action-container {
   padding-top: 15px;
 }
+
+mat-progress-bar {
+  position: absolute !important;
+  bottom: 0;
+}

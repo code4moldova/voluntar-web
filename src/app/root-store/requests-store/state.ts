@@ -5,11 +5,13 @@ export interface RequestsState {
   details: IRequestDetails;
   isLoading: boolean;
   error: string;
+  zones: any[];
 }
 
 export const initialState: RequestsState = {
   data: [],
   details: null,
   isLoading: false,
-  error: null
+  error: null,
+  zones: []
 };
