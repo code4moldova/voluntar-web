@@ -11,14 +11,14 @@ import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private snackBar: MatSnackBar, private router: Router) {}
+  constructor(private snackBar: MatSnackBar, private router: Router) { }
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     // This has to be ignored
     // Headers injected in coresponding services
-    if (request.url.endsWith('api/token')) {
+    if (request.url.endsWith('api/token') || request.url.startsWith('https://info.iharta.md')) {
       return next.handle(request);
     } else {
       const token: string = localStorage.getItem('accessToken');

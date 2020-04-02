@@ -62,16 +62,27 @@
 
         <div fxLayoutGap="15px">
           <mat-form-field fxFlex class="full-width-input">
-            <input matInput placeholder="Address" formControlName="address" required />
-            <!-- <mat-error>
-                  Please provide Beneficiar age
-                </mat-error> -->
+            <input matInput placeholder="City" formControlName="city" required />
+            <mat-error>
+              Please provide a valid city
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field fxFlex class="full-width-input">
+            <input matInput placeholder="Address" #addressInput formControlName="address" required />
+            <div *ngIf="addresses" class="place-search-list">
+              <div *ngFor="let address of addresses" (click)="updateAddress(address)" class="place-item">
+                {{address.address}}
+              </div>
+            </div>
+          </mat-form-field>
+        </div>
+
+        <div fxLayoutGap="15px">
+          <mat-form-field fxFlex class="full-width-input">
+            <input matInput placeholder="Geo" formControlName="geo" required type="text" />
           </mat-form-field>
           <mat-form-field fxFlex class="full-width-input">
             <input matInput placeholder="Zone Address" formControlName="zone_address" required />
-            <!-- <mat-error>
-                  Please provide Beneficiar age
-                </mat-error> -->
           </mat-form-field>
         </div>
 
