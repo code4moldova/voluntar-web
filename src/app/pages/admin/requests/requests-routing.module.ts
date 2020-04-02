@@ -3,11 +3,13 @@ import { Routes, RouterModule } from '@angular/router';
 import { RequestDetailsComponent } from './request-details/request-details.component';
 import { RequestsListComponent } from './requests-list/requests-list.component';
 import { RequestsComponent } from './requests.component';
+import { DelayGuard } from 'src/app/guards/delay.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: RequestsComponent,
+    canActivateChild: [DelayGuard],
     children: [
       {
         path: '',
@@ -39,4 +41,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class RequestsRoutingModule { }
+export class RequestsRoutingModule {}

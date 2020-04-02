@@ -1,12 +1,5 @@
-import {
-  Component,
-  OnInit,
-  OnDestroy,
-  ViewChild,
-  ElementRef,
-  AfterViewInit
-} from '@angular/core';
-import { FormBuilder, Validators, FormArray, FormGroup } from '@angular/forms';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { RequestsFacadeService } from '@services/requests/requests-facade.service';
 import {
@@ -18,7 +11,7 @@ import {
   debounceTime,
   distinctUntilChanged
 } from 'rxjs/operators';
-import { Subject, of, EMPTY, concat, fromEvent, Observable } from 'rxjs';
+import { Subject, of, EMPTY, concat, Observable } from 'rxjs';
 import { IRequestDetails } from '@models/requests';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { TagsFacadeService } from '@services/tags/tags-facade.service';
@@ -91,6 +84,7 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
   addresses$: Observable<any[]>;
   addressIsLoading$ = new Subject();
   zones$ = this.requestsFacade.zones$;
+  private zones;
 
   constructor(
     private fb: FormBuilder,
@@ -125,6 +119,10 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
       .subscribe(request => {
         this.form.patchValue(request);
       });
+
+    this.zones$.pipe(takeUntil(this.componentDestroyed$)).subscribe(z => {
+      this.zones = z;
+    });
   }
 
   activityChange({ checked, source }: MatCheckboxChange) {
@@ -146,8 +144,6 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.tagsFacade.getActivityTypesTags();
-
     this.addresses$ = this.fakeAddressControl.valueChanges.pipe(
       debounceTime(350),
       distinctUntilChanged(),
@@ -197,6 +193,11 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
 
   showZoneLabel(value: any) {
     if (value) {
+      // Hacky way to get Sector name
+      if (typeof value === 'string') {
+        const zone = this.zones ? this.zones.find(z => z._id === value) : null;
+        return zone ? zone.ro : value;
+      }
       return typeof value === 'string' ? value : value.ro;
     }
     return '';
