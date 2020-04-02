@@ -11,7 +11,7 @@ export class TagsService {
 
   constructor(private http: HttpClient) { }
 
-  getActivityType(): Observable<{ list: IActivityTypeTag[] }> {
+  getActivityTypes(): Observable<{ list: IActivityTypeTag[] }> {
     return this.http.get<{ list: IActivityTypeTag[] }>(`${environment.url}/api/tag/activity_types`);
   }
 }

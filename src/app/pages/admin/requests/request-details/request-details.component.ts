@@ -3,9 +3,10 @@ import { FormBuilder, Validators, FormArray, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { RequestsFacadeService } from '@services/requests/requests-facade.service';
 import { map, takeUntil, switchMap, tap, filter } from 'rxjs/operators';
-import { Subject, of, EMPTY } from 'rxjs';
+import { Subject, of, EMPTY, concat } from 'rxjs';
 import { IRequestDetails } from '@models/requests';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { TagsFacadeService } from '@services/tags/tags-facade.service';
 
 @Component({
   selector: 'app-request-details',
@@ -38,12 +39,12 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
     last_name: [null, Validators.required],
     email: [null, [Validators.required, Validators.email]],
     password: [{ value: 'random', disabled: true }, Validators.required],
-    phone: [null, [Validators.required, Validators.min(10000000), Validators.max(99999999)]],
+    phone: [null, [Validators.required, Validators.minLength(8), Validators.maxLength(8)]],
     is_active: [false, Validators.required],
     address: [null, Validators.required],
     zone_address: [null, Validators.required],
     age: [null, [Validators.required, Validators.max(120)]],
-    activity_types: [['5e84d98882bb3583f0ad3c62']],
+    activity_types: [[], Validators.required],
     have_money: [false, Validators.required],
     comments: [null, Validators.required],
     questions: [null, Validators.required],
@@ -51,38 +52,19 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
     secret: [null, Validators.required],
     availability_volunteer: [null, [Validators.required, Validators.min(0), Validators.max(23)]],
   });
-
-  // TODO: Get from API
-  activityTypes$ = of([
-    {
-      _id: '5e84d98882bb3583f0ad3c62',
-      created_by: 'test@test.com',
-      en: 'text in en',
-      is_active: true,
-      ro: 'Serviciu de preluare a apelurilor la linia verde a Direcției Generale Asistența Socială',
-      ru: 'Прием звонков зеленой линии Главного Управления Социальной Защиты',
-    },
-    {
-      _id: '5e84d96282bb3583f0ad3c61',
-      created_by: 'test@test.com',
-      en: 'text in en',
-      is_active: true,
-      ro: 'Aprovizionarea cu produse alimentare/medicamente',
-      ru: 'Снабжение продовольствием/медикаментани нуждающихся',
-      select: 'activity_types'
-    }
-  ]);
-
   currentRequestId: string;
-  isLoading$ = this.requestsFacade.isLoading$;
-  error$ = this.requestsFacade.error$;
+
+  activityTypes$ = this.tagsFacade.activityTypesTags$;
+  isLoading$ = concat(this.requestsFacade.isLoading$, this.tagsFacade.isLoading$);
+  error$ = concat(this.requestsFacade.error$, this.tagsFacade.error$);
 
   componentDestroyed$ = new Subject();
 
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
-    private requestsFacade: RequestsFacadeService
+    private requestsFacade: RequestsFacadeService,
+    private tagsFacade: TagsFacadeService
   ) {
     this.route.paramMap
       .pipe(
@@ -112,13 +94,13 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
       });
   }
 
-  activityChange(event: MatCheckboxChange) {
+  activityChange({ checked, source }: MatCheckboxChange) {
     const activityTypesValue = this.form.get('activity_types').value;
-    if (event.checked) {
-      this.form.get('activity_types').setValue([...activityTypesValue, event.source.value]);
+    if (checked) {
+      this.form.get('activity_types').setValue([...activityTypesValue, source.value]);
     } else {
-      const index = activityTypesValue.indexOf(event.source.value);
-      this.form.get('activity_types').setValue(activityTypesValue.filter((id: string) => id !== event.source.value));
+      const filteredActivities = activityTypesValue.filter((id: string) => id !== source.value);
+      this.form.get('activity_types').setValue(filteredActivities);
     }
   }
 
@@ -127,15 +109,7 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // this.requestsFacade.requestDetails$
-    //   .pipe(
-    //     filter(request => !!request),
-    //     map(request => (this.currentRequestId ? request : {})),
-    //     takeUntil(this.componentDestroyed$)
-    //   )
-    //   .subscribe(request => {
-    //     this.form.patchValue(request);
-    //   });
+    this.tagsFacade.getActivityTypesTags();
   }
 
   ngOnDestroy() {

@@ -25,7 +25,7 @@ export class TagsEffects {
     return this.actions$.pipe(
       ofType(getActivityTypesTagsAction),
       switchMap(() =>
-        this.tagsService.getActivityType().pipe(
+        this.tagsService.getActivityTypes().pipe(
           map(res => getActivityTypesTagsSuccessAction({ payload: res.list })),
           catchError(error => of(getActivityTypesTagsFailureAction({ error })))
         )

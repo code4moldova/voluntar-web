@@ -18,18 +18,6 @@ export interface IRequest {
   status: string;
   secret: string;
   availability_volunteer: boolean;
-
-
-  // address: string;
-  // city: string;
-  // geo: number;
-  // date: string;
-  // status: boolean;
-  // apartment_nr: string;
-  // request: string;
-  // has_money: boolean;
-  // curator: boolean;
-  // comments?: IComment[];
 }
 
 export interface IRequestDetails extends IRequest {
