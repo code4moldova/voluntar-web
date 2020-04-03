@@ -11,7 +11,7 @@ import { TagsService } from '@services/tags/tags.service';
 import {
   getActivityTypesTagsAction,
   getActivityTypesTagsSuccessAction,
-  getActivityTypesTagsFailureAction
+  getActivityTypesTagsFailureAction,
 } from './actions';
 
 @Injectable()

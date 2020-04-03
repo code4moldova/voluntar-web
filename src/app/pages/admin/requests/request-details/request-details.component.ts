@@ -9,14 +9,20 @@ import {
   tap,
   filter,
   debounceTime,
-  distinctUntilChanged
+  distinctUntilChanged,
+  finalize,
+  exhaustMap
 } from 'rxjs/operators';
-import { Subject, of, EMPTY, concat, Observable } from 'rxjs';
+import { Subject, of, EMPTY, concat, Observable, combineLatest } from 'rxjs';
 import { IRequestDetails } from '@models/requests';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { TagsFacadeService } from '@services/tags/tags-facade.service';
 import { GeolocationService } from '@services/geolocation/geolocation.service';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { ISectorTag } from '@models/tags';
+import { RequestsService } from '@services/requests/requests.service';
+import { VolunteersFacadeService } from '@services/volunteers/volunteers-facade.service';
+import { VolunteersService } from '@services/volunteers/volunteers.service';
 
 @Component({
   selector: 'app-request-details',
@@ -53,9 +59,7 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
     password: [{ value: 'random', disabled: true }, Validators.required],
     phone: [null, Validators.required],
     is_active: [false, Validators.required],
-    // city: [null, Validators.required],
     address: [null, Validators.required],
-    // geo: [null, Validators.required],
     latitude: [null, Validators.required],
     longitude: [null, Validators.required],
     zone_address: [null, Validators.required],
@@ -74,23 +78,35 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
   currentRequestId: string;
 
   activityTypes$ = this.tagsFacade.activityTypesTags$;
-  isLoading$ = concat(
-    this.requestsFacade.isLoading$,
-    this.tagsFacade.isLoading$
-  );
+  isLoading$ = concat(this.requestsFacade.isLoading$, this.tagsFacade.isLoading$);
   error$ = concat(this.requestsFacade.error$, this.tagsFacade.error$);
+
+  volunteersNearbyIsLoading$ = new Subject();
+  volunteersNearby$ = this.form.get('_id').valueChanges.pipe(
+    exhaustMap(id => {
+      if (id) {
+        this.volunteersNearbyIsLoading$.next(true);
+        return this.volunteersService.getVolunteersNearbyRequest(id).pipe(
+          map(({ list }) => list.sort((v1, v2) => v1.distance < v2.distance ? -1 : 1)),
+          finalize(() => this.volunteersNearbyIsLoading$.next(false))
+        );
+      }
+      return of(null);
+    })
+  );
 
   componentDestroyed$ = new Subject();
   addresses$: Observable<any[]>;
   addressIsLoading$ = new Subject();
   zones$ = this.requestsFacade.zones$;
-  private zones;
+  private zones: ISectorTag[];
 
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private requestsFacade: RequestsFacadeService,
     private tagsFacade: TagsFacadeService,
+    private volunteersService: VolunteersService,
     private geolocationService: GeolocationService
   ) {
     this.route.paramMap
@@ -179,7 +195,7 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
     this.addressIsLoading$.next(true);
     return this.geolocationService.getLocation(null, address).pipe(
       map(resp => resp.candidates),
-      tap(() => {
+      finalize(() => {
         this.addressIsLoading$.next(false);
       })
     );
@@ -214,21 +230,12 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
     const value = event.option.value;
     if (value) {
       const [street, city] = value.address.split(', ');
-      const geo = value.location
-        ? `${value.location.y}, ${value.location.x}`
-        : null;
+      // const geo = value.location
+      //   ? `${value.location.y}, ${value.location.x}`
+      //   : null;
       this.form.get('address').patchValue(street);
-      // this.form.get('city').patchValue(city);
-      // this.form.get('geo').patchValue(geo);
       this.form.get('latitude').patchValue(value.location.y);
       this.form.get('longitude').patchValue(value.location.x);
     }
-  }
-
-  updateAddress(address) {
-    this.form.patchValue({
-      address: address.address,
-      geo: address.location.y + ',' + address.location.x
-    });
   }
 }

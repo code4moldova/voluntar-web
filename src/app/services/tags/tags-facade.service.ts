@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { TagsState } from '@store/tags-store/state';
 import {
-  selectIsLoading,
-  selectActivityTypesTagsError,
-  selectActivityTypesTags
+  selectTagsIsLoading,
+  selectTagsError,
+  selectActivityTypesTags,
 } from '@store/tags-store/selectors';
 import { getActivityTypesTagsAction } from '@store/tags-store/actions';
 
@@ -12,8 +12,8 @@ import { getActivityTypesTagsAction } from '@store/tags-store/actions';
   providedIn: 'root'
 })
 export class TagsFacadeService {
-  isLoading$ = this.store.pipe(select(selectIsLoading));
-  error$ = this.store.pipe(select(selectActivityTypesTagsError));
+  isLoading$ = this.store.pipe(select(selectTagsIsLoading));
+  error$ = this.store.pipe(select(selectTagsError));
 
   activityTypesTags$ = this.store.pipe(select(selectActivityTypesTags));
 
@@ -22,5 +22,4 @@ export class TagsFacadeService {
   getActivityTypesTags() {
     this.store.dispatch(getActivityTypesTagsAction());
   }
-
 }

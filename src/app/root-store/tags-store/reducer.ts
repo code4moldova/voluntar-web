@@ -8,6 +8,8 @@ import {
 
 const tagsReducer = createReducer(
   initialState,
+
+  // Activity types
   on(getActivityTypesTagsAction, state => ({
     ...state,
     error: null,

@@ -26,7 +26,7 @@ export class RequestsFacadeService {
   requestDetails$ = this.store.pipe(select(selectRequestsDetails));
   zones$ = this.store.pipe(select(selectZones));
 
-  constructor(private store: Store<RootState>) {}
+  constructor(private store: Store<RootState>) { }
 
   getRequests() {
     this.store.dispatch(getRequestsAction());

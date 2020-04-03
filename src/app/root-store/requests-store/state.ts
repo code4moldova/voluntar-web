@@ -1,11 +1,12 @@
 import { IRequestDetails } from '@models/requests';
+import { ISectorTag } from '@models/tags';
 
 export interface RequestsState {
   data: IRequestDetails[];
   details: IRequestDetails;
   isLoading: boolean;
   error: string;
-  zones: any[];
+  zones: ISectorTag[];
 }
 
 export const initialState: RequestsState = {

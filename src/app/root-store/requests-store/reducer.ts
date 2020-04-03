@@ -16,7 +16,7 @@ import {
   getZonesSuccessAction
 } from './actions';
 
-const volunteerReducer = createReducer(
+const requestReducer = createReducer(
   initialState,
   on(getRequestsAction, state => ({
     ...state,
@@ -91,5 +91,5 @@ const volunteerReducer = createReducer(
 );
 
 export function reducer(state: RequestsState | undefined, action: Action) {
-  return volunteerReducer(state, action);
+  return requestReducer(state, action);
 }

@@ -64,14 +64,12 @@
           <mat-divider></mat-divider>
           <div class="pad-t-10">
             <mat-form-field fxFlex class="full-width-input">
-              <input matInput
-                     placeholder="Address autocomplete"
-                     aria-label="Address autocomplete"
-                     [matAutocomplete]="auto"
-                     [formControl]="fakeAddressControl" />
+              <input matInput placeholder="Address autocomplete" aria-label="Address autocomplete"
+                [matAutocomplete]="auto" [formControl]="fakeAddressControl" />
               <mat-hint>Use to prefill address data</mat-hint>
               <mat-progress-bar *ngIf="addressIsLoading$ | async" mode="query"></mat-progress-bar>
-              <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onAddressSelected($event)" [displayWith]="displayFn">
+              <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onAddressSelected($event)"
+                [displayWith]="displayFn">
                 <mat-option *ngFor="let address of addresses$ | async" [value]="address">
                   <span>{{address.address}}</span> |
                   <small>Score: {{address.score}}</small>
@@ -81,21 +79,11 @@
           </div>
           <div fxLayoutGap="15px" class="pad-t-10">
             <mat-form-field fxFlex class="full-width-input">
-              <input matInput
-                     placeholder="Address"
-                     aria-label="Address"
-                     formControlName="address"
-                     required />
+              <input matInput placeholder="Address" aria-label="Address" formControlName="address" required />
             </mat-form-field>
-          </div>
-          <div fxLayoutGap="15px">
             <mat-form-field fxFlex class="full-width-input">
-              <input matInput
-                     placeholder="Sector"
-                     aria-label="Sector"
-                     [matAutocomplete]="zoneAuto"
-                     formControlName="zone_address"
-                     required />
+              <input matInput placeholder="Sector" aria-label="Sector" [matAutocomplete]="zoneAuto"
+                formControlName="zone_address" required />
               <mat-autocomplete #zoneAuto="matAutocomplete" [displayWith]="showZoneLabel.bind(this)">
                 <mat-option *ngFor="let zone of zones$ | async" [value]="zone">
                   <span>{{zone.ro}}</span>
@@ -162,13 +150,36 @@
         </div>
       </mat-card-content>
     </mat-card>
-    <mat-card fxFlex="25">
-      <mat-card-content>
-        <div fxLayout="column" fxLayoutGap="15px">
-          <mat-slide-toggle formControlName="is_active">Active?</mat-slide-toggle>
-          <mat-slide-toggle formControlName="have_money">Has Money?</mat-slide-toggle>
-        </div>
-      </mat-card-content>
-    </mat-card>
+    <div fxFlex="25" fxLayout="column" fxLayoutGap="15px">
+      <mat-card>
+        <mat-card-content>
+          <div fxLayout="column" fxLayoutGap="15px">
+            <mat-slide-toggle formControlName="is_active">Active?</mat-slide-toggle>
+            <mat-slide-toggle formControlName="have_money">Has Money?</mat-slide-toggle>
+          </div>
+        </mat-card-content>
+      </mat-card>
+      <mat-card style="overflow: hidden;">
+        <mat-progress-bar *ngIf="volunteersNearbyIsLoading$ | async" style="top: 0; left: 0" mode="query">
+        </mat-progress-bar>
+        <mat-card-content>
+          <h3>Volunteers nearby Beneficiary</h3>
+          <mat-radio-group formControlName="availability_volunteer"
+            *ngIf="volunteersNearby$ | async as volunteersNearby; else noVolunteersNearby">
+            <div fxLayoutGap="1em" fxLayoutAlign="center" *ngFor="let volunteer of volunteersNearby">
+              <mat-radio-button fxLayoutAlign="center" class="example-radio-button" fxFlex [value]="volunteer._id">
+                {{volunteer.first_name}} {{volunteer.last_name}} / {{volunteer.phone}}
+              </mat-radio-button>
+              <button mat-icon-button type="button" color="primary">
+                <mat-icon>info</mat-icon>
+              </button>
+            </div>
+          </mat-radio-group>
+          <ng-template #noVolunteersNearby>
+            <p>No Volunteers were found!</p>
+          </ng-template>
+        </mat-card-content>
+      </mat-card>
+    </div>
   </form>
 </div>

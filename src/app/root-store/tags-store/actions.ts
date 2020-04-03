@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { IActivityTypeTag } from '@models/tags';
+import { IActivityTypeTag, ISectorTag } from '@models/tags';
 
 export enum ActionTypes {
   GET_ACTIVITY_TYPES_TAGS = '[Tags] Get Activity types tags',

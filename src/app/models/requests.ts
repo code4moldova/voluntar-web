@@ -4,7 +4,6 @@ export interface IRequest {
   first_name: string;
   last_name: string;
   phone: number;
-
   is_active: true;
   address: string;
   zone_address: string;
@@ -17,11 +16,11 @@ export interface IRequest {
   questions: string;
   status: string;
   secret: string;
-  availability_volunteer: boolean;
+  availability_volunteer: string;
 }
 
 export interface IRequestDetails extends IRequest {
   created_at: string;
 }
 
-export interface IComment { }
+// export interface IComment { }

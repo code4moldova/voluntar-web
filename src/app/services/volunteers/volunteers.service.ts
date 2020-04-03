@@ -32,4 +32,8 @@ export class VolunteersService {
       `${environment.url}/api/volunteer?id=${id}`
     );
   }
+
+  getVolunteersNearbyRequest(requestId: string, volunteers = 10) {
+    return this.http.get<{ list: IVolunteer & { distance: number }[] }>(`${environment.url}/api/volunteer/closest/${requestId}/${volunteers}`);
+  }
 }
