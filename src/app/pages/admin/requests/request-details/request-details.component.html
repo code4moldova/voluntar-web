@@ -164,7 +164,7 @@
         </mat-progress-bar>
         <mat-card-content>
           <h3>Volunteers nearby Beneficiary</h3>
-          <mat-radio-group formControlName="nearby_volunteer"
+          <mat-radio-group formControlName="volunteer"
             *ngIf="volunteersNearby$ | async as volunteersNearby; else noVolunteersNearby">
             <div fxLayoutGap="1em" fxLayoutAlign="center" *ngFor="let volunteer of volunteersNearby">
               <mat-radio-button fxLayoutAlign="center" class="example-radio-button" fxFlex [value]="volunteer._id">

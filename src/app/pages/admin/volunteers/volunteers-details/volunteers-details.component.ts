@@ -12,6 +12,8 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { Subject, of, EMPTY } from 'rxjs';
 import { IVolunteer } from '@models/volunteers';
+import { TagsFacadeService } from '@services/tags/tags-facade.service';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
 const minTemp = 36;
 const maxTemp = 41;
@@ -76,10 +78,18 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
   isLoading$ = this.volunteerFacade.isLoading$;
   error$ = this.volunteerFacade.error$;
 
+  ages$ = this.tagsFacade.agesTags$;
+  availabilities$ = this.tagsFacade.availabilitiesTags$;
+  teams$ = this.tagsFacade.teamsTags$;
+  offers$ = this.tagsFacade.offersTags$;
+
+  activityTypes$ = this.tagsFacade.activityTypesTags$;
+
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
-    private volunteerFacade: VolunteersFacadeService
+    private volunteerFacade: VolunteersFacadeService,
+    private tagsFacade: TagsFacadeService
   ) {
     this.route.paramMap
       .pipe(
@@ -110,6 +120,24 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
       .subscribe(volunteer => {
         this.form.patchValue(volunteer);
       });
+  }
+
+  activityChange({ checked, source }: MatCheckboxChange) {
+    const activityTypesValue = this.form.get('activity_types').value;
+    if (checked) {
+      this.form
+        .get('activity_types')
+        .patchValue([...activityTypesValue, source.value]);
+    } else {
+      const filteredActivities = activityTypesValue.filter(
+        (id: string) => id !== source.value
+      );
+      this.form.get('activity_types').patchValue(filteredActivities);
+    }
+  }
+
+  isActivitySelected(activityId: string) {
+    return this.form.get('activity_types').value.includes(activityId);
   }
 
   ngOnDestroy() {

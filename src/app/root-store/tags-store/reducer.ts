@@ -79,7 +79,7 @@ const tagsReducer = createReducer(
   on(getOffersTagsSuccessAction, (state, { payload }) => ({
     ...state,
     isLoading: false,
-    teams: payload
+    offers: payload
   })),
 );
 

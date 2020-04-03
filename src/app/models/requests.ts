@@ -17,7 +17,7 @@ export interface IRequest {
   status: string;
   secret: string;
   availability_volunteer: number;
-  nearby_volunteer: string;
+  volunteer: string;
 }
 
 export interface IRequestDetails extends IRequest {

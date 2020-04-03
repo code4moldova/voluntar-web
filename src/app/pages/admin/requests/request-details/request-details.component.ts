@@ -13,7 +13,7 @@ import {
   finalize,
   exhaustMap
 } from 'rxjs/operators';
-import { Subject, of, EMPTY, concat, Observable, combineLatest } from 'rxjs';
+import { Subject, of, EMPTY, concat, Observable } from 'rxjs';
 import { IRequestDetails } from '@models/requests';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { TagsFacadeService } from '@services/tags/tags-facade.service';
@@ -68,7 +68,7 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
     questions: [null, Validators.required],
     status: [{ value: 'new', disabled: true }, Validators.required],
     secret: [null, Validators.required],
-    nearby_volunteer: [null],
+    volunteer: [null],
     availability_volunteer: [
       null,
       [Validators.required, Validators.min(0), Validators.max(23)]
@@ -145,12 +145,12 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
     if (checked) {
       this.form
         .get('activity_types')
-        .setValue([...activityTypesValue, source.value]);
+        .patchValue([...activityTypesValue, source.value]);
     } else {
       const filteredActivities = activityTypesValue.filter(
         (id: string) => id !== source.value
       );
-      this.form.get('activity_types').setValue(filteredActivities);
+      this.form.get('activity_types').patchValue(filteredActivities);
     }
   }
 
