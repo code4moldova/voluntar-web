@@ -20,8 +20,6 @@ import { TagsFacadeService } from '@services/tags/tags-facade.service';
 import { GeolocationService } from '@services/geolocation/geolocation.service';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { ISectorTag } from '@models/tags';
-import { RequestsService } from '@services/requests/requests.service';
-import { VolunteersFacadeService } from '@services/volunteers/volunteers-facade.service';
 import { VolunteersService } from '@services/volunteers/volunteers.service';
 
 @Component({
@@ -70,6 +68,7 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
     questions: [null, Validators.required],
     status: [{ value: 'new', disabled: true }, Validators.required],
     secret: [null, Validators.required],
+    nearby_volunteer: [null],
     availability_volunteer: [
       null,
       [Validators.required, Validators.min(0), Validators.max(23)]

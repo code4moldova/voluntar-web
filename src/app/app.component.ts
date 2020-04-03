@@ -1,7 +1,13 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { getZonesAction } from '@store/requests-store/actions';
-import { getActivityTypesTagsAction } from '@store/tags-store/actions';
+import {
+  getActivityTypesTagsAction,
+  getAgesTagsAction,
+  getAvailabilitiesTagsAction,
+  getTeamsTagsAction,
+  getOffersTagsAction
+} from '@store/tags-store/actions';
 
 @Component({
   selector: 'app-root',
@@ -13,5 +19,9 @@ export class AppComponent {
   constructor(private store: Store<any>) {
     this.store.dispatch(getZonesAction());
     this.store.dispatch(getActivityTypesTagsAction());
+    this.store.dispatch(getAgesTagsAction());
+    this.store.dispatch(getAvailabilitiesTagsAction());
+    this.store.dispatch(getTeamsTagsAction());
+    this.store.dispatch(getOffersTagsAction());
   }
 }

@@ -2,14 +2,27 @@ import { createReducer, on, Action } from '@ngrx/store';
 import { initialState, TagsState } from './state';
 import {
   getActivityTypesTagsAction,
-  getActivityTypesTagsFailureAction,
+  getTagsFailureAction,
   getActivityTypesTagsSuccessAction,
+  getAgesTagsSuccessAction,
+  getAvailabilitiesTagsSuccessAction,
+  getTeamsTagsSuccessAction,
+  getOffersTagsSuccessAction,
+  getAgesTagsAction,
+  getAvailabilitiesTagsAction,
+  getTeamsTagsAction,
+  getOffersTagsAction,
 } from './actions';
 
 const tagsReducer = createReducer(
   initialState,
+  on(getTagsFailureAction, (state, { error }) => ({
+    ...state,
+    isLoading: false,
+    error
+  })),
 
-  // Activity types
+  // Activity Types
   on(getActivityTypesTagsAction, state => ({
     ...state,
     error: null,
@@ -20,10 +33,53 @@ const tagsReducer = createReducer(
     isLoading: false,
     activityTypes: payload
   })),
-  on(getActivityTypesTagsFailureAction, (state, { error }) => ({
+
+  // Ages
+  on(getAgesTagsAction, state => ({
+    ...state,
+    error: null,
+    isLoading: true
+  })),
+  on(getAgesTagsSuccessAction, (state, { payload }) => ({
     ...state,
     isLoading: false,
-    error
+    ages: payload
+  })),
+
+  // Availabilities
+  on(getAvailabilitiesTagsAction, state => ({
+    ...state,
+    error: null,
+    isLoading: true
+  })),
+  on(getAvailabilitiesTagsSuccessAction, (state, { payload }) => ({
+    ...state,
+    isLoading: false,
+    availabilities: payload
+  })),
+
+  // Teams
+  on(getTeamsTagsAction, state => ({
+    ...state,
+    error: null,
+    isLoading: true
+  })),
+  on(getTeamsTagsSuccessAction, (state, { payload }) => ({
+    ...state,
+    isLoading: false,
+    teams: payload
+  })),
+
+  // Tags
+  on(getOffersTagsAction, state => ({
+    ...state,
+    error: null,
+    isLoading: true
+  })),
+  on(getOffersTagsSuccessAction, (state, { payload }) => ({
+    ...state,
+    isLoading: false,
+    teams: payload
   })),
 );
 

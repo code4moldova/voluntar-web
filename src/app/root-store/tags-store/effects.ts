@@ -11,7 +11,15 @@ import { TagsService } from '@services/tags/tags.service';
 import {
   getActivityTypesTagsAction,
   getActivityTypesTagsSuccessAction,
-  getActivityTypesTagsFailureAction,
+  getTagsFailureAction,
+  getAgesTagsAction,
+  getAgesTagsSuccessAction,
+  getAvailabilitiesTagsAction,
+  getAvailabilitiesTagsSuccessAction,
+  getTeamsTagsAction,
+  getTeamsTagsSuccessAction,
+  getOffersTagsAction,
+  getOffersTagsSuccessAction,
 } from './actions';
 
 @Injectable()
@@ -27,7 +35,55 @@ export class TagsEffects {
       switchMap(() =>
         this.tagsService.getActivityTypes().pipe(
           map(res => getActivityTypesTagsSuccessAction({ payload: res.list })),
-          catchError(error => of(getActivityTypesTagsFailureAction({ error })))
+          catchError(error => of(getTagsFailureAction({ error })))
+        )
+      )
+    );
+  });
+
+  getAgesEffect$: Observable<Action> = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(getAgesTagsAction),
+      switchMap(() =>
+        this.tagsService.getAges().pipe(
+          map(res => getAgesTagsSuccessAction({ payload: res.list })),
+          catchError(error => of(getTagsFailureAction({ error })))
+        )
+      )
+    );
+  });
+
+  getAvailabilitiesEffect$: Observable<Action> = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(getAvailabilitiesTagsAction),
+      switchMap(() =>
+        this.tagsService.getAvailabilities().pipe(
+          map(res => getAvailabilitiesTagsSuccessAction({ payload: res.list })),
+          catchError(error => of(getTagsFailureAction({ error })))
+        )
+      )
+    );
+  });
+
+  getTeamsEffect$: Observable<Action> = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(getTeamsTagsAction),
+      switchMap(() =>
+        this.tagsService.getTeams().pipe(
+          map(res => getTeamsTagsSuccessAction({ payload: res.list })),
+          catchError(error => of(getTagsFailureAction({ error })))
+        )
+      )
+    );
+  });
+
+  getOffersEffect$: Observable<Action> = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(getOffersTagsAction),
+      switchMap(() =>
+        this.tagsService.getOffers().pipe(
+          map(res => getOffersTagsSuccessAction({ payload: res.list })),
+          catchError(error => of(getTagsFailureAction({ error })))
         )
       )
     );
