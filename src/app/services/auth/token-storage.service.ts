@@ -3,7 +3,7 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TokenStorage {
   private token$: BehaviorSubject<any> = new BehaviorSubject(null);
@@ -16,8 +16,7 @@ export class TokenStorage {
   }
 
   public getAccessToken(): Observable<string> {
-    const token: string = localStorage.getItem('accessToken');
-    return of(token);
+    return this.token$.asObservable();
   }
   public getParsedToken(): Observable<any> {
     return this.parsedToken$.asObservable();
