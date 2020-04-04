@@ -60,6 +60,7 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
     password: [{ value: 'random', disabled: true }, Validators.required],
     phone: [null, Validators.required],
     is_active: [false, Validators.required],
+    offer: [null, Validators.required],
     address: [null, Validators.required],
     latitude: [null, Validators.required],
     longitude: [null, Validators.required],
@@ -80,6 +81,7 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
   currentRequestId: string;
 
   activityTypes$ = this.tagsFacade.activityTypesTags$;
+  offers$ = this.tagsFacade.offersTags$;
   isLoading$ = concat(this.requestsFacade.isLoading$, this.tagsFacade.isLoading$);
   error$ = concat(this.requestsFacade.error$, this.tagsFacade.error$);
 

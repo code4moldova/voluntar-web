@@ -63,6 +63,14 @@
               Please provide a value between 0 and 23
             </mat-error>
           </mat-form-field>
+          <mat-form-field fxFlex class="full-width-input">
+            <mat-select placeholder="Offer" required formControlName="offer">
+              <mat-option *ngFor="let offer of offers$ | async" [value]="offer._id">{{offer.ro}}</mat-option>
+            </mat-select>
+            <mat-error>
+              Please provide an offer
+            </mat-error>
+          </mat-form-field>
         </div>
 
         <div>
