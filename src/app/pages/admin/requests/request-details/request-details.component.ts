@@ -21,6 +21,9 @@ import { GeolocationService } from '@services/geolocation/geolocation.service';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { ISectorTag } from '@models/tags';
 import { VolunteersService } from '@services/volunteers/volunteers.service';
+import { IVolunteer } from '@models/volunteers';
+import { MatDialog } from '@angular/material/dialog';
+import { VolunteerModalInfoComponent } from '../../volunteers/volunteer-modal-info/volunteer-modal-info.component';
 
 @Component({
   selector: 'app-request-details',
@@ -106,7 +109,8 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
     private requestsFacade: RequestsFacadeService,
     private tagsFacade: TagsFacadeService,
     private volunteersService: VolunteersService,
-    private geolocationService: GeolocationService
+    private geolocationService: GeolocationService,
+    private matDialog: MatDialog
   ) {
     this.route.paramMap
       .pipe(
@@ -156,6 +160,14 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
 
   isActivitySelected(activityId: string) {
     return this.form.get('activity_types').value.includes(activityId);
+  }
+
+  showVolunteerInfoModal(volunteer: IVolunteer) {
+    this.matDialog.open(VolunteerModalInfoComponent, {
+      data: volunteer,
+      width: '450px',
+      maxWidth: '100%'
+    });
   }
 
   ngOnInit() {

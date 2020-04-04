@@ -167,10 +167,10 @@
           <mat-radio-group formControlName="volunteer"
             *ngIf="volunteersNearby$ | async as volunteersNearby; else noVolunteersNearby">
             <div fxLayoutGap="1em" fxLayoutAlign="center" *ngFor="let volunteer of volunteersNearby">
-              <mat-radio-button fxLayoutAlign="center" class="example-radio-button" fxFlex [value]="volunteer._id">
+              <mat-radio-button fxLayoutAlign="center" fxFlex [value]="volunteer._id">
                 {{volunteer.first_name}} {{volunteer.last_name}} / {{volunteer.phone}}
               </mat-radio-button>
-              <button mat-icon-button type="button" color="primary">
+              <button mat-icon-button type="button" color="primary" (click)="showVolunteerInfoModal(volunteer)">
                 <mat-icon>info</mat-icon>
               </button>
             </div>

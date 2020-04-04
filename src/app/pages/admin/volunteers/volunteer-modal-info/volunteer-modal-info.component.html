@@ -1,0 +1,18 @@
+<mat-card-title>{{ volunteer.first_name }} {{volunteer.last_name}}</mat-card-title>
+<!-- <mat-card-subtitle>{{volunteer.email}}</mat-card-subtitle> -->
+<mat-card-content>
+  <mat-divider></mat-divider>
+  <p><strong>First Name</strong>: {{volunteer.first_name}}</p>
+  <p><strong>Last Name</strong>: {{volunteer.last_name}}</p>
+  <p><strong>Email</strong>: {{volunteer.email}}</p>
+  <p><strong>Phone</strong>: {{volunteer.phone}}</p>
+  <!-- <p><strong>Distance</strong>: {{volunteer.distance}}</p> -->
+  <mat-divider></mat-divider>
+  <h3>Activity Types</h3>
+  <p *ngFor="let activity of activityTypes$ | async">{{activity.ro}}</p>
+</mat-card-content>
+<!-- <mat-card-actions>
+  <button mat-button color="primary">Button</button>
+  <button mat-button color="primary">Button</button>
+  <button mat-button color="primary">Button</button>
+</mat-card-actions> -->
