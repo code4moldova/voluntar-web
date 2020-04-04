@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, OnDestroy, Inject, Renderer2, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnDestroy, Inject, AfterViewInit } from '@angular/core';
 import { loadModules } from 'esri-loader';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
@@ -14,12 +14,8 @@ export class EsriMapComponent implements OnDestroy, AfterViewInit {
   private search: any;
 
   constructor(
-    // private renderer2: Renderer2,
     private dialogRef: MatDialogRef<EsriMapComponent>,
-    @Inject(MAT_DIALOG_DATA) private data: { coors: number[], address: string } = {
-      coors: [28.825140232956283, 47.01266177894471], // - Chisinau Longitude and Latitide
-      address: ''
-    }
+    @Inject(MAT_DIALOG_DATA) private data: { coors: number[], address: string }
   ) { }
 
   ngAfterViewInit() {
@@ -31,28 +27,22 @@ export class EsriMapComponent implements OnDestroy, AfterViewInit {
       const [
         Map, MapView, Search, BasemapToggle
       ] = await loadModules([
-        'esri/Map',
-        'esri/views/MapView',
-        'esri/widgets/Search',
-        'esri/widgets/BasemapToggle',
+        'esri/Map', 'esri/views/MapView', 'esri/widgets/Search', 'esri/widgets/BasemapToggle',
       ]);
+      const [latitude, longitude] = this.data.coors;
       const map = new Map({ basemap: 'streets' });
+
       this.view = new MapView({
         container: this.mapViewEl.nativeElement,
-        center: this.data.coors.reverse(), // I don't know why, but it works only if array is reversed
+        center: [latitude || 28.825140232956283, longitude || 47.01266177894471],
         zoom: 8,
         map,
       });
-      this.search = new Search({ view: this.view });
-      const basemapToggle = new BasemapToggle({ view: this.view, nextBasemap: 'satellite' });
 
-      // const submitCoorsButton = this.renderer2.createElement('button');
-      // submitCoorsButton.type = 'button';
-      // submitCoorsButton.innerText = 'Submit Coors';
-      // submitCoorsButton.onClick = this.submitCoors.bind(this);
+      this.search = new Search({ view: this.view });
 
       this.view.ui.add(this.search, 'top-right');
-      this.view.ui.add(basemapToggle, 'bottom-left');
+      this.view.ui.add(new BasemapToggle({ view: this.view, nextBasemap: 'satellite' }), 'bottom-left');
       this.view.ui.add(this.submitButton.nativeElement, 'bottom-right');
 
       if (this.data.address) {
