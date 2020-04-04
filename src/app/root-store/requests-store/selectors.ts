@@ -19,6 +19,12 @@ export const selectRequestsData = createSelector(
     return state.data;
   }
 );
+export const selectRequestsCount = createSelector(
+  selectRequests,
+  (state: RequestsState): number => {
+    return state.count;
+  }
+);
 
 export const selectRequestsError = createSelector(
   selectRequests,

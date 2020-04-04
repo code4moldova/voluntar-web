@@ -7,7 +7,7 @@ import {
   tap,
   flatMap,
   map,
-  exhaustMap
+  exhaustMap,
 } from 'rxjs/operators';
 import { Action } from '@ngrx/store';
 import { Router } from '@angular/router';
@@ -27,7 +27,7 @@ import {
   updateRequestFailureAction,
   getZonesAction,
   getZonesSuccessAction,
-  getZonesFailureAction
+  getZonesFailureAction,
 } from './actions';
 import { GeolocationService } from '@services/geolocation/geolocation.service';
 
@@ -45,9 +45,11 @@ export class RequestsEffects {
       ofType(getRequestsAction),
       switchMap(() =>
         this.requestService.getRequests().pipe(
-          tap(res => console.log(res)),
-          map(res => getRequestsSuccessAction({ payload: res.list })),
-          catchError(error => of(getRequestsFailureAction({ error })))
+          tap((res) => console.log(res)),
+          map((res) =>
+            getRequestsSuccessAction({ payload: res.list, count: res.count })
+          ),
+          catchError((error) => of(getRequestsFailureAction({ error })))
         )
       )
     );
@@ -58,8 +60,8 @@ export class RequestsEffects {
       ofType(getRequestAction),
       switchMap(({ id }) =>
         this.requestService.getRequstById(id).pipe(
-          map(res => getRequestSuccessAction({ payload: res })),
-          catchError(error => of(getRequestFailureAction({ error })))
+          map((res) => getRequestSuccessAction({ payload: res })),
+          catchError((error) => of(getRequestFailureAction({ error })))
         )
       )
     );
@@ -71,11 +73,11 @@ export class RequestsEffects {
       exhaustMap(({ payload }) => {
         const { _id, ...withoutId } = payload;
         return this.requestService.saveRequest(withoutId).pipe(
-          map(res => {
-            this.router.navigate(['/requests/list']);
+          map((res) => {
+            this.router.navigate(['/requests/details', res._id]);
             return saveRequestSuccessAction({ payload: res });
           }),
-          catchError(error => of(saveRequestFailureAction({ error })))
+          catchError((error) => of(saveRequestFailureAction({ error })))
         );
       })
     );
@@ -86,11 +88,11 @@ export class RequestsEffects {
       ofType(updateRequestAction),
       exhaustMap(({ payload }) => {
         return this.requestService.updateRequest(payload).pipe(
-          map(res => {
+          map((res) => {
             // this.router.navigate(['/requests/list']);
             return updateRequestSuccessAction({ payload: res });
           }),
-          catchError(error => of(updateRequestFailureAction({ error })))
+          catchError((error) => of(updateRequestFailureAction({ error })))
         );
       })
     );
@@ -101,8 +103,8 @@ export class RequestsEffects {
       ofType(getZonesAction),
       switchMap(() =>
         this.geoService.getZones().pipe(
-          map(res => getZonesSuccessAction({ zones: res.list })),
-          catchError(error => of(getZonesFailureAction({ error })))
+          map((res) => getZonesSuccessAction({ zones: res.list })),
+          catchError((error) => of(getZonesFailureAction({ error })))
         )
       )
     );

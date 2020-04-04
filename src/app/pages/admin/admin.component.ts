@@ -6,12 +6,13 @@ import {
   state,
   style,
   transition,
-  animate
+  animate,
 } from '@angular/animations';
 import { Observable, Subject } from 'rxjs';
 import { map, filter, takeUntil } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { Router, NavigationEnd } from '@angular/router';
+import { RequestsFacadeService } from '@services/requests/requests-facade.service';
 
 @Component({
   selector: 'app-admin',
@@ -30,9 +31,9 @@ import { Router, NavigationEnd } from '@angular/router';
       transition(
         'expanded <=> collapsed',
         animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')
-      )
-    ])
-  ]
+      ),
+    ]),
+  ],
 })
 export class AdminComponent implements OnInit, OnDestroy {
   @ViewChild(MatSidenav) drawer: MatSidenav;
@@ -40,25 +41,28 @@ export class AdminComponent implements OnInit, OnDestroy {
   destroyComponent$ = new Subject<any>();
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe('(max-width: 1200px)')
-    .pipe(map(result => result.matches));
+    .pipe(map((result) => result.matches));
 
   constructor(
     private breakpointObserver: BreakpointObserver,
     private store: Store<any>,
-    private router: Router
+    private router: Router,
+    private requestsFacade: RequestsFacadeService
   ) {
     this.router.events
       .pipe(
-        filter(event => event instanceof NavigationEnd),
+        filter((event) => event instanceof NavigationEnd),
         filter((e: NavigationEnd) => e.urlAfterRedirects !== '/login'),
         takeUntil(this.destroyComponent$)
       )
-      .subscribe(event => {
+      .subscribe((event) => {
         console.log(event);
       });
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.requestsFacade.toggleNewRequestsPolling(true);
+  }
 
   ngOnDestroy() {
     this.destroyComponent$.next();

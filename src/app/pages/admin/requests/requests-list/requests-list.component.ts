@@ -32,5 +32,6 @@ export class RequestsListComponent implements OnInit {
 
   fetchRequests() {
     this.requestsFacade.getRequests();
+    this.requestsFacade.resetNewRequests();
   }
 }

@@ -3,6 +3,7 @@ import { ISectorTag } from '@models/tags';
 
 export interface RequestsState {
   data: IRequestDetails[];
+  count: number;
   details: IRequestDetails;
   isLoading: boolean;
   error: string;
@@ -11,8 +12,9 @@ export interface RequestsState {
 
 export const initialState: RequestsState = {
   data: [],
+  count: null,
   details: null,
   isLoading: false,
   error: null,
-  zones: []
+  zones: [],
 };

@@ -13,6 +13,7 @@ import {
   selectRequestsError,
   selectRequestsDetails,
   selectZones,
+  selectRequestsCount,
 } from '@store/requests-store/selectors';
 import { IRequest, IRequestDetails } from '@models/requests';
 import { RequestsService } from './requests.service';
@@ -23,8 +24,9 @@ import {
   pairwise,
   filter,
   tap,
+  withLatestFrom,
 } from 'rxjs/operators';
-import { BehaviorSubject, interval, Subject } from 'rxjs';
+import { BehaviorSubject, interval, Subject, combineLatest } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -35,10 +37,11 @@ export class RequestsFacadeService {
   error$ = this.store.pipe(select(selectRequestsError));
   requestDetails$ = this.store.pipe(select(selectRequestsDetails));
   zones$ = this.store.pipe(select(selectZones));
+  requestsCount$ = this.store.pipe(select(selectRequestsCount));
 
   private hasNewRequests$ = new BehaviorSubject(false);
-  private newRequests$ = new BehaviorSubject(true);
-  private DELAY_TIME = 5 * 1000 * 1;
+  private newRequests$ = new BehaviorSubject(false);
+  private DELAY_TIME = 1000 * 60 * 1; // milliseconds * seconds * minutes
   private audio = new Audio('/assets/Glass.wav');
 
   constructor(
@@ -46,37 +49,44 @@ export class RequestsFacadeService {
     private requestService: RequestsService
   ) {
     const stopPolling$ = new Subject();
-    this.newRequests$
+    combineLatest([this.newRequests$, this.requestsCount$])
       .pipe(
-        tap((value) => {
+        tap(([value, countFromState]) => {
           if (!value) {
             console.log('stop polling');
             stopPolling$.next(true);
           }
         }),
-        filter((value) => value)
-      )
-      .subscribe((value) => {
-        console.log('start polling');
-        interval(this.DELAY_TIME)
-          .pipe(
+        filter(([value, countFromState]) => value),
+        switchMap(([value, countFromState]) => {
+          let i = 0;
+          return interval(this.DELAY_TIME).pipe(
             takeUntil(stopPolling$),
             switchMap(() =>
               this.requestService.getRequests().pipe(map(({ count }) => count))
             ),
-            pairwise()
-          )
-          .subscribe(([before, after]) => {
-            if (before !== after) {
-              this.audio.play();
-            }
-            this.hasNewRequests$.next(before !== after);
-          });
+            map((count) => [count, countFromState])
+          );
+        })
+      )
+      .subscribe(([count, countFromState]) => {
+        console.log('start polling');
+        if (countFromState === null) {
+          return;
+        }
+        if (countFromState < count) {
+          this.audio.play();
+        }
+        this.hasNewRequests$.next(countFromState < count);
       });
   }
 
   get newRequests() {
     return this.hasNewRequests$.asObservable();
+  }
+
+  resetNewRequests() {
+    this.hasNewRequests$.next(false);
   }
 
   getRequests() {
