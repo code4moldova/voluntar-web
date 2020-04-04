@@ -9,36 +9,37 @@ const routes: Routes = [
   {
     path: '',
     component: RequestsComponent,
-    canActivateChild: [DelayGuard],
     children: [
       {
         path: '',
         redirectTo: 'list',
-        pathMatch: 'full'
+        pathMatch: 'full',
       },
       {
         path: 'details/:id',
-        component: RequestDetailsComponent
+        canActivateChild: [DelayGuard],
+        component: RequestDetailsComponent,
       },
       {
         path: 'new',
-        component: RequestDetailsComponent
+        canActivateChild: [DelayGuard],
+        component: RequestDetailsComponent,
       },
       {
         path: 'list',
-        component: RequestsListComponent
+        component: RequestsListComponent,
       },
       {
         path: '**',
         redirectTo: 'list',
-        pathMatch: 'full'
-      }
-    ]
-  }
+        pathMatch: 'full',
+      },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class RequestsRoutingModule {}
