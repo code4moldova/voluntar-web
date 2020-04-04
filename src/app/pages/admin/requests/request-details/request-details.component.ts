@@ -175,19 +175,29 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
   }
 
   showMapDialog() {
-    this.matDialog.open<EsriMapComponent, any[], { latitude: number, longitude: number }>(EsriMapComponent, {
-      data: [
-        this.form.get('latitude').value,
-        this.form.get('longitude').value
-      ],
+    this.matDialog.open<
+      EsriMapComponent,
+      { coors: number[], address: string },
+      { latitude: number, longitude: number, address: string }
+    >(EsriMapComponent, {
+      data: {
+        coors: [
+          this.form.get('latitude').value,
+          this.form.get('longitude').value,
+        ],
+        address: this.fakeAddressControl.value?.address || this.form.get('address').value
+      },
       panelClass: 'esri-map',
       width: '80%',
       height: '80%',
       maxWidth: '100%',
       maxHeight: '100%'
     }).afterClosed().pipe(first()).subscribe(coors => {
-      this.form.get('latitude').patchValue(coors.latitude);
-      this.form.get('longitude').patchValue(coors.longitude);
+      if (coors) {
+        this.form.get('latitude').patchValue(coors.latitude);
+        this.form.get('longitude').patchValue(coors.longitude);
+        this.form.get('address').patchValue(coors.address);
+      }
     });
   }
 
