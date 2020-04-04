@@ -76,7 +76,7 @@
         <div>
           <h3>Address</h3>
           <mat-divider></mat-divider>
-          <div class="pad-t-10">
+          <div class="pad-t-10" fxLayoutGap="15px">
             <mat-form-field fxFlex class="full-width-input">
               <input matInput placeholder="Address autocomplete" aria-label="Address autocomplete"
                 [matAutocomplete]="auto" [formControl]="fakeAddressControl" />
@@ -90,6 +90,11 @@
                 </mat-option>
               </mat-autocomplete>
             </mat-form-field>
+            <div>
+              <button mat-icon-button type="button" (click)="showMapDialog()">
+                <mat-icon>map</mat-icon>
+              </button>
+            </div>
           </div>
           <div fxLayoutGap="15px" class="pad-t-10">
             <mat-form-field fxFlex class="full-width-input">

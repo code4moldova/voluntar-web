@@ -11,7 +11,8 @@ import {
   debounceTime,
   distinctUntilChanged,
   finalize,
-  exhaustMap
+  exhaustMap,
+  first
 } from 'rxjs/operators';
 import { Subject, of, EMPTY, concat, Observable } from 'rxjs';
 import { IRequestDetails } from '@models/requests';
@@ -24,6 +25,7 @@ import { VolunteersService } from '@services/volunteers/volunteers.service';
 import { IVolunteer } from '@models/volunteers';
 import { MatDialog } from '@angular/material/dialog';
 import { VolunteerModalInfoComponent } from '../../volunteers/volunteer-modal-info/volunteer-modal-info.component';
+import { EsriMapComponent } from '@shared/esri-map/esri-map.component';
 
 @Component({
   selector: 'app-request-details',
@@ -161,7 +163,7 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
   }
 
   isActivitySelected(activityId: string) {
-    return this.form.get('activity_types').value.includes(activityId);
+    return this.form.get('activity_types').value?.includes(activityId);
   }
 
   showVolunteerInfoModal(volunteer: IVolunteer) {
@@ -169,6 +171,23 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
       data: volunteer,
       width: '450px',
       maxWidth: '100%'
+    });
+  }
+
+  showMapDialog() {
+    this.matDialog.open<EsriMapComponent, any[], { latitude: number, longitude: number }>(EsriMapComponent, {
+      data: [
+        this.form.get('latitude').value,
+        this.form.get('longitude').value
+      ],
+      panelClass: 'esri-map',
+      width: '80%',
+      height: '80%',
+      maxWidth: '100%',
+      maxHeight: '100%'
+    }).afterClosed().pipe(first()).subscribe(coors => {
+      this.form.get('latitude').patchValue(coors.latitude);
+      this.form.get('longitude').patchValue(coors.longitude);
     });
   }
 

@@ -1,0 +1,11 @@
+@import "https://js.arcgis.com/4.14/esri/themes/light/main.css";
+
+:host {
+  display: block;
+}
+
+:host,
+map {
+  height: 100%;
+  width: 100%;
+}
