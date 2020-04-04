@@ -31,4 +31,9 @@ export class HeaderComponent implements OnInit {
     console.log('logout');
     this.userFacade.logout();
   }
+
+  fetchRequests() {
+    this.requestsFacade.getRequests();
+    this.requestsFacade.resetNewRequests();
+  }
 }

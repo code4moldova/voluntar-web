@@ -16,6 +16,7 @@
     <button
       mat-icon-button
       [disabled]="!(newRequest$ | async)"
+      (click)="fetchRequests()"
       [matTooltip]="(newRequest$ | async) ? 'New Request' : null"
       aria-label="Notifications">
       <mat-icon [matBadge]="(newRequest$ | async) ? '!' : null" matBadgeColor="primary">notification_important</mat-icon>

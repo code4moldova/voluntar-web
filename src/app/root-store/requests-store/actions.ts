@@ -20,7 +20,7 @@ export enum ActionTypes {
 
   GET_ZONES = '[Request] Get Zones',
   GET_ZONES_SUCCESS = '[Request] Get Zones Success',
-  GET_ZONES_FAILURE = '[Request] Get Zones Failure'
+  GET_ZONES_FAILURE = '[Request] Get Zones Failure',
 }
 
 export const getRequestsAction = createAction(ActionTypes.GET_REQUESTS);
@@ -30,7 +30,7 @@ export const getRequestsFailureAction = createAction(
 );
 export const getRequestsSuccessAction = createAction(
   ActionTypes.GET_REQUESTS_SUCCESS,
-  props<{ payload: IRequestDetails[] }>()
+  props<{ payload: IRequestDetails[]; count: number }>()
 );
 
 export const getRequestAction = createAction(
