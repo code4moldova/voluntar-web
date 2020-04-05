@@ -2,7 +2,9 @@
   <div fxLayout="row" fxLayoutAlign="space-between center">
     <div fxFlex fxLayout="row">
       <h1 class="mb-0 mt-0 mr-10">Beneficiars</h1>
-      <button mat-icon-button (click)="fetchRequests()"><mat-icon>autorenew</mat-icon></button>
+      <button mat-icon-button (click)="fetchRequests()">
+        <mat-icon>autorenew</mat-icon>
+      </button>
     </div>
     <div fxFlex fxLayoutAlign="end">
       <a routerLink="/requests/new" mat-raised-button color="primary">
@@ -11,42 +13,100 @@
     </div>
   </div>
 
+</div>
+
+
+<form novalidate [formGroup]="form">
   <div fxLayout="row" fxLayoutAlign="space-between center">
-    <div fxFlex fxFlex="50%" [hidden]="selectedArray">
-      <mat-form-field class="full-width-input">
-        <input matInput
-         maxlength="110"
-         placeholder="Insert value to filter" [type]="criteriaField === 'phone' ? 'number':'text'" name="search" #search
-          [disabled]="!criteriaField">
+
+    <div fxLayout="column" fxLayoutAlign="space-evenly stretch">
+      <mat-form-field fxFlex class="full-width-input" appearance="fill">
+        <mat-label>First Name</mat-label>
+        <input matInput placeholder="Name" formControlName="first_name" type="text" />
+        <mat-error>
+          Please provide a valid name
+        </mat-error>
       </mat-form-field>
     </div>
 
-    <div fxFlex fxFlex="50%" *ngIf="selectedArray">
-      <mat-form-field class="full-width-input">
-        <mat-label>Select</mat-label>
-        <mat-select [(ngModel)]="selectedId" (openedChange)="openedChangeSelected($event)">
-          <mat-option *ngFor="let item of (selectedArray|async)?.list ||(selectedArray|async)" [value]="item._id">
+    <div fxLayout="column" fxLayoutAlign="space-evenly stretch">
+      <mat-form-field fxFlex class="full-width-input" appearance="fill">
+        <mat-label>Last Name</mat-label>
+        <input matInput placeholder="Name" formControlName="last_name" type="text" />
+        <mat-error>
+          Please provide a valid name
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="column" fxLayoutAlign="space-evenly stretch">
+      <mat-form-field fxFlex class="full-width-input" appearance="fill">
+        <mat-label>Phone number</mat-label>
+        <input matInput placeholder="Phone" formControlName="phone" type="number" />
+        <mat-icon matSuffix>phone</mat-icon>
+        <mat-error>
+          Please provide a valid phone number
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="column" fxLayoutAlign="space-evenly stretch">
+      <mat-form-field fxFlex class="full-width-input" appearance="fill">
+        <mat-label>Status</mat-label>
+        <input matInput placeholder="Status" formControlName="status" type="text" />
+        <mat-error>
+          Please provide a valid status
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="column" fxLayoutAlign="space-evenly stretch">
+      <mat-form-field class="full-width-input" appearance="fill">
+        <mat-label>Select Fixer</mat-label>
+        <mat-select formControlName="fixer">
+          <mat-option *ngFor="let item of (users|async)" [value]="item._id">
             {{ item.first_name|| item.ro}}
           </mat-option>
+          <mat-option [value]="''">
+            {{ 'All'}}
+          </mat-option>
         </mat-select>
       </mat-form-field>
     </div>
 
-
-    <div fxFlex fxFlex="30%" fxLayoutAlign="end">
-      <mat-form-field class="full-width-input">
-        <mat-label>Criteria</mat-label>
-        <mat-select [(ngModel)]="criteriaField" (openedChange)="openedChange($event)">
-          <mat-option *ngFor="let enum of criteriaFields | keyvalue" [value]="enum.value">
-            <span>  {{ enum.key }} </span>
+    <div fxLayout="column" fxLayoutAlign="space-evenly stretch">
+      <mat-form-field class="full-width-input" appearance="fill">
+        <mat-label>Select Zones</mat-label>
+        <mat-select formControlName="zone_address">
+          <mat-option *ngFor="let item of (zones|async)?.list" [value]="item._id">
+            {{ item.first_name|| item.ro}}
+          </mat-option>
+          <mat-option [value]="''">
+            {{ 'All'}}
           </mat-option>
         </mat-select>
       </mat-form-field>
-
     </div>
   </div>
 
-</div>
+  <div fxLayout="row" fxLayoutAlign="space-around stretch">
+    <div fxLayout="column" class="mb-25">
+      <button mat-flat-button color="primary" (click)="search(form.value)">
+        Search
+      </button>
+
+    </div>
+    <div fxLayout="column">
+      <button mat-flat-button color="primary" (click)="reset()">
+        Reset
+      </button>
+    </div>
+  </div>
+
+</form>
+
+
+
 
 <mat-card>
   <table mat-table [dataSource]="dataSource$ | async">

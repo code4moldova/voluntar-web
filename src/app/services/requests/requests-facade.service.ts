@@ -16,7 +16,7 @@ import {
   selectZones,
   selectRequestsCount,
 } from '@store/requests-store/selectors';
-import { IRequest, IRequestDetails, BeneficiaryCriteriaFilter } from '@models/requests';
+import { IRequest, IRequestDetails } from '@models/requests';
 import { RequestsService } from './requests.service';
 import {
   map,
@@ -107,7 +107,7 @@ export class RequestsFacadeService {
     }
   }
 
-  getBeneficiaresByFilter(criteria: BeneficiaryCriteriaFilter): void {
+  getBeneficiaresByFilter(criteria: string): void {
     this.store.dispatch(getBeneficiariesByFilterAction({ payload: criteria }));
   }
 

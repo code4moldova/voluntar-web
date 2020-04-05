@@ -1,5 +1,5 @@
 import { Action, createAction, props } from '@ngrx/store';
-import { IRequest, IRequestDetails, BeneficiaryCriteriaFilter } from '@models/requests';
+import { IRequest, IRequestDetails } from '@models/requests';
 
 export enum ActionTypes {
   GET_REQUESTS = '[Requests] Get Requests',
@@ -89,7 +89,7 @@ export const getZonesFailureAction = createAction(
 
 export const getBeneficiariesByFilterAction = createAction(
   ActionTypes.GET_Beneficiares_BY_FILTER,
-  props<{ payload: BeneficiaryCriteriaFilter }>()
+  props<{ payload: string }>()
 );
 
 export const getBeneficiariesByFilterSuccesAction = createAction(

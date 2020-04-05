@@ -24,19 +24,4 @@ export interface IRequestDetails extends IRequest {
   created_at: string;
 }
 
-export enum BeneficiaryField {
-  None = '',
-  Status = 'status',
-  Phone = 'phone',
-  Name = 'first_name',
-  Fixer = 'fixer',
-  'Zone Address' = 'zone_address',
-}
-
-export interface BeneficiaryCriteriaFilter {
-  field: BeneficiaryField;
-  value: string;
-}
-
-
 // export interface IComment { }

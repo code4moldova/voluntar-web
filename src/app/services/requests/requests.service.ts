@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { IRequest, IRequestDetails, BeneficiaryCriteriaFilter } from '@models/requests';
+import { IRequest, IRequestDetails } from '@models/requests';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RequestsService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getRequests() {
     return this.http.get<{ count: number; list: IRequestDetails[] }>(
@@ -33,8 +33,8 @@ export class RequestsService {
     );
   }
 
-  getBeneficiariesByFilter(criteria: BeneficiaryCriteriaFilter): Observable<{ count: number, list: IRequestDetails[] }> {
-    return this.http.get<{ count: number, list: IRequestDetails[] }>(`${environment.url}/api/beneficiary/filters/1/1000?${criteria.field}=${criteria.value}&volunteer__ne=''`);
+  getBeneficiariesByFilter(criteria: string): Observable<{ count: number, list: IRequestDetails[] }> {
+    return this.http.get<{ count: number, list: IRequestDetails[] }>(`${environment.url}/api/beneficiary/filters/1/1000?${criteria}&volunteer__ne=''`);
   }
 
 }

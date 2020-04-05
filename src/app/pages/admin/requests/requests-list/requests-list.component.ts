@@ -2,41 +2,55 @@ import { Component, OnInit, ViewChild, AfterViewInit, ElementRef, OnDestroy } fr
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 
-import { Observable, fromEvent, Subscription } from 'rxjs';
-import { map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
-import { IRequest, BeneficiaryField } from '@models/requests';
+import { IRequest } from '@models/requests';
 import { IUser } from '@models/user';
 import { RequestsFacadeService } from '@services/requests/requests-facade.service';
 import { UsersFacadeService } from '@services/users/users-facade.service';
 import { GeolocationService } from '@services/geolocation/geolocation.service';
 import { ZoneI } from '@models/geolocation';
+import { FormBuilder, FormControl } from '@angular/forms';
+
+interface FilterAttributes {
+  first_name: string;
+  last_name: string;
+  phone: number;
+  status: string;
+  userId: string;
+  zoneId: string;
+}
 
 @Component({
   selector: 'app-requests-list',
   templateUrl: './requests-list.component.html',
   styleUrls: ['./requests-list.component.scss'],
 })
-export class RequestsListComponent implements OnInit, AfterViewInit, OnDestroy {
+export class RequestsListComponent implements OnInit {
   displayedColumns: string[] = ['name', 'phone', 'hasMoney', 'city', 'status'];
   dataSource$: Observable<MatTableDataSource<IRequest>>;
   isLoading$ = this.requestsFacade.isLoading$;
   newRequest$ = this.requestsFacade.newRequests;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChild('search') search: ElementRef;
-  public criteriaFields = BeneficiaryField;
-  public criteriaField: BeneficiaryField;
-  public selectedId: string;
-  public selectedArray: Observable<IUser[] | { list: ZoneI[] }> = null;
-  private tempCriteria: BeneficiaryField;
-  private users: Observable<IUser[]>;
-  private zones: Observable<{ list: ZoneI[] }>;
-  private subscription: Subscription;
+
+  public users: Observable<IUser[]>;
+  public zones: Observable<{ list: ZoneI[] }>;
+
+  form = this.fb.group({
+    first_name: new FormControl(''),
+    last_name: new FormControl(''),
+    phone: new FormControl(''),
+    status: new FormControl(''),
+    fixer: new FormControl(''),
+    zone_address: new FormControl(''),
+  });
 
   constructor(
     private requestsFacade: RequestsFacadeService,
     private usersFacadeService: UsersFacadeService,
     private geolocationService: GeolocationService,
+    private fb: FormBuilder,
   ) { }
 
   ngOnInit() {
@@ -53,67 +67,20 @@ export class RequestsListComponent implements OnInit, AfterViewInit, OnDestroy {
     this.zones = this.geolocationService.getZones();
   }
 
-  ngAfterViewInit(): void {
-    const stream$ = fromEvent(this.search.nativeElement, 'keyup').pipe(
-      map((event: Event) => (event.target as HTMLInputElement).value),
-      debounceTime(1000),
-      distinctUntilChanged(),
-    );
-    this.subscription = stream$.subscribe((value) => {
-      if ((value || '').trim()) {
-        this.requestsFacade.getBeneficiaresByFilter({ field: this.criteriaField, value });
-      } else {
-        this.requestsFacade.getRequests();
-      }
-    });
-  }
-
-  openedChange(opened: boolean) {
-    if (!opened) {
-
-      if (this.criteriaField) {
-        this.selectedArray = BeneficiaryField['Zone Address'] === this.criteriaField ?
-          this.zones : BeneficiaryField.Fixer === this.criteriaField ? this.users : null;
-        if (this.tempCriteria !== this.criteriaField) {
-          this.resetInput();
-        }
-        this.tempCriteria = this.criteriaField;
-      }
-
-      if (this.criteriaField === BeneficiaryField.None) {
-        this.selectedArray = null;
-        this.resetInput();
-      }
-
-    }
-
-  }
-
-  private resetInput() {
-    if (this.search.nativeElement.value) {
-      this.search.nativeElement.value = null;
-      this.selectedId = null;
-      this.search.nativeElement.dispatchEvent(new Event('keyup'));
-    }
-    else {
-      this.selectedId = null;
-      this.requestsFacade.getRequests();
-    }
-  }
-
-  openedChangeSelected(opened: boolean) {
-    if (!opened && this.selectedId) {
-      this.requestsFacade.getBeneficiaresByFilter({ field: this.criteriaField, value: this.selectedId });
-    }
-
-  }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
-
   fetchRequests() {
     this.requestsFacade.getRequests();
     this.requestsFacade.resetNewRequests();
   }
+
+  search(filters: FilterAttributes) {
+    const query = Object.keys(filters).reduce((acc, cv) => (acc = acc + ((filters[cv] === '' || filters[cv] === null) ? '' : `&${cv}=${filters[cv]}`)), '');
+    this.requestsFacade.getBeneficiaresByFilter(query);
+  }
+
+  reset() {
+    this.form.reset({ first_name: '', last_name: '', phone: '', status: '', fixer: '', zone_address: '' });
+    this.form.markAsUntouched();
+    this.requestsFacade.getRequests();
+  }
+
 }
