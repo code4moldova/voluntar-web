@@ -67,22 +67,68 @@
           </div>
         </div>
         <div>
-          <mat-form-field class="full-width-input">
-            <mat-label>City</mat-label>
-            <mat-select formControlName="city">
-              <mat-option *ngFor="let city of cities" [value]="city.value">
-                {{city.name}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
+          <h3>Address</h3>
+          <mat-divider></mat-divider>
+          <div fxLayoutGap="15px" class="pad-t-10 pad-b-10">
+            <div fxFlex fxLayoutGap="10px">
+              <mat-form-field fxFlex class="full-width-input">
+                <input matInput autocomplete="off" placeholder="Address" aria-label="Address" [matAutocomplete]="auto"
+                  [formControl]="fakeAddressControl" required />
+                <mat-hint>Use to prefill address data</mat-hint>
+                <mat-progress-bar *ngIf="addressIsLoading$ | async" mode="query"></mat-progress-bar>
+                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"
+                  (optionSelected)="onAddressSelected($event)" [displayWith]="displayFn">
+                  <mat-option *ngFor="let address of addresses$ | async" [value]="address">
+                    <span>{{address.address}}</span> |
+                    <small>Score: {{address.score}}</small>
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+              <button mat-icon-button type="button" color="primary" (click)="showMapDialog()">
+                <mat-icon>map</mat-icon>
+              </button>
+            </div>
+          </div>
+          <mat-accordion>
+            <mat-expansion-panel hideToggle>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Full Address Info
+                </mat-panel-title>
+                <mat-panel-description>
+                  
+                  <mat-icon>explore</mat-icon>
+                </mat-panel-description>
+              </mat-expansion-panel-header>
 
-        <mat-form-field class="full-width-input">
-          <input matInput placeholder="Address" formControlName="address" />
-          <mat-error>
-            Please provide an Address
-          </mat-error>
-        </mat-form-field>
+              <div fxLayout="row" fxLayoutGap="15px">
+                <mat-form-field class="full-width-input">
+                  <mat-label>City</mat-label>
+                  <mat-select formControlName="city">
+                    <mat-option *ngFor="let city of cities" [value]="city.value">
+                      {{city.name}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field class="full-width-input">
+                  <input matInput placeholder="Address" formControlName="address" />
+                  <mat-error>
+                    Please provide an Address
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <h3>Coordinates</h3>
+              <div fxLayout="row" fxLayoutGap="15px">
+                <mat-form-field class="full-width-input">
+                  <input matInput placeholder="Longitude" formControlName="longitude" />
+                </mat-form-field>
+                <mat-form-field class="full-width-input">
+                  <input matInput placeholder="Latitude" formControlName="latitude" />
+                </mat-form-field>
+              </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
         <mat-form-field class="full-width-input">
           <mat-select placeholder="Raion" formControlName="zone_address" required>
             <mat-option *ngFor="let zone of zones" [value]="zone.value">

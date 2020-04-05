@@ -40,7 +40,7 @@
               Please provide a valid email address
             </mat-error>
           </mat-form-field>
-          <mat-form-field fxFlex class="full-width-input">
+          <mat-form-field *ngIf="!currentRequestId" fxFlex class="full-width-input">
             <input matInput placeholder="Password" formControlName="password" required type="password" />
             <!-- <mat-error>
                   Please provide a valid email address
@@ -108,6 +108,46 @@
               </mat-autocomplete>
             </mat-form-field>
           </div>
+
+          <mat-accordion>
+            <mat-expansion-panel hideToggle>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Full Address Info
+                </mat-panel-title>
+                <mat-panel-description>
+                  
+                  <mat-icon>explore</mat-icon>
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+
+              <div fxLayoutGap="15px">
+                <mat-form-field class="full-width-input">
+                  <mat-label>City</mat-label>
+                  <mat-select formControlName="city">
+                    <mat-option *ngFor="let city of cities" [value]="city.value">
+                      {{city.name}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field class="full-width-input">
+                  <input matInput placeholder="Address" formControlName="address" />
+                  <mat-error>
+                    Please provide an Address
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <h3>Coordinates</h3>
+              <div fxLayoutGap="15px">
+                <mat-form-field class="full-width-input">
+                  <input matInput placeholder="Longitude" formControlName="longitude" />
+                </mat-form-field>
+                <mat-form-field class="full-width-input">
+                  <input matInput placeholder="Latitude" formControlName="latitude" />
+                </mat-form-field>
+              </div>
+            </mat-expansion-panel>
+          </mat-accordion>
         </div>
 
 

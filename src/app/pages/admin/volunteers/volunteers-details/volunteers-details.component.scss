@@ -1,6 +1,16 @@
 .mat-radio-button ~ .mat-radio-button {
   margin-left: 16px;
 }
- .radio_buton_container{
-  padding: .4375em 0
+.radio_buton_container {
+  padding: 0.4375em 0;
+}
+
+.mat-expansion-panel-header-description {
+  justify-content: flex-end;
+  align-items: center;
+}
+
+mat-accordion {
+  display: block;
+  margin: 15px 0 25px;
 }
