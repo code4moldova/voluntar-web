@@ -57,7 +57,7 @@
               </mat-error>
             </mat-form-field>
           </div>
-          <div>
+          <div [hidden]="true">
             <mat-form-field class="full-width-input">
               <input matInput placeholder="Telegram ID" formControlName="telegram_id" />
               <mat-error>
@@ -149,12 +149,14 @@
           </mat-form-field>
         </div>
 
-        <mat-form-field class="full-width-input">
-          <input matInput placeholder="Created By" formControlName="created_by" type="string" />
-          <mat-error *ngIf="created_by.errors?.maxlength">
-            Created by can be max {{created_by.errors?.maxlength.requiredLength}} characters long.
-          </mat-error>
-        </mat-form-field>
+        <div [hidden]="true">
+          <mat-form-field class="full-width-input">
+            <input matInput placeholder="Created By" formControlName="created_by" type="string" />
+            <mat-error *ngIf="created_by.errors?.maxlength">
+              Created by can be max {{created_by.errors?.maxlength.requiredLength}} characters long.
+            </mat-error>
+          </mat-form-field>
+        </div>
 
         <mat-form-field class="full-width-input">
           <input matInput placeholder="Profession" formControlName="profession" type="string" />
@@ -191,6 +193,9 @@
               (change)="activityChange($event)" [checked]="isActivitySelected(activity._id)">
               {{ activity.ro }}
             </mat-checkbox>
+            <mat-error *ngIf="activity_types.errors?.required">
+              Please check one activity type
+            </mat-error>
           </div>
         </div>
 

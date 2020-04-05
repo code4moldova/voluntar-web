@@ -50,7 +50,7 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
     facebook_profile: [null, Validators.required],
     age: [null, Validators.required],
     availability: [null, Validators.required],
-    activity_types: [null, Validators.required],
+    activity_types: [[], Validators.required],
     password: [{ value: 'random', disabled: true }, Validators.required],
     created_by: [null, [Validators.maxLength(500)]],
     team: [null, [Validators.maxLength(500)]],
@@ -123,21 +123,19 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
   }
 
   activityChange({ checked, source }: MatCheckboxChange) {
-    const activityTypesValue = this.form.get('activity_types').value;
+    const activityTypesValue = this.activity_types.value;
     if (checked) {
-      this.form
-        .get('activity_types')
-        .patchValue([...activityTypesValue, source.value]);
+      this.activity_types.patchValue([...activityTypesValue, source.value]);
     } else {
       const filteredActivities = activityTypesValue.filter(
         (id: string) => id !== source.value
       );
-      this.form.get('activity_types').patchValue(filteredActivities);
+      this.activity_types.patchValue(filteredActivities);
     }
   }
 
   isActivitySelected(activityId: string) {
-    return this.form.get('activity_types').value.includes(activityId);
+    return this.activity_types.value.includes(activityId);
   }
 
   ngOnDestroy() {
@@ -166,6 +164,7 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
   get sent_photo() { return this.form.get('sent_photo'); }
   get received_contract() { return this.form.get('received_contract'); }
   get aggreed_terms() { return this.form.get('aggreed_terms'); }
+  get activity_types() { return this.form.get('activity_types'); }
 
 }
 

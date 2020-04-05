@@ -6,6 +6,7 @@ import {
   getRequestAction,
   saveRequestAction,
   updateRequestAction,
+  getBeneficiariesByFilterAction,
 } from '@store/requests-store/actions';
 import {
   selectIsLoading,
@@ -59,7 +60,6 @@ export class RequestsFacadeService {
         }),
         filter(([value, countFromState]) => value),
         switchMap(([value, countFromState]) => {
-          let i = 0;
           return interval(this.DELAY_TIME).pipe(
             takeUntil(stopPolling$),
             switchMap(() =>
@@ -105,6 +105,10 @@ export class RequestsFacadeService {
     } else {
       this.store.dispatch(saveRequestAction({ payload: request }));
     }
+  }
+
+  getBeneficiaresByFilter(criteria: any): void {
+    this.store.dispatch(getBeneficiariesByFilterAction({ payload: criteria }));
   }
 
   toggleNewRequestsPolling(value: boolean) {
