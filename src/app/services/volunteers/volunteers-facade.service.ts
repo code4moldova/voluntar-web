@@ -44,7 +44,7 @@ export class VolunteersFacadeService {
     this.store.dispatch(getVolunteerAction({ id }));
   }
 
-  getVolunteerByFilter(criteria: string) {
+  getVolunteersByFilter(criteria: string) {
     this.store.dispatch(getVolunteersByFilterAction({ payload: criteria }));
   }
 

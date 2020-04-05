@@ -1,32 +1,50 @@
-<form novalidate [formGroup]="form" fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutAlign="space-between">
+<form novalidate [formGroup]="form">
 
-  <div *ngFor="let col of inputColumns">
-    <mat-form-field class="full-width-input" fxFlex>
-      <mat-label>{{col.name}}</mat-label>
-      <input matInput [placeholder]="col.placeholder||'Filter'" #search [formControlName]="col.value" type="text" />
-      <mat-icon matSuffix>{{col.icon}}</mat-icon>
-    </mat-form-field>
+  <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutAlign="space-between">
+
+    <div *ngFor="let col of inputColumns">
+      <mat-form-field class="full-width-input" fxFlex>
+        <mat-label>{{col.name}}</mat-label>
+        <input matInput [placeholder]="col.placeholder||'Filter'" #search [formControlName]="col.value" type="text" />
+        <mat-icon matSuffix>{{col.icon}}</mat-icon>
+      </mat-form-field>
+    </div>
+
+    <div *ngFor="let col of observableSelectColumns">
+      <mat-form-field class="full-width-input" fxFlex>
+        <mat-label>{{col.name}}</mat-label>
+        <mat-select [formControlName]="col.value" (openedChange)="openedChange($event)">
+          <mat-option *ngFor="let item of col.array|async" [value]="item._id">
+            {{ item.first_name|| item.ro||item.label}}
+          </mat-option>
+          <mat-option [value]="''">
+            {{ 'All'}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div *ngFor="let col of selectColumns">
+      <mat-form-field class="full-width-input" fxFlex>
+        <mat-label>{{col.name}}</mat-label>
+        <mat-select [formControlName]="col.value" (openedChange)="openedChange($event)">
+          <mat-option *ngFor="let item of col.array" [value]="item._id">
+            {{ item.first_name|| item.ro||item.label}}
+          </mat-option>
+          <mat-option [value]="''">
+            {{ 'All'}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+
+    <div  fxLayoutAlign="space-between center">
+      <button mat-raised-button color="primary" (click)="reset()">
+        Reset
+      </button>
+    </div>
+
   </div>
-
-  <div *ngFor="let col of selectColumns">
-    <mat-form-field class="full-width-input" fxFlex>
-      <mat-label>{{col.name}}</mat-label>
-      <mat-select [formControlName]="col.value" (openedChange)="openedChange($event)">
-        <mat-option *ngFor="let item of col.array|async" [value]="item._id">
-          {{ item.first_name|| item.ro}}
-        </mat-option>
-        <mat-option [value]="''">
-          {{ 'All'}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
-
-  <div>
-    <button mat-flat-button color="primary" (click)="reset()">
-      Reset
-    </button>
-  </div>
-
 
 </form>

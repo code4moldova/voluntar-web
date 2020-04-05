@@ -1,8 +1,9 @@
-import { Component, OnInit, Input, EventEmitter, Output, OnDestroy, AfterViewInit, ViewChild, ElementRef, ViewChildren, QueryList } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, OnDestroy, AfterViewInit, ElementRef, ViewChildren, QueryList } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
 
-import { Observable, Subscription, fromEvent, merge, EMPTY } from 'rxjs';
+import { Subscription, fromEvent, merge, EMPTY } from 'rxjs';
 import { map, debounceTime, distinctUntilChanged, catchError } from 'rxjs/operators';
+import { FilterInputColumns, FilterSelectColumns, FilterObservableSelectColumns } from '@models/filter';
 
 @Component({
   selector: 'app-filter',
@@ -10,8 +11,9 @@ import { map, debounceTime, distinctUntilChanged, catchError } from 'rxjs/operat
   styleUrls: ['./filter.component.scss']
 })
 export class FilterComponent implements OnInit, AfterViewInit, OnDestroy {
-  @Input() public inputColumns: { name: string; value: string; icon?: string, placeholder?: string }[];
-  @Input() public selectColumns: { name: string; value: string; icon?: string, placeholder?: string, array: Observable<any[]> }[];
+  @Input() public inputColumns: FilterInputColumns[];
+  @Input() public selectColumns: FilterSelectColumns<any>[];
+  @Input() public observableSelectColumns: FilterObservableSelectColumns<any>[];
   @Output() public queryResult = new EventEmitter<{ query: string }>();
   @Output() public resetForm = new EventEmitter<{ result: boolean }>();
   @ViewChildren('search') input: QueryList<ElementRef>;
@@ -28,6 +30,9 @@ export class FilterComponent implements OnInit, AfterViewInit, OnDestroy {
       this.form.addControl(col.value, new FormControl(''));
     });
     this.selectColumns.forEach((col) => {
+      this.form.addControl(col.value, new FormControl(''));
+    });
+    this.observableSelectColumns.forEach((col) => {
       this.form.addControl(col.value, new FormControl(''));
     });
   }
@@ -50,13 +55,13 @@ export class FilterComponent implements OnInit, AfterViewInit, OnDestroy {
     );
   }
 
-  openedChange(open: boolean): void {
+  public openedChange(open: boolean): void {
     if (!open) {
       this.search(this.form.value);
     }
   }
 
-  search(filters: { [keys: string]: string | null }): void {
+  public search(filters: { [keys: string]: string | null }): void {
     const query = Object.keys(filters).reduce((acc, cv) => (acc = acc + ((filters[cv] === '' || filters[cv] === null) ? '' : `&${cv}=${filters[cv]}`)), '');
     this.queryResult.emit({ query });
   }

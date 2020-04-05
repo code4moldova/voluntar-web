@@ -107,7 +107,7 @@ export class RequestsFacadeService {
     }
   }
 
-  getBeneficiaresByFilter(criteria: any): void {
+  getBeneficiaresByFilter(criteria: string): void {
     this.store.dispatch(getBeneficiariesByFilterAction({ payload: criteria }));
   }
 
