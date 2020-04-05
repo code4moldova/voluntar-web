@@ -33,8 +33,8 @@ export class RequestsService {
     );
   }
 
-  getBeneficiariesByFilter(criteria: BeneficiaryCriteriaFilter): Observable<{ count: string, list: IRequestDetails[] }> {
-    return this.http.get<{ count: string, list: IRequestDetails[] }>(`${environment.url}/api/beneficiary/filters/1/1000?${criteria.field}=${criteria.value}&volunteer__ne=''`);
+  getBeneficiariesByFilter(criteria: BeneficiaryCriteriaFilter): Observable<{ count: number, list: IRequestDetails[] }> {
+    return this.http.get<{ count: number, list: IRequestDetails[] }>(`${environment.url}/api/beneficiary/filters/1/1000?${criteria.field}=${criteria.value}&volunteer__ne=''`);
   }
 
 }

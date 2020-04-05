@@ -116,7 +116,7 @@ export class RequestsEffects {
       ofType(getBeneficiariesByFilterAction),
       switchMap((action) =>
         this.requestService.getBeneficiariesByFilter(action.payload).pipe(
-          map(res => getRequestsSuccessAction({ payload: res.list, count: Number(res.count) })),
+          map(res => getRequestsSuccessAction({ payload: res.list, count: res.count })),
           catchError(error => of(getRequestFailureAction({ error })))
         )
       )
