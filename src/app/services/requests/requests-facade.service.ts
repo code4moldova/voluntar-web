@@ -5,7 +5,8 @@ import {
   getRequestsAction,
   getRequestAction,
   saveRequestAction,
-  updateRequestAction
+  updateRequestAction,
+  getBeneficiariesByFilterAction
 } from '@store/requests-store/actions';
 import {
   selectIsLoading,
@@ -14,7 +15,7 @@ import {
   selectRequestsDetails,
   selectZones
 } from '@store/requests-store/selectors';
-import { IRequest, IRequestDetails } from '@models/requests';
+import { IRequest, IRequestDetails, BeneficiaryCriteriaFilter } from '@models/requests';
 
 @Injectable({
   providedIn: 'root'
@@ -45,4 +46,9 @@ export class RequestsFacadeService {
       this.store.dispatch(saveRequestAction({ payload: request }));
     }
   }
+
+  getBeneficiaresByFilter(criteria: BeneficiaryCriteriaFilter): void {
+    this.store.dispatch(getBeneficiariesByFilterAction({ payload: criteria }));
+  }
+
 }

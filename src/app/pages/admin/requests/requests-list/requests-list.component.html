@@ -9,6 +9,42 @@
       </a>
     </div>
   </div>
+
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+    <div fxFlex fxFlex="50%" [hidden]="selectedArray">
+      <mat-form-field class="full-width-input">
+        <input matInput
+         maxlength="110"
+         placeholder="Insert value to filter" [type]="criteriaField === 'phone' ? 'number':'text'" name="search" #search
+          [disabled]="!criteriaField">
+      </mat-form-field>
+    </div>
+
+    <div fxFlex fxFlex="50%" *ngIf="selectedArray">
+      <mat-form-field class="full-width-input">
+        <mat-label>Select</mat-label>
+        <mat-select [(ngModel)]="selectedId" (openedChange)="openedChangeSelected($event)">
+          <mat-option *ngFor="let item of (selectedArray|async)?.list ||(selectedArray|async)" [value]="item._id">
+            {{ item.first_name|| item.ro}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+
+    <div fxFlex fxFlex="30%" fxLayoutAlign="end">
+      <mat-form-field class="full-width-input">
+        <mat-label>Criteria</mat-label>
+        <mat-select [(ngModel)]="criteriaField" (openedChange)="openedChange($event)">
+          <mat-option *ngFor="let enum of criteriaFields | keyvalue" [value]="enum.value">
+            <span>  {{ enum.key }} </span>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    </div>
+  </div>
+
 </div>
 
 <mat-card>

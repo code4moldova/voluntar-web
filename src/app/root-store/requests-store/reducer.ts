@@ -13,7 +13,10 @@ import {
   updateRequestAction,
   updateRequestSuccessAction,
   updateRequestFailureAction,
-  getZonesSuccessAction
+  getZonesSuccessAction,
+  getBeneficiariesByFilterSuccesAction,
+  getBeneficiariesByFilterFailureAction,
+  getBeneficiariesByFilterAction
 } from './actions';
 
 const requestReducer = createReducer(
@@ -87,7 +90,22 @@ const requestReducer = createReducer(
   on(getZonesSuccessAction, (state, { zones }) => ({
     ...state,
     zones
-  }))
+  })),
+  on(getBeneficiariesByFilterAction, state => ({
+    ...state,
+    error: null,
+    isLoading: true
+  })),
+  on(getBeneficiariesByFilterSuccesAction, (state, { payload }) => ({
+    ...state,
+    isLoading: false,
+    data: payload
+  })),
+  on(getBeneficiariesByFilterFailureAction, (state, { error }) => ({
+    ...state,
+    isLoading: false,
+    error
+  })),
 );
 
 export function reducer(state: RequestsState | undefined, action: Action) {
