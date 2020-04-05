@@ -88,16 +88,15 @@
             </mat-form-field>
           </div>
         </div>
+        <mat-action-row>
+          <button mat-button type="button" color="primary" (click)="reset()">
+            Reset
+          </button>
+          <button mat-flat-button color="primary">
+            Search
+          </button>
+        </mat-action-row>
       </form>
-  
-      <mat-action-row>
-        <button mat-button color="primary" (click)="reset()">
-          Reset
-        </button>
-        <button mat-flat-button color="primary" (click)="search(form.value)">
-          Search
-        </button>
-      </mat-action-row>
     </mat-expansion-panel>
   </mat-accordion>
   <table mat-table [dataSource]="dataSource$ | async">
