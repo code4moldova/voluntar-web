@@ -70,5 +70,4 @@ export class RequestsListComponent implements OnInit {
       this.requestsFacade.getRequests();
     }
   }
-
 }

@@ -7,13 +7,21 @@ import {
   filter,
   tap,
   switchMap,
-  skipWhile
+  skipWhile,
+  debounceTime,
+  distinctUntilChanged,
+  finalize,
+  first,
 } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, of, EMPTY } from 'rxjs';
 import { IVolunteer } from '@models/volunteers';
 import { TagsFacadeService } from '@services/tags/tags-facade.service';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { GeolocationService } from '@services/geolocation/geolocation.service';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { MatDialog } from '@angular/material/dialog';
+import { EsriMapComponent } from '@shared/esri-map/esri-map.component';
 
 const minTemp = 36;
 const maxTemp = 41;
@@ -21,17 +29,38 @@ const maxTemp = 41;
 @Component({
   selector: 'app-volunteers-details',
   templateUrl: './volunteers-details.component.html',
-  styleUrls: ['./volunteers-details.component.scss']
+  styleUrls: ['./volunteers-details.component.scss'],
 })
 export class VolunteersDetailsComponent implements OnInit, OnDestroy {
   public tempStep = '0.1';
   zones = [
     {
       label: 'Centru',
-      value: 'centru'
-    }
+      value: 'centru',
+    },
   ];
-  public cities = [{ name: 'Chisinau', value: 'chisinau' }, { name: 'Balti', value: 'balti' }];
+  public cities = [
+    { name: 'Chisinau', value: 'chisinau' },
+    { name: 'Balti', value: 'balti' },
+  ];
+
+  fakeAddressControl = this.fb.control(null);
+
+  addressIsLoading$ = new Subject();
+  addresses$ = this.fakeAddressControl.valueChanges.pipe(
+    debounceTime(350),
+    distinctUntilChanged(),
+    filter((address) => address && address.length > 0),
+    switchMap((address) => {
+      this.addressIsLoading$.next(true);
+      return this.geolocationService.getLocation(null, address).pipe(
+        map((resp) => resp.candidates),
+        finalize(() => {
+          this.addressIsLoading$.next(false);
+        })
+      );
+    })
+  );
 
   form = this.fb.group({
     _id: [null],
@@ -40,11 +69,13 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
     email: [null, [Validators.required, Validators.email]],
     phone: [
       null,
-      [Validators.required, Validators.minLength(8), Validators.maxLength(8)]
+      [Validators.required, Validators.minLength(8), Validators.maxLength(8)],
     ],
     telegram_id: [null],
     // gender: ['male', Validators.required],
     address: [null, Validators.required],
+    latitude: [null, Validators.required],
+    longitude: [null, Validators.required],
     zone_address: [null, Validators.required],
     is_active: [false, Validators.required],
     facebook_profile: [null, Validators.required],
@@ -56,13 +87,7 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
     team: [null, [Validators.maxLength(500)]],
     profession: [null, [Validators.maxLength(500)]],
     comments: [null, [Validators.maxLength(500)]],
-    last_temperature: [
-      minTemp,
-      [
-        Validators.required,
-        ValidateTemperature,
-      ]
-    ],
+    last_temperature: [minTemp, [Validators.required, ValidateTemperature]],
     need_sim_unite: [null, Validators.required],
     new_volunteer: [true, Validators.required],
     black_list: [null, Validators.required],
@@ -89,16 +114,18 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private volunteerFacade: VolunteersFacadeService,
-    private tagsFacade: TagsFacadeService
+    private tagsFacade: TagsFacadeService,
+    private geolocationService: GeolocationService,
+    private matDialog: MatDialog
   ) {
     this.route.paramMap
       .pipe(
-        map(params => params.get('id')),
-        tap(id => (this.currentVolunteeerId = id)),
+        map((params) => params.get('id')),
+        tap((id) => (this.currentVolunteeerId = id)),
         takeUntil(this.componentDestroyed$)
       )
       // .subscribe(volunteer => {
-      .subscribe(id => {
+      .subscribe((id) => {
         this.currentVolunteeerId = id;
         if (id) {
           this.volunteerFacade.getVolunteerById(id);
@@ -112,12 +139,12 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.volunteerFacade.volunteerDetails$
       .pipe(
-        filter(volunteer => !!volunteer),
+        filter((volunteer) => !!volunteer),
         // Fix issue switching between 'new' and 'details' page
-        map(volunteer => (this.currentVolunteeerId ? volunteer : {})),
+        map((volunteer) => (this.currentVolunteeerId ? volunteer : {})),
         takeUntil(this.componentDestroyed$)
       )
-      .subscribe(volunteer => {
+      .subscribe((volunteer) => {
         this.form.patchValue(volunteer);
       });
   }
@@ -151,21 +178,99 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
     }
   }
 
-  get created_by() { return this.form.get('created_by'); }
-  get team() { return this.form.get('team'); }
-  get profesia() { return this.form.get('profesia'); }
-  get profession() { return this.form.get('profession'); }
-  get comments() { return this.form.get('comments'); }
-  get last_temperature() { return this.form.get('last_temperature'); }
-  get need_sim_unite() { return this.form.get('need_sim_unite'); }
-  get new_volunteer() { return this.form.get('new_volunteer'); }
-  get black_list() { return this.form.get('black_list'); }
-  get received_cards() { return this.form.get('received_cards'); }
-  get sent_photo() { return this.form.get('sent_photo'); }
-  get received_contract() { return this.form.get('received_contract'); }
-  get aggreed_terms() { return this.form.get('aggreed_terms'); }
-  get activity_types() { return this.form.get('activity_types'); }
+  displayFn(value: any) {
+    if (value) {
+      return value.address;
+    }
+  }
 
+  onAddressSelected(event: MatAutocompleteSelectedEvent) {
+    const value = event.option.value;
+    if (value) {
+      // const [street, city] = value.address.split(', ');
+      // const geo = value.location
+      //   ? `${value.location.y}, ${value.location.x}`
+      //   : null;
+      this.form.get('address').patchValue(value.address);
+      this.form.get('latitude').patchValue(value.location.y);
+      this.form.get('longitude').patchValue(value.location.x);
+    }
+  }
+
+  showMapDialog() {
+    this.matDialog
+      .open<
+        EsriMapComponent,
+        { coors: number[]; address: string },
+        { latitude: number; longitude: number; address: string }
+      >(EsriMapComponent, {
+        data: {
+          coors: [
+            this.form.get('latitude').value,
+            this.form.get('longitude').value,
+          ],
+          address: this.fakeAddressControl.value?.address,
+        },
+        panelClass: 'esri-map',
+        width: '80%',
+        height: '80%',
+        maxWidth: '100%',
+        maxHeight: '100%',
+      })
+      .afterClosed()
+      .pipe(first())
+      .subscribe((coors) => {
+        if (coors) {
+          this.form.get('latitude').patchValue(coors.latitude);
+          this.form.get('longitude').patchValue(coors.longitude);
+          this.form.get('address').patchValue(coors.address);
+          this.fakeAddressControl.patchValue({ address: coors.address });
+        }
+      });
+  }
+
+  get created_by() {
+    return this.form.get('created_by');
+  }
+  get team() {
+    return this.form.get('team');
+  }
+  get profesia() {
+    return this.form.get('profesia');
+  }
+  get profession() {
+    return this.form.get('profession');
+  }
+  get comments() {
+    return this.form.get('comments');
+  }
+  get last_temperature() {
+    return this.form.get('last_temperature');
+  }
+  get need_sim_unite() {
+    return this.form.get('need_sim_unite');
+  }
+  get new_volunteer() {
+    return this.form.get('new_volunteer');
+  }
+  get black_list() {
+    return this.form.get('black_list');
+  }
+  get received_cards() {
+    return this.form.get('received_cards');
+  }
+  get sent_photo() {
+    return this.form.get('sent_photo');
+  }
+  get received_contract() {
+    return this.form.get('received_contract');
+  }
+  get aggreed_terms() {
+    return this.form.get('aggreed_terms');
+  }
+  get activity_types() {
+    return this.form.get('activity_types');
+  }
 }
 
 export function ValidateTemperature(control: AbstractControl) {
@@ -176,5 +281,4 @@ export function ValidateTemperature(control: AbstractControl) {
     return { maxlength: { requiredLength: maxTemp } };
   }
   return null;
-
 }
