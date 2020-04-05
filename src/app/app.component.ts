@@ -9,6 +9,7 @@ import {
   getOffersTagsAction,
 } from '@store/tags-store/actions';
 import { AuthService } from '@services/auth/auth.service';
+import { getUsersAction } from '@store/users-store/actions';
 
 @Component({
   selector: 'app-root',
@@ -26,6 +27,7 @@ export class AppComponent {
         this.store.dispatch(getAvailabilitiesTagsAction());
         this.store.dispatch(getTeamsTagsAction());
         this.store.dispatch(getOffersTagsAction());
+        this.store.dispatch(getUsersAction());
       }
     });
   }

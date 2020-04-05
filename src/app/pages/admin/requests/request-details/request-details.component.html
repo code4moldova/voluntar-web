@@ -146,6 +146,13 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
+          <mat-form-field fxFlex class="full-width-input">
+            <mat-select placeholder="Operator" formControlName="fixer" required>
+              <mat-option *ngFor="let operator of operators$ | async" [value]="operator._id">
+                {{ operator.first_name }} {{ operator.last_name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
 
         <mat-accordion>
@@ -192,6 +199,7 @@
           <div fxLayout="column" fxLayoutGap="15px">
             <mat-slide-toggle formControlName="is_active">Active?</mat-slide-toggle>
             <mat-slide-toggle formControlName="have_money">Has Money?</mat-slide-toggle>
+            <mat-slide-toggle formControlName="has_symptoms">Has Symptoms?</mat-slide-toggle>
           </div>
         </mat-card-content>
       </mat-card>

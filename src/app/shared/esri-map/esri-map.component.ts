@@ -122,14 +122,6 @@ export class EsriMapComponent implements OnDestroy, AfterViewInit {
     }
   }
 
-  showPopup(address, pt) {
-    this.view.popup.open({
-      title: + Math.round(pt.longitude * 100000) / 100000 + ',' + Math.round(pt.latitude * 100000) / 100000,
-      content: address,
-      location: pt
-    });
-  }
-
   submitCoors() {
     const { latitude, longitude } = this.view.center;
     this.dialogRef.close({ latitude, longitude, address: this.search.searchTerm });

@@ -26,6 +26,7 @@ import { IVolunteer } from '@models/volunteers';
 import { MatDialog } from '@angular/material/dialog';
 import { VolunteerModalInfoComponent } from '../../volunteers/volunteer-modal-info/volunteer-modal-info.component';
 import { EsriMapComponent } from '@shared/esri-map/esri-map.component';
+import { UsersFacadeService } from '@services/users/users-facade.service';
 
 @Component({
   selector: 'app-request-details',
@@ -55,6 +56,7 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
 
   activityTypes$ = this.tagsFacade.activityTypesTags$;
   offers$ = this.tagsFacade.offersTags$;
+  operators$ = this.usersFacade.users$;
   isLoading$ = concat(this.requestsFacade.isLoading$, this.tagsFacade.isLoading$);
   error$ = concat(this.requestsFacade.error$, this.tagsFacade.error$);
 
@@ -76,10 +78,12 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
     age: [null, [Validators.required, Validators.max(120)]],
     // activity_types: [[], Validators.required],
     have_money: [false, Validators.required],
+    has_symptoms: [false, Validators.required],
     comments: [null, Validators.required],
     questions: [null, Validators.required],
     status: [{ value: 'new', disabled: true }, Validators.required],
     secret: [null, Validators.required],
+    fixer: [null, Validators.required],
     volunteer: [null],
     availability_volunteer: [
       null,
@@ -131,6 +135,7 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private requestsFacade: RequestsFacadeService,
     private tagsFacade: TagsFacadeService,
+    private usersFacade: UsersFacadeService,
     private volunteersService: VolunteersService,
     private geolocationService: GeolocationService,
     private matDialog: MatDialog

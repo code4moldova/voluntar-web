@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { IVolunteer } from '@models/volunteers';
 import { TagsFacadeService } from '@services/tags/tags-facade.service';
 import { map } from 'rxjs/operators';
@@ -16,10 +16,15 @@ export class VolunteerModalInfoComponent implements OnInit {
 
   constructor(
     private tagsFacade: TagsFacadeService,
+    private dialogRef: MatDialogRef<VolunteerModalInfoComponent>,
     @Inject(MAT_DIALOG_DATA) public volunteer: IVolunteer & { distance: number },
   ) { }
 
   ngOnInit(): void {
+  }
+
+  closeDialog() {
+    this.dialogRef.close();
   }
 
 }
