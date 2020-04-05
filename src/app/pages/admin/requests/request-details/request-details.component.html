@@ -76,31 +76,29 @@
         <div>
           <h3>Address</h3>
           <mat-divider></mat-divider>
-          <div class="pad-t-10" fxLayoutGap="15px">
-            <mat-form-field fxFlex class="full-width-input">
-              <input matInput placeholder="Address autocomplete" aria-label="Address autocomplete"
-                [matAutocomplete]="auto" [formControl]="fakeAddressControl" />
-              <mat-hint>Use to prefill address data</mat-hint>
-              <mat-progress-bar *ngIf="addressIsLoading$ | async" mode="query"></mat-progress-bar>
-              <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onAddressSelected($event)"
-                [displayWith]="displayFn">
-                <mat-option *ngFor="let address of addresses$ | async" [value]="address">
-                  <span>{{address.address}}</span> |
-                  <small>Score: {{address.score}}</small>
-                </mat-option>
-              </mat-autocomplete>
-            </mat-form-field>
-            <div>
-              <button mat-icon-button type="button" (click)="showMapDialog()">
+          <div fxLayoutGap="15px" class="pad-t-10 pad-b-10">
+            <div fxFlex fxLayoutGap="10px">
+              <mat-form-field fxFlex class="full-width-input">
+                <input matInput autocomplete="off" placeholder="Address" aria-label="Address" [matAutocomplete]="auto"
+                  [formControl]="fakeAddressControl" required />
+                <mat-hint>Use to prefill address data</mat-hint>
+                <mat-progress-bar *ngIf="addressIsLoading$ | async" mode="query"></mat-progress-bar>
+                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"
+                  (optionSelected)="onAddressSelected($event)" [displayWith]="displayFn">
+                  <mat-option *ngFor="let address of addresses$ | async" [value]="address">
+                    <span>{{address.address}}</span> |
+                    <small>Score: {{address.score}}</small>
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+              <button mat-icon-button type="button" color="primary" (click)="showMapDialog()">
                 <mat-icon>map</mat-icon>
               </button>
             </div>
-          </div>
-          <div fxLayoutGap="15px" class="pad-t-10">
-            <mat-form-field fxFlex class="full-width-input">
+            <!-- <mat-form-field fxFlex class="full-width-input">
               <input matInput placeholder="Address" aria-label="Address" formControlName="address" required />
-            </mat-form-field>
-            <mat-form-field fxFlex class="full-width-input">
+            </mat-form-field> -->
+            <mat-form-field fxFlex="200px" class="full-width-input">
               <input matInput placeholder="Sector" aria-label="Sector" [matAutocomplete]="zoneAuto"
                 formControlName="zone_address" required />
               <mat-autocomplete #zoneAuto="matAutocomplete" [displayWith]="showZoneLabel.bind(this)">
@@ -113,7 +111,7 @@
         </div>
 
 
-        <div fxLayout="column" fxLayoutGap="15px" style="margin-bottom: 1.25em;">
+        <!-- <div fxLayout="column" fxLayoutGap="15px" style="margin-bottom: 1.25em;">
           <mat-label>Activity Types</mat-label>
           <div fxLayout="column" fxLayoutGap="5px">
             <mat-checkbox *ngFor="let activity of activityTypes$ | async" [value]="activity._id"
@@ -121,7 +119,7 @@
               {{ activity.ro }}
             </mat-checkbox>
           </div>
-        </div>
+        </div> -->
 
         <mat-form-field class="full-width-input">
           <textarea matInput placeholder="Questions" formControlName="questions" cdkTextareaAutosize
@@ -149,6 +147,31 @@
             </mat-select>
           </mat-form-field>
         </div>
+
+        <mat-accordion>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Hidden Fields
+              </mat-panel-title>
+              <!-- <mat-panel-description>
+                You probably don't need to change something here.
+              </mat-panel-description> -->
+            </mat-expansion-panel-header>
+
+            <div fxLayoutGap="15px">
+              <mat-form-field fxFlex class="full-width-input">
+                <input matInput placeholder="Address" formControlName="address" required />
+              </mat-form-field>
+              <mat-form-field fxFlex=200px class="full-width-input">
+                <input matInput placeholder="Latitude" formControlName="latitude" required />
+              </mat-form-field>
+              <mat-form-field fxFlex=200px class="full-width-input">
+                <input matInput placeholder="Longitude" formControlName="longitude" required />
+              </mat-form-field>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
 
         <div class="form-action-container">
           <button mat-raised-button *ngIf="!currentRequestId" color="primary">

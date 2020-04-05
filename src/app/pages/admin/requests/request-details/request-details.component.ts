@@ -14,9 +14,9 @@ import {
   exhaustMap,
   first
 } from 'rxjs/operators';
-import { Subject, of, EMPTY, concat, Observable } from 'rxjs';
+import { Subject, of, EMPTY, concat, Observable, combineLatest } from 'rxjs';
 import { IRequestDetails } from '@models/requests';
-import { MatCheckboxChange } from '@angular/material/checkbox';
+// import { MatCheckboxChange } from '@angular/material/checkbox';
 import { TagsFacadeService } from '@services/tags/tags-facade.service';
 import { GeolocationService } from '@services/geolocation/geolocation.service';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
@@ -51,6 +51,12 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
       value: 'review'
     }
   ];
+  currentRequestId: string;
+
+  activityTypes$ = this.tagsFacade.activityTypesTags$;
+  offers$ = this.tagsFacade.offersTags$;
+  isLoading$ = concat(this.requestsFacade.isLoading$, this.tagsFacade.isLoading$);
+  error$ = concat(this.requestsFacade.error$, this.tagsFacade.error$);
 
   fakeAddressControl = this.fb.control(null);
 
@@ -68,7 +74,7 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
     longitude: [null, Validators.required],
     zone_address: [null, Validators.required],
     age: [null, [Validators.required, Validators.max(120)]],
-    activity_types: [[], Validators.required],
+    // activity_types: [[], Validators.required],
     have_money: [false, Validators.required],
     comments: [null, Validators.required],
     questions: [null, Validators.required],
@@ -80,20 +86,18 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
       [Validators.required, Validators.min(0), Validators.max(23)]
     ]
   });
-  currentRequestId: string;
-
-  activityTypes$ = this.tagsFacade.activityTypesTags$;
-  offers$ = this.tagsFacade.offersTags$;
-  isLoading$ = concat(this.requestsFacade.isLoading$, this.tagsFacade.isLoading$);
-  error$ = concat(this.requestsFacade.error$, this.tagsFacade.error$);
 
   volunteersNearbyIsLoading$ = new Subject();
-  volunteersNearby$ = this.form.get('_id').valueChanges.pipe(
-    exhaustMap(id => {
+  volunteersNearby$ = combineLatest([
+    this.form.get('_id').valueChanges,
+    this.requestsFacade.isLoading$.pipe(filter(status => !status))
+  ]).pipe(
+    exhaustMap(([id]) => {
       if (id) {
         this.volunteersNearbyIsLoading$.next(true);
         return this.volunteersService.getVolunteersNearbyRequest(id).pipe(
           map(({ list }) => list.sort((v1, v2) => v1.distance < v2.distance ? -1 : 1)),
+          map(volunteers => volunteers.length ? volunteers : null),
           finalize(() => this.volunteersNearbyIsLoading$.next(false))
         );
       }
@@ -101,11 +105,26 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
     })
   );
 
-  componentDestroyed$ = new Subject();
-  addresses$: Observable<any[]>;
   addressIsLoading$ = new Subject();
+  addresses$ = this.fakeAddressControl.valueChanges.pipe(
+    debounceTime(350),
+    distinctUntilChanged(),
+    filter(address => address && address.length > 0),
+    switchMap(address => {
+      this.addressIsLoading$.next(true);
+      return this.geolocationService.getLocation(null, address).pipe(
+        map(resp => resp.candidates),
+        finalize(() => {
+          this.addressIsLoading$.next(false);
+        })
+      );
+    })
+  );
+
   zones$ = this.requestsFacade.zones$;
   private zones: ISectorTag[];
+
+  componentDestroyed$ = new Subject();
 
   constructor(
     private fb: FormBuilder,
@@ -141,6 +160,9 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
       )
       .subscribe(request => {
         this.form.patchValue(request);
+        if (request.address) {
+          this.fakeAddressControl.patchValue({ address: request.address });
+        }
       });
 
     this.zones$.pipe(takeUntil(this.componentDestroyed$)).subscribe(z => {
@@ -148,23 +170,23 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
     });
   }
 
-  activityChange({ checked, source }: MatCheckboxChange) {
-    const activityTypesValue = this.form.get('activity_types').value;
-    if (checked) {
-      this.form
-        .get('activity_types')
-        .patchValue([...activityTypesValue, source.value]);
-    } else {
-      const filteredActivities = activityTypesValue.filter(
-        (id: string) => id !== source.value
-      );
-      this.form.get('activity_types').patchValue(filteredActivities);
-    }
-  }
+  // activityChange({ checked, source }: MatCheckboxChange) {
+  //   const activityTypesValue = this.form.get('activity_types').value;
+  //   if (checked) {
+  //     this.form
+  //       .get('activity_types')
+  //       .patchValue([...activityTypesValue, source.value]);
+  //   } else {
+  //     const filteredActivities = activityTypesValue.filter(
+  //       (id: string) => id !== source.value
+  //     );
+  //     this.form.get('activity_types').patchValue(filteredActivities);
+  //   }
+  // }
 
-  isActivitySelected(activityId: string) {
-    return this.form.get('activity_types').value?.includes(activityId);
-  }
+  // isActivitySelected(activityId: string) {
+  //   return this.form.get('activity_types').value?.includes(activityId);
+  // }
 
   showVolunteerInfoModal(volunteer: IVolunteer) {
     this.matDialog.open(VolunteerModalInfoComponent, {
@@ -185,7 +207,7 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
           this.form.get('latitude').value,
           this.form.get('longitude').value,
         ],
-        address: this.fakeAddressControl.value?.address || this.form.get('address').value
+        address: this.fakeAddressControl.value?.address
       },
       panelClass: 'esri-map',
       width: '80%',
@@ -197,19 +219,12 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
         this.form.get('latitude').patchValue(coors.latitude);
         this.form.get('longitude').patchValue(coors.longitude);
         this.form.get('address').patchValue(coors.address);
+        this.fakeAddressControl.patchValue({ address: coors.address });
       }
     });
   }
 
   ngOnInit() {
-    this.addresses$ = this.fakeAddressControl.valueChanges.pipe(
-      debounceTime(350),
-      distinctUntilChanged(),
-      filter(address => address && address.length > 0),
-      switchMap(address => {
-        return this.onAddressChange(address);
-      })
-    );
   }
 
   ngOnDestroy() {
@@ -231,16 +246,6 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
     } else {
       console.log('Invalid form', this.form);
     }
-  }
-
-  onAddressChange(address: string) {
-    this.addressIsLoading$.next(true);
-    return this.geolocationService.getLocation(null, address).pipe(
-      map(resp => resp.candidates),
-      finalize(() => {
-        this.addressIsLoading$.next(false);
-      })
-    );
   }
 
   displayFn(value: any) {
@@ -271,11 +276,11 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
   onAddressSelected(event: MatAutocompleteSelectedEvent) {
     const value = event.option.value;
     if (value) {
-      const [street, city] = value.address.split(', ');
+      // const [street, city] = value.address.split(', ');
       // const geo = value.location
       //   ? `${value.location.y}, ${value.location.x}`
       //   : null;
-      this.form.get('address').patchValue(street);
+      this.form.get('address').patchValue(value.address);
       this.form.get('latitude').patchValue(value.location.y);
       this.form.get('longitude').patchValue(value.location.x);
     }

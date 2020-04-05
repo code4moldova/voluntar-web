@@ -1,4 +1,9 @@
-<mat-card-title>{{ volunteer.first_name }} {{volunteer.last_name}}</mat-card-title>
+<mat-card-title fxLayoutGap="15px">
+  <span>{{ volunteer.first_name }} {{volunteer.last_name}}</span>
+  <a [routerLink]="['/volunteers/details', volunteer._id]" mat-icon-button>
+    <mat-icon>edit</mat-icon>
+  </a>
+</mat-card-title>
 <!-- <mat-card-subtitle>{{volunteer.email}}</mat-card-subtitle> -->
 <mat-card-content>
   <mat-divider></mat-divider>
