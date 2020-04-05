@@ -11,6 +11,85 @@
   </div>
 </div>
 
+<form novalidate [formGroup]="form">
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+
+    <div fxLayout="column" fxLayoutAlign="space-evenly stretch">
+      <mat-form-field fxFlex class="full-width-input" appearance="fill">
+        <mat-label>First Name</mat-label>
+        <input matInput placeholder="Name" formControlName="first_name" type="text" />
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="column" fxLayoutAlign="space-evenly stretch">
+      <mat-form-field fxFlex class="full-width-input" appearance="fill">
+        <mat-label>Last Name</mat-label>
+        <input matInput placeholder="Last Name" formControlName="last_name" type="text" />
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="column" fxLayoutAlign="space-evenly stretch">
+      <mat-form-field fxFlex class="full-width-input" appearance="fill">
+        <mat-label>Phone number</mat-label>
+        <input matInput placeholder="Phone" formControlName="phone" type="number" />
+        <mat-icon matSuffix>phone</mat-icon>
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="column" fxLayoutAlign="space-evenly stretch">
+      <mat-form-field fxFlex class="full-width-input" appearance="fill">
+        <mat-label>Status</mat-label>
+        <input matInput placeholder="Status" formControlName="status" type="text" />
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="column" fxLayoutAlign="space-evenly stretch">
+      <mat-form-field class="full-width-input" appearance="fill">
+        <mat-label>Select Fixer</mat-label>
+        <mat-select formControlName="offer">
+          <mat-option *ngFor="let item of (offers|async)" [value]="item._id">
+            {{ item.first_name|| item.ro}}
+          </mat-option>
+          <mat-option [value]="''">
+            {{ 'All'}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="column" fxLayoutAlign="space-evenly stretch">
+      <mat-form-field class="full-width-input" appearance="fill">
+        <mat-label>Select Zones</mat-label>
+        <mat-select formControlName="zone_address">
+          <mat-option *ngFor="let item of (zones|async)?.list" [value]="item._id">
+            {{ item.first_name|| item.ro}}
+          </mat-option>
+          <mat-option [value]="''">
+            {{ 'All'}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div fxLayout="row" fxLayoutAlign="space-around stretch">
+    <div fxLayout="column" class="mb-25">
+      <button mat-flat-button color="primary" (click)="search(form.value)">
+        Search
+      </button>
+
+    </div>
+    <div fxLayout="column">
+      <button mat-flat-button color="primary" (click)="reset()">
+        Reset
+      </button>
+    </div>
+  </div>
+
+</form>
+
+
+
 <mat-card>
   <table mat-table [dataSource]="dataSource$ | async">
     <!-- Name Column -->
@@ -42,12 +121,8 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr
-      mat-row
-      *matRowDef="let row; columns: displayedColumns"
-      class="clickable-row"
-      [routerLink]="['/volunteers/details', row._id]"
-    ></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns" class="clickable-row"
+      [routerLink]="['/volunteers/details', row._id]"></tr>
   </table>
 
   <div class="loading-shade" *ngIf="isLoading$ | async">

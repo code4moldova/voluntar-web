@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, ElementRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 
@@ -6,21 +6,9 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { IRequest } from '@models/requests';
-import { IUser } from '@models/user';
 import { RequestsFacadeService } from '@services/requests/requests-facade.service';
 import { UsersFacadeService } from '@services/users/users-facade.service';
 import { GeolocationService } from '@services/geolocation/geolocation.service';
-import { ZoneI } from '@models/geolocation';
-import { FormBuilder, FormControl } from '@angular/forms';
-
-interface FilterAttributes {
-  first_name: string;
-  last_name: string;
-  phone: number;
-  status: string;
-  userId: string;
-  zoneId: string;
-}
 
 @Component({
   selector: 'app-requests-list',
@@ -34,23 +22,14 @@ export class RequestsListComponent implements OnInit {
   newRequest$ = this.requestsFacade.newRequests;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
-  public users: Observable<IUser[]>;
-  public zones: Observable<{ list: ZoneI[] }>;
 
-  form = this.fb.group({
-    first_name: new FormControl(''),
-    last_name: new FormControl(''),
-    phone: new FormControl(''),
-    status: new FormControl(''),
-    fixer: new FormControl(''),
-    zone_address: new FormControl(''),
-  });
+  public inputColumns: { name: string; value: string; icon?: string, placeholder?: string }[];
+  public selectColumns: { name: string; value: string; array: Observable<any[]>, icon?: string, placeholder?: string, }[];
 
   constructor(
     private requestsFacade: RequestsFacadeService,
     private usersFacadeService: UsersFacadeService,
     private geolocationService: GeolocationService,
-    private fb: FormBuilder,
   ) { }
 
   ngOnInit() {
@@ -62,9 +41,19 @@ export class RequestsListComponent implements OnInit {
         return dataSource;
       })
     );
+
     this.usersFacadeService.getUsers();
-    this.users = this.usersFacadeService.users$;
-    this.zones = this.geolocationService.getZones();
+
+    this.inputColumns = [
+      { name: 'First Name', value: 'first_name' },
+      { name: 'Last Name', value: 'last_name' },
+      { name: 'Phone', value: 'phone', icon: 'phone' },
+    ];
+    this.selectColumns = [
+      // { name: 'Status', value: 'status' },
+      { name: 'Fixer', value: 'fixer', array: this.usersFacadeService.users$ },
+      { name: 'Zone address', value: 'zone_address', array: this.geolocationService.getZonesFromFilter() },
+    ];
   }
 
   fetchRequests() {
@@ -72,15 +61,14 @@ export class RequestsListComponent implements OnInit {
     this.requestsFacade.resetNewRequests();
   }
 
-  search(filters: FilterAttributes) {
-    const query = Object.keys(filters).reduce((acc, cv) => (acc = acc + ((filters[cv] === '' || filters[cv] === null) ? '' : `&${cv}=${filters[cv]}`)), '');
-    this.requestsFacade.getBeneficiaresByFilter(query);
+  queryResult(event: { query: string }) {
+    this.requestsFacade.getBeneficiaresByFilter(event.query);
   }
 
-  reset() {
-    this.form.reset({ first_name: '', last_name: '', phone: '', status: '', fixer: '', zone_address: '' });
-    this.form.markAsUntouched();
-    this.requestsFacade.getRequests();
+  resetForm($event: { result: boolean }) {
+    if ($event.result) {
+      this.requestsFacade.getRequests();
+    }
   }
 
 }
