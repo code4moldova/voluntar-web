@@ -13,6 +13,14 @@
   </div>
   <div class="toolbar-spacer"></div>
   <div class="user-nav">
+    <button
+      mat-icon-button
+      [disabled]="!(newRequest$ | async)"
+      (click)="fetchRequests()"
+      [matTooltip]="(newRequest$ | async) ? 'New Request' : null"
+      aria-label="Notifications">
+      <mat-icon [matBadge]="(newRequest$ | async) ? '!' : null" matBadgeColor="primary">notification_important</mat-icon>
+    </button>
     <button mat-button [matMenuTriggerFor]="menu">
       <mat-icon>account_box</mat-icon>
       <span class="user-name">{{ userName$ | async }}</span>

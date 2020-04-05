@@ -13,12 +13,24 @@ import {
   selectRequestsData,
   selectRequestsError,
   selectRequestsDetails,
-  selectZones
+  selectZones,
+  selectRequestsCount,
 } from '@store/requests-store/selectors';
 import { IRequest, IRequestDetails, BeneficiaryCriteriaFilter } from '@models/requests';
+import { RequestsService } from './requests.service';
+import {
+  map,
+  takeUntil,
+  switchMap,
+  pairwise,
+  filter,
+  tap,
+  withLatestFrom,
+} from 'rxjs/operators';
+import { BehaviorSubject, interval, Subject, combineLatest } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RequestsFacadeService {
   requests$ = this.store.pipe(select(selectRequestsData));
@@ -26,8 +38,56 @@ export class RequestsFacadeService {
   error$ = this.store.pipe(select(selectRequestsError));
   requestDetails$ = this.store.pipe(select(selectRequestsDetails));
   zones$ = this.store.pipe(select(selectZones));
+  requestsCount$ = this.store.pipe(select(selectRequestsCount));
 
-  constructor(private store: Store<RootState>) { }
+  private hasNewRequests$ = new BehaviorSubject(false);
+  private newRequests$ = new BehaviorSubject(false);
+  private DELAY_TIME = 1000 * 60 * 1; // milliseconds * seconds * minutes
+  private audio = new Audio('/assets/Glass.wav');
+
+  constructor(
+    private store: Store<RootState>,
+    private requestService: RequestsService
+  ) {
+    const stopPolling$ = new Subject();
+    combineLatest([this.newRequests$, this.requestsCount$])
+      .pipe(
+        tap(([value, countFromState]) => {
+          if (!value) {
+            console.log('stop polling');
+            stopPolling$.next(true);
+          }
+        }),
+        filter(([value, countFromState]) => value),
+        switchMap(([value, countFromState]) => {
+          return interval(this.DELAY_TIME).pipe(
+            takeUntil(stopPolling$),
+            switchMap(() =>
+              this.requestService.getRequests().pipe(map(({ count }) => count))
+            ),
+            map((count) => [count, countFromState])
+          );
+        })
+      )
+      .subscribe(([count, countFromState]) => {
+        console.log('start polling');
+        if (countFromState === null) {
+          return;
+        }
+        if (countFromState < count) {
+          this.audio.play();
+        }
+        this.hasNewRequests$.next(countFromState < count);
+      });
+  }
+
+  get newRequests() {
+    return this.hasNewRequests$.asObservable();
+  }
+
+  resetNewRequests() {
+    this.hasNewRequests$.next(false);
+  }
 
   getRequests() {
     this.store.dispatch(getRequestsAction());
@@ -51,4 +111,7 @@ export class RequestsFacadeService {
     this.store.dispatch(getBeneficiariesByFilterAction({ payload: criteria }));
   }
 
+  toggleNewRequestsPolling(value: boolean) {
+    this.newRequests$.next(value);
+  }
 }

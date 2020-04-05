@@ -7,7 +7,9 @@ import { SidebarComponent } from 'src/app/layout/sidebar/sidebar.component';
 import { HeaderComponent } from 'src/app/layout/header/header.component';
 
 @NgModule({
-  declarations: [AdminComponent, HeaderComponent, SidebarComponent],
+  declarations: [
+    AdminComponent, HeaderComponent, SidebarComponent
+  ],
   imports: [CommonModule, AdminRoutingModule, MaterialComponentsModule]
 })
-export class AdminModule {}
+export class AdminModule { }

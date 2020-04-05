@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { MaterialComponentsModule } from 'src/app/shared/material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { PhoneMaskDirective } from './directives/phone-mask.directive';
+// import { PhoneMaskDirective } from './directives/phone-mask.directive';
+import { EsriMapComponent } from './esri-map/esri-map.component';
 
 @NgModule({
   exports: [
@@ -11,7 +12,9 @@ import { PhoneMaskDirective } from './directives/phone-mask.directive';
     FormsModule,
     ReactiveFormsModule,
     MaterialComponentsModule,
-    FlexLayoutModule
-  ]
+    FlexLayoutModule,
+    EsriMapComponent
+  ],
+  declarations: [EsriMapComponent]
 })
-export class SharedModule {}
+export class SharedModule { }

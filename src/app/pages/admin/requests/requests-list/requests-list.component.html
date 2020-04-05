@@ -1,7 +1,8 @@
 <div class="mb-25">
   <div fxLayout="row" fxLayoutAlign="space-between center">
-    <div fxFlex>
-      <h1 class="mb-0 mt-0">Beneficiars</h1>
+    <div fxFlex fxLayout="row">
+      <h1 class="mb-0 mt-0 mr-10">Beneficiars</h1>
+      <button mat-icon-button (click)="fetchRequests()"><mat-icon>autorenew</mat-icon></button>
     </div>
     <div fxFlex fxLayoutAlign="end">
       <a routerLink="/requests/new" mat-raised-button color="primary">

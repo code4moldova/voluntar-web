@@ -15,12 +15,13 @@ import { ZoneI } from '@models/geolocation';
 @Component({
   selector: 'app-requests-list',
   templateUrl: './requests-list.component.html',
-  styleUrls: ['./requests-list.component.scss']
+  styleUrls: ['./requests-list.component.scss'],
 })
 export class RequestsListComponent implements OnInit, AfterViewInit, OnDestroy {
   displayedColumns: string[] = ['name', 'phone', 'hasMoney', 'city', 'status'];
   dataSource$: Observable<MatTableDataSource<IRequest>>;
   isLoading$ = this.requestsFacade.isLoading$;
+  newRequest$ = this.requestsFacade.newRequests;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild('search') search: ElementRef;
   public criteriaFields = BeneficiaryField;
@@ -39,9 +40,9 @@ export class RequestsListComponent implements OnInit, AfterViewInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.requestsFacade.getRequests();
+    this.fetchRequests();
     this.dataSource$ = this.requestsFacade.requests$.pipe(
-      map(data => {
+      map((data) => {
         const dataSource = new MatTableDataSource(data);
         dataSource.paginator = this.paginator;
         return dataSource;
@@ -111,4 +112,8 @@ export class RequestsListComponent implements OnInit, AfterViewInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
+  fetchRequests() {
+    this.requestsFacade.getRequests();
+    this.requestsFacade.resetNewRequests();
+  }
 }

@@ -11,6 +11,8 @@ import { AuthInterceptor } from '@services/interceptors/auth.interceptor';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ErrorInterceptor } from '@services/interceptors/error.interceptor';
 
+
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -36,4 +38,4 @@ import { ErrorInterceptor } from '@services/interceptors/error.interceptor';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
