@@ -1,4 +1,11 @@
-import { Component, OnInit, ViewChild, AfterViewInit, ElementRef, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  AfterViewInit,
+  ElementRef,
+  OnDestroy,
+} from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 
@@ -38,20 +45,20 @@ export class RequestsListComponent implements OnInit {
   public zones: Observable<{ list: ZoneI[] }>;
 
   form = this.fb.group({
-    first_name: new FormControl(''),
-    last_name: new FormControl(''),
-    phone: new FormControl(''),
-    status: new FormControl(''),
-    fixer: new FormControl(''),
-    zone_address: new FormControl(''),
+    first_name: new FormControl(null),
+    last_name: new FormControl(null),
+    phone: new FormControl(null),
+    status: new FormControl(null),
+    fixer: new FormControl(null),
+    zone_address: new FormControl(null),
   });
 
   constructor(
     private requestsFacade: RequestsFacadeService,
     private usersFacadeService: UsersFacadeService,
     private geolocationService: GeolocationService,
-    private fb: FormBuilder,
-  ) { }
+    private fb: FormBuilder
+  ) {}
 
   ngOnInit() {
     this.fetchRequests();
@@ -73,14 +80,32 @@ export class RequestsListComponent implements OnInit {
   }
 
   search(filters: FilterAttributes) {
-    const query = Object.keys(filters).reduce((acc, cv) => (acc = acc + ((filters[cv] === '' || filters[cv] === null) ? '' : `&${cv}=${filters[cv]}`)), '');
-    this.requestsFacade.getBeneficiaresByFilter(query);
+    // const query = Object.keys(filters).reduce(
+    //   (acc, cv) =>
+    //     (acc =
+    //       acc +
+    //       (filters[cv] === '' || filters[cv] === null
+    //         ? ''
+    //         : `&${cv}=${filters[cv]}`)),
+    //   ''
+    // );
+    this.requestsFacade.getBeneficiaresByFilter(filters);
+  }
+
+  onFiltersSubmit() {
+    this.search(this.form.value);
   }
 
   reset() {
-    this.form.reset({ first_name: '', last_name: '', phone: '', status: '', fixer: '', zone_address: '' });
+    this.form.reset({
+      first_name: '',
+      last_name: '',
+      phone: '',
+      status: '',
+      fixer: '',
+      zone_address: '',
+    });
     this.form.markAsUntouched();
     this.requestsFacade.getRequests();
   }
-
 }

@@ -1,3 +1,13 @@
 mat-card {
   min-height: 400px;
 }
+
+.mat-expansion-panel-header-description {
+  justify-content: flex-end;
+  align-items: center;
+}
+
+mat-accordion {
+  display: block;
+  margin-bottom: 25px;
+}

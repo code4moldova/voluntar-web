@@ -14,7 +14,6 @@ export enum ActionTypes {
   GET_Beneficiares_BY_FILTER_SUCCES = '[Request] Get Request By Filter Succes',
   GET_Beneficiares_BY_FILTER_FAILURE = '[Request] Get Request By Filter Failure',
 
-
   SAVE_REQUEST = '[Request] Save Request',
   SAVE_REQUEST_SUCCESS = '[Request] Save Request Success',
   SAVE_REQUEST_FAILURE = '[Request] Save Request Failure',
@@ -89,7 +88,7 @@ export const getZonesFailureAction = createAction(
 
 export const getBeneficiariesByFilterAction = createAction(
   ActionTypes.GET_Beneficiares_BY_FILTER,
-  props<{ payload: string }>()
+  props<{ payload: any }>()
 );
 
 export const getBeneficiariesByFilterSuccesAction = createAction(

@@ -6,7 +6,7 @@ import {
   getRequestAction,
   saveRequestAction,
   updateRequestAction,
-  getBeneficiariesByFilterAction
+  getBeneficiariesByFilterAction,
 } from '@store/requests-store/actions';
 import {
   selectIsLoading,
@@ -107,7 +107,7 @@ export class RequestsFacadeService {
     }
   }
 
-  getBeneficiaresByFilter(criteria: string): void {
+  getBeneficiaresByFilter(criteria: any): void {
     this.store.dispatch(getBeneficiariesByFilterAction({ payload: criteria }));
   }
 
