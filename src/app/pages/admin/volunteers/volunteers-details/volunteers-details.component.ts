@@ -141,11 +141,14 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
       .pipe(
         filter((volunteer) => !!volunteer),
         // Fix issue switching between 'new' and 'details' page
-        map((volunteer) => (this.currentVolunteeerId ? volunteer : {})),
+        map((volunteer) => (this.currentVolunteeerId ? volunteer : {} as IVolunteer)),
         takeUntil(this.componentDestroyed$)
       )
       .subscribe((volunteer) => {
         this.form.patchValue(volunteer);
+        if (volunteer.address) {
+          this.fakeAddressControl.patchValue({ address: volunteer.address });
+        }
       });
   }
 

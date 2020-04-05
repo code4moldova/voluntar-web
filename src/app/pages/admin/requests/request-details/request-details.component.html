@@ -116,7 +116,7 @@
                   Full Address Info
                 </mat-panel-title>
                 <mat-panel-description>
-                  
+
                   <mat-icon>explore</mat-icon>
                 </mat-panel-description>
               </mat-expansion-panel-header>
@@ -194,31 +194,6 @@
             </mat-select>
           </mat-form-field>
         </div>
-
-        <mat-accordion>
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                Hidden Fields
-              </mat-panel-title>
-              <!-- <mat-panel-description>
-                You probably don't need to change something here.
-              </mat-panel-description> -->
-            </mat-expansion-panel-header>
-
-            <div fxLayoutGap="15px">
-              <mat-form-field fxFlex class="full-width-input">
-                <input matInput placeholder="Address" formControlName="address" required />
-              </mat-form-field>
-              <mat-form-field fxFlex=200px class="full-width-input">
-                <input matInput placeholder="Latitude" formControlName="latitude" required />
-              </mat-form-field>
-              <mat-form-field fxFlex=200px class="full-width-input">
-                <input matInput placeholder="Longitude" formControlName="longitude" required />
-              </mat-form-field>
-            </div>
-          </mat-expansion-panel>
-        </mat-accordion>
 
         <div class="form-action-container">
           <button mat-raised-button *ngIf="!currentRequestId" color="primary">
