@@ -11,7 +11,7 @@
   <p><strong>Last Name</strong>: {{volunteer.last_name}}</p>
   <p><strong>Email</strong>: {{volunteer.email}}</p>
   <p><strong>Phone</strong>: {{volunteer.phone}}</p>
-  <!-- <p><strong>Distance</strong>: {{volunteer.distance}}</p> -->
+  <p><strong>Distance</strong>: {{volunteer.distance | number: '1.0-0'}} Km.</p>
   <mat-divider></mat-divider>
   <h3>Activity Types</h3>
   <p *ngFor="let activity of activityTypes$ | async">{{activity.ro}}</p>
