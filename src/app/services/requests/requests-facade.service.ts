@@ -107,11 +107,12 @@ export class RequestsFacadeService {
     }
   }
 
-  getBeneficiaresByFilter(criteria: string): void {
+  getBeneficiaresByFilter(criteria: { [keys: string]: string }): void {
     this.store.dispatch(getBeneficiariesByFilterAction({ payload: criteria }));
   }
 
   toggleNewRequestsPolling(value: boolean) {
     this.newRequests$.next(value);
   }
+
 }

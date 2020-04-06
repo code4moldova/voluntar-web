@@ -88,7 +88,7 @@ export const getZonesFailureAction = createAction(
 
 export const getBeneficiariesByFilterAction = createAction(
   ActionTypes.GET_Beneficiares_BY_FILTER,
-  props<{ payload: string }>()
+  props<{ payload: { [keys: string]: string } }>()
 );
 
 export const getBeneficiariesByFilterSuccesAction = createAction(

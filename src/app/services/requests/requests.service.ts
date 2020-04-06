@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IRequest, IRequestDetails } from '@models/requests';
 import { environment } from 'src/environments/environment';
@@ -33,9 +33,10 @@ export class RequestsService {
     );
   }
 
-  getBeneficiariesByFilter(criteria: string): Observable<{ count: number; list: IRequestDetails[] }> {
+  getBeneficiariesByFilter(httpParams: { [keys: string]: string }): Observable<{ count: number; list: IRequestDetails[] }> {
+    const params = new HttpParams({ fromObject: httpParams });
     return this.http.get<{ count: number; list: IRequestDetails[] }>(
-      `${environment.url}/api/beneficiary/filters/1/1000?${criteria}`,
+      `${environment.url}/api/beneficiary/filters/1/1000?`, { params },
     );
   }
 

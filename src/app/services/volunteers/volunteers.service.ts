@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IVolunteer } from '@models/volunteers';
 import { environment } from 'src/environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
@@ -37,8 +38,9 @@ export class VolunteersService {
     return this.http.get<{ list: IVolunteer & { distance: number }[] }>(`${environment.url}/api/volunteer/closest/${requestId}/${volunteers}`);
   }
 
-  getVolunteersByFilter(criteria: string): Observable<{ count: number, list: IVolunteer[] }> {
-    return this.http.get<{ count: number, list: IVolunteer[] }>(`${environment.url}/api/volunteer/filters/1/1000?${criteria}`);
+  getVolunteersByFilter(httpParams: { [key: string]: string } = {}): Observable<{ count: number, list: IVolunteer[] }> {
+    const params = new HttpParams({ fromObject: httpParams });
+    return this.http.get<{ count: number, list: IVolunteer[] }>(`${environment.url}/api/volunteer/filters/1/1000?`, { params });
   }
 
 }

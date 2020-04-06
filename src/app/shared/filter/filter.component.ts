@@ -5,20 +5,16 @@ import {
   EventEmitter,
   Output,
   OnDestroy,
-  AfterViewInit,
-  ElementRef,
-  ViewChildren,
-  QueryList,
 } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
 
-import { Subscription, fromEvent, merge, EMPTY } from 'rxjs';
+import { Subscription, EMPTY } from 'rxjs';
 import {
-  map,
   debounceTime,
   distinctUntilChanged,
   catchError,
 } from 'rxjs/operators';
+
 import {
   FilterInputColumns,
   FilterSelectColumns,
@@ -30,39 +26,32 @@ import {
   templateUrl: './filter.component.html',
   styleUrls: ['./filter.component.scss'],
 })
-export class FilterComponent implements OnInit, AfterViewInit, OnDestroy {
+export class FilterComponent implements OnInit, OnDestroy {
   @Input() public inputColumns: FilterInputColumns[];
   @Input() public selectColumns: FilterSelectColumns<any>[];
   @Input() public observableSelectColumns: FilterObservableSelectColumns<any>[];
-  @Output() public queryResult = new EventEmitter<{ query: string }>();
-  @Output() public resetForm = new EventEmitter<{ result: boolean }>();
-  @ViewChildren('search') input: QueryList<ElementRef>;
+  @Output() public queryResult = new EventEmitter<{ [keys: string]: string; }>();
 
   public form = this.fb.group({});
   private subscription: Subscription;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
+
     this.inputColumns.forEach((col) => {
-      this.form.addControl(col.value, new FormControl(''));
+      this.form.addControl(col.value, new FormControl(null));
     });
+
     this.selectColumns.forEach((col) => {
-      this.form.addControl(col.value, new FormControl(''));
+      this.form.addControl(col.value, new FormControl(null));
     });
+
     this.observableSelectColumns.forEach((col) => {
-      this.form.addControl(col.value, new FormControl(''));
+      this.form.addControl(col.value, new FormControl(null));
     });
-  }
 
-  ngAfterViewInit(): void {
-    const eventStreams$ = this.input.map((ev) =>
-      fromEvent(ev.nativeElement, 'keyup')
-    );
-    const allEvents$ = merge(...eventStreams$);
-
-    const search$ = allEvents$.pipe(
-      map((event: Event) => (event.target as HTMLInputElement).value),
+    const search$ = this.form.valueChanges.pipe(
       debounceTime(1000),
       distinctUntilChanged(),
       catchError((err) => EMPTY)
@@ -71,38 +60,26 @@ export class FilterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.subscription = search$.subscribe((criterion) => {
       this.search(this.form.value);
     });
+
   }
 
   onFiltersSubmit() {
     this.search(this.form.value);
   }
 
-  public openedChange(open: boolean): void {
-    if (!open) {
-      this.search(this.form.value);
-    }
-  }
 
   public search(filters: { [keys: string]: string | null }): void {
-    const query = Object.keys(filters).reduce(
-      (acc, cv) =>
-        (acc =
-          acc +
-          (filters[cv] === '' || filters[cv] === null
-            ? ''
-            : `&${cv}=${filters[cv]}`)),
-      ''
-    );
-    this.queryResult.emit({ query });
+    Object.keys(filters).forEach(key => (filters[key] === '' || filters[key] === null) ? delete filters[key] : '');
+    this.queryResult.emit(filters);
   }
 
   public reset(): void {
     this.form.reset();
     this.form.markAsUntouched();
-    this.resetForm.emit({ result: true });
   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
+
 }

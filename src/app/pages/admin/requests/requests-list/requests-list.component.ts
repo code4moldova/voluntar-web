@@ -5,11 +5,12 @@ import { MatPaginator } from '@angular/material/paginator';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { IRequest } from '@models/requests';
 import { RequestsFacadeService } from '@services/requests/requests-facade.service';
 import { UsersFacadeService } from '@services/users/users-facade.service';
 import { GeolocationService } from '@services/geolocation/geolocation.service';
+
 import { FilterInputColumns, FilterSelectColumns, FilterObservableSelectColumns } from '@models/filter';
+import { IRequest } from '@models/requests';
 import { IUser } from '@models/user';
 import { ZoneI } from '@models/geolocation';
 
@@ -87,7 +88,6 @@ export class RequestsListComponent implements OnInit {
     this.selectColumns = [
       { name: 'Status', value: 'status', array: this.statusOptions },
       { name: 'Is Active', value: 'is_active', array: this.isActive },
-
     ];
 
   }
@@ -97,14 +97,9 @@ export class RequestsListComponent implements OnInit {
     this.requestsFacade.resetNewRequests();
   }
 
-  queryResult(event: { query: string }) {
-    this.requestsFacade.getBeneficiaresByFilter(event.query);
-  }
 
-  resetForm($event: { result: boolean }) {
-    if ($event.result) {
-      this.requestsFacade.getRequests();
-    }
+  queryResult(criteria: { [keys: string]: string }) {
+    this.requestsFacade.getBeneficiaresByFilter(criteria);
   }
 
 }

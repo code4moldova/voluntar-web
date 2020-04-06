@@ -74,7 +74,7 @@ export const updateVolunteerSuccessAction = createAction(
 
 export const getVolunteersByFilterAction = createAction(
   ActionTypes.GET_VOLUNTEERS_BY_FILTER,
-  props<{ payload: string }>()
+  props<{ payload: { [keys: string]: string } }>()
 );
 
 export const getVolunteersByFilterSuccessAction = createAction(
