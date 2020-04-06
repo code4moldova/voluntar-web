@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EsriMapComponent } from './esri-map/esri-map.component';
 
 @NgModule({
+  imports: [CommonModule, MaterialComponentsModule],
   exports: [
     CommonModule,
     FormsModule,

@@ -196,11 +196,9 @@
         </div>
 
         <div class="form-action-container">
-          <button mat-raised-button *ngIf="!currentRequestId" color="primary">
-            Add Beneficiar
-          </button>
-          <button mat-raised-button *ngIf="currentRequestId" color="primary">
-            Update Beneficiar
+          <button mat-raised-button color="primary">
+            <span *ngIf="!currentRequestId">Add Beneficiar</span>
+            <span *ngIf="currentRequestId">Update Beneficiar</span>
           </button>
         </div>
         <div class="loading-shade" *ngIf="isLoading$ | async">
@@ -226,10 +224,12 @@
           <mat-radio-group formControlName="volunteer"
             *ngIf="volunteersNearby$ | async as volunteersNearby; else noVolunteersNearby">
             <div fxLayoutGap="1em" fxLayoutAlign="center" *ngFor="let volunteer of volunteersNearby">
-              <mat-radio-button fxLayoutAlign="center" fxFlex [value]="volunteer._id">
+              <mat-radio-button fxLayoutAlign="center" fxFlex [value]="volunteer._id"
+                [color]="getThemeColor(volunteer)">
                 {{volunteer.first_name}} {{volunteer.last_name}} / {{volunteer.phone}}
               </mat-radio-button>
-              <button mat-icon-button type="button" color="primary" (click)="showVolunteerInfoModal(volunteer)">
+              <button mat-icon-button type="button" [color]="getThemeColor(volunteer)"
+                (click)="showVolunteerInfoModal(volunteer)" matTooltip="Volunteer Info" matTooltipPosition="left">
                 <mat-icon>info</mat-icon>
               </button>
             </div>

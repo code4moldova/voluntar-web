@@ -1,2 +1,4 @@
 <map #map></map>
-<button #submitButton mat-flat-button (click)="submitCoors()" type="button">Submit Coors</button>
+<button mat-raised-button (click)="submitCoors()" type="button" color="primary" [disabled]="!(mapIsLoaded$ | async)">
+  Add current address
+</button>

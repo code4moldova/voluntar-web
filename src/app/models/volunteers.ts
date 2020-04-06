@@ -1,6 +1,6 @@
 export interface IVolunteer {
   _id?: string;
-  activity_types: string;
+  activity_types: string[];
   address: string;
   age: number;
   availability: number;
@@ -14,6 +14,11 @@ export interface IVolunteer {
   longitude: number;
   phone: number;
   zone_address: string;
+
+  accepted_offer?: boolean;
+  availability_day?: string;
+  telegram_chat_id?: string;
+  count?: number;
 }
 
 export interface V2 {

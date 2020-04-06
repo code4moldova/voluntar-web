@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { loadModules } from 'esri-loader';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-esri-map',
@@ -18,16 +19,18 @@ export class EsriMapComponent implements OnDestroy, AfterViewInit {
   @ViewChild('map', { static: true }) private mapViewEl: ElementRef<
     HTMLMapElement
   >;
-  @ViewChild('submitButton', { static: true }) private submitButton: ElementRef<
-    HTMLButtonElement
-  >;
+  // @ViewChild('submitButton', { static: true }) private submitButton: ElementRef<
+  //   HTMLButtonElement
+  // >;
   private view: any;
   private search: any;
+
+  mapIsLoaded$ = new Subject<boolean>();
 
   constructor(
     private dialogRef: MatDialogRef<EsriMapComponent>,
     @Inject(MAT_DIALOG_DATA) private data: { coors: number[]; address: string }
-  ) {}
+  ) { }
 
   ngAfterViewInit() {
     this.initializeMap();
@@ -71,7 +74,7 @@ export class EsriMapComponent implements OnDestroy, AfterViewInit {
         new BasemapToggle({ view: this.view, nextBasemap: 'streets' }),
         'bottom-left'
       );
-      this.view.ui.add(this.submitButton.nativeElement, 'bottom-right');
+      // this.view.ui.add(this.submitButton.nativeElement, 'bottom-right');
 
       this.view.when(
         async () => {
@@ -85,6 +88,7 @@ export class EsriMapComponent implements OnDestroy, AfterViewInit {
           if (this.data.address) {
             await this.search.search(this.data.address);
           }
+          this.mapIsLoaded$.next(true);
         },
         (error: any) => {
           throw new Error(error);
