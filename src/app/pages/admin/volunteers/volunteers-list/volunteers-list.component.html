@@ -11,6 +11,15 @@
   </div>
 </div>
 
+<app-filter
+ [inputColumns]="inputColumns"
+ [selectColumns]="selectColumns"
+ [observableSelectColumns]="observableSelectColumns"
+ (queryResult)="queryResult($event)"
+ (resetForm)="resetForm($event)"
+  >
+</app-filter>
+
 <mat-card>
   <table mat-table [dataSource]="dataSource$ | async">
     <!-- Name Column -->
@@ -42,12 +51,8 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr
-      mat-row
-      *matRowDef="let row; columns: displayedColumns"
-      class="clickable-row"
-      [routerLink]="['/volunteers/details', row._id]"
-    ></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns" class="clickable-row"
+      [routerLink]="['/volunteers/details', row._id]"></tr>
   </table>
 
   <div class="loading-shade" *ngIf="isLoading$ | async">

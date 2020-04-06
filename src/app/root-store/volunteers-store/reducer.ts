@@ -9,7 +9,10 @@ import {
   saveVolunteerFailureAction,
   getVolunteerAction,
   getVolunteerSuccessAction,
-  getVolunteerFailureAction
+  getVolunteerFailureAction,
+  getVolunteersByFilterAction,
+  getVolunteersByFilterSuccessAction,
+  getVolunteersByFilterFailureAction
 } from './actions';
 
 const volunteerReducer = createReducer(
@@ -65,7 +68,22 @@ const volunteerReducer = createReducer(
       isLoading: false,
       error
     };
-  })
+  }),
+  on(getVolunteersByFilterAction, state => ({
+    ...state,
+    error: null,
+    isLoading: true
+  })),
+  on(getVolunteersByFilterSuccessAction, (state, { payload }) => ({
+    ...state,
+    isLoading: false,
+    data: payload
+  })),
+  on(getVolunteersByFilterFailureAction, (state, { error }) => ({
+    ...state,
+    isLoading: false,
+    error
+  })),
 );
 
 export function reducer(state: VolunteersState | undefined, action: Action) {

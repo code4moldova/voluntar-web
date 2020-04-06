@@ -1,11 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ViewChild,
-  AfterViewInit,
-  ElementRef,
-  OnDestroy,
-} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 
@@ -13,21 +6,12 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { IRequest } from '@models/requests';
-import { IUser } from '@models/user';
 import { RequestsFacadeService } from '@services/requests/requests-facade.service';
 import { UsersFacadeService } from '@services/users/users-facade.service';
 import { GeolocationService } from '@services/geolocation/geolocation.service';
+import { FilterInputColumns, FilterSelectColumns, FilterObservableSelectColumns } from '@models/filter';
+import { IUser } from '@models/user';
 import { ZoneI } from '@models/geolocation';
-import { FormBuilder, FormControl } from '@angular/forms';
-
-interface FilterAttributes {
-  first_name: string;
-  last_name: string;
-  phone: number;
-  status: string;
-  userId: string;
-  zoneId: string;
-}
 
 @Component({
   selector: 'app-requests-list',
@@ -35,33 +19,52 @@ interface FilterAttributes {
   styleUrls: ['./requests-list.component.scss'],
 })
 export class RequestsListComponent implements OnInit {
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   displayedColumns: string[] = ['name', 'phone', 'hasMoney', 'city', 'status'];
   dataSource$: Observable<MatTableDataSource<IRequest>>;
   isLoading$ = this.requestsFacade.isLoading$;
   newRequest$ = this.requestsFacade.newRequests;
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
-  public users: Observable<IUser[]>;
-  public zones: Observable<{ list: ZoneI[] }>;
-
-  form = this.fb.group({
-    first_name: new FormControl(null),
-    last_name: new FormControl(null),
-    phone: new FormControl(null),
-    status: new FormControl(null),
-    fixer: new FormControl(null),
-    zone_address: new FormControl(null),
-  });
-
+  public inputColumns: FilterInputColumns[];
+  public selectColumns: FilterSelectColumns<{ label: string; _id: string | boolean }>[];
+  public observableSelectColumns: FilterObservableSelectColumns<IUser | ZoneI>[];
+  private statusOptions = [
+    {
+      label: 'New',
+      _id: 'new',
+    },
+    {
+      label: 'Done',
+      _id: 'done',
+    },
+    {
+      label: 'On Progress',
+      _id: 'onprogress',
+    },
+    {
+      label: 'Review',
+      _id: 'review',
+    },
+  ];
+  private isActive = [
+    {
+      label: 'Yes',
+      _id: true,
+    },
+    {
+      label: 'No',
+      _id: false,
+    },
+  ];
   constructor(
     private requestsFacade: RequestsFacadeService,
     private usersFacadeService: UsersFacadeService,
     private geolocationService: GeolocationService,
-    private fb: FormBuilder
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.fetchRequests();
+    this.usersFacadeService.getUsers();
     this.dataSource$ = this.requestsFacade.requests$.pipe(
       map((data) => {
         const dataSource = new MatTableDataSource(data);
@@ -69,9 +72,24 @@ export class RequestsListComponent implements OnInit {
         return dataSource;
       })
     );
-    this.usersFacadeService.getUsers();
-    this.users = this.usersFacadeService.users$;
-    this.zones = this.geolocationService.getZones();
+
+    this.inputColumns = [
+      { name: 'First Name', value: 'first_name' },
+      { name: 'Last Name', value: 'last_name' },
+      { name: 'Phone', value: 'phone', icon: 'phone' },
+    ];
+
+    this.observableSelectColumns = [
+      { name: 'Fixer', value: 'fixer', array: this.usersFacadeService.users$ },
+      { name: 'Zone address', value: 'zone_address', array: this.geolocationService.getZonesFromFilter() },
+    ];
+
+    this.selectColumns = [
+      { name: 'Status', value: 'status', array: this.statusOptions },
+      { name: 'Is Active', value: 'is_active', array: this.isActive },
+
+    ];
+
   }
 
   fetchRequests() {
@@ -79,33 +97,14 @@ export class RequestsListComponent implements OnInit {
     this.requestsFacade.resetNewRequests();
   }
 
-  search(filters: FilterAttributes) {
-    // const query = Object.keys(filters).reduce(
-    //   (acc, cv) =>
-    //     (acc =
-    //       acc +
-    //       (filters[cv] === '' || filters[cv] === null
-    //         ? ''
-    //         : `&${cv}=${filters[cv]}`)),
-    //   ''
-    // );
-    this.requestsFacade.getBeneficiaresByFilter(filters);
+  queryResult(event: { query: string }) {
+    this.requestsFacade.getBeneficiaresByFilter(event.query);
   }
 
-  onFiltersSubmit() {
-    this.search(this.form.value);
+  resetForm($event: { result: boolean }) {
+    if ($event.result) {
+      this.requestsFacade.getRequests();
+    }
   }
 
-  reset() {
-    this.form.reset({
-      first_name: '',
-      last_name: '',
-      phone: '',
-      status: '',
-      fixer: '',
-      zone_address: '',
-    });
-    this.form.markAsUntouched();
-    this.requestsFacade.getRequests();
-  }
 }

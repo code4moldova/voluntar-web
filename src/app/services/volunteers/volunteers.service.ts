@@ -36,4 +36,9 @@ export class VolunteersService {
   getVolunteersNearbyRequest(requestId: string, volunteers = 10) {
     return this.http.get<{ list: IVolunteer & { distance: number }[] }>(`${environment.url}/api/volunteer/closest/${requestId}/${volunteers}`);
   }
+
+  getVolunteersByFilter(criteria: string): Observable<{ count: number, list: IVolunteer[] }> {
+    return this.http.get<{ count: number, list: IVolunteer[] }>(`${environment.url}/api/volunteer/filters/1/1000?${criteria}`);
+  }
+
 }

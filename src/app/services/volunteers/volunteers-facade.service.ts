@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import {
   saveVolunteerAction,
-  updateVolunteerAction
+  updateVolunteerAction,
+  getVolunteersByFilterAction
 } from '@store/volunteers-store/actions';
 import { Store, select } from '@ngrx/store';
 import { RootState } from '@store/root-state';
@@ -25,7 +26,7 @@ export class VolunteersFacadeService {
   volunteerDetails$ = this.store.pipe(select(selectVolunteersDetails));
   isLoading$ = this.store.pipe(select(selectIsLoading));
   error$ = this.store.pipe(select(selectError));
-  constructor(private store: Store<RootState>) {}
+  constructor(private store: Store<RootState>) { }
 
   saveVolunteer(volunteer: IVolunteer) {
     if (volunteer._id) {
@@ -42,4 +43,9 @@ export class VolunteersFacadeService {
   getVolunteerById(id: string) {
     this.store.dispatch(getVolunteerAction({ id }));
   }
+
+  getVolunteersByFilter(criteria: string) {
+    this.store.dispatch(getVolunteersByFilterAction({ payload: criteria }));
+  }
+
 }
