@@ -6,7 +6,7 @@
 </mat-card-title>
 <!-- <mat-card-subtitle>{{volunteer.email}}</mat-card-subtitle> -->
 <mat-card-content>
-  <mat-divider></mat-divider>
+  <mat-divider *ngIf="volunteer.accepted_offer"></mat-divider>
   <h3 class="alert acepted-offer" *ngIf="volunteer.accepted_offer">
     This offer has been accepted by this volunteer.
   </h3>

@@ -213,6 +213,7 @@
             <mat-slide-toggle formControlName="is_active">Active?</mat-slide-toggle>
             <mat-slide-toggle formControlName="have_money">Has Money?</mat-slide-toggle>
             <mat-slide-toggle formControlName="has_symptoms">Has Symptoms?</mat-slide-toggle>
+            <mat-slide-toggle formControlName="curator">Is Curator?</mat-slide-toggle>
           </div>
         </mat-card-content>
       </mat-card>
@@ -229,7 +230,8 @@
                 {{volunteer.first_name}} {{volunteer.last_name}} / {{volunteer.phone}}
               </mat-radio-button>
               <button mat-icon-button type="button" [color]="getThemeColor(volunteer)"
-                (click)="showVolunteerInfoModal(volunteer)" matTooltip="Volunteer Info" matTooltipPosition="left">
+                (click)="showVolunteerInfoModal(volunteer)" [matTooltip]="getTooltip(volunteer)"
+                matTooltipPosition="left">
                 <mat-icon>info</mat-icon>
               </button>
             </div>
