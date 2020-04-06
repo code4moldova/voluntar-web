@@ -2,10 +2,17 @@
 
 :host {
   display: block;
+  position: relative;
 }
 
 :host,
 map {
   height: 100%;
   width: 100%;
+}
+
+button {
+  position: absolute;
+  bottom: 30px;
+  right: 15px;
 }

@@ -89,6 +89,7 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
     // activity_types: [[], Validators.required],
     have_money: [false, Validators.required],
     has_symptoms: [false, Validators.required],
+    curator: [false, Validators.required],
     comments: [null, Validators.required],
     questions: [null, Validators.required],
     status: [{ value: 'new', disabled: true }, Validators.required],
@@ -104,10 +105,11 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
   volunteersNearbyIsLoading$ = new Subject();
   volunteersNearby$ = combineLatest([
     this.form.get('_id').valueChanges,
+    this.form.get('is_active').valueChanges,
     this.requestsFacade.isLoading$.pipe(filter((status) => !status)),
   ]).pipe(
-    exhaustMap(([id]) => {
-      if (id) {
+    exhaustMap(([id, isActive]) => {
+      if (id && isActive) {
         this.volunteersNearbyIsLoading$.next(true);
         return this.volunteersService.getVolunteersNearbyRequest(id).pipe(
           map(({ list }) =>
@@ -213,6 +215,24 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
     });
   }
 
+  getThemeColor(volunteer: IVolunteer) {
+    if (volunteer.accepted_offer) {
+      return 'primary';
+    } else if (!volunteer.telegram_chat_id) {
+      return 'warn';
+    }
+    return 'accent';
+  }
+
+  getTooltip(volunteer: IVolunteer) {
+    if (volunteer.accepted_offer) {
+      return 'Offer Accepted!';
+    } else if (!volunteer.telegram_chat_id) {
+      return 'No Telegram ID';
+    }
+    return 'Volunteer Info';
+  }
+
   showMapDialog() {
     this.matDialog
       .open<
@@ -245,7 +265,7 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
       });
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   ngOnDestroy() {
     this.componentDestroyed$.next();
