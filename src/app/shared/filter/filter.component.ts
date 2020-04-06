@@ -1,14 +1,34 @@
-import { Component, OnInit, Input, EventEmitter, Output, OnDestroy, AfterViewInit, ElementRef, ViewChildren, QueryList } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  EventEmitter,
+  Output,
+  OnDestroy,
+  AfterViewInit,
+  ElementRef,
+  ViewChildren,
+  QueryList,
+} from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
 
 import { Subscription, fromEvent, merge, EMPTY } from 'rxjs';
-import { map, debounceTime, distinctUntilChanged, catchError } from 'rxjs/operators';
-import { FilterInputColumns, FilterSelectColumns, FilterObservableSelectColumns } from '@models/filter';
+import {
+  map,
+  debounceTime,
+  distinctUntilChanged,
+  catchError,
+} from 'rxjs/operators';
+import {
+  FilterInputColumns,
+  FilterSelectColumns,
+  FilterObservableSelectColumns,
+} from '@models/filter';
 
 @Component({
   selector: 'app-filter',
   templateUrl: './filter.component.html',
-  styleUrls: ['./filter.component.scss']
+  styleUrls: ['./filter.component.scss'],
 })
 export class FilterComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() public inputColumns: FilterInputColumns[];
@@ -21,9 +41,7 @@ export class FilterComponent implements OnInit, AfterViewInit, OnDestroy {
   public form = this.fb.group({});
   private subscription: Subscription;
 
-  constructor(
-    private fb: FormBuilder,
-  ) { }
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.inputColumns.forEach((col) => {
@@ -38,21 +56,25 @@ export class FilterComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    const eventStreams$ = this.input.map((ev) => fromEvent(ev.nativeElement, 'keyup'));
+    const eventStreams$ = this.input.map((ev) =>
+      fromEvent(ev.nativeElement, 'keyup')
+    );
     const allEvents$ = merge(...eventStreams$);
 
     const search$ = allEvents$.pipe(
       map((event: Event) => (event.target as HTMLInputElement).value),
       debounceTime(1000),
       distinctUntilChanged(),
-      catchError(err => EMPTY)
+      catchError((err) => EMPTY)
     );
 
-    this.subscription = search$.subscribe(
-      criterion => {
-        this.search(this.form.value);
-      }
-    );
+    this.subscription = search$.subscribe((criterion) => {
+      this.search(this.form.value);
+    });
+  }
+
+  onFiltersSubmit() {
+    this.search(this.form.value);
   }
 
   public openedChange(open: boolean): void {
@@ -62,7 +84,15 @@ export class FilterComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   public search(filters: { [keys: string]: string | null }): void {
-    const query = Object.keys(filters).reduce((acc, cv) => (acc = acc + ((filters[cv] === '' || filters[cv] === null) ? '' : `&${cv}=${filters[cv]}`)), '');
+    const query = Object.keys(filters).reduce(
+      (acc, cv) =>
+        (acc =
+          acc +
+          (filters[cv] === '' || filters[cv] === null
+            ? ''
+            : `&${cv}=${filters[cv]}`)),
+      ''
+    );
     this.queryResult.emit({ query });
   }
 
@@ -75,5 +105,4 @@ export class FilterComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
-
 }
