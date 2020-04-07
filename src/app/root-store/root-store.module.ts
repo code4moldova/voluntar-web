@@ -2,7 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-import { EntityDataModule, DefaultDataServiceConfig } from '@ngrx/data';
+import {
+  EntityDataModule,
+  DefaultDataServiceConfig,
+  EntityDataService,
+} from '@ngrx/data';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
 import { AuthStoreModule } from './auth-store/auth-store.module';
@@ -11,6 +15,8 @@ import { RequestsStoreModule } from './requests-store/requests-store.module';
 import { UsersStoreModule } from './users-store/users-store.module';
 import { TagsStoreModule } from './tags-store/tags-store.module';
 import { entityConfig } from './entity-metadata';
+import { VolunteersDataService } from '@services/volunteers/volunteers-data.service';
+import { VolunteersDefaultDataService } from '@services/volunteers/default-data.service';
 
 const defaultDataServiceConfig: DefaultDataServiceConfig = {
   root: `${environment.url}/api`,
@@ -47,4 +53,11 @@ const defaultDataServiceConfig: DefaultDataServiceConfig = {
     { provide: DefaultDataServiceConfig, useValue: defaultDataServiceConfig },
   ],
 })
-export class RootStoreModule {}
+export class RootStoreModule {
+  constructor(
+    entityDataService: EntityDataService,
+    dataService: VolunteersDefaultDataService
+  ) {
+    entityDataService.registerService('volunteer', dataService); // <-- register it
+  }
+}
