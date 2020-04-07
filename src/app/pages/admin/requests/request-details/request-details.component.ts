@@ -63,7 +63,9 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
   activityTypes$ = this.tagsFacade.activityTypesTags$;
   offers$ = this.tagsFacade.offersTags$.pipe(
     // Don't like this option, but it's good for now
-    map(offers => offers.filter(offer => ['Livrarea', 'Transport'].includes(offer.ro)))
+    map((offers) =>
+      offers.filter((offer) => ['Livrarea', 'Transport'].includes(offer.ro))
+    )
   );
   operators$ = this.usersFacade.users$;
   isLoading$ = concat(
@@ -163,10 +165,10 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
         tap((id) => (this.currentRequestId = id)),
         tap((id) => {
           if (id) {
-            this.form.get('password').disable();
+            // this.form.get('password').disable();
             this.form.get('status').enable();
           } else {
-            this.form.get('password').enable();
+            // this.form.get('password').enable();
             this.form.get('status').disable();
           }
         }),
@@ -268,7 +270,7 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
       });
   }
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   ngOnDestroy() {
     this.componentDestroyed$.next();

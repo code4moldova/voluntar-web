@@ -8,14 +8,14 @@ import { Subject } from 'rxjs';
 @Component({
   selector: 'app-user-details',
   templateUrl: './user-details.component.html',
-  styleUrls: ['./user-details.component.scss']
+  styleUrls: ['./user-details.component.scss'],
 })
 export class UserDetailsComponent implements OnInit, OnDestroy {
   componentDestroyed$ = new Subject();
   isLoading$ = this.usersFacade.isLoading$;
   id: string;
   form: FormGroup;
-  availableRoles = ['fixer'];
+  availableRoles = ['fixer', 'operator'];
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -28,33 +28,35 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
       email: [null, [Validators.required, Validators.email]],
       phone: [
         null,
-        [Validators.required, Validators.maxLength(8), Validators.minLength(8)]
+        [Validators.required, Validators.maxLength(8), Validators.minLength(8)],
       ],
       is_active: [true, Validators.required],
       password: [{ value: 'random', disabled: true }, Validators.required],
-      roles: [null]
+      roles: [null],
     });
 
-    this.route.paramMap.pipe(map(params => params.get('id'))).subscribe(id => {
-      this.id = id;
-      if (id) {
-        this.usersFacade.getUserById(id);
-        this.form.get('password').disable();
-      } else {
-        this.form.get('password').enable();
-      }
-    });
+    this.route.paramMap
+      .pipe(map((params) => params.get('id')))
+      .subscribe((id) => {
+        this.id = id;
+        if (id) {
+          this.usersFacade.getUserById(id);
+          this.form.get('password').disable();
+        } else {
+          this.form.get('password').enable();
+        }
+      });
   }
 
   ngOnInit(): void {
     this.usersFacade.userDetails$
       .pipe(
-        filter(volunteer => !!volunteer),
+        filter((volunteer) => !!volunteer),
         // Fix issue switching between 'new' and 'details' page
-        map(volunteer => (this.id ? volunteer : {})),
+        map((volunteer) => (this.id ? volunteer : {})),
         takeUntil(this.componentDestroyed$)
       )
-      .subscribe(volunteer => {
+      .subscribe((volunteer) => {
         this.form.patchValue(volunteer);
       });
   }

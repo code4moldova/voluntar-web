@@ -12,78 +12,97 @@ import {
   getVolunteerFailureAction,
   getVolunteersByFilterAction,
   getVolunteersByFilterSuccessAction,
-  getVolunteersByFilterFailureAction
+  getVolunteersByFilterFailureAction,
+  updateVolunteerAction,
+  updateVolunteerSuccessAction,
+  updateVolunteerFailureAction,
 } from './actions';
 
 const volunteerReducer = createReducer(
   initialState,
-  on(getVolunteersAction, state => ({
+  on(getVolunteersAction, (state) => ({
     ...state,
     error: null,
-    isLoading: true
+    isLoading: true,
   })),
   on(getVolunteersSuccessAction, (state, { payload }) => ({
     ...state,
     isLoading: false,
-    data: payload
+    data: payload,
   })),
   on(getVolunteersFailureAction, (state, { error }) => ({
     ...state,
     isLoading: false,
-    error
+    error,
   })),
 
   on(saveVolunteerAction, (state, volunteer) => ({
     ...state,
     error: null,
-    isLoading: true
+    isLoading: true,
   })),
   on(saveVolunteerSuccessAction, (state, { payload }) => ({
     ...state,
     isLoading: false,
-    details: payload
+    details: payload,
   })),
   on(saveVolunteerFailureAction, (state, { error }) => ({
     ...state,
     isLoading: false,
-    error
+    error,
   })),
 
-  on(getVolunteerAction, state => ({
+  on(updateVolunteerAction, (state) => ({
+    ...state,
+    error: null,
+    isLoading: true,
+  })),
+  on(updateVolunteerSuccessAction, (state, { payload }) => ({
+    ...state,
+    isLoading: false,
+    details: payload,
+  })),
+  on(updateVolunteerFailureAction, (state, { error }) => ({
+    ...state,
+    isLoading: false,
+    error,
+  })),
+
+  on(getVolunteerAction, (state) => ({
     ...state,
     details: null,
-    isLoading: true
+    isLoading: true,
   })),
   on(getVolunteerSuccessAction, (state, { payload }) => {
     return {
       ...state,
       isLoading: false,
       details: payload,
-      error: null
+      error: null,
     };
   }),
   on(getVolunteerFailureAction, (state, { error }) => {
     return {
       ...state,
       isLoading: false,
-      error
+      error,
     };
   }),
-  on(getVolunteersByFilterAction, state => ({
+  on(getVolunteersByFilterAction, (state) => ({
     ...state,
     error: null,
-    isLoading: true
+    isLoading: true,
   })),
   on(getVolunteersByFilterSuccessAction, (state, { payload }) => ({
     ...state,
     isLoading: false,
-    data: payload
+    data: payload,
   })),
   on(getVolunteersByFilterFailureAction, (state, { error }) => ({
     ...state,
     isLoading: false,
-    error
-  })),
+    error,
+  }))
 );
 
 export function reducer(state: VolunteersState | undefined, action: Action) {

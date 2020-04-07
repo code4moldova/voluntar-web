@@ -69,3 +69,33 @@ a {
 .esri-map mat-dialog-container {
   padding: 0;
 }
+
+.mat-snack-bar-container {
+  span {
+    color: white;
+  }
+
+  &.success {
+    background: linear-gradient(60deg, #66bb6a, #43a047);
+    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.14),
+      0 7px 10px -5px rgba(76, 175, 80, 0.4);
+  }
+
+  &.danger {
+    background: linear-gradient(60deg, #ef5350, #e53935);
+    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.14),
+      0 7px 10px -5px rgba(244, 67, 54, 0.4);
+  }
+
+  &.warning {
+    background: linear-gradient(60deg, #ffa726, #fb8c00);
+    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.14),
+      0 7px 10px -5px rgba(255, 152, 0, 0.4);
+  }
+
+  &.info {
+    background: linear-gradient(60deg, #26c6da, #00acc1);
+    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.14),
+      0 7px 10px -5px rgba(0, 188, 212, 0.4);
+  }
+}
