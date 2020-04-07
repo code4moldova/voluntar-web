@@ -62,8 +62,8 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
 
   activityTypes$ = this.tagsFacade.activityTypesTags$;
   offers$ = this.tagsFacade.offersTags$.pipe(
-    // Temporary solution
-    map(offers => offers.filter(offer => ['5e8b7a3f3c7c9eb58fd39d52', '5e8b7a3d3c7c9eb58fd39d3e'].includes(offer._id)))
+    // Don't like this option, but it's good for now
+    map(offers => offers.filter(offer => ['Livrarea', 'Transport'].includes(offer.ro)))
   );
   operators$ = this.usersFacade.users$;
   isLoading$ = concat(
