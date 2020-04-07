@@ -75,8 +75,8 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
     _id: [null],
     first_name: [null, Validators.required],
     last_name: [null, Validators.required],
-    email: [null, [Validators.required, Validators.email]],
-    password: [{ value: 'random', disabled: true }, Validators.required],
+    // email: [null, [Validators.required, Validators.email]],
+    // password: [{ value: 'random', disabled: true }, Validators.required],
     phone: [null, Validators.required],
     is_active: [false, Validators.required],
     offer: [null, Validators.required],
@@ -97,7 +97,7 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
     fixer: [null, Validators.required],
     volunteer: [null],
     availability_volunteer: [
-      null,
+      123,
       [Validators.required, Validators.min(0), Validators.max(23)],
     ],
   });
