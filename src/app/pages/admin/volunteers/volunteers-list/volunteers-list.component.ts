@@ -71,7 +71,7 @@ export class VolunteersListComponent implements OnInit {
   ngOnInit() {
     this.dataService.getAll();
     // this.volunteersFacade.getVolunteers();
-    this.dataSource$ = this.volunteersFacade.volunteers$.pipe(
+    this.dataSource$ = this.volunteers$.pipe(
       map((data) => {
         const dataSource = new MatTableDataSource(data);
         dataSource.paginator = this.paginator;
