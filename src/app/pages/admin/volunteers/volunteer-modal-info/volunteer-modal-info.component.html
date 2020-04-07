@@ -16,7 +16,7 @@
   <p><strong>Email</strong>: {{volunteer.email}}</p>
   <p><strong>Phone</strong>: {{volunteer.phone}}</p>
   <p><strong>Distance</strong>: {{volunteer.distance | number: '1.0-0'}} Km.</p>
-  <p><strong>Telegram</strong>: {{volunteer.telegram_chat_id || 'None'}}</p>
+  <p><strong>Has Telegram</strong>: {{volunteer.telegram_chat_id ? 'Yes' : 'No'}}</p>
   <p><strong>Availability</strong>: {{volunteer.availability_day|| 'None'}}</p>
   <p><strong>Accepted Volunteers</strong>: {{volunteer.count}}</p>
   <mat-divider></mat-divider>

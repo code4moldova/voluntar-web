@@ -226,9 +226,9 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
 
   getTooltip(volunteer: IVolunteer) {
     if (volunteer.accepted_offer) {
-      return 'Offer Accepted!';
+      return 'Offer Accepted';
     } else if (!volunteer.telegram_chat_id) {
-      return 'No Telegram ID';
+      return 'Doesn\'t have Telegram';
     }
     return 'Volunteer Info';
   }
