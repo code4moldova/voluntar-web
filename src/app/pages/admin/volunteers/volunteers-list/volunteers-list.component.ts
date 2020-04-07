@@ -11,22 +11,31 @@ import { GeolocationService } from '@services/geolocation/geolocation.service';
 
 import { IVolunteer } from '@models/volunteers';
 import { IOfferTag } from '@models/tags';
-import { FilterInputColumns, FilterSelectColumns, FilterObservableSelectColumns } from '@models/filter';
+import {
+  FilterInputColumns,
+  FilterSelectColumns,
+  FilterObservableSelectColumns,
+} from '@models/filter';
 import { ZoneI } from '@models/geolocation';
 
 @Component({
   selector: 'app-volunteers-list',
   templateUrl: './volunteers-list.component.html',
-  styleUrls: ['./volunteers-list.component.scss']
+  styleUrls: ['./volunteers-list.component.scss'],
 })
 export class VolunteersListComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  displayedColumns: string[] = ['name', 'email', 'status', 'availableHours'];
+  displayedColumns: string[] = ['name', 'phone', 'status', 'availableHours'];
   dataSource$: Observable<MatTableDataSource<IVolunteer>>;
   isLoading$ = this.volunteersFacade.isLoading$;
   public inputColumns: FilterInputColumns[];
-  public observableSelectColumns: FilterObservableSelectColumns<IOfferTag | ZoneI>[];
-  public selectColumns: FilterSelectColumns<{ label: string; _id: boolean | string }>[];
+  public observableSelectColumns: FilterObservableSelectColumns<
+    IOfferTag | ZoneI
+  >[];
+  public selectColumns: FilterSelectColumns<{
+    label: string;
+    _id: boolean | string;
+  }>[];
   private isActive = [
     {
       label: 'Yes',
@@ -51,12 +60,12 @@ export class VolunteersListComponent implements OnInit {
     private volunteersFacade: VolunteersFacadeService,
     private tagsFacadeService: TagsFacadeService,
     private geolocationService: GeolocationService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.volunteersFacade.getVolunteers();
     this.dataSource$ = this.volunteersFacade.volunteers$.pipe(
-      map(data => {
+      map((data) => {
         const dataSource = new MatTableDataSource(data);
         dataSource.paginator = this.paginator;
         return dataSource;
@@ -70,20 +79,29 @@ export class VolunteersListComponent implements OnInit {
     ];
 
     this.observableSelectColumns = [
-      { name: 'Offer', value: 'offer', array: this.tagsFacadeService.offersTags$ },
-      { name: 'Zone address', value: 'zone_address', array: this.geolocationService.getZonesFromFilter() },
+      {
+        name: 'Offer',
+        value: 'offer',
+        array: this.tagsFacadeService.offersTags$,
+      },
+      {
+        name: 'Zone address',
+        value: 'zone_address',
+        array: this.geolocationService.getZonesFromFilter(),
+      },
     ];
 
     this.selectColumns = [
       { name: 'Is Active', value: 'is_active', array: this.isActive },
-      { name: 'New volunteer', value: 'new_volunteer', array: this.newVolunteer },
+      {
+        name: 'New volunteer',
+        value: 'new_volunteer',
+        array: this.newVolunteer,
+      },
     ];
-
   }
 
   queryResult(criteria: { [keys: string]: string }) {
     this.volunteersFacade.getVolunteersByFilter(criteria);
   }
-
-
 }
