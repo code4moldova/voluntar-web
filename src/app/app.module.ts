@@ -10,8 +10,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from '@services/interceptors/auth.interceptor';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ErrorInterceptor } from '@services/interceptors/error.interceptor';
-
-
+import { DefaultDataServiceConfig } from '@ngrx/data';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,20 +21,20 @@ import { ErrorInterceptor } from '@services/interceptors/error.interceptor';
     BrowserAnimationsModule,
     FlexLayoutModule,
     RootStoreModule,
-    MatSnackBarModule
+    MatSnackBarModule,
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
-      multi: true
+      multi: true,
     },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptor,
-      multi: true
-    }
+      multi: true,
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
