@@ -61,7 +61,10 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
   currentRequestId: string;
 
   activityTypes$ = this.tagsFacade.activityTypesTags$;
-  offers$ = this.tagsFacade.offersTags$;
+  offers$ = this.tagsFacade.offersTags$.pipe(
+    // Temporary solution
+    map(offers => offers.filter(offer => ['5e8b7a3f3c7c9eb58fd39d52', '5e8b7a3d3c7c9eb58fd39d3e'].includes(offer._id)))
+  );
   operators$ = this.usersFacade.users$;
   isLoading$ = concat(
     this.requestsFacade.isLoading$,
