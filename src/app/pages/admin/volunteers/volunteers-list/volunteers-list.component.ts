@@ -1,13 +1,16 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { VolunteersFacadeService } from '@services/volunteers/volunteers-facade.service';
-import { map } from 'rxjs/operators';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+
+import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { IVolunteer } from '@models/volunteers';
+
+import { VolunteersFacadeService } from '@services/volunteers/volunteers-facade.service';
 import { TagsFacadeService } from '@services/tags/tags-facade.service';
-import { IOfferTag } from '@models/tags';
 import { GeolocationService } from '@services/geolocation/geolocation.service';
+
+import { IVolunteer } from '@models/volunteers';
+import { IOfferTag } from '@models/tags';
 import { FilterInputColumns, FilterSelectColumns, FilterObservableSelectColumns } from '@models/filter';
 import { ZoneI } from '@models/geolocation';
 
@@ -77,14 +80,9 @@ export class VolunteersListComponent implements OnInit {
     ];
 
   }
-  queryResult(event: { query: string }) {
-    this.volunteersFacade.getVolunteersByFilter(event.query);
-  }
 
-  resetForm($event: { result: boolean }) {
-    if ($event.result) {
-      this.volunteersFacade.getVolunteers();
-    }
+  queryResult(criteria: { [keys: string]: string }) {
+    this.volunteersFacade.getVolunteersByFilter(criteria);
   }
 
 

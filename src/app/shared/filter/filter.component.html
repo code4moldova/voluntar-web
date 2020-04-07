@@ -15,15 +15,15 @@
         <div *ngFor="let col of inputColumns" fxFlex>
           <mat-form-field class="full-width-input">
             <mat-label>{{col.name}}</mat-label>
-            <input matInput [placeholder]="col.placeholder||'Filter'" #search [formControlName]="col.value" type="text" />
+            <input matInput [placeholder]="col.placeholder||'Filter'"  [formControlName]="col.value" type="text" />
             <mat-icon matSuffix>{{col.icon}}</mat-icon>
           </mat-form-field>
         </div>
-    
+
         <div *ngFor="let col of observableSelectColumns" fxFlex>
           <mat-form-field class="full-width-input">
             <mat-label>{{col.name}}</mat-label>
-            <mat-select [formControlName]="col.value" (openedChange)="openedChange($event)">
+            <mat-select [formControlName]="col.value">
               <mat-option *ngFor="let item of col.array|async" [value]="item._id">
                 {{ item.first_name|| item.ro||item.label}}
               </mat-option>
@@ -33,11 +33,11 @@
             </mat-select>
           </mat-form-field>
         </div>
-    
+
         <div *ngFor="let col of selectColumns" fxFlex>
           <mat-form-field class="full-width-input">
             <mat-label>{{col.name}}</mat-label>
-            <mat-select [formControlName]="col.value" (openedChange)="openedChange($event)">
+            <mat-select [formControlName]="col.value">
               <mat-option *ngFor="let item of col.array" [value]="item._id">
                 {{ item.first_name|| item.ro||item.label}}
               </mat-option>
