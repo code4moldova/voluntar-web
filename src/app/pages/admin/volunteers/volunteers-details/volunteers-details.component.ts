@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef } from '@angular/core';
 import { FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { VolunteersFacadeService } from '@services/volunteers/volunteers-facade.service';
 import {
@@ -22,6 +22,7 @@ import { GeolocationService } from '@services/geolocation/geolocation.service';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatDialog } from '@angular/material/dialog';
 import { EsriMapComponent } from '@shared/esri-map/esri-map.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 const minTemp = 36;
 const maxTemp = 41;
@@ -88,13 +89,13 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
     profession: [null, [Validators.maxLength(500)]],
     comments: [null, [Validators.maxLength(500)]],
     last_temperature: [minTemp, [Validators.required, ValidateTemperature]],
-    need_sim_unite: [null, Validators.required],
-    new_volunteer: [true, Validators.required],
-    black_list: [null, Validators.required],
-    received_cards: [null, Validators.required],
-    sent_photo: [null, Validators.required],
+    need_sim_unite: [false, Validators.required],
+    new_volunteer: [false, Validators.required],
+    black_list: [false, Validators.required],
+    received_cards: [false, Validators.required],
+    sent_photo: [false, Validators.required],
     offer: [null],
-    received_contract: [null],
+    received_contract: [false],
     aggreed_terms: [true],
     city: ['chisinau'],
   });
@@ -116,7 +117,9 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
     private volunteerFacade: VolunteersFacadeService,
     private tagsFacade: TagsFacadeService,
     private geolocationService: GeolocationService,
-    private matDialog: MatDialog
+    private matDialog: MatDialog,
+    private elementRef: ElementRef,
+    private snackBar: MatSnackBar
   ) {
     this.route.paramMap
       .pipe(
@@ -141,7 +144,9 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
       .pipe(
         filter((volunteer) => !!volunteer),
         // Fix issue switching between 'new' and 'details' page
-        map((volunteer) => (this.currentVolunteeerId ? volunteer : {} as IVolunteer)),
+        map((volunteer) =>
+          this.currentVolunteeerId ? volunteer : ({} as IVolunteer)
+        ),
         takeUntil(this.componentDestroyed$)
       )
       .subscribe((volunteer) => {
@@ -178,6 +183,18 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
       this.volunteerFacade.saveVolunteer(this.form.getRawValue());
     } else {
       console.log('invalid form', this.form);
+      this.snackBar.open('Update required fields', '', {
+        duration: 5000,
+        panelClass: 'info',
+        horizontalPosition: 'right',
+        verticalPosition: 'top',
+      });
+      const element = this.elementRef.nativeElement.querySelector(
+        '.ng-invalid:not(form)'
+      );
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   }
 
