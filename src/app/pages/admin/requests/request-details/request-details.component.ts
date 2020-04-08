@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { RequestsFacadeService } from '@services/requests/requests-facade.service';
@@ -27,6 +27,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { VolunteerModalInfoComponent } from '../../volunteers/volunteer-modal-info/volunteer-modal-info.component';
 import { EsriMapComponent } from '@shared/esri-map/esri-map.component';
 import { UsersFacadeService } from '@services/users/users-facade.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-request-details',
@@ -101,10 +102,10 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
     secret: [null, Validators.required],
     fixer: [null, Validators.required],
     volunteer: [null],
-    availability_volunteer: [
-      123,
-      [Validators.required, Validators.min(0), Validators.max(23)],
-    ],
+    // availability_volunteer: [
+    //   null,
+    //   [Validators.required, Validators.min(0), Validators.max(23)],
+    // ],
   });
 
   volunteersNearbyIsLoading$ = new Subject();
@@ -157,7 +158,9 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
     private usersFacade: UsersFacadeService,
     private volunteersService: VolunteersService,
     private geolocationService: GeolocationService,
-    private matDialog: MatDialog
+    private matDialog: MatDialog,
+    private elementRef: ElementRef,
+    private snackBar: MatSnackBar
   ) {
     this.route.paramMap
       .pipe(
@@ -290,6 +293,18 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
       this.requestsFacade.saveRequest(data);
     } else {
       console.log('Invalid form', this.form);
+      this.snackBar.open('Update required fields', '', {
+        duration: 5000,
+        panelClass: 'info',
+        horizontalPosition: 'right',
+        verticalPosition: 'top',
+      });
+      const element = this.elementRef.nativeElement.querySelector(
+        '.ng-invalid:not(form)'
+      );
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   }
 
