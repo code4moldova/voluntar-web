@@ -68,7 +68,7 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     if (this.form.valid) {
-      this.usersFacade.saveUser(this.form.getRawValue());
+      this.usersFacade.saveUser(this.form.value);
     } else {
       console.log('invalid form', this.form);
     }

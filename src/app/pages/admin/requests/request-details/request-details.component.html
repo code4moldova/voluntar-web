@@ -77,7 +77,7 @@
             <div fxFlex fxLayoutGap="10px">
               <mat-form-field fxFlex class="full-width-input">
                 <input matInput autocomplete="off" placeholder="Address" aria-label="Address" [matAutocomplete]="auto"
-                  [formControl]="fakeAddressControl" required />
+                  [formControl]="fakeAddressControl" />
                 <mat-hint>Use to prefill address data</mat-hint>
                 <mat-progress-bar *ngIf="addressIsLoading$ | async" mode="query"></mat-progress-bar>
                 <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"
@@ -108,7 +108,7 @@
 
           <mat-accordion>
             <mat-expansion-panel hideToggle>
-              <mat-expansion-panel-header>
+              <mat-expansion-panel-header [ngClass]="{'ng-invalid': formSubmitted && addressIsInvalid}">
                 <mat-panel-title>
                   Full Address Info
                 </mat-panel-title>
@@ -118,7 +118,7 @@
                 </mat-panel-description>
               </mat-expansion-panel-header>
 
-              <div fxLayoutGap="15px">
+              <div fxLayout="row" fxLayoutGap="15px">
                 <mat-form-field class="full-width-input">
                   <mat-label>City</mat-label>
                   <mat-select formControlName="city">
@@ -135,7 +135,7 @@
                 </mat-form-field>
               </div>
               <h3>Coordinates</h3>
-              <div fxLayoutGap="15px">
+              <div fxLayout="row" fxLayoutGap="15px">
                 <mat-form-field class="full-width-input">
                   <input matInput placeholder="Longitude" formControlName="longitude" />
                 </mat-form-field>

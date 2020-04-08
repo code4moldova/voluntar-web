@@ -76,6 +76,7 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
   error$ = concat(this.requestsFacade.error$, this.tagsFacade.error$);
 
   fakeAddressControl = this.fb.control(null);
+  formSubmitted = false;
 
   form = this.fb.group({
     _id: [null],
@@ -281,6 +282,7 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
+    this.formSubmitted = true;
     if (this.form.valid) {
       let data = this.form.getRawValue();
       const sector = data.zone_address;
@@ -291,6 +293,7 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
         };
       }
       this.requestsFacade.saveRequest(data);
+      this.formSubmitted = false;
     } else {
       console.log('Invalid form', this.form);
       this.snackBar.open('Update required fields', '', {
@@ -306,6 +309,14 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
         element.scrollIntoView({ behavior: 'smooth' });
       }
     }
+  }
+
+  get addressIsInvalid() {
+    const city = this.form.get('city');
+    const address = this.form.get('address');
+    const lat = this.form.get('latitude');
+    const lng = this.form.get('longitude');
+    return city.invalid || address.invalid || lat.invalid || lng.invalid;
   }
 
   displayFn(value: any) {

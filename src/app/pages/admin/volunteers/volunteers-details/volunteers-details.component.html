@@ -91,12 +91,12 @@
           </div>
           <mat-accordion>
             <mat-expansion-panel hideToggle>
-              <mat-expansion-panel-header>
+              <mat-expansion-panel-header [ngClass]="{'ng-invalid': formSubmitted && addressIsInvalid}">
                 <mat-panel-title>
                   Full Address Info
                 </mat-panel-title>
                 <mat-panel-description>
-                  
+
                   <mat-icon>explore</mat-icon>
                 </mat-panel-description>
               </mat-expansion-panel-header>

@@ -56,6 +56,7 @@ export class VolunteersListComponent implements OnInit {
       _id: false,
     },
   ];
+  tagById$ = (id: any) => this.tagsFacadeService.availabilitiesById$(id);
   constructor(
     private volunteersFacade: VolunteersFacadeService,
     private tagsFacadeService: TagsFacadeService,

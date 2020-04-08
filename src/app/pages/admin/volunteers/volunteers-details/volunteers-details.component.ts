@@ -46,6 +46,7 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
   ];
 
   fakeAddressControl = this.fb.control(null);
+  formSubmitted = false;
 
   addressIsLoading$ = new Subject();
   addresses$ = this.fakeAddressControl.valueChanges.pipe(
@@ -179,6 +180,7 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
+    this.formSubmitted = true;
     if (this.form.valid) {
       this.volunteerFacade.saveVolunteer(this.form.getRawValue());
     } else {
@@ -196,6 +198,14 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
         element.scrollIntoView({ behavior: 'smooth' });
       }
     }
+  }
+
+  get addressIsInvalid() {
+    const city = this.form.get('city');
+    const address = this.form.get('address');
+    const lat = this.form.get('latitude');
+    const lng = this.form.get('longitude');
+    return city.invalid || address.invalid || lat.invalid || lng.invalid;
   }
 
   displayFn(value: any) {
