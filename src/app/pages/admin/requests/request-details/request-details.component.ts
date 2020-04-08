@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, ElementRef } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RequestsFacadeService } from '@services/requests/requests-facade.service';
 import {
   map,
@@ -154,6 +154,7 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
+    private router: Router,
     private requestsFacade: RequestsFacadeService,
     private tagsFacade: TagsFacadeService,
     private usersFacade: UsersFacadeService,
@@ -274,7 +275,7 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
       });
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   ngOnDestroy() {
     this.componentDestroyed$.next();
@@ -294,6 +295,10 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
       }
       this.requestsFacade.saveRequest(data);
       this.formSubmitted = false;
+      this.requestsFacade.isLoading$.pipe(filter(status => !status), first()).subscribe(() => {
+        console.log('Form Submited');
+        this.router.navigateByUrl('/requests/list');
+      });
     } else {
       console.log('Invalid form', this.form);
       this.snackBar.open('Update required fields', '', {

@@ -13,7 +13,7 @@ import {
   finalize,
   first,
 } from 'rxjs/operators';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, of, EMPTY } from 'rxjs';
 import { IVolunteer } from '@models/volunteers';
 import { TagsFacadeService } from '@services/tags/tags-facade.service';
@@ -115,6 +115,7 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
+    private router: Router,
     private volunteerFacade: VolunteersFacadeService,
     private tagsFacade: TagsFacadeService,
     private geolocationService: GeolocationService,
@@ -183,6 +184,10 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
     this.formSubmitted = true;
     if (this.form.valid) {
       this.volunteerFacade.saveVolunteer(this.form.getRawValue());
+      this.volunteerFacade.isLoading$.pipe(filter(status => !status), first()).subscribe(() => {
+        console.log('Form Submited');
+        this.router.navigateByUrl('/volunteers/list');
+      });
     } else {
       console.log('invalid form', this.form);
       this.snackBar.open('Update required fields', '', {
