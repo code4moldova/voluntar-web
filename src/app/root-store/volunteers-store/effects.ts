@@ -16,7 +16,7 @@ import {
   updateVolunteerAction,
   getVolunteersByFilterAction,
   getVolunteersByFilterSuccessAction,
-  getVolunteersByFilterFailureAction
+  getVolunteersByFilterFailureAction,
 } from './actions';
 import { VolunteersService } from '@services/volunteers/volunteers.service';
 
@@ -49,7 +49,7 @@ export class VolunteersEffects {
       ofType(updateVolunteerAction),
       switchMap(({ payload }) => {
         return this.volunteerService.updateVolunteer(payload).pipe(
-          map(res => {
+          map((res) => {
             return saveVolunteerSuccessAction({ payload: res });
           }),
           catchError(({ error }) => of(saveVolunteerFailureAction({ error })))
@@ -61,12 +61,15 @@ export class VolunteersEffects {
   getVolunteersEffect$: Observable<Action> = createEffect(() => {
     return this.actions$.pipe(
       ofType(getVolunteersAction),
-      switchMap(() =>
-        this.volunteerService.getVolunteers().pipe(
-          map(res => {
-            return getVolunteersSuccessAction({ payload: res.list });
+      switchMap(({ page, filters }) =>
+        this.volunteerService.getVolunteers(page, filters).pipe(
+          map((res) => {
+            return getVolunteersSuccessAction({
+              payload: res.list,
+              count: res.count,
+            });
           }),
-          catchError(error => of(getVolunteersFailureAction({ error })))
+          catchError((error) => of(getVolunteersFailureAction({ error })))
         )
       )
     );
@@ -75,30 +78,30 @@ export class VolunteersEffects {
   getVolunteerByIdEffect$: Observable<Action> = createEffect(() => {
     return this.actions$.pipe(
       ofType(getVolunteerAction),
-      switchMap(action =>
+      switchMap((action) =>
         this.volunteerService.getVolunteerById(action.id).pipe(
-          map(res => {
+          map((res) => {
             return getVolunteerSuccessAction({ payload: res });
           }),
-          catchError(error => of(getVolunteersFailureAction({ error })))
+          catchError((error) => of(getVolunteersFailureAction({ error })))
         )
       )
     );
   });
-
 
   getVolunteersByFilterffect$: Observable<Action> = createEffect(() => {
     return this.actions$.pipe(
       ofType(getVolunteersByFilterAction),
-      switchMap(action =>
+      switchMap((action) =>
         this.volunteerService.getVolunteersByFilter(action.payload).pipe(
-          map(res => {
+          map((res) => {
             return getVolunteersByFilterSuccessAction({ payload: res.list });
           }),
-          catchError(error => of(getVolunteersByFilterFailureAction({ error })))
+          catchError((error) =>
+            of(getVolunteersByFilterFailureAction({ error }))
+          )
         )
       )
     );
   });
-
 }

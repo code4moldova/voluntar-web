@@ -26,6 +26,13 @@ export const selectVolunteersData = createSelector(
   }
 );
 
+export const selectVolunteersCount = createSelector(
+  selectVolunteers,
+  (state: VolunteersState): number => {
+    return state.count;
+  }
+);
+
 export const selectVolunteersDetails = createSelector(
   selectVolunteers,
   (state: VolunteersState): IVolunteer => {

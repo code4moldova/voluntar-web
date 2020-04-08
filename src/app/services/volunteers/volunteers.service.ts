@@ -4,12 +4,11 @@ import { Observable } from 'rxjs';
 import { IVolunteer } from '@models/volunteers';
 import { environment } from 'src/environments/environment';
 
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class VolunteersService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   saveVolunteer(volunteer: IVolunteer) {
     return this.http.post<any>(`${environment.url}/api/volunteer`, volunteer);
@@ -22,9 +21,19 @@ export class VolunteersService {
     );
   }
 
-  getVolunteers(): Observable<{ list: IVolunteer[] }> {
-    return this.http.get<{ list: IVolunteer[] }>(
-      `${environment.url}/api/volunteer`
+  getVolunteers(
+    page: { pageIndex: number; pageSize: number } = {
+      pageIndex: 1,
+      pageSize: 20,
+    },
+    filters: any = {}
+  ) {
+    const params = new HttpParams({ fromObject: filters });
+    return this.http.get<{ list: IVolunteer[]; count: number }>(
+      `${environment.url}/api/volunteer/filters/${page.pageIndex || 1}/${
+        page.pageSize || 1000
+      }`,
+      { params }
     );
   }
 
@@ -35,12 +44,18 @@ export class VolunteersService {
   }
 
   getVolunteersNearbyRequest(requestId: string, volunteers = 10) {
-    return this.http.get<{ list: IVolunteer & { distance: number }[] }>(`${environment.url}/api/volunteer/closest/${requestId}/${volunteers}`);
+    return this.http.get<{ list: IVolunteer & { distance: number }[] }>(
+      `${environment.url}/api/volunteer/closest/${requestId}/${volunteers}`
+    );
   }
 
-  getVolunteersByFilter(httpParams: { [key: string]: string } = {}): Observable<{ count: number, list: IVolunteer[] }> {
+  getVolunteersByFilter(
+    httpParams: { [key: string]: string } = {}
+  ): Observable<{ count: number; list: IVolunteer[] }> {
     const params = new HttpParams({ fromObject: httpParams });
-    return this.http.get<{ count: number, list: IVolunteer[] }>(`${environment.url}/api/volunteer/filters/1/1000?`, { params });
+    return this.http.get<{ count: number; list: IVolunteer[] }>(
+      `${environment.url}/api/volunteer/filters/1/1000?`,
+      { params }
+    );
   }
-
 }

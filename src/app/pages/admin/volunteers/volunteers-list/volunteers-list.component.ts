@@ -1,8 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
-
-import { map } from 'rxjs/operators';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Observable } from 'rxjs';
 
 import { VolunteersFacadeService } from '@services/volunteers/volunteers-facade.service';
@@ -26,7 +23,8 @@ import { ZoneI } from '@models/geolocation';
 export class VolunteersListComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   displayedColumns: string[] = ['name', 'phone', 'status', 'availableHours'];
-  dataSource$: Observable<MatTableDataSource<IVolunteer>>;
+  dataSource$: Observable<IVolunteer[]>;
+  count$ = this.volunteersFacade.count$;
   isLoading$ = this.volunteersFacade.isLoading$;
   public inputColumns: FilterInputColumns[];
   public observableSelectColumns: FilterObservableSelectColumns<
@@ -56,6 +54,7 @@ export class VolunteersListComponent implements OnInit {
       _id: false,
     },
   ];
+  lastFilter = {};
   tagById$ = (id: any) => this.tagsFacadeService.availabilitiesById$(id);
   constructor(
     private volunteersFacade: VolunteersFacadeService,
@@ -64,14 +63,8 @@ export class VolunteersListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.volunteersFacade.getVolunteers();
-    this.dataSource$ = this.volunteersFacade.volunteers$.pipe(
-      map((data) => {
-        const dataSource = new MatTableDataSource(data);
-        dataSource.paginator = this.paginator;
-        return dataSource;
-      })
-    );
+    this.volunteersFacade.getVolunteers({ pageSize: 20, pageIndex: 1 });
+    this.dataSource$ = this.volunteersFacade.volunteers$;
 
     this.inputColumns = [
       { name: 'First Name', value: 'first_name' },
@@ -103,6 +96,23 @@ export class VolunteersListComponent implements OnInit {
   }
 
   queryResult(criteria: { [keys: string]: string }) {
-    this.volunteersFacade.getVolunteersByFilter(criteria);
+    this.lastFilter = criteria;
+    this.volunteersFacade.getVolunteers(
+      {
+        pageSize: 20,
+        pageIndex: 1,
+      },
+      criteria
+    );
+  }
+
+  onPageChange(event: PageEvent) {
+    this.volunteersFacade.getVolunteers(
+      {
+        pageSize: event.pageSize,
+        pageIndex: event.pageIndex + 1,
+      },
+      this.lastFilter
+    );
   }
 }

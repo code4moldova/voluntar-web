@@ -25,10 +25,11 @@ const volunteerReducer = createReducer(
     error: null,
     isLoading: true,
   })),
-  on(getVolunteersSuccessAction, (state, { payload }) => ({
+  on(getVolunteersSuccessAction, (state, { payload, count }) => ({
     ...state,
     isLoading: false,
     data: payload,
+    count,
   })),
   on(getVolunteersFailureAction, (state, { error }) => ({
     ...state,

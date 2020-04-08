@@ -2,6 +2,7 @@ import { IVolunteer } from '@models/volunteers';
 
 export interface VolunteersState {
   data: IVolunteer[];
+  count: number;
   details: IVolunteer;
   isLoading: boolean;
   error: string;
@@ -9,7 +10,8 @@ export interface VolunteersState {
 
 export const initialState: VolunteersState = {
   data: [],
+  count: 0,
   details: null,
   isLoading: false,
-  error: null
+  error: null,
 };
