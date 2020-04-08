@@ -7,7 +7,9 @@
     "build": "ng build --prod && firebase deploy",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "docker-compose": "docker-compose up -d --build",
+    "docker-compose-dev": "docker-compose -f docker-compose-dev.yml up -d --build"
   },
   "private": true,
   "dependencies": {
