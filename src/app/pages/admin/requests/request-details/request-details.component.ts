@@ -113,7 +113,7 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
   volunteersNearby$ = combineLatest([
     this.form.get('_id').valueChanges,
     this.form.get('is_active').valueChanges,
-    this.requestsFacade.isLoading$.pipe(filter((status) => !status)),
+    // this.requestsFacade.isLoading$.pipe(filter((status) => !status)),
   ]).pipe(
     exhaustMap(([id, isActive]) => {
       if (id && isActive) {
