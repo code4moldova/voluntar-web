@@ -22,7 +22,7 @@ import { ZoneI } from '@models/geolocation';
 })
 export class VolunteersListComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  displayedColumns: string[] = ['name', 'phone', 'status', 'availableHours'];
+  displayedColumns: string[] = ['name', 'phone', 'status', 'availableHours', 'cases_solved'];
   dataSource$: Observable<IVolunteer[]>;
   count$ = this.volunteersFacade.count$;
   isLoading$ = this.volunteersFacade.isLoading$;
@@ -60,7 +60,7 @@ export class VolunteersListComponent implements OnInit {
     private volunteersFacade: VolunteersFacadeService,
     private tagsFacadeService: TagsFacadeService,
     private geolocationService: GeolocationService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.volunteersFacade.getVolunteers({ pageSize: 20, pageIndex: 1 });
