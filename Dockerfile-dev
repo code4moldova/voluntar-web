@@ -31,8 +31,8 @@ COPY . /app
 # RUN ng test --watch=false
 # RUN ng e2e --port 4202
 
-# generate build
-RUN ng build --prod --output-path=dist
+# generate build, no --prod
+RUN ng build --output-path=dist
 
 ############
 ### prod ###
@@ -45,7 +45,7 @@ FROM nginx:1.16.0-alpine
 COPY --from=build /app/dist /usr/share/nginx/html
 
 # expose port 80
-EXPOSE 4200
+EXPOSE 80
 
 # run nginx
 CMD ["nginx", "-g", "daemon off;"]
