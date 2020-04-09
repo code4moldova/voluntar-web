@@ -9,7 +9,7 @@ import { map } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient, private tokenStorage: TokenStorage) {}
+  constructor(private http: HttpClient, private tokenStorage: TokenStorage) { }
 
   login(credentials: AuthCredentials) {
     const headers = new HttpHeaders({
@@ -17,7 +17,7 @@ export class AuthService {
       Authorization:
         'Basic ' + btoa(`${credentials.login}:${credentials.password}`),
     });
-    return this.http.get<{ token: string }>(`${environment.url}/api/token`, {
+    return this.http.get<{ token: string }>(`${environment.url}/token`, {
       headers,
     });
   }

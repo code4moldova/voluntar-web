@@ -12,22 +12,22 @@ export class TagsService {
   constructor(private http: HttpClient) { }
 
   getActivityTypes(): Observable<{ list: IActivityTypeTag[] }> {
-    return this.http.get<{ list: IActivityTypeTag[] }>(`${environment.url}/api/tag/activity_types`);
+    return this.http.get<{ list: IActivityTypeTag[] }>(`${environment.url}/tag/activity_types`);
   }
 
   getAges(): Observable<{ list: IAgeTag[] }> {
-    return this.http.get<{ list: IAgeTag[] }>(`${environment.url}/api/tag/age`);
+    return this.http.get<{ list: IAgeTag[] }>(`${environment.url}/tag/age`);
   }
 
   getAvailabilities(): Observable<{ list: IAvailabilityTag[] }> {
-    return this.http.get<{ list: IAvailabilityTag[] }>(`${environment.url}/api/tag/availability`);
+    return this.http.get<{ list: IAvailabilityTag[] }>(`${environment.url}/tag/availability`);
   }
 
   getTeams(): Observable<{ list: ITeamTag[] }> {
-    return this.http.get<{ list: ITeamTag[] }>(`${environment.url}/api/tag/team`);
+    return this.http.get<{ list: ITeamTag[] }>(`${environment.url}/tag/team`);
   }
 
   getOffers(): Observable<{ list: IOfferTag[] }> {
-    return this.http.get<{ list: IOfferTag[] }>(`${environment.url}/api/tag/offer`);
+    return this.http.get<{ list: IOfferTag[] }>(`${environment.url}/tag/offer`);
   }
 }
