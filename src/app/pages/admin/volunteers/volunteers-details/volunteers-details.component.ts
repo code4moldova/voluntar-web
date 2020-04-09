@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, ElementRef } from '@angular/core';
-import { FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { FormBuilder, Validators, AbstractControl, FormControl } from '@angular/forms';
 import { VolunteersFacadeService } from '@services/volunteers/volunteers-facade.service';
 import {
   map,
@@ -7,7 +7,6 @@ import {
   filter,
   tap,
   switchMap,
-  skipWhile,
   debounceTime,
   distinctUntilChanged,
   finalize,
@@ -23,6 +22,7 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatDialog } from '@angular/material/dialog';
 import { EsriMapComponent } from '@shared/esri-map/esri-map.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSelectChange } from '@angular/material/select';
 
 const minTemp = 36;
 const maxTemp = 41;
@@ -34,10 +34,25 @@ const maxTemp = 41;
 })
 export class VolunteersDetailsComponent implements OnInit, OnDestroy {
   public tempStep = '0.1';
-  zones = [
+
+  public zones = [
     {
       label: 'Centru',
       value: 'centru',
+    },
+    {
+      label: 'Botanica',
+      value: 'botanica',
+    }, {
+      label: 'Buiucani',
+      value: 'buiucani',
+    },
+    {
+      label: 'Ciocana',
+      value: 'ciocana',
+    }, {
+      label: 'Rîșcani',
+      value: 'rîșcani',
     },
   ];
   public cities = [
@@ -80,11 +95,12 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
     longitude: [null, Validators.required],
     zone_address: [null, Validators.required],
     is_active: [false, Validators.required],
-    facebook_profile: [null, Validators.required],
-    age: [null, Validators.required],
-    availability: [null, Validators.required],
-    activity_types: [[], Validators.required],
-    password: [{ value: 'random', disabled: true }, Validators.required],
+    facebook_profile: [null],
+    age: [null],
+    availability: [null],
+    suburbia: [null],
+    // activity_types: [[]],
+    // password: [{ value: 'random', disabled: true }, Validators.required],
     created_by: [null, [Validators.maxLength(500)]],
     team: [null, [Validators.maxLength(500)]],
     profession: [null, [Validators.maxLength(500)]],
@@ -97,7 +113,7 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
     sent_photo: [false, Validators.required],
     offer: [null],
     received_contract: [false],
-    aggreed_terms: [true],
+    // aggreed_terms: [true],
     city: ['chisinau'],
   });
   currentVolunteeerId: string;
@@ -110,7 +126,7 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
   teams$ = this.tagsFacade.teamsTags$;
   offers$ = this.tagsFacade.offersTags$;
 
-  activityTypes$ = this.tagsFacade.activityTypesTags$;
+  // activityTypes$ = this.tagsFacade.activityTypesTags$;
 
   constructor(
     private fb: FormBuilder,
@@ -134,10 +150,11 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
         this.currentVolunteeerId = id;
         if (id) {
           this.volunteerFacade.getVolunteerById(id);
-          this.form.get('password').disable();
-        } else {
-          this.form.get('password').enable();
+          // this.form.get('password').disable();
         }
+        //  else {
+        //   this.form.get('password').enable();
+        // }
       });
   }
 
@@ -157,28 +174,42 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
           this.fakeAddressControl.patchValue({ address: volunteer.address });
         }
       });
+
+    this.geolocationService.getZones().subscribe((zones) => {
+      console.log(zones);
+    });
   }
 
-  activityChange({ checked, source }: MatCheckboxChange) {
-    const activityTypesValue = this.activity_types.value;
-    if (checked) {
-      this.activity_types.patchValue([...activityTypesValue, source.value]);
-    } else {
-      const filteredActivities = activityTypesValue.filter(
-        (id: string) => id !== source.value
-      );
-      this.activity_types.patchValue(filteredActivities);
-    }
-  }
+  // activityChange({ checked, source }: MatCheckboxChange) {
+  //   const activityTypesValue = this.activity_types.value;
+  //   if (checked) {
+  //     this.activity_types.patchValue([...activityTypesValue, source.value]);
+  //   } else {
+  //     const filteredActivities = activityTypesValue.filter(
+  //       (id: string) => id !== source.value
+  //     );
+  //     this.activity_types.patchValue(filteredActivities);
+  //   }
+  // }
 
-  isActivitySelected(activityId: string) {
-    return this.activity_types.value.includes(activityId);
-  }
+  // isActivitySelected(activityId: string) {
+  //   return this.activity_types.value.includes(activityId);
+  // }
 
   ngOnDestroy() {
     this.componentDestroyed$.next();
     this.componentDestroyed$.complete();
   }
+
+  // selectionChange(event: MatSelectChange) {
+  //   if (event.value === this.Suburb) {
+  //     this.form.addControl('suburbia', new FormControl('', Validators.required));
+  //   } else {
+  //     if (this.form.get('suburbia')) {
+  //       this.form.removeControl('suburbia');
+  //     }
+  //   }
+  // }
 
   onSubmit() {
     this.formSubmitted = true;
@@ -300,12 +331,16 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
   get received_contract() {
     return this.form.get('received_contract');
   }
-  get aggreed_terms() {
-    return this.form.get('aggreed_terms');
+  // get aggreed_terms() {
+  //   return this.form.get('aggreed_terms');
+  // }
+  // get activity_types() {
+  //   return this.form.get('activity_types');
+  // }
+  get zone_address() {
+    return this.form.get('zone_address');
   }
-  get activity_types() {
-    return this.form.get('activity_types');
-  }
+
 }
 
 export function ValidateTemperature(control: AbstractControl) {
