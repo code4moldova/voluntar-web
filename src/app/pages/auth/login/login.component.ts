@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserFacadeService } from 'src/app/services/auth/user-facade.service';
 import { RequestsFacadeService } from '@services/requests/requests-facade.service';
 
+import { environment } from '../../../../environments/environment';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -11,6 +13,7 @@ import { RequestsFacadeService } from '@services/requests/requests-facade.servic
 export class LoginComponent implements OnInit {
   form: FormGroup;
   isLoading$ = this.userFacade.isLoading$;
+  isTestEnvironment = !environment.production;
   constructor(
     private fb: FormBuilder,
     private userFacade: UserFacadeService,
