@@ -39,14 +39,6 @@
               </mat-error>
             </mat-form-field>
           </div>
-          <!-- <div fxFlex *ngIf="!currentVolunteeerId">
-            <mat-form-field class="full-width-input">
-              <input matInput type="password" placeholder="Password" formControlName="password" required />
-              <mat-error>
-                Please provide a valid password
-              </mat-error>
-            </mat-form-field>
-          </div> -->
         </div>
         <div fxLayout fxLayoutGap="15px">
           <div>
@@ -238,19 +230,6 @@
           </mat-error>
         </mat-form-field>
 
-        <!-- <div fxLayout="column" fxLayoutGap="15px" style="margin-bottom: 1.25em;">
-          <mat-label>Activity Types</mat-label>
-          <div fxLayout="column" fxLayoutGap="5px">
-            <mat-checkbox *ngFor="let activity of activityTypes$ | async" [value]="activity._id"
-              (change)="activityChange($event)" [checked]="isActivitySelected(activity._id)">
-              {{ activity.ro }}
-            </mat-checkbox>
-            <mat-error *ngIf="activity_types.errors?.required">
-              Please check one activity type
-            </mat-error>
-          </div>
-        </div> -->
-
         <div>
           <mat-radio-group formControlName="need_sim_unite" aria-label="Select an option">
             <label for="need_sim_unite" class="col-md-12"> Need sim unite ?</label>
@@ -317,17 +296,6 @@
             <mat-divider></mat-divider>
           </mat-radio-group>
         </div>
-
-        <!-- <div class="mt-15">
-          <mat-radio-group formControlName="aggreed_terms" aria-label="Select an option">
-            <label for="aggreed_terms" class="col-md-12">Aggreed terms ?</label>
-            <div class="col-md-12" class="radio_buton_container">
-              <mat-radio-button [value]="false" [checked]="aggreed_terms.value === false"> No</mat-radio-button>
-              <mat-radio-button [value]="true" [checked]="aggreed_terms.value === true"> Yes</mat-radio-button>
-            </div>
-            <mat-divider></mat-divider>
-          </mat-radio-group>
-        </div> -->
 
         <div class="form-action-container">
           <button mat-raised-button color="primary">

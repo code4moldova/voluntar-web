@@ -89,7 +89,6 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
       [Validators.required, Validators.minLength(8), Validators.maxLength(8)],
     ],
     telegram_id: [null],
-    // gender: ['male', Validators.required],
     address: [null, Validators.required],
     latitude: [null, Validators.required],
     longitude: [null, Validators.required],
@@ -99,8 +98,7 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
     age: [null],
     availability: [null],
     suburbia: [null],
-    // activity_types: [[]],
-    // password: [{ value: 'random', disabled: true }, Validators.required],
+    password: [{ value: 'random', disabled: true }, Validators.required],
     created_by: [null, [Validators.maxLength(500)]],
     team: [null, [Validators.maxLength(500)]],
     profession: [null, [Validators.maxLength(500)]],
@@ -113,7 +111,6 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
     sent_photo: [false, Validators.required],
     offer: [null],
     received_contract: [false],
-    // aggreed_terms: [true],
     city: ['chisinau'],
   });
   currentVolunteeerId: string;
@@ -126,7 +123,6 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
   teams$ = this.tagsFacade.teamsTags$;
   offers$ = this.tagsFacade.offersTags$;
 
-  // activityTypes$ = this.tagsFacade.activityTypesTags$;
 
   constructor(
     private fb: FormBuilder,
@@ -145,16 +141,11 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
         tap((id) => (this.currentVolunteeerId = id)),
         takeUntil(this.componentDestroyed$)
       )
-      // .subscribe(volunteer => {
       .subscribe((id) => {
         this.currentVolunteeerId = id;
         if (id) {
           this.volunteerFacade.getVolunteerById(id);
-          // this.form.get('password').disable();
         }
-        //  else {
-        //   this.form.get('password').enable();
-        // }
       });
   }
 
@@ -180,36 +171,11 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
     });
   }
 
-  // activityChange({ checked, source }: MatCheckboxChange) {
-  //   const activityTypesValue = this.activity_types.value;
-  //   if (checked) {
-  //     this.activity_types.patchValue([...activityTypesValue, source.value]);
-  //   } else {
-  //     const filteredActivities = activityTypesValue.filter(
-  //       (id: string) => id !== source.value
-  //     );
-  //     this.activity_types.patchValue(filteredActivities);
-  //   }
-  // }
-
-  // isActivitySelected(activityId: string) {
-  //   return this.activity_types.value.includes(activityId);
-  // }
 
   ngOnDestroy() {
     this.componentDestroyed$.next();
     this.componentDestroyed$.complete();
   }
-
-  // selectionChange(event: MatSelectChange) {
-  //   if (event.value === this.Suburb) {
-  //     this.form.addControl('suburbia', new FormControl('', Validators.required));
-  //   } else {
-  //     if (this.form.get('suburbia')) {
-  //       this.form.removeControl('suburbia');
-  //     }
-  //   }
-  // }
 
   onSubmit() {
     this.formSubmitted = true;
@@ -331,12 +297,6 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
   get received_contract() {
     return this.form.get('received_contract');
   }
-  // get aggreed_terms() {
-  //   return this.form.get('aggreed_terms');
-  // }
-  // get activity_types() {
-  //   return this.form.get('activity_types');
-  // }
   get zone_address() {
     return this.form.get('zone_address');
   }
