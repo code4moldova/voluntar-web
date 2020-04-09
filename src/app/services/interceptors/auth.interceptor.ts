@@ -18,7 +18,7 @@ export class AuthInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     // This has to be ignored
     // Headers injected in coresponding services
-    if (request.url.endsWith('api/token') || request.url.startsWith('https://info.iharta.md')) {
+    if (request.url.endsWith('/token') || request.url.startsWith('https://info.iharta.md')) {
       return next.handle(request);
     } else {
       const token: string = localStorage.getItem('accessToken');

@@ -8,27 +8,27 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class UserService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   save(user: IUser) {
     return this.http.post<{ user: IUser }>(
-      `${environment.url}/api/operator`,
+      `${environment.url}/operator`,
       user
     );
   }
 
   update(user: IUser) {
     return this.http.put<any>(
-      `${environment.url}/api/operator?id=${user._id}`,
+      `${environment.url}/operator?id=${user._id}`,
       user
     );
   }
 
   getList(): Observable<{ list: IUser[] }> {
-    return this.http.get<{ list: IUser[] }>(`${environment.url}/api/operator`);
+    return this.http.get<{ list: IUser[] }>(`${environment.url}/operator`);
   }
 
   getById(id: string): Observable<IUser> {
-    return this.http.get<IUser>(`${environment.url}/api/operator?id=${id}`);
+    return this.http.get<IUser>(`${environment.url}/operator?id=${id}`);
   }
 }

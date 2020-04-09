@@ -24,10 +24,10 @@ export class GeolocationService {
   }
 
   getZones(): Observable<{ list: ZoneI[] }> {
-    return this.http.get<{ list: ZoneI[] }>(`${environment.url}/api/tag/sector`);
+    return this.http.get<{ list: ZoneI[] }>(`${environment.url}/tag/sector`);
   }
-  getZonesFromFilter(): Observable<ZoneI[] > {
-    return this.http.get<{ list: ZoneI[] }>(`${environment.url}/api/tag/sector`).pipe(
+  getZonesFromFilter(): Observable<ZoneI[]> {
+    return this.http.get<{ list: ZoneI[] }>(`${environment.url}/tag/sector`).pipe(
       map((zone) => {
         return zone.list;
       })
