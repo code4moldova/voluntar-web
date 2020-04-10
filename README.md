@@ -20,11 +20,9 @@ Production: `docker-compose up -d --build`
 
 Development: `docker-compose -f docker-compose-dev.yml up -d --build`
 
-## Docker Server build
+## Docker Production build
 
-Production: `docker build https://github.com/code4moldova/covid19md-voluntari-client.git#master -t covid19md-client`, run `docker run --name covid19md-client --rm -d -p 80:80/tcp -p 443:80/tcp covid19md-client:latest`
-
-Development: `docker build https://github.com/code4moldova/covid19md-voluntari-client.git#dev -f Dockerfile-dev -t covid19md-client-dev`, run `docker run --name covid19md-client-dev --rm -d -p 4200:80/tcp covid19md-client-dev:latest`
+Production: `docker build https://github.com/code4moldova/covid19md-voluntari-client.git#{tag-name} -t covid19md-client`, run `docker run --name covid19md-client --rm -d -p 80:80/tcp -p 443:80/tcp covid19md-client:latest`
 
 ## Running unit tests
 

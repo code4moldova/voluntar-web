@@ -11,5 +11,5 @@ services:
       - "/app/node_modules"
     ports:
       - "4200:80"
-    # environment:
-    #   - CHOKIDAR_USEPOLLING=true
+    environment:
+      - CHOKIDAR_USEPOLLING=true
