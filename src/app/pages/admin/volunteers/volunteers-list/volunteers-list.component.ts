@@ -44,16 +44,7 @@ export class VolunteersListComponent implements OnInit {
       _id: false,
     },
   ];
-  private newVolunteer = [
-    {
-      label: 'Yes',
-      _id: true,
-    },
-    {
-      label: 'No',
-      _id: false,
-    },
-  ];
+
   lastFilter = {};
   tagById$ = (id: any) => this.tagsFacadeService.availabilitiesById$(id);
   constructor(
@@ -70,6 +61,7 @@ export class VolunteersListComponent implements OnInit {
       { name: 'First Name', value: 'first_name' },
       { name: 'Last Name', value: 'last_name' },
       { name: 'Phone', value: 'phone', icon: 'phone' },
+      { name: 'Suburbie', value: 'suburbie', icon: 'home' },
     ];
 
     this.observableSelectColumns = [
@@ -79,7 +71,7 @@ export class VolunteersListComponent implements OnInit {
         array: this.tagsFacadeService.offersTags$,
       },
       {
-        name: 'Raion',
+        name: 'Sector',
         value: 'zone_address',
         array: this.geolocationService.getZonesFromFilter(),
       },
@@ -87,11 +79,6 @@ export class VolunteersListComponent implements OnInit {
 
     this.selectColumns = [
       { name: 'Is Active', value: 'is_active', array: this.isActive },
-      {
-        name: 'New volunteer',
-        value: 'new_volunteer',
-        array: this.newVolunteer,
-      },
     ];
   }
 
