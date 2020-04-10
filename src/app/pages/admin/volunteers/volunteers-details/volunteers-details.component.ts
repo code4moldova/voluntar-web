@@ -112,6 +112,8 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
 
   activityTypes$ = this.tagsFacade.activityTypesTags$;
 
+  hasTelegramChatId$ = this.volunteerFacade.volunteerDetails$.pipe(map(volunteer => !!volunteer?.telegram_chat_id));
+
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,

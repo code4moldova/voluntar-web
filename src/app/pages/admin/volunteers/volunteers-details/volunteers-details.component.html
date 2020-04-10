@@ -60,6 +60,7 @@
           <div>
             <mat-form-field class="full-width-input">
               <input matInput placeholder="Telegram ID" formControlName="telegram_id" />
+              <mat-icon matSuffix *ngIf="hasTelegramChatId$ | async" class="success">done</mat-icon>
               <mat-error>
                 Please provide a Telegram ID
               </mat-error>
