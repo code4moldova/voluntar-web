@@ -12,38 +12,48 @@ const routes: Routes = [
       {
         path: '',
         redirectTo: 'requests',
-        pathMatch: 'full'
+        pathMatch: 'full',
       },
       {
         path: 'volunteers',
+        data: {
+          ...RoleService.GET_FROM_CONFIG('volunteers'),
+        },
+        canActivate: [RolesGuard],
         loadChildren: () =>
-          import('./volunteers/volunteers.module').then(m => m.VolunteersModule)
+          import('./volunteers/volunteers.module').then(
+            (m) => m.VolunteersModule
+          ),
       },
       {
         path: 'requests',
+        data: {
+          ...RoleService.GET_FROM_CONFIG('requests'),
+        },
+        canActivate: [RolesGuard],
         loadChildren: () =>
-          import('./requests/requests.module').then(m => m.RequestsModule)
+          import('./requests/requests.module').then((m) => m.RequestsModule),
       },
       {
         path: 'users',
         data: {
-          ...RoleService.GET_FROM_CONFIG('users')
+          ...RoleService.GET_FROM_CONFIG('users'),
         },
         canActivate: [RolesGuard],
         loadChildren: () =>
-          import('./users/users.module').then(m => m.UsersModule)
-      }
+          import('./users/users.module').then((m) => m.UsersModule),
+      },
       // {
       //   path: '**',
       //   redirectTo: 'volunteers',
       //   pathMatch: 'full'
       // }
-    ]
-  }
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AdminRoutingModule {}

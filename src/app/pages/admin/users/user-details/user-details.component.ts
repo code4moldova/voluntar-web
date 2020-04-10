@@ -15,7 +15,7 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
   isLoading$ = this.usersFacade.isLoading$;
   id: string;
   form: FormGroup;
-  availableRoles = ['fixer', 'operator'];
+  availableRoles = ['admin', 'fixer', 'operator'];
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,

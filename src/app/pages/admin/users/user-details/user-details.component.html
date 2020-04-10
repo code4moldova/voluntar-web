@@ -94,9 +94,11 @@
         <mat-form-field class="full-width-input">
           <mat-label>Roles</mat-label>
           <mat-select formControlName="roles" multiple>
-            <mat-option *ngFor="let role of availableRoles" [value]="role">{{
-              role
-            }}</mat-option>
+            <mat-option
+              *ngFor="let role of availableRoles"
+              [value]="role">
+              {{role}}
+            </mat-option>
           </mat-select>
         </mat-form-field>
         <div class="form-action-container">
