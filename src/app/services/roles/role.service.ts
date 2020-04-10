@@ -1,13 +1,19 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RoleService {
   static ACCESS_CONFIG = {
     users: {
-      roles: ['fixer']
-    }
+      roles: ['admin'],
+    },
+    requests: {
+      roles: ['admin', 'operator', 'fixer'],
+    },
+    volunteers: {
+      roles: ['admin', 'fixer'],
+    },
   };
   constructor() {}
 
