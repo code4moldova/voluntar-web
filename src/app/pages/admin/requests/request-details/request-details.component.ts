@@ -192,6 +192,12 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
         if (request.address) {
           this.fakeAddressControl.patchValue({ address: request.address });
         }
+        // Autofill secret field
+        if (!request.secret) {
+          this.tagsFacade.getRandomWord().pipe(first()).subscribe(secret => {
+            this.form.get('secret').patchValue(secret);
+          });
+        }
       });
 
     this.zones$.pipe(takeUntil(this.componentDestroyed$)).subscribe((z) => {
