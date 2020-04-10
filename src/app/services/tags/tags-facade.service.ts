@@ -17,20 +17,21 @@ import { map } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class TagsFacadeService {
+
+  constructor(private store: Store<TagsState>) { }
   isLoading$ = this.store.pipe(select(selectTagsIsLoading));
   error$ = this.store.pipe(select(selectTagsError));
 
   activityTypesTags$ = this.store.pipe(select(selectActivityTypesTags));
   agesTags$ = this.store.pipe(select(selectAgesTags));
   availabilitiesTags$ = this.store.pipe(select(selectAvailabilitiesTags));
-  availabilitiesById$ = (id: any) =>
-    this.store
-      .pipe(select(selectAvailabilitiesTags))
-      .pipe(map((tags) => tags.find((t) => t._id === id)));
   teamsTags$ = this.store.pipe(select(selectTeamsTags));
   offersTags$ = this.store.pipe(select(selectOffersTags));
 
-  constructor(private store: Store<TagsState>) {}
+  availabilitiesById$ = (id: any) =>
+    this.store
+      .pipe(select(selectAvailabilitiesTags))
+      .pipe(map((tags) => tags.find((t) => t._id === id)))
 
   // getActivityTypesTags() {
   //   this.store.dispatch(getActivityTypesTagsAction());
