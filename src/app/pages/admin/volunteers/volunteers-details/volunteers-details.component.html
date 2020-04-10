@@ -126,8 +126,8 @@
         <div fxLayout="row" fxLayoutGap="15px" class="mt-15">
           <mat-form-field class="full-width-input">
             <mat-select placeholder="Raion" formControlName="zone_address" required>
-              <mat-option *ngFor="let zone of zones$ | async" [value]="zone._id">
-                {{ zone.ro }}
+              <mat-option *ngFor="let zone of zones" [value]="zone.value">
+                {{ zone.label }}
               </mat-option>
             </mat-select>
             <mat-error>
@@ -135,7 +135,7 @@
             </mat-error>
           </mat-form-field>
 
-          <mat-form-field class="full-width-input">
+          <mat-form-field class=" full-width-input">
             <input matInput type="text" placeholder="Suburbie name" formControlName="suburbia" />
             <mat-error>
               Please insert the name of suburbie
