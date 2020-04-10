@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, ElementRef } from '@angular/core';
-import { FormBuilder, Validators, AbstractControl, FormControl } from '@angular/forms';
+import { FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { VolunteersFacadeService } from '@services/volunteers/volunteers-facade.service';
 import {
   map,
@@ -13,16 +13,14 @@ import {
   first,
 } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subject, of, EMPTY } from 'rxjs';
+import { Subject } from 'rxjs';
 import { IVolunteer } from '@models/volunteers';
 import { TagsFacadeService } from '@services/tags/tags-facade.service';
-import { MatCheckboxChange } from '@angular/material/checkbox';
 import { GeolocationService } from '@services/geolocation/geolocation.service';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatDialog } from '@angular/material/dialog';
 import { EsriMapComponent } from '@shared/esri-map/esri-map.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatSelectChange } from '@angular/material/select';
 
 const minTemp = 36;
 const maxTemp = 41;
@@ -166,7 +164,9 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
         }
       });
 
-    this.geolocationService.getZones().subscribe((zones) => {
+    this.geolocationService.getZones().pipe(
+      takeUntil(this.componentDestroyed$)
+    ).subscribe((zones) => {
       console.log(zones);
     });
   }
