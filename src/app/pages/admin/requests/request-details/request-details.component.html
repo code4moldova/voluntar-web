@@ -96,7 +96,7 @@
               <input matInput placeholder="Address" aria-label="Address" formControlName="address" required />
             </mat-form-field> -->
             <mat-form-field fxFlex="200px" class="full-width-input">
-              <input matInput placeholder="Sector" aria-label="Sector" [matAutocomplete]="zoneAuto"
+              <input matInput placeholder="Raion" aria-label="Raion" [matAutocomplete]="zoneAuto"
                 formControlName="zone_address" required />
               <mat-autocomplete #zoneAuto="matAutocomplete" [displayWith]="showZoneLabel.bind(this)">
                 <mat-option *ngFor="let zone of zones$ | async" [value]="zone">

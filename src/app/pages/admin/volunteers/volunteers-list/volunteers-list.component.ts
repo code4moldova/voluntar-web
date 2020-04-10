@@ -79,7 +79,7 @@ export class VolunteersListComponent implements OnInit {
         array: this.tagsFacadeService.offersTags$,
       },
       {
-        name: 'Zone address',
+        name: 'Raion',
         value: 'zone_address',
         array: this.geolocationService.getZonesFromFilter(),
       },
