@@ -12,12 +12,12 @@ import {
 } from '@store/tags-store/selectors';
 import { map } from 'rxjs/operators';
 import { TagsService } from './tags.service';
-// import { getActivityTypesTagsAction } from '@store/tags-store/actions';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TagsFacadeService {
+
   isLoading$ = this.store.pipe(select(selectTagsIsLoading));
   error$ = this.store.pipe(select(selectTagsError));
 
@@ -30,13 +30,9 @@ export class TagsFacadeService {
   availabilitiesById$ = (id: any) =>
     this.store
       .pipe(select(selectAvailabilitiesTags))
-      .pipe(map((tags) => tags.find((t) => t._id === id)));
+      .pipe(map((tags) => tags.find((t) => t._id === id)))
 
   constructor(private store: Store<TagsState>, private tagsService: TagsService) { }
-
-  // getActivityTypesTags() {
-  //   this.store.dispatch(getActivityTypesTagsAction());
-  // }
 
   getRandomWord() {
     return this.tagsService.getRandomWord().pipe(map(({ secret }) => secret));
