@@ -46,7 +46,6 @@ export class RequestsEffects {
       ofType(getRequestsAction),
       switchMap(() =>
         this.requestService.getRequests().pipe(
-          tap((res) => console.log(res)),
           map((res) =>
             getRequestsSuccessAction({ payload: res.list, count: res.count })
           ),

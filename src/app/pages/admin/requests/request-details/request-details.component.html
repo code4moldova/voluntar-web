@@ -220,18 +220,25 @@
         <mat-card-content>
           <h3>Volunteers nearby Beneficiary</h3>
           <mat-radio-group formControlName="volunteer"
-            *ngIf="volunteersNearby$ | async as volunteersNearby; else noVolunteersNearby">
-            <div fxLayoutGap="1em" fxLayoutAlign="center" *ngFor="let volunteer of volunteersNearby">
-              <mat-radio-button fxLayoutAlign="center" fxFlex [value]="volunteer._id"
-                [color]="getThemeColor(volunteer)">
-                {{volunteer.first_name}} {{volunteer.last_name}} / {{volunteer.phone}}
-              </mat-radio-button>
-              <button mat-icon-button type="button" [color]="getThemeColor(volunteer)"
-                (click)="showVolunteerInfoModal(volunteer)" [matTooltip]="getTooltip(volunteer)"
-                matTooltipPosition="left">
-                <mat-icon>info</mat-icon>
-              </button>
-            </div>
+            *ngIf="volunteersNearby$ | async as volunteersNearbyGroups; else noVolunteersNearby">
+            <ng-container *ngFor="let group of volunteersNearbyGroups; let odd = odd">
+              <mat-divider *ngIf="odd && group.length"></mat-divider>
+              <div fxLayoutGap="1em" fxLayoutAlign="center" *ngFor="let volunteer of group">
+                <mat-radio-button fxFlex fxLayoutAlign="center" [value]="volunteer._id"
+                  [color]="getThemeColor(volunteer)">
+                  <div fxLayoutAlign="center">
+                    <span style="width: 130px;" class="text-truncate">
+                      {{volunteer.first_name}} {{volunteer.last_name}}
+                    </span> <span matTooltip="Phone"> | {{volunteer.phone}}</span>
+                  </div>
+                </mat-radio-button>
+                <button mat-icon-button type="button" [color]="getThemeColor(volunteer)"
+                  (click)="showVolunteerInfoModal(volunteer)" [matTooltip]="getTooltip(volunteer)"
+                  matTooltipPosition="left">
+                  <mat-icon>info</mat-icon>
+                </button>
+              </div>
+            </ng-container>
           </mat-radio-group>
           <ng-template #noVolunteersNearby>
             <p>No Volunteers were found!</p>

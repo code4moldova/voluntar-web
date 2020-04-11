@@ -13,6 +13,10 @@ import {
   finalize,
   exhaustMap,
   first,
+  groupBy,
+  toArray,
+  mergeMap,
+  reduce,
 } from 'rxjs/operators';
 import { Subject, of, EMPTY, concat, Observable, combineLatest } from 'rxjs';
 import { IRequestDetails } from '@models/requests';
@@ -84,7 +88,7 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
     last_name: [null, Validators.required],
     // email: [null, [Validators.required, Validators.email]],
     // password: [{ value: 'random', disabled: true }, Validators.required],
-    phone: [null, Validators.required],
+    phone: [null, [Validators.required, Validators.minLength(8), Validators.maxLength(8)]],
     is_active: [false, Validators.required],
     offer: [null, Validators.required],
     city: [null],
@@ -119,14 +123,14 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
       if (id && isActive) {
         this.volunteersNearbyIsLoading$.next(true);
         return this.volunteersService.getVolunteersNearbyRequest(id).pipe(
-          map(({ list }) =>
-            list.sort((v1, v2) => (v1.distance < v2.distance ? -1 : 1))
-          ),
-          map((volunteers) => (volunteers.length ? volunteers : null)),
+          map(({ list }) => list.length ? [
+            list.filter(v => v.count < 2).sort((v1, v2) => (v1.distance < v2.distance ? -1 : 1)),
+            list.filter(v => v.count >= 2).sort((v1, v2) => (v1.distance < v2.distance ? -1 : 1)),
+          ] : null),
           finalize(() => this.volunteersNearbyIsLoading$.next(false))
         );
       }
-      return of(null);
+      return of(null as IVolunteer[][]);
     })
   );
 

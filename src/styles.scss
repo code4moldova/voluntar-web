@@ -74,6 +74,15 @@ a {
   color: #66bb6a;
 }
 
+.text-truncate {
+  max-width: inherit;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  /* word-break: break-all; */
+  /* white-space: nowrap; */
+  display: inline-block;
+}
+
 .mat-snack-bar-container {
   span {
     color: white;

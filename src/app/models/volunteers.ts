@@ -15,6 +15,7 @@ export interface IVolunteer {
   phone: number;
   zone_address: string;
 
+  distance?: number;
   accepted_offer?: boolean;
   availability_day?: string;
   telegram_chat_id?: string;
