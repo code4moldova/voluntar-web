@@ -7,7 +7,7 @@
       </button>
     </div>
     <div fxFlex fxLayoutAlign="end">
-      <a routerLink="/requests/new" mat-raised-button color="primary">
+      <a routerLink="/admin/requests/new" mat-raised-button color="primary">
         <mat-icon>add</mat-icon> New Beneficiar
       </a>
     </div>
@@ -15,14 +15,9 @@
 
 </div>
 
-<app-filter
- [inputColumns]="inputColumns"
- [observableSelectColumns]="observableSelectColumns"
- [selectColumns]="selectColumns"
- (queryResult)="queryResult($event)"
-  >
-</app-filter
->
+<app-filter [inputColumns]="inputColumns" [observableSelectColumns]="observableSelectColumns"
+  [selectColumns]="selectColumns" (queryResult)="queryResult($event)">
+</app-filter>
 
 <mat-card>
 
@@ -66,7 +61,7 @@
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns" class="clickable-row"
-      [routerLink]="['/requests/details', row._id]"></tr>
+      [routerLink]="['/admin/requests/details', row._id]"></tr>
   </table>
 
   <div class="loading-shade" *ngIf="isLoading$ | async">

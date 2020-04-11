@@ -14,7 +14,7 @@ import { filter, map, debounceTime } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class DelayGuard implements CanActivate, CanActivateChild {
-  constructor(private requestFacade: RequestsFacadeService) {}
+  constructor(private requestFacade: RequestsFacadeService) { }
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot

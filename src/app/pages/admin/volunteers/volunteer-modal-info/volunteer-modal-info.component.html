@@ -1,6 +1,7 @@
 <mat-card-title fxLayoutGap="15px" fxLayoutAlign="space-between center">
   <span>{{ volunteer.first_name }} {{volunteer.last_name}}</span>
-  <a [routerLink]="['/volunteers/details', volunteer._id]" mat-icon-button (click)="closeDialog()" color="primary">
+  <a [routerLink]="['/admin/volunteers/details', volunteer._id]" mat-icon-button (click)="closeDialog()"
+    color="primary">
     <mat-icon>edit</mat-icon>
   </a>
 </mat-card-title>

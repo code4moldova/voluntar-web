@@ -184,7 +184,7 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
       this.volunteerFacade.saveVolunteer(this.form.getRawValue());
       this.volunteerFacade.isLoading$.pipe(filter(status => !status), first()).subscribe(() => {
         console.log('Form Submited');
-        this.router.navigateByUrl('/volunteers/list');
+        this.router.navigateByUrl('/admin/volunteers/list');
       });
     } else {
       console.log('invalid form', this.form);

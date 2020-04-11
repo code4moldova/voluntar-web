@@ -307,7 +307,7 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
       this.formSubmitted = false;
       this.requestsFacade.isLoading$.pipe(filter(status => !status), first()).subscribe(() => {
         console.log('Form Submited');
-        this.router.navigateByUrl('/requests/list');
+        this.router.navigateByUrl('/admin/requests/list');
       });
     } else {
       console.log('Invalid form', this.form);

@@ -4,7 +4,7 @@
       <h1 class="mb-10 mt-0">
         {{ id ? "User Details" : "Create User" }}
       </h1>
-      <a routerLink="/users/list" class="go-back">
+      <a routerLink="/admin/users/list" class="go-back">
         <div fxFlex fxLayoutAlign="start center">
           <mat-icon>arrow_back</mat-icon>
           <span>Back to List</span>
@@ -15,33 +15,17 @@
 </div>
 
 <div class="container">
-  <form
-    [formGroup]="form"
-    (ngSubmit)="onSubmit()"
-    fxLayout="row"
-    fxLayoutAlign="start start"
-    fxLayoutGap="25px"
-  >
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="25px">
     <mat-card fxFlex="75">
       <mat-card-content>
         <mat-form-field class="full-width-input">
-          <input
-            matInput
-            placeholder="First Name"
-            formControlName="first_name"
-            required
-          />
+          <input matInput placeholder="First Name" formControlName="first_name" required />
           <mat-error>
             Please provide First name
           </mat-error>
         </mat-form-field>
         <mat-form-field class="full-width-input">
-          <input
-            matInput
-            placeholder="Last Name"
-            formControlName="last_name"
-            required
-          />
+          <input matInput placeholder="Last Name" formControlName="last_name" required />
           <mat-error>
             Please provide the Last name
           </mat-error>
@@ -49,12 +33,7 @@
         <div fxLayout fxLayoutGap="15px">
           <div fxFlex>
             <mat-form-field class="full-width-input">
-              <input
-                matInput
-                placeholder="Email"
-                formControlName="email"
-                required
-              />
+              <input matInput placeholder="Email" formControlName="email" required />
               <mat-error>
                 Please provide a valid email address
               </mat-error>
@@ -62,13 +41,7 @@
           </div>
           <div fxFlex *ngIf="!id">
             <mat-form-field class="full-width-input">
-              <input
-                matInput
-                type="password"
-                placeholder="Password"
-                formControlName="password"
-                required
-              />
+              <input matInput type="password" placeholder="Password" formControlName="password" required />
               <mat-error>
                 Please provide a valid password
               </mat-error>
@@ -78,13 +51,7 @@
         <div fxLayout fxLayoutGap="15px">
           <div>
             <mat-form-field class="full-width-input">
-              <input
-                matInput
-                type="number"
-                placeholder="Phone"
-                formControlName="phone"
-                required
-              />
+              <input matInput type="number" placeholder="Phone" formControlName="phone" required />
               <mat-error>
                 Please provide a valid phone number
               </mat-error>
@@ -94,9 +61,7 @@
         <mat-form-field class="full-width-input">
           <mat-label>Roles</mat-label>
           <mat-select formControlName="roles" multiple>
-            <mat-option
-              *ngFor="let role of availableRoles"
-              [value]="role">
+            <mat-option *ngFor="let role of availableRoles" [value]="role">
               {{role}}
             </mat-option>
           </mat-select>
@@ -114,9 +79,7 @@
     <mat-card fxFlex="25">
       <mat-card-content>
         <div>
-          <mat-slide-toggle formControlName="is_active"
-            >Active?</mat-slide-toggle
-          >
+          <mat-slide-toggle formControlName="is_active">Active?</mat-slide-toggle>
         </div>
       </mat-card-content>
     </mat-card>

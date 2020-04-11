@@ -20,7 +20,7 @@ export class AuthEffects {
     private authService: AuthService,
     private tokenStorage: TokenStorage,
     private router: Router
-  ) {}
+  ) { }
 
   login$: Observable<Action> = createEffect(() => {
     return this.actions$.pipe(
@@ -28,7 +28,7 @@ export class AuthEffects {
       switchMap(({ login, password }) =>
         this.authService.login({ login, password }).pipe(
           tap(() => {
-            this.router.navigate(['/']);
+            this.router.navigate(['/admin']);
           }),
           map(res => {
             this.tokenStorage.setAccessToken(res.token);

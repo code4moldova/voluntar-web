@@ -6,7 +6,7 @@ import { PublicGuard } from './guards/public.guard';
 const routes: Routes = [
   {
     path: '',
-    canActivate: [PublicGuard],
+    // canActivate: [PublicGuard],
     loadChildren: () =>
       import('./pages/welcome/welcome.module').then(m => m.WelcomeModule)
   },
@@ -33,4 +33,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
