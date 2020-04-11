@@ -29,7 +29,7 @@ export class GeolocationService {
   getZonesFromFilter(): Observable<ZoneI[]> {
     return this.http.get<{ list: ZoneI[] }>(`${environment.url}/tag/sector`).pipe(
       map((zone) => {
-        return zone.list;
+        return zone.list.filter(_=> _.is_active)
       })
     );
   }
