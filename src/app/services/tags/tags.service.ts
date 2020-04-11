@@ -30,4 +30,8 @@ export class TagsService {
   getOffers(): Observable<{ list: IOfferTag[] }> {
     return this.http.get<{ list: IOfferTag[] }>(`${environment.url}/tag/offer`);
   }
+
+  getRandomWord() {
+    return this.http.get<{ secret: string }>(`${environment.url}/secret`)
+  }
 }

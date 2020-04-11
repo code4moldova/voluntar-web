@@ -39,14 +39,6 @@
               </mat-error>
             </mat-form-field>
           </div>
-          <div fxFlex *ngIf="!currentVolunteeerId">
-            <mat-form-field class="full-width-input">
-              <input matInput type="password" placeholder="Password" formControlName="password" required />
-              <mat-error>
-                Please provide a valid password
-              </mat-error>
-            </mat-form-field>
-          </div>
         </div>
         <div fxLayout fxLayoutGap="15px">
           <div>
@@ -60,6 +52,7 @@
           <div>
             <mat-form-field class="full-width-input">
               <input matInput placeholder="Telegram ID" formControlName="telegram_id" />
+              <mat-icon matSuffix *ngIf="hasTelegramChatId$ | async" class="success">done</mat-icon>
               <mat-error>
                 Please provide a Telegram ID
               </mat-error>
@@ -129,24 +122,29 @@
             </mat-expansion-panel>
           </mat-accordion>
         </div>
+
+        <div fxLayout="row" fxLayoutGap="15px" class="mt-15">
+          <mat-form-field class="full-width-input">
+            <mat-select placeholder="Raion" formControlName="zone_address" required>
+              <mat-option *ngFor="let zone of zones" [value]="zone.value">
+                {{ zone.label }}
+              </mat-option>
+            </mat-select>
+            <mat-error>
+              Please provide a valid zone
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class=" full-width-input">
+            <input matInput type="text" placeholder="Suburbie name" formControlName="suburbia" />
+            <mat-error>
+              Please insert the name of suburbie
+            </mat-error>
+          </mat-form-field>
+        </div>
+
         <mat-form-field class="full-width-input">
-          <mat-select placeholder="Raion" formControlName="zone_address" required>
-            <mat-option *ngFor="let zone of zones" [value]="zone.value">
-              {{ zone.label }}
-            </mat-option>
-          </mat-select>
-          <mat-error>
-            Please provide a valid zone
-          </mat-error>
-        </mat-form-field>
-        <!-- <mat-form-field class="full-width-input">
-      <input matInput placeholder="Date" formControlName="date" required type="date" />
-      <mat-error>
-        Please provide a valid date
-      </mat-error>
-    </mat-form-field> -->
-        <mat-form-field class="full-width-input">
-          <input matInput placeholder="Facebook Profile" formControlName="facebook_profile" required />
+          <input matInput placeholder="Facebook Profile" formControlName="facebook_profile" />
           <mat-error>
             Please provide a Facebook Profile
           </mat-error>
@@ -154,7 +152,7 @@
 
         <div fxLayoutGap="15px">
           <mat-form-field fxFlex class="full-width-input">
-            <mat-select placeholder="Age" formControlName="age" required>
+            <mat-select placeholder="Age" formControlName="age">
               <mat-option *ngFor="let age of ages$ | async" [value]="age._id">{{ age.ro }}</mat-option>
             </mat-select>
             <mat-error>
@@ -162,7 +160,7 @@
             </mat-error>
           </mat-form-field>
           <mat-form-field fxFlex class="full-width-input">
-            <mat-select placeholder="Hours per day" formControlName="availability" required>
+            <mat-select placeholder="Hours per day" formControlName="availability">
               <mat-option *ngFor="let availability of availabilities$ | async" [value]="availability._id">
                 {{ availability.ro }}
               </mat-option>
@@ -176,7 +174,7 @@
         <div fxLayoutGap="15px">
           <mat-form-field fxFlex class="full-width-input">
             <!-- <input matInput placeholder="Offer" formControlName="offer" type="string" /> -->
-            <mat-select placeholder="Offer" formControlName="offer" required>
+            <mat-select placeholder="Offer" formControlName="offer">
               <mat-option *ngFor="let offer of offers$ | async" [value]="offer._id">
                 {{ offer.ro }}
               </mat-option>
@@ -184,7 +182,7 @@
           </mat-form-field>
           <mat-form-field fxFlex class="full-width-input">
             <!-- <input matInput placeholder="Team" formControlName="team" type="string" /> -->
-            <mat-select placeholder="Team" formControlName="team" required>
+            <mat-select placeholder="Team" formControlName="team">
               <mat-option *ngFor="let team of teams$ | async" [value]="team._id">
                 {{ team.ro }}
               </mat-option>
@@ -231,19 +229,6 @@
             Last temperature can be max {{last_temperature.errors?.maxlength.requiredLength}} characters long.
           </mat-error>
         </mat-form-field>
-
-        <div fxLayout="column" fxLayoutGap="15px" style="margin-bottom: 1.25em;">
-          <mat-label>Activity Types</mat-label>
-          <div fxLayout="column" fxLayoutGap="5px">
-            <mat-checkbox *ngFor="let activity of activityTypes$ | async" [value]="activity._id"
-              (change)="activityChange($event)" [checked]="isActivitySelected(activity._id)">
-              {{ activity.ro }}
-            </mat-checkbox>
-            <mat-error *ngIf="activity_types.errors?.required">
-              Please check one activity type
-            </mat-error>
-          </div>
-        </div>
 
         <div>
           <mat-radio-group formControlName="need_sim_unite" aria-label="Select an option">
@@ -303,21 +288,10 @@
 
         <div class="mt-15">
           <mat-radio-group formControlName="received_contract" aria-label="Select an option">
-            <label for="received_contract" class="col-md-12"> Received Contract ?</label>
+            <label for="received_contract" class="col-md-12"> Contract Signed ?</label>
             <div class="col-md-12" class="radio_buton_container">
               <mat-radio-button [value]="false" [checked]="received_contract.value === false"> No</mat-radio-button>
               <mat-radio-button [value]="true" [checked]="received_contract.value === true"> Yes</mat-radio-button>
-            </div>
-            <mat-divider></mat-divider>
-          </mat-radio-group>
-        </div>
-
-        <div class="mt-15">
-          <mat-radio-group formControlName="aggreed_terms" aria-label="Select an option">
-            <label for="aggreed_terms" class="col-md-12">Aggreed terms ?</label>
-            <div class="col-md-12" class="radio_buton_container">
-              <mat-radio-button [value]="false" [checked]="aggreed_terms.value === false"> No</mat-radio-button>
-              <mat-radio-button [value]="true" [checked]="aggreed_terms.value === true"> Yes</mat-radio-button>
             </div>
             <mat-divider></mat-divider>
           </mat-radio-group>

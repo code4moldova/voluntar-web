@@ -18,7 +18,7 @@
   <p><strong>Distance</strong>: {{volunteer.distance | number: '1.0-0'}} Km.</p>
   <p><strong>Has Telegram</strong>: {{volunteer.telegram_chat_id ? 'Yes' : 'No'}}</p>
   <p><strong>Availability</strong>: {{volunteer.availability_day|| 'None'}}</p>
-  <p><strong>Accepted Volunteers</strong>: {{volunteer.count}}</p>
+  <p><strong>Accepted Requests</strong>: {{volunteer.count}}</p>
   <mat-divider></mat-divider>
   <h3>Activity Types</h3>
   <p *ngFor="let activity of activityTypes$ | async">{{activity.ro}}</p>

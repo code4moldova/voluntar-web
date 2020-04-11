@@ -2,10 +2,10 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-const corsHack = 'https://cors-anywhere.herokuapp.com/';
+// const corsHack = 'https://cors-anywhere.herokuapp.com/';
 export const environment = {
   production: false,
-  url: corsHack + 'https://test-api.voluntar.md',
+  url: 'https://test-api.voluntar.md'
 };
 
 /*

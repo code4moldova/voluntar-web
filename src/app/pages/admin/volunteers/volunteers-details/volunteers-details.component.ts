@@ -7,17 +7,15 @@ import {
   filter,
   tap,
   switchMap,
-  skipWhile,
   debounceTime,
   distinctUntilChanged,
   finalize,
   first,
 } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subject, of, EMPTY } from 'rxjs';
+import { Subject } from 'rxjs';
 import { IVolunteer } from '@models/volunteers';
 import { TagsFacadeService } from '@services/tags/tags-facade.service';
-import { MatCheckboxChange } from '@angular/material/checkbox';
 import { GeolocationService } from '@services/geolocation/geolocation.service';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatDialog } from '@angular/material/dialog';
@@ -38,6 +36,20 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
     {
       label: 'Centru',
       value: 'centru',
+    },
+    {
+      label: 'Botanica',
+      value: 'botanica',
+    }, {
+      label: 'Buiucani',
+      value: 'buiucani',
+    },
+    {
+      label: 'Ciocana',
+      value: 'ciocana',
+    }, {
+      label: 'Rîșcani',
+      value: 'rîșcani',
     },
   ];
   public cities = [
@@ -74,16 +86,15 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
       [Validators.required, Validators.minLength(8), Validators.maxLength(8)],
     ],
     telegram_id: [null],
-    // gender: ['male', Validators.required],
     address: [null, Validators.required],
     latitude: [null, Validators.required],
     longitude: [null, Validators.required],
     zone_address: [null, Validators.required],
     is_active: [false, Validators.required],
-    facebook_profile: [null, Validators.required],
-    age: [null, Validators.required],
-    availability: [null, Validators.required],
-    activity_types: [[], Validators.required],
+    facebook_profile: [null],
+    age: [null],
+    availability: [null],
+    suburbia: [null],
     password: [{ value: 'random', disabled: true }, Validators.required],
     created_by: [null, [Validators.maxLength(500)]],
     team: [null, [Validators.maxLength(500)]],
@@ -97,7 +108,6 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
     sent_photo: [false, Validators.required],
     offer: [null],
     received_contract: [false],
-    aggreed_terms: [true],
     city: ['chisinau'],
   });
   currentVolunteeerId: string;
@@ -109,8 +119,9 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
   availabilities$ = this.tagsFacade.availabilitiesTags$;
   teams$ = this.tagsFacade.teamsTags$;
   offers$ = this.tagsFacade.offersTags$;
-
   activityTypes$ = this.tagsFacade.activityTypesTags$;
+
+  hasTelegramChatId$ = this.volunteerFacade.volunteerDetails$.pipe(map(volunteer => !!volunteer?.telegram_chat_id));
 
   constructor(
     private fb: FormBuilder,
@@ -129,14 +140,10 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
         tap((id) => (this.currentVolunteeerId = id)),
         takeUntil(this.componentDestroyed$)
       )
-      // .subscribe(volunteer => {
       .subscribe((id) => {
         this.currentVolunteeerId = id;
         if (id) {
           this.volunteerFacade.getVolunteerById(id);
-          this.form.get('password').disable();
-        } else {
-          this.form.get('password').enable();
         }
       });
   }
@@ -157,23 +164,14 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
           this.fakeAddressControl.patchValue({ address: volunteer.address });
         }
       });
+
+    // this.geolocationService.getZones().pipe(
+    //   takeUntil(this.componentDestroyed$)
+    // ).subscribe((zones) => {
+    //   console.log(zones);
+    // });
   }
 
-  activityChange({ checked, source }: MatCheckboxChange) {
-    const activityTypesValue = this.activity_types.value;
-    if (checked) {
-      this.activity_types.patchValue([...activityTypesValue, source.value]);
-    } else {
-      const filteredActivities = activityTypesValue.filter(
-        (id: string) => id !== source.value
-      );
-      this.activity_types.patchValue(filteredActivities);
-    }
-  }
-
-  isActivitySelected(activityId: string) {
-    return this.activity_types.value.includes(activityId);
-  }
 
   ngOnDestroy() {
     this.componentDestroyed$.next();
@@ -300,12 +298,10 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
   get received_contract() {
     return this.form.get('received_contract');
   }
-  get aggreed_terms() {
-    return this.form.get('aggreed_terms');
+  get zone_address() {
+    return this.form.get('zone_address');
   }
-  get activity_types() {
-    return this.form.get('activity_types');
-  }
+
 }
 
 export function ValidateTemperature(control: AbstractControl) {
