@@ -5,7 +5,7 @@
 // const corsHack = 'https://cors-anywhere.herokuapp.com/';
 export const environment = {
   production: false,
-  url: 'https://test-api.voluntar.md',
+  url: 'https://test-api.voluntar.md'
 };
 
 /*
