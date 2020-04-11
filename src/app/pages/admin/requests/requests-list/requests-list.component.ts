@@ -31,20 +31,16 @@ export class RequestsListComponent implements OnInit {
   public observableSelectColumns: FilterObservableSelectColumns<IUser | ZoneI>[];
   private statusOptions = [
     {
-      label: 'New',
-      _id: 'new',
-    },
-    {
-      label: 'Done',
-      _id: 'done',
-    },
-    {
+      label: 'Waiting',
+      _id: 'waiting',
+    }, 
+     {
       label: 'On Progress',
       _id: 'onprogress',
     },
     {
-      label: 'Review',
-      _id: 'review',
+      label: 'Done',
+      _id: 'done',
     },
   ];
   private isActive = [
