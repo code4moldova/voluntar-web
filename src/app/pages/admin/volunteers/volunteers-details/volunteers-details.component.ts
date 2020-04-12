@@ -106,7 +106,7 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
     black_list: [false, Validators.required],
     received_cards: [false, Validators.required],
     sent_photo: [false, Validators.required],
-    offer: [null],
+    offer: [null, Validators.required],
     received_contract: [false],
     city: ['chisinau'],
   });
