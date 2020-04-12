@@ -36,10 +36,10 @@ import { VolunteerModalInfoComponent } from '../../volunteers/volunteer-modal-in
 export class RequestDetailsComponent implements OnInit, OnDestroy {
   public statusOptions = this.tagsFacade.getStatusOptions();
 
-    public cities = [
-      { name: 'Chisinau', value: 'chisinau' },
-      { name: 'Balti', value: 'balti' },
-    ];
+  public cities = [
+    { name: 'Chisinau', value: 'chisinau' },
+    { name: 'Balti', value: 'balti' },
+  ];
 
   currentRequestId: string;
 
@@ -170,7 +170,11 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
         takeUntil(this.componentDestroyed$)
       )
       .subscribe((request) => {
-        this.form.setValue(request);
+        this.form.patchValue(request);
+        // Reset volunteer
+        if (!request.volunteer) {
+          this.form.get('volunteer').reset();
+        }
         if (request.address) {
           this.fakeAddressControl.patchValue({ address: request.address });
         }

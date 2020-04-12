@@ -57,7 +57,7 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
         takeUntil(this.componentDestroyed$)
       )
       .subscribe((volunteer) => {
-        this.form.setValue(volunteer);
+        this.form.patchValue(volunteer);
       });
   }
 

@@ -159,7 +159,7 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
         takeUntil(this.componentDestroyed$)
       )
       .subscribe((volunteer) => {
-        this.form.setValue(volunteer);
+        this.form.patchValue(volunteer);
         if (volunteer.address) {
           this.fakeAddressControl.patchValue({ address: volunteer.address });
         }
