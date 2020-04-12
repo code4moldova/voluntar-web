@@ -22,7 +22,6 @@ import { Subject, of, EMPTY, concat, combineLatest, Subscription, Observable } f
 import { IRequestDetails, IRequest } from '@models/requests';
 import { ISectorTag } from '@models/tags';
 import { IVolunteer } from '@models/volunteers';
-import { statusOptions } from '@models/requests';
 import { GeolocationService } from '@services/geolocation/geolocation.service';
 import { TagsFacadeService } from '@services/tags/tags-facade.service';
 import { EsriMapComponent } from '@shared/esri-map/esri-map.component';
@@ -37,7 +36,7 @@ import { VolunteerModalInfoComponent } from '../../volunteers/volunteer-modal-in
   styleUrls: ['./request-details.component.scss'],
 })
 export class RequestDetailsComponent implements OnInit, OnDestroy {
-  public statusOptions = statusOptions
+  public statusOptions = this.tagsFacade.getStatusOptions();
 
   public cities = [
     { name: 'Chisinau', value: 'chisinau' },
