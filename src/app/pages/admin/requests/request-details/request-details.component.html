@@ -250,9 +250,9 @@
                 <mat-radio-button fxFlex fxLayoutAlign="center" [value]="volunteer._id"
                   [color]="getThemeColor(volunteer)">
                   <div fxLayoutAlign="center">
-                    <span style="width: 130px;" class="text-truncate">
+                    <span fxFlex class="text-truncate">
                       {{volunteer.first_name}} {{volunteer.last_name}}
-                    </span> <span matTooltip="Phone"> | {{volunteer.phone}}</span>
+                    </span> <span matTooltip="Phone">&nbsp;| {{volunteer.phone}}</span>
                   </div>
                 </mat-radio-button>
                 <button mat-icon-button type="button" [color]="getThemeColor(volunteer)"

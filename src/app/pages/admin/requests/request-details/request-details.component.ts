@@ -180,6 +180,10 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
       )
       .subscribe((request) => {
         this.form.patchValue(request);
+        // Reset volunteer
+        if (!request.volunteer) {
+          this.form.get('volunteer').reset();
+        }
         if (request.address) {
           this.fakeAddressControl.patchValue({ address: request.address });
         }
