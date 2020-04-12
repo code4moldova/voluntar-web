@@ -173,8 +173,7 @@
 
         <div fxLayoutGap="15px">
           <mat-form-field fxFlex class="full-width-input">
-            <!-- <input matInput placeholder="Offer" formControlName="offer" type="string" /> -->
-            <mat-select placeholder="Offer" formControlName="offer">
+            <mat-select placeholder="Offer" formControlName="offer" required>
               <mat-option *ngFor="let offer of offers$ | async" [value]="offer._id">
                 {{ offer.ro }}
               </mat-option>
