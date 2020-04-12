@@ -1,17 +1,35 @@
+<!--<div id="header" class="header">-->
+<!--  <div class="header_main flex middle">-->
+<!--    <div class="container">-->
+<!--      <div class="row">-->
+<!--        <div class="col">-->
+<!--          <div class="float-right">-->
+<!--            <select class="custom-select mr-sm-2" #langSelect (change)="translate.use(langSelect.value)">-->
+<!--              <option-->
+<!--                *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">-->
+<!--                {{ lang }}-->
+<!--              </option>-->
+<!--            </select>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
 <div class="section intro flex middle">
   <div class="container">
     <div class="intro_content">
       <a routerLink='/'>
-        <h1>Inițiativa Îmreună Împotriva COVID-19</h1>
+        <h1>{{'WELCOME.NAME_OF_INITIATIVE' | translate }}</h1>
         <h2>VOLUNTAR.MD</h2>
       </a>
-      <h4>Proiect civic care unește eforturile și ajută oamenii aflați în situații nefavorabile în timpul pandemiei COVID-19</h4>
+      <h4>{{'WELCOME.DETAILS_OF_INITIATIVE' | translate }}</h4>
       <div class="numbers flex middle justify responsive">
         <div class="num flex middle spacing mx-2">
           <div class="call_to_action">
             <a href="https://docs.google.com/forms/d/e/1FAIpQLSeOMOaAwXeMyWA6RC6yZtSSIAblaE1yhHz0rsDrTRsruXLXHg/viewform?fbclid=IwAR2Q-AYsGP7_IX_LGKX9nHNOzPqnM9NFNp8dKhIhUrTpwSeLqS_8vcqdfug"
               class="tap green white view-progress" target="_blank">
-              Vreau să ajut
+              {{'WELCOME.WANT_TO_HELP' | translate}}
             </a>
           </div>
         </div>
@@ -19,7 +37,7 @@
         <div class="num flex middle spacing mx-2">
           <div class="call_to_action">
             <a href="#green_line" class="tap green white view-progress">
-              Vreau ajutor
+              {{'WELCOME.NEED_HELP' | translate}}
             </a>
           </div>
         </div>
@@ -28,7 +46,7 @@
           <div class="call_to_action">
             <a href="https://chuffed.org/project/initiativa-impreuna-impotriva-covid-19"
                class="tap green white view-progress" target="_blank">
-              Vreau să donez
+              {{'WELCOME.WANT_TO_DONATE' | translate}}
             </a>
           </div>
         </div>
@@ -45,35 +63,24 @@
   <div class="container">
     <div class="heading">
       <h2 id="green_line">
-        Vreau ajutor
+        {{ 'WELCOME.NEED_HELP' | translate }}
       </h2>
     </div>
-    <span class="info_row"> Sună la
+    <span class="info_row"> {{ 'WELCOME.CALL_ON' | translate }}
       <a href="tel:22 27 0945" class="badge green" title="Apeleaza">22 27 0945</a>
-      ori la <a href="tel:080000090" class="badge green" title="Apelează">0800 00090</a>
+      {{ 'WELCOME.OR_ON' | translate }} <a href="tel:080000090" class="badge green" title="Apelează">0800 00090</a>
     </span>
-  </div>
-</div>
-
-<div class="section">
-  <div class="container">
-    <div class="heading">
-      <h2>
-        Vezi ce se spune despre inițiativă
-      </h2>
-    </div>
-
   </div>
 </div>
 
 <div class="section footer">
   <div class="footer_buttons">
-    <a class="footer_button" routerLink="/login">Logare în sistem</a>
+    <a class="footer_button" routerLink="/login"> {{ 'WELCOME.LOG_IN' | translate }} </a>
   </div>
   <div class="created_by">
-    <span>creat cu</span> <span class="heart">&#9825;</span> <span>de Code for Moldova</span>
+    <span>{{ 'WELCOME.CREATED_WITH' | translate }} </span> <span class="heart">&#9825;</span> <span>{{ 'WELCOME.BY_C4MD' | translate }}</span>
   </div>
   <div class="copyright">
-    &#169; <span>2020 Code for Moldova. Organizație neguvernamentală independentă, neafiliată politic</span>
+    &#169; <span>2020 Code for Moldova. {{ 'WELCOME.COPYRIGHT' | translate }}</span>
   </div>
 </div>
