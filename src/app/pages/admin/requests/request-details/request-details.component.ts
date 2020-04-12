@@ -192,7 +192,7 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
         takeUntil(this.componentDestroyed$)
       )
       .subscribe((request) => {
-        this.form.patchValue(request);
+        this.form.setValue(request);
         if (request.address) {
           this.fakeAddressControl.patchValue({ address: request.address });
         }
