@@ -97,7 +97,7 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
     suburbia: [null],
     password: [{ value: 'random', disabled: true }, Validators.required],
     created_by: [null, [Validators.maxLength(500)]],
-    team: [null, [Validators.maxLength(500)]],
+    // team: [null, [Validators.maxLength(500)]],
     profession: [null, [Validators.maxLength(500)]],
     comments: [null, [Validators.maxLength(500)]],
     last_temperature: [minTemp, [Validators.required, ValidateTemperature]],
