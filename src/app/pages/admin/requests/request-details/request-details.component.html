@@ -46,11 +46,35 @@
         </div> -->
         <div fxLayoutGap="15px">
           <mat-form-field fxFlex class="full-width-input">
-            <input matInput placeholder="Phone" formControlName="phone" required type="tel" />
+            <input matInput placeholder="Phone" aria-label="tel" formControlName="phone" type="tel" required />
             <mat-error>
               Please provide a valid phone number
             </mat-error>
           </mat-form-field>
+
+          <mat-form-field fxFlex class="full-width-input" *ngIf="autoImport &&(beneficiar$ | async)?.length">
+            <input matInput placeholder="Import Auto" [value]="phone.value + ' | ' +(first_name.value|| '')"
+              [matAutocomplete]="bnfauto" />
+            <mat-autocomplete #bnfauto="matAutocomplete" (optionSelected)="insertAuto($event)">
+              <div *ngFor="let bnfc of beneficiar$ | async">
+                <div *ngFor="let key of objectKeys(bnfc)">
+                  <mat-option *ngIf="key==='first_name'" [value]="bnfc">
+                    <span>Insert auto </span> |
+                    <small> All value for {{bnfc[key]}}</small>
+                  </mat-option>
+                  <!-- <mat-option *ngIf="format(key,bnfc)">
+                    <span *ngIf="format(key,bnfc)">Insert auto</span> |
+                    <small> {{format(key,bnfc)}} </small>
+                  </mat-option> -->
+                </div>
+
+              </div>
+            </mat-autocomplete>
+            <mat-error>
+              Please provide a valid phone number
+            </mat-error>
+          </mat-form-field>
+
           <mat-form-field fxFlex class="full-width-input">
             <input matInput placeholder="Age" formControlName="age" type="number" required />
           </mat-form-field>
@@ -160,14 +184,14 @@
 
         <mat-form-field class="full-width-input">
           <textarea matInput placeholder="Questions" formControlName="questions" cdkTextareaAutosize
-            cdkAutosizeMinRows="4" required></textarea>
+            cdkAutosizeMinRows="4"></textarea>
           <!-- <mat-error>
             Questions is required
           </mat-error> -->
         </mat-form-field>
         <mat-form-field class="full-width-input">
           <textarea matInput placeholder="Comments" formControlName="comments" cdkTextareaAutosize
-            cdkAutosizeMinRows="4" required></textarea>
+            cdkAutosizeMinRows="4"></textarea>
           <!-- <mat-error>
             Questions is required
           </mat-error> -->
@@ -178,7 +202,7 @@
           </mat-form-field>
           <mat-form-field fxFlex class="full-width-input">
             <mat-select placeholder="Status" formControlName="status" required>
-              <mat-option *ngFor="let status of statusOptions" [value]="status.value">
+              <mat-option *ngFor="let status of statusOptions" [value]="status._id">
                 {{ status.label }}
               </mat-option>
             </mat-select>
@@ -227,9 +251,9 @@
                 <mat-radio-button fxFlex fxLayoutAlign="center" [value]="volunteer._id"
                   [color]="getThemeColor(volunteer)">
                   <div fxLayoutAlign="center">
-                    <span style="width: 130px;" class="text-truncate">
+                    <span fxFlex class="text-truncate" style="max-width: 90px;">
                       {{volunteer.first_name}} {{volunteer.last_name}}
-                    </span> <span matTooltip="Phone"> | {{volunteer.phone}}</span>
+                    </span> <span matTooltip="Phone">&nbsp;| {{volunteer.phone}}</span>
                   </div>
                 </mat-radio-button>
                 <button mat-icon-button type="button" [color]="getThemeColor(volunteer)"
