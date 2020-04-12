@@ -24,4 +24,31 @@ export interface IRequestDetails extends IRequest {
   created_at: string;
 }
 
+export const statusOptions = [
+  {
+      label: 'New',
+      _id: 'new',
+  },
+  {
+      label: 'Waiting',
+      _id: 'waiting',
+  },
+  {
+      label: 'Accepted',
+      _id: 'accepted',
+  },
+  {
+      label: 'On progress',
+      _id: 'onprogress',
+  },
+  {
+      label: 'Cancelled',
+      _id: 'cancelled',
+  },
+  {
+      label: 'Done',
+      _id: 'done',
+  },
+]
+
 // export interface IComment { }

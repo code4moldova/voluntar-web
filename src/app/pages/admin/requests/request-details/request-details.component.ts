@@ -1,7 +1,9 @@
 import { Component, OnInit, OnDestroy, ElementRef } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RequestsFacadeService } from '@services/requests/requests-facade.service';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import {
   map,
   takeUntil,
@@ -13,25 +15,19 @@ import {
   finalize,
   exhaustMap,
   first,
-  groupBy,
-  toArray,
-  mergeMap,
-  reduce,
 } from 'rxjs/operators';
-import { Subject, of, EMPTY, concat, Observable, combineLatest } from 'rxjs';
+import { Subject, of, EMPTY, concat, combineLatest } from 'rxjs';
 import { IRequestDetails } from '@models/requests';
-// import { MatCheckboxChange } from '@angular/material/checkbox';
-import { TagsFacadeService } from '@services/tags/tags-facade.service';
-import { GeolocationService } from '@services/geolocation/geolocation.service';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { ISectorTag } from '@models/tags';
-import { VolunteersService } from '@services/volunteers/volunteers.service';
 import { IVolunteer } from '@models/volunteers';
-import { MatDialog } from '@angular/material/dialog';
-import { VolunteerModalInfoComponent } from '../../volunteers/volunteer-modal-info/volunteer-modal-info.component';
+import { statusOptions } from '@models/requests';
+import { GeolocationService } from '@services/geolocation/geolocation.service';
+import { TagsFacadeService } from '@services/tags/tags-facade.service';
 import { EsriMapComponent } from '@shared/esri-map/esri-map.component';
 import { UsersFacadeService } from '@services/users/users-facade.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { RequestsFacadeService } from '@services/requests/requests-facade.service';
+import { VolunteersService } from '@services/volunteers/volunteers.service';
+import { VolunteerModalInfoComponent } from '../../volunteers/volunteer-modal-info/volunteer-modal-info.component';
 
 @Component({
   selector: 'app-request-details',
@@ -39,29 +35,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./request-details.component.scss'],
 })
 export class RequestDetailsComponent implements OnInit, OnDestroy {
-  statusOptions = [
-    {
-      label: 'New',
-      value: 'new',
-    },
-    {
-      label: 'Done',
-      value: 'done',
-    },
-    {
-      label: 'On Progress',
-      value: 'onprogress',
-    },
-    {
-      label: 'Review',
-      value: 'review',
-    },
-  ];
+  public statusOptions = statusOptions
 
-  public cities = [
-    { name: 'Chisinau', value: 'chisinau' },
-    { name: 'Balti', value: 'balti' },
-  ];
+    public cities = [
+      { name: 'Chisinau', value: 'chisinau' },
+      { name: 'Balti', value: 'balti' },
+    ];
 
   currentRequestId: string;
 

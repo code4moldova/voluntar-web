@@ -10,7 +10,7 @@ import { UsersFacadeService } from '@services/users/users-facade.service';
 import { GeolocationService } from '@services/geolocation/geolocation.service';
 
 import { FilterInputColumns, FilterSelectColumns, FilterObservableSelectColumns } from '@models/filter';
-import { IRequest } from '@models/requests';
+import { IRequest, statusOptions } from '@models/requests';
 import { IUser } from '@models/user';
 import { ZoneI } from '@models/geolocation';
 
@@ -29,20 +29,7 @@ export class RequestsListComponent implements OnInit {
   public inputColumns: FilterInputColumns[];
   public selectColumns: FilterSelectColumns<{ label: string; _id: string | boolean }>[];
   public observableSelectColumns: FilterObservableSelectColumns<IUser | ZoneI>[];
-  private statusOptions = [
-    {
-      label: 'Waiting',
-      _id: 'waiting',
-    }, 
-     {
-      label: 'On Progress',
-      _id: 'onprogress',
-    },
-    {
-      label: 'Done',
-      _id: 'done',
-    },
-  ];
+
   private isActive = [
     {
       label: 'Yes',
@@ -82,7 +69,7 @@ export class RequestsListComponent implements OnInit {
     ];
 
     this.selectColumns = [
-      { name: 'Status', value: 'status', array: this.statusOptions },
+      { name: 'Status', value: 'status', array: statusOptions },
       { name: 'Is Active', value: 'is_active', array: this.isActive },
     ];
 
