@@ -13,6 +13,7 @@ import { FilterInputColumns, FilterSelectColumns, FilterObservableSelectColumns 
 import { IRequest } from '@models/requests';
 import { IUser } from '@models/user';
 import { ZoneI } from '@models/geolocation';
+import { TagsFacadeService } from '@services/tags/tags-facade.service';
 
 @Component({
   selector: 'app-requests-list',
@@ -29,20 +30,7 @@ export class RequestsListComponent implements OnInit {
   public inputColumns: FilterInputColumns[];
   public selectColumns: FilterSelectColumns<{ label: string; _id: string | boolean }>[];
   public observableSelectColumns: FilterObservableSelectColumns<IUser | ZoneI>[];
-  private statusOptions = [
-    {
-      label: 'Waiting',
-      _id: 'waiting',
-    }, 
-     {
-      label: 'On Progress',
-      _id: 'onprogress',
-    },
-    {
-      label: 'Done',
-      _id: 'done',
-    },
-  ];
+
   private isActive = [
     {
       label: 'Yes',
@@ -57,6 +45,7 @@ export class RequestsListComponent implements OnInit {
     private requestsFacade: RequestsFacadeService,
     private usersFacadeService: UsersFacadeService,
     private geolocationService: GeolocationService,
+    private tagsFacade: TagsFacadeService,
   ) { }
 
   ngOnInit() {
@@ -82,7 +71,7 @@ export class RequestsListComponent implements OnInit {
     ];
 
     this.selectColumns = [
-      { name: 'Status', value: 'status', array: this.statusOptions },
+      { name: 'Status', value: 'status', array: this.tagsFacade.getStatusOptions()},
       { name: 'Is Active', value: 'is_active', array: this.isActive },
     ];
 

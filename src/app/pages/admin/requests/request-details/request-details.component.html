@@ -178,7 +178,7 @@
           </mat-form-field>
           <mat-form-field fxFlex class="full-width-input">
             <mat-select placeholder="Status" formControlName="status" required>
-              <mat-option *ngFor="let status of statusOptions" [value]="status.value">
+              <mat-option *ngFor="let status of statusOptions" [value]="status._id">
                 {{ status.label }}
               </mat-option>
             </mat-select>
