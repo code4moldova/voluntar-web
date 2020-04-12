@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, ElementRef } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatDialog } from '@angular/material/dialog';
@@ -15,9 +15,11 @@ import {
   finalize,
   exhaustMap,
   first,
+  catchError,
+  startWith,
 } from 'rxjs/operators';
-import { Subject, of, EMPTY, concat, combineLatest } from 'rxjs';
-import { IRequestDetails } from '@models/requests';
+import { Subject, of, EMPTY, concat, combineLatest, Subscription, Observable } from 'rxjs';
+import { IRequestDetails, IRequest } from '@models/requests';
 import { ISectorTag } from '@models/tags';
 import { IVolunteer } from '@models/volunteers';
 import { statusOptions } from '@models/requests';
@@ -37,10 +39,12 @@ import { VolunteerModalInfoComponent } from '../../volunteers/volunteer-modal-in
 export class RequestDetailsComponent implements OnInit, OnDestroy {
   public statusOptions = statusOptions
 
-    public cities = [
-      { name: 'Chisinau', value: 'chisinau' },
-      { name: 'Balti', value: 'balti' },
-    ];
+  public cities = [
+    { name: 'Chisinau', value: 'chisinau' },
+    { name: 'Balti', value: 'balti' },
+  ];
+
+  public objectKeys = Object.keys;
 
   currentRequestId: string;
 
@@ -51,6 +55,7 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
       offers.filter((offer) => ['Livrarea', 'Transport'].includes(offer.ro))
     )
   );
+
   operators$ = this.usersFacade.users$;
   isLoading$ = concat(
     this.requestsFacade.isLoading$,
@@ -60,6 +65,7 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
 
   fakeAddressControl = this.fb.control(null);
   formSubmitted = false;
+  public autoImport = null;
 
   form = this.fb.group({
     _id: [null],
@@ -133,6 +139,9 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
   private zones: ISectorTag[];
 
   componentDestroyed$ = new Subject();
+  beneficiar$: Observable<IRequest[]>;
+  private subscription: Subscription;
+
 
   constructor(
     private fb: FormBuilder,
@@ -264,11 +273,39 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
       });
   }
 
-  ngOnInit() { }
+  get phone(): AbstractControl {
+    return this.form.get('phone');
+  }
+  get first_name(): AbstractControl {
+    return this.form.get('first_name');
+  }
+  get last_name(): AbstractControl {
+    return this.form.get('last_name');
+  }
+
+  ngOnInit() {
+    this.beneficiar$ = this.requestsFacade.requests$;
+    const search$ = this.phone.valueChanges.pipe(
+      startWith(null),
+      debounceTime(1000),
+      distinctUntilChanged(),
+      catchError(() => EMPTY)
+    );
+
+    this.subscription = search$.subscribe(() => {
+      if (this.phone.value && this.phone.touched && this.phone.valid) {
+        this.queryResult({ phone: this.phone.value });
+        this.autoImport = true;
+      }
+    });
+  }
 
   ngOnDestroy() {
     this.componentDestroyed$.next();
     this.componentDestroyed$.complete();
+    this.subscription.unsubscribe();
+    this.form.reset()
+    this.form.markAsUntouched()
   }
 
   onSubmit() {
@@ -319,6 +356,45 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
     }
   }
 
+  // format(key: string, bnf: IRequest) {
+  //   switch (key) {
+  //     case 'first_name':
+  //       return 'First Name' + ': ' + bnf[key];
+  //     case 'last_name':
+  //       return 'Last Name' + ': ' + bnf[key];
+  //     case 'age':
+  //       return 'Age' + ': ' + bnf[key];
+  //     case 'offer':
+  //       return 'Offer' + ': ' + this.offers.find(offer => offer._id === bnf[key])?.ro;
+  //     case 'address':
+  //       return 'Addresa' + ': ' + bnf[key];
+  //     case 'zone_address':
+  //       return 'Raion' + ': ' + this.zones.find((z) => z._id === bnf[key])?.ro;
+  //     case 'city':
+  //       return 'Orasul' + ': ' + bnf[key];
+  //     case 'questions':
+  //       return 'Questions' + ': ' + bnf[key];
+  //     case 'comments':
+  //       return 'Comments' + ': ' + bnf[key];
+  //     case 'secret':
+  //       return 'Secret' + ': ' + bnf[key];
+  //     case 'status':
+  //       return 'Status' + ': ' + bnf[key];
+  //     case 'fixer':
+  //       return 'Fixer' + ': ' + this.operators.find(oper => oper._id === bnf[key])?.first_name;
+  //     default: null
+  //       break;
+  //   }
+  // }
+
+  insertAuto(bnf: MatAutocompleteSelectedEvent) {
+    Object.keys(this.form.controls).forEach((key) => {
+      if (['valunteer', 'is_active'].indexOf(key) === -1) {
+        this.form.get(key).setValue(bnf.option.value[key], { emitEvent: false })
+      }
+    });
+  }
+
   showZoneLabel(value: any) {
     if (value) {
       // Hacky way to get Sector name
@@ -345,11 +421,16 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
     if (value) {
       // const [street, city] = value.address.split(', ');
       // const geo = value.location
-      //   ? `${value.location.y}, ${value.location.x}`
+      //   ? `${ value.location.y }, ${ value.location.x } `
       //   : null;
       this.form.get('address').patchValue(value.address);
       this.form.get('latitude').patchValue(value.location.y);
       this.form.get('longitude').patchValue(value.location.x);
     }
   }
+
+  queryResult(criteria: { [keys: string]: string }) {
+    this.requestsFacade.getBeneficiaresByFilter(criteria);
+  }
+
 }
