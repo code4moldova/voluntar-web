@@ -10,9 +10,10 @@ import { UsersFacadeService } from '@services/users/users-facade.service';
 import { GeolocationService } from '@services/geolocation/geolocation.service';
 
 import { FilterInputColumns, FilterSelectColumns, FilterObservableSelectColumns } from '@models/filter';
-import { IRequest, statusOptions } from '@models/requests';
+import { IRequest } from '@models/requests';
 import { IUser } from '@models/user';
 import { ZoneI } from '@models/geolocation';
+import { TagsFacadeService } from '@services/tags/tags-facade.service';
 
 @Component({
   selector: 'app-requests-list',
@@ -44,6 +45,7 @@ export class RequestsListComponent implements OnInit {
     private requestsFacade: RequestsFacadeService,
     private usersFacadeService: UsersFacadeService,
     private geolocationService: GeolocationService,
+    private tagsFacade: TagsFacadeService,
   ) { }
 
   ngOnInit() {
@@ -69,7 +71,7 @@ export class RequestsListComponent implements OnInit {
     ];
 
     this.selectColumns = [
-      { name: 'Status', value: 'status', array: statusOptions },
+      { name: 'Status', value: 'status', array: this.tagsFacade.getStatusOptions()},
       { name: 'Is Active', value: 'is_active', array: this.isActive },
     ];
 
