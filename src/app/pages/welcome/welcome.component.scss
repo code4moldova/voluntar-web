@@ -1,5 +1,5 @@
-// @import "~bootstrap/dist/css/bootstrap.min.css";
-// @import "~@fortawesome/fontawesome-free/css/fontawesome.min.css";
+@import "~bootstrap/dist/css/bootstrap.min.css";
+//@import "~@fortawesome/fontawesome-free/css/fontawesome.min.css";
 
 * {
   outline: none;
@@ -201,7 +201,7 @@ h6 {
 .section.intro {
   color: #fff;
   min-height: 100px;
-  background: url("/assets/welcome-cover.png") 50% 50% / cover no-repeat;
+  background: url("/assets/welcome/cover.png") 50% 50% / cover no-repeat;
 }
 .section.intro h1 {
   color: #fff;
