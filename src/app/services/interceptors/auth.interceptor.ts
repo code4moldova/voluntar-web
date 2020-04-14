@@ -22,7 +22,7 @@ export class AuthInterceptor implements HttpInterceptor {
       return next.handle(request);
     } else {
       const token: string = localStorage.getItem('accessToken');
-      if (!token) {
+      if (!token && !(this.router.url == '/')) {
         console.log('accessToken doesnt exist');
         console.log('URL: ', request.url);
         console.log('Canceled by Interceptor.');
