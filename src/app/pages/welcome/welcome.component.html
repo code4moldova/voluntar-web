@@ -1,21 +1,20 @@
-<!--<div id="header" class="header">-->
-<!--  <div class="header_main flex middle">-->
-<!--    <div class="container">-->
-<!--      <div class="row">-->
-<!--        <div class="col">-->
-<!--          <div class="float-right">-->
-<!--            <select class="custom-select mr-sm-2" #langSelect (change)="translate.use(langSelect.value)">-->
-<!--              <option-->
-<!--                *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">-->
-<!--                {{ lang }}-->
-<!--              </option>-->
-<!--            </select>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
+<div id="header" class="header">
+  <div class="header_main flex middle">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="float-right">
+            <div class="langs">
+              <a href="#" id="language" (click)="changeLang()">
+                {{ translate.currentLang == 'ru' ? 'Româna' : 'Русский' }}
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="section intro flex middle">
   <div class="container">
       <a routerLink='/'>
@@ -55,7 +54,7 @@
 </div>
 
 <div class="container-fluid" style="margin-top: 1%;">
-  <h1 class="text-center">{{ 'WELCOME.TITLE_CARICATURES'  | translate }}</h1>
+  <h2 class="text-center text-secondary">{{ 'WELCOME.TITLE_CARICATURES'  | translate }}</h2>
   <div class="row">
     <div class="col-md-3">
       <figure class="figure">
@@ -100,11 +99,11 @@
 <div class="section">
   <div class="container">
     <div class="heading">
-      <h2 id="green_line">
+      <h2 id="green_line" class="text-secondary">
         {{ 'WELCOME.NEED_HELP' | translate }}
       </h2>
     </div>
-    <span class="info_row"> {{ 'WELCOME.CALL_ON' | translate }}
+    <span class="info_row text-secondary"> {{ 'WELCOME.CALL_ON' | translate }}
       <a href="tel:22 27 0945" class="badge green" title="Apeleaza">22 27 0945</a>
       {{ 'WELCOME.OR_ON' | translate }} <a href="tel:080000090" class="badge green" title="Apelează">0800 00090</a>
     </span>
@@ -113,13 +112,12 @@
 
 <div class="section footer">
   <div class="footer_buttons">
-    <a class="footer_button" routerLink="/login"> {{ 'WELCOME.LOG_IN' | translate }} </a>
+    <a class="footer_button text-secondary" routerLink="/login"> {{ 'WELCOME.LOG_IN' | translate }} </a>
   </div>
-  <div class="created_by">
-    <span>{{ 'WELCOME.CREATED_WITH' | translate }}</span> <span class="heart"> &#9825; </span> <span>{{ 'WELCOME.BY_C4MD' | translate }}
-    <img src="assets/welcome/c4md_logo.png" width="100" height="100" alt=""></span>
+  <div class="created_by text-secondary">
+    <span>{{ 'WELCOME.CREATED_WITH' | translate }}</span> <span class="heart"> &#9825; </span> <span>{{ 'WELCOME.BY_C4MD' | translate }}</span>
   </div>
-  <div class="copyright">
+  <div class="copyright text-secondary">
     &#169; <span>2020 Code for Moldova. {{ 'WELCOME.COPYRIGHT' | translate }}</span>
   </div>
 </div>
