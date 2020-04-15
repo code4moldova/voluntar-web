@@ -14,20 +14,19 @@ export class WelcomeComponent implements OnInit {
     translate.addLangs(['ru', 'ro']);
     translate.setDefaultLang('ro');
     const browserLang = translate.getBrowserLang();
-    let storage_lang = localStorage.getItem(this.KEY_STORAGE_LANG);
-    if (storage_lang) {
-      translate.use(storage_lang);
+    let storageLang = localStorage.getItem(this.KEY_STORAGE_LANG);
+    if (storageLang) {
+      translate.use(storageLang);
     } else {
       translate.use(browserLang.match(/ro|ru/) ? browserLang : 'ro');
     }
   }
 
   changeLang(): void {
-    let new_lang = this.translate.currentLang === 'ru' ? 'ro' : 'ru';
-    this.translate.use(new_lang);
-    localStorage.setItem(this.KEY_STORAGE_LANG, new_lang);
+    let newLang = this.translate.currentLang === 'ru' ? 'ro' : 'ru';
+    this.translate.use(newLang);
+    localStorage.setItem(this.KEY_STORAGE_LANG, newLang);
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 }
