@@ -324,8 +324,10 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
       }
       this.requestsFacade.saveRequest(data);
       this.formSubmitted = false;
-      this.requestsFacade.isLoading$.pipe(filter(status => !status), first()).subscribe(() => {
-        console.log('Form Submited');
+      combineLatest([
+        this.requestsFacade.isLoading$,
+        this.requestsFacade.error$,
+      ]).pipe(filter(([status, error]) => !status && !error), first()).subscribe(() => {
         this.router.navigateByUrl('/admin/requests/list');
       });
     } else {

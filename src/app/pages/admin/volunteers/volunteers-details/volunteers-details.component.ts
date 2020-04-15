@@ -13,7 +13,7 @@ import {
   first,
 } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subject } from 'rxjs';
+import { Subject, combineLatest } from 'rxjs';
 import { IVolunteer } from '@models/volunteers';
 import { TagsFacadeService } from '@services/tags/tags-facade.service';
 import { GeolocationService } from '@services/geolocation/geolocation.service';
@@ -164,12 +164,6 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
           this.fakeAddressControl.patchValue({ address: volunteer.address });
         }
       });
-
-    // this.geolocationService.getZones().pipe(
-    //   takeUntil(this.componentDestroyed$)
-    // ).subscribe((zones) => {
-    //   console.log(zones);
-    // });
   }
 
 
@@ -182,8 +176,10 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
     this.formSubmitted = true;
     if (this.form.valid) {
       this.volunteerFacade.saveVolunteer(this.form.getRawValue());
-      this.volunteerFacade.isLoading$.pipe(filter(status => !status), first()).subscribe(() => {
-        console.log('Form Submited');
+      combineLatest([
+        this.volunteerFacade.isLoading$,
+        this.volunteerFacade.error$
+      ]).pipe(filter(([status, error]) => !status && !error), first()).subscribe(() => {
         this.router.navigateByUrl('/admin/volunteers/list');
       });
     } else {
