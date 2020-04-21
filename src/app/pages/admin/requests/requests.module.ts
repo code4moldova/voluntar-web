@@ -7,13 +7,15 @@ import { RequestsRoutingModule } from './requests-routing.module';
 import { MaterialComponentsModule } from '@shared/material.module';
 import { SharedModule } from '@shared/shared.module';
 import { RequestModalInfoComponent } from './request-modal-info/request-modal-info.component';
+import { RequestFormComponent } from './request-form/request-form.component';
 
 @NgModule({
   declarations: [
     RequestsComponent,
     RequestDetailsComponent,
     RequestsListComponent,
-    RequestModalInfoComponent
+    RequestModalInfoComponent,
+    RequestFormComponent
   ],
   imports: [
     CommonModule,

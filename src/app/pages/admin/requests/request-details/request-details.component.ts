@@ -1,441 +1,57 @@
-import { Component, OnInit, OnDestroy, ElementRef } from '@angular/core';
-import { FormBuilder, Validators, AbstractControl } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import {
-  map,
-  takeUntil,
-  switchMap,
-  tap,
-  filter,
-  debounceTime,
-  distinctUntilChanged,
-  finalize,
-  exhaustMap,
-  first,
-  catchError,
-  startWith,
-} from 'rxjs/operators';
-import { Subject, of, EMPTY, concat, combineLatest, Subscription, Observable } from 'rxjs';
-import { IRequestDetails, IRequest } from '@models/requests';
-import { ISectorTag } from '@models/tags';
-import { IVolunteer } from '@models/volunteers';
-import { GeolocationService } from '@services/geolocation/geolocation.service';
-import { TagsFacadeService } from '@services/tags/tags-facade.service';
-import { EsriMapComponent } from '@shared/esri-map/esri-map.component';
-import { UsersFacadeService } from '@services/users/users-facade.service';
+import { Component, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { map, tap, switchMap, takeUntil } from 'rxjs/operators';
+import { Subject, of } from 'rxjs';
+
+import { IRequestDetails } from '@models/requests';
 import { RequestsFacadeService } from '@services/requests/requests-facade.service';
-import { VolunteersService } from '@services/volunteers/volunteers.service';
-import { VolunteerModalInfoComponent } from '../../volunteers/volunteer-modal-info/volunteer-modal-info.component';
 
 @Component({
   selector: 'app-request-details',
   templateUrl: './request-details.component.html',
   styleUrls: ['./request-details.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RequestDetailsComponent implements OnInit, OnDestroy {
-  public statusOptions = this.tagsFacade.getStatusOptions();
+export class RequestDetailsComponent implements OnDestroy {
+  private componentDestroyed$ = new Subject();
 
-  public cities = [
-    { name: 'Chisinau', value: 'chisinau' },
-    { name: 'Balti', value: 'balti' },
-  ];
-
-  public objectKeys = Object.keys;
-
-  currentRequestId: string;
-
-  activityTypes$ = this.tagsFacade.activityTypesTags$;
-  offers$ = this.tagsFacade.offersTags$.pipe(
-    // Don't like this option, but it's good for now
-    map((offers) =>
-      offers.filter((offer) => ['Livrarea', 'Transport'].includes(offer.ro))
-    )
+  currentRequestId$ = this.route.paramMap.pipe(map((params) => params.get('id')));
+  currentRequest$ = this.currentRequestId$.pipe(
+    // tap((id) => {
+    //   if (id) {
+    //     this.form.get('status').enable();
+    //   } else {
+    //     this.form.get('status').disable();
+    //   }
+    // }),
+    tap((id) => id && this.requestsFacade.getRequestById(id)),
+    switchMap((id) => id ? this.requestsFacade.requestDetails$ : of(null as IRequestDetails)),
+    takeUntil(this.componentDestroyed$)
   );
-
-  operators$ = this.usersFacade.users$;
-  isLoading$ = concat(
-    this.requestsFacade.isLoading$,
-    this.tagsFacade.isLoading$
-  );
-  error$ = concat(this.requestsFacade.error$, this.tagsFacade.error$);
-
-  fakeAddressControl = this.fb.control(null);
-  formSubmitted = false;
-  public autoImport = null;
-
-  form = this.fb.group({
-    _id: [null],
-    first_name: [null, Validators.required],
-    last_name: [null, Validators.required],
-    // email: [null, [Validators.required, Validators.email]],
-    // password: [{ value: 'random', disabled: true }, Validators.required],
-    phone: [null, [Validators.required, Validators.minLength(8), Validators.maxLength(8)]],
-    is_active: [false, Validators.required],
-    offer: [null, Validators.required],
-    city: [null],
-    address: [null, Validators.required],
-    latitude: [null, Validators.required],
-    longitude: [null, Validators.required],
-    zone_address: [null, Validators.required],
-    age: [null, [Validators.required, Validators.max(120)]],
-    // activity_types: [[], Validators.required],
-    have_money: [false, Validators.required],
-    has_symptoms: [false, Validators.required],
-    curator: [false, Validators.required],
-    comments: [null, Validators.required],
-    questions: [null, Validators.required],
-    status: [{ value: 'new', disabled: true }, Validators.required],
-    secret: [null, Validators.required],
-    fixer: [null, Validators.required],
-    volunteer: [null],
-    // availability_volunteer: [
-    //   null,
-    //   [Validators.required, Validators.min(0), Validators.max(23)],
-    // ],
-  });
-
-  volunteersNearbyIsLoading$ = new Subject();
-  volunteersNearby$ = combineLatest([
-    this.form.get('_id').valueChanges,
-    this.form.get('is_active').valueChanges,
-    // this.requestsFacade.isLoading$.pipe(filter((status) => !status)),
-  ]).pipe(
-    exhaustMap(([id, isActive]) => {
-      if (id && isActive) {
-        this.volunteersNearbyIsLoading$.next(true);
-        return this.volunteersService.getVolunteersNearbyRequest(id).pipe(
-          map(({ list }) => list.length ? [
-            list.filter(v => v.count < 2).sort((v1, v2) => (v1.distance < v2.distance ? -1 : 1)),
-            list.filter(v => v.count >= 2).sort((v1, v2) => (v1.distance < v2.distance ? -1 : 1)),
-          ] : null),
-          finalize(() => this.volunteersNearbyIsLoading$.next(false))
-        );
-      }
-      return of(null as IVolunteer[][]);
-    })
-  );
-
-  addressIsLoading$ = new Subject();
-  addresses$ = this.fakeAddressControl.valueChanges.pipe(
-    debounceTime(350),
-    distinctUntilChanged(),
-    filter((address) => address && address.length > 0),
-    switchMap((address) => {
-      this.addressIsLoading$.next(true);
-      return this.geolocationService.getLocation(null, address).pipe(
-        map((resp) => resp.candidates),
-        finalize(() => {
-          this.addressIsLoading$.next(false);
-        })
-      );
-    })
-  );
-
-  zones$ = this.requestsFacade.zones$;
-  private zones: ISectorTag[];
-
-  componentDestroyed$ = new Subject();
-  beneficiar$: Observable<IRequest[]>;
-  private subscription: Subscription;
-
+  // .subscribe((request) => {
+  //   this.form.patchValue(request);
+  //   // Reset volunteer
+  //   if (!request.volunteer) {
+  //     this.form.get('volunteer').reset();
+  //   }
+  //   if (request.address) {
+  //     this.fakeAddressControl.patchValue({ address: request.address });
+  //   }
+  //   // Autofill secret field
+  //   if (!request.secret) {
+  //     this.tagsFacade.getRandomWord().pipe(first()).subscribe(secret => {
+  //       this.form.get('secret').patchValue(secret);
+  //     });
+  //   }
+  // });
 
   constructor(
-    private fb: FormBuilder,
-    private route: ActivatedRoute,
-    private router: Router,
     private requestsFacade: RequestsFacadeService,
-    private tagsFacade: TagsFacadeService,
-    private usersFacade: UsersFacadeService,
-    private volunteersService: VolunteersService,
-    private geolocationService: GeolocationService,
-    private matDialog: MatDialog,
-    private elementRef: ElementRef,
-    private snackBar: MatSnackBar
-  ) {
-    this.route.paramMap
-      .pipe(
-        map((params) => params.get('id')),
-        tap((id) => (this.currentRequestId = id)),
-        tap((id) => {
-          if (id) {
-            // this.form.get('password').disable();
-            this.form.get('status').enable();
-          } else {
-            // this.form.get('password').enable();
-            this.form.get('status').disable();
-          }
-        }),
-        tap((id) => id && this.requestsFacade.getRequestById(id)),
-        switchMap((id) => {
-          if (id) {
-            return this.requestsFacade.requestDetails$;
-          }
-          return of({} as IRequestDetails);
-        }),
-        switchMap((request) => (request ? of(request) : EMPTY)),
-        takeUntil(this.componentDestroyed$)
-      )
-      .subscribe((request) => {
-        this.form.patchValue(request);
-        // Reset volunteer
-        if (!request.volunteer) {
-          this.form.get('volunteer').reset();
-        }
-        if (request.address) {
-          this.fakeAddressControl.patchValue({ address: request.address });
-        }
-        // Autofill secret field
-        if (!request.secret) {
-          this.tagsFacade.getRandomWord().pipe(first()).subscribe(secret => {
-            this.form.get('secret').patchValue(secret);
-          });
-        }
-      });
-
-    this.zones$.pipe(takeUntil(this.componentDestroyed$)).subscribe((z) => {
-      this.zones = z;
-    });
-  }
-
-  // activityChange({ checked, source }: MatCheckboxChange) {
-  //   const activityTypesValue = this.form.get('activity_types').value;
-  //   if (checked) {
-  //     this.form
-  //       .get('activity_types')
-  //       .patchValue([...activityTypesValue, source.value]);
-  //   } else {
-  //     const filteredActivities = activityTypesValue.filter(
-  //       (id: string) => id !== source.value
-  //     );
-  //     this.form.get('activity_types').patchValue(filteredActivities);
-  //   }
-  // }
-
-  // isActivitySelected(activityId: string) {
-  //   return this.form.get('activity_types').value?.includes(activityId);
-  // }
-
-  showVolunteerInfoModal(volunteer: IVolunteer) {
-    this.matDialog.open(VolunteerModalInfoComponent, {
-      data: volunteer,
-      width: '450px',
-      maxWidth: '100%',
-    });
-  }
-
-  getThemeColor(volunteer: IVolunteer) {
-    if (volunteer.accepted_offer) {
-      return 'primary';
-    } else if (!volunteer.telegram_chat_id) {
-      return 'warn';
-    }
-    return 'accent';
-  }
-
-  getTooltip(volunteer: IVolunteer) {
-    if (volunteer.accepted_offer) {
-      return 'Offer Accepted';
-    } else if (!volunteer.telegram_chat_id) {
-      return 'Doesn\'t have Telegram';
-    }
-    return 'Volunteer Info';
-  }
-
-  showMapDialog() {
-    this.matDialog
-      .open<
-        EsriMapComponent,
-        { coors: number[]; address: string },
-        { latitude: number; longitude: number; address: string }
-      >(EsriMapComponent, {
-        data: {
-          coors: [
-            this.form.get('latitude').value,
-            this.form.get('longitude').value,
-          ],
-          address: this.fakeAddressControl.value?.address,
-        },
-        panelClass: 'esri-map',
-        width: '80%',
-        height: '80%',
-        maxWidth: '100%',
-        maxHeight: '100%',
-      })
-      .afterClosed()
-      .pipe(first())
-      .subscribe((coors) => {
-        if (coors) {
-          this.form.get('latitude').patchValue(coors.latitude);
-          this.form.get('longitude').patchValue(coors.longitude);
-          this.form.get('address').patchValue(coors.address);
-          this.fakeAddressControl.patchValue({ address: coors.address });
-        }
-      });
-  }
-
-  get phone(): AbstractControl {
-    return this.form.get('phone');
-  }
-  get first_name(): AbstractControl {
-    return this.form.get('first_name');
-  }
-  get last_name(): AbstractControl {
-    return this.form.get('last_name');
-  }
-
-  ngOnInit() {
-    this.beneficiar$ = this.requestsFacade.requests$;
-    const search$ = this.phone.valueChanges.pipe(
-      startWith(null),
-      debounceTime(1000),
-      distinctUntilChanged(),
-      catchError(() => EMPTY)
-    );
-
-    this.subscription = search$.subscribe(() => {
-      if (this.phone.value && this.phone.touched && this.phone.valid) {
-        this.queryResult({ phone: this.phone.value });
-        this.autoImport = true;
-      }
-    });
-  }
+    private route: ActivatedRoute,
+  ) { }
 
   ngOnDestroy() {
     this.componentDestroyed$.next();
     this.componentDestroyed$.complete();
-    this.subscription.unsubscribe();
-    this.form.reset()
-    this.form.markAsUntouched()
   }
-
-  onSubmit() {
-    this.formSubmitted = true;
-    if (this.form.valid) {
-      let data = this.form.getRawValue();
-      const sector = data.zone_address;
-      if (typeof sector === 'object') {
-        data = {
-          ...data,
-          zone_address: sector._id,
-        };
-      }
-      this.requestsFacade.saveRequest(data);
-      this.formSubmitted = false;
-      combineLatest([
-        this.requestsFacade.isLoading$,
-        this.requestsFacade.error$,
-      ]).pipe(filter(([status, error]) => !status && !error), first()).subscribe(() => {
-        this.router.navigateByUrl('/admin/requests/list');
-      });
-    } else {
-      console.log('Invalid form', this.form);
-      this.snackBar.open('Update required fields', '', {
-        duration: 5000,
-        panelClass: 'info',
-        horizontalPosition: 'right',
-        verticalPosition: 'top',
-      });
-      const element = this.elementRef.nativeElement.querySelector(
-        '.ng-invalid:not(form)'
-      );
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-  }
-
-  get addressIsInvalid() {
-    const city = this.form.get('city');
-    const address = this.form.get('address');
-    const lat = this.form.get('latitude');
-    const lng = this.form.get('longitude');
-    return city.invalid || address.invalid || lat.invalid || lng.invalid;
-  }
-
-  displayFn(value: any) {
-    if (value) {
-      return value.address;
-    }
-  }
-
-  // format(key: string, bnf: IRequest) {
-  //   switch (key) {
-  //     case 'first_name':
-  //       return 'First Name' + ': ' + bnf[key];
-  //     case 'last_name':
-  //       return 'Last Name' + ': ' + bnf[key];
-  //     case 'age':
-  //       return 'Age' + ': ' + bnf[key];
-  //     case 'offer':
-  //       return 'Offer' + ': ' + this.offers.find(offer => offer._id === bnf[key])?.ro;
-  //     case 'address':
-  //       return 'Addresa' + ': ' + bnf[key];
-  //     case 'zone_address':
-  //       return 'Raion' + ': ' + this.zones.find((z) => z._id === bnf[key])?.ro;
-  //     case 'city':
-  //       return 'Orasul' + ': ' + bnf[key];
-  //     case 'questions':
-  //       return 'Questions' + ': ' + bnf[key];
-  //     case 'comments':
-  //       return 'Comments' + ': ' + bnf[key];
-  //     case 'secret':
-  //       return 'Secret' + ': ' + bnf[key];
-  //     case 'status':
-  //       return 'Status' + ': ' + bnf[key];
-  //     case 'fixer':
-  //       return 'Fixer' + ': ' + this.operators.find(oper => oper._id === bnf[key])?.first_name;
-  //     default: null
-  //       break;
-  //   }
-  // }
-
-  insertAuto(bnf: MatAutocompleteSelectedEvent) {
-    Object.keys(this.form.controls).forEach((key) => {
-      if (['valunteer', 'is_active'].indexOf(key) === -1) {
-        this.form.get(key).setValue(bnf.option.value[key], { emitEvent: false })
-      }
-    });
-  }
-
-  showZoneLabel(value: any) {
-    if (value) {
-      // Hacky way to get Sector name
-      if (typeof value === 'string') {
-        const zone = this.zones
-          ? this.zones.find((z) => z._id === value)
-          : null;
-        return zone ? zone.ro : value;
-      }
-      return typeof value === 'string' ? value : value.ro;
-    }
-    return '';
-  }
-
-  patchZoneControl(event: MatAutocompleteSelectedEvent) {
-    const value = event.option.value;
-    if (value) {
-      this.form.get('zone_address').patchValue(value._id);
-    }
-  }
-
-  onAddressSelected(event: MatAutocompleteSelectedEvent) {
-    const value = event.option.value;
-    if (value) {
-      // const [street, city] = value.address.split(', ');
-      // const geo = value.location
-      //   ? `${ value.location.y }, ${ value.location.x } `
-      //   : null;
-      this.form.get('address').patchValue(value.address);
-      this.form.get('latitude').patchValue(value.location.y);
-      this.form.get('longitude').patchValue(value.location.x);
-    }
-  }
-
-  queryResult(criteria: { [keys: string]: string }) {
-    this.requestsFacade.getBeneficiaresByFilter(criteria);
-  }
-
 }
