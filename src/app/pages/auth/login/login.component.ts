@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserFacadeService } from 'src/app/services/auth/user-facade.service';
 import { RequestsFacadeService } from '@services/requests/requests-facade.service';
-
-import { environment } from '../../../../environments/environment';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login',

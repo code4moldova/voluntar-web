@@ -28,7 +28,7 @@ import {
   getZonesAction,
   getZonesSuccessAction,
   getZonesFailureAction,
-  getBeneficiariesByFilterAction
+  getBeneficiariesByFilterAction,
 } from './actions';
 import { GeolocationService } from '@services/geolocation/geolocation.service';
 
@@ -39,13 +39,13 @@ export class RequestsEffects {
     private router: Router,
     private requestService: RequestsService,
     private geoService: GeolocationService
-  ) { }
+  ) {}
 
   getRequestsEffect$: Observable<Action> = createEffect(() => {
     return this.actions$.pipe(
       ofType(getRequestsAction),
-      switchMap(() =>
-        this.requestService.getRequests().pipe(
+      switchMap(({ page, filters }) =>
+        this.requestService.getRequests(page, filters).pipe(
           map((res) =>
             getRequestsSuccessAction({ payload: res.list, count: res.count })
           ),
@@ -110,17 +110,15 @@ export class RequestsEffects {
     );
   });
 
-  getBeneficiaresEffect: Observable<Action> = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(getBeneficiariesByFilterAction),
-      switchMap((action) =>
-        this.requestService.getBeneficiariesByFilter(action.payload).pipe(
-          map(res => getRequestsSuccessAction({ payload: res.list, count: res.count })),
-          catchError(error => of(getRequestFailureAction({ error })))
-        )
-      )
-    );
-  });
-
-
+  // getBeneficiaresEffect: Observable<Action> = createEffect(() => {
+  //   return this.actions$.pipe(
+  //     ofType(getBeneficiariesByFilterAction),
+  //     switchMap((action) =>
+  //       this.requestService.getBeneficiariesByFilter(action.payload).pipe(
+  //         map(res => getRequestsSuccessAction({ payload: res.list, count: res.count })),
+  //         catchError(error => of(getRequestFailureAction({ error })))
+  //       )
+  //     )
+  //   );
+  // });
 }

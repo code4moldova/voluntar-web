@@ -4,7 +4,7 @@
       <h1 class="mb-10 mt-0">
         {{ (currentRequestId$ | async) ? "Beneficiar Details" : "Create Beneficiar" }}
       </h1>
-      <a routerLink="/admin/requests/list" class="go-back">
+      <a href="#" appGoBack class="go-back">
         <div fxFlex fxLayoutAlign="start center">
           <mat-icon>arrow_back</mat-icon>
           <span>Back to List</span>

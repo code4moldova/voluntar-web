@@ -1,9 +1,26 @@
-import { Component, OnInit, ElementRef, OnDestroy, ChangeDetectionStrategy, Input, OnChanges, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ElementRef,
+  OnDestroy,
+  ChangeDetectionStrategy,
+  Input,
+  OnChanges,
+  ViewEncapsulation,
+} from '@angular/core';
 import { Validators, FormBuilder, AbstractControl } from '@angular/forms';
 import {
-  map, finalize,
-  debounceTime, distinctUntilChanged, filter, switchMap,
-  takeUntil, first, startWith, catchError, exhaustMap
+  map,
+  finalize,
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  switchMap,
+  takeUntil,
+  first,
+  startWith,
+  catchError,
+  exhaustMap,
 } from 'rxjs/operators';
 import { Subject, Observable, EMPTY, of, combineLatest, concat } from 'rxjs';
 import { IVolunteer } from '@models/volunteers';
@@ -48,7 +65,10 @@ export class RequestFormComponent implements OnInit, OnDestroy, OnChanges {
   );
 
   operators$ = this.usersFacade.users$;
-  isLoading$ = concat(this.requestsFacade.isLoading$, this.tagsFacade.isLoading$);
+  isLoading$ = concat(
+    this.requestsFacade.isLoading$,
+    this.tagsFacade.isLoading$
+  );
   error$ = concat(this.requestsFacade.error$, this.tagsFacade.error$);
 
   fakeAddressControl = this.fb.control(null);
@@ -59,7 +79,10 @@ export class RequestFormComponent implements OnInit, OnDestroy, OnChanges {
     _id: [null],
     first_name: [null, Validators.required],
     last_name: [null, Validators.required],
-    phone: [null, [Validators.required, Validators.minLength(8), Validators.maxLength(8)]],
+    phone: [
+      null,
+      [Validators.required, Validators.minLength(8), Validators.maxLength(8)],
+    ],
     is_active: [false, Validators.required],
     offer: [null, Validators.required],
     city: [null],
@@ -111,10 +134,18 @@ export class RequestFormComponent implements OnInit, OnDestroy, OnChanges {
       if (id && isActive) {
         this.volunteersNearbyIsLoading$.next(true);
         return this.volunteersService.getVolunteersNearbyRequest(id).pipe(
-          map(({ list }) => list.length ? [
-            list.filter(v => v.count < 2).sort((v1, v2) => (v1.distance < v2.distance ? -1 : 1)),
-            list.filter(v => v.count >= 2).sort((v1, v2) => (v1.distance < v2.distance ? -1 : 1)),
-          ] : null),
+          map(({ list }) =>
+            list.length
+              ? [
+                  list
+                    .filter((v) => v.count < 2)
+                    .sort((v1, v2) => (v1.distance < v2.distance ? -1 : 1)),
+                  list
+                    .filter((v) => v.count >= 2)
+                    .sort((v1, v2) => (v1.distance < v2.distance ? -1 : 1)),
+                ]
+              : null
+          ),
           finalize(() => this.volunteersNearbyIsLoading$.next(false))
         );
       }
@@ -293,9 +324,12 @@ export class RequestFormComponent implements OnInit, OnDestroy, OnChanges {
   insertAuto(bnf: MatAutocompleteSelectedEvent) {
     Object.keys(this.form.controls).forEach((key) => {
       if (['valunteer', 'is_active'].indexOf(key) === -1) {
-        this.form.get(key).setValue(bnf.option.value[key], { emitEvent: false })
+        this.form
+          .get(key)
+          .setValue(bnf.option.value[key], { emitEvent: false });
       }
     });
+    this.form.get('_id').patchValue(null);
   }
 
   showZoneLabel(value: any) {
@@ -333,7 +367,6 @@ export class RequestFormComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   queryResult(criteria: { [keys: string]: string }) {
-    this.requestsFacade.getBeneficiaresByFilter(criteria);
+    this.requestsFacade.getRequests({ pageSize: 1000, pageIndex: 1 }, criteria);
   }
-
 }

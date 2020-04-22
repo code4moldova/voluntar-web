@@ -8,11 +8,21 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class RequestsService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  getRequests() {
+  getRequests(
+    page: { pageIndex: number; pageSize: number } = {
+      pageIndex: 1,
+      pageSize: 20,
+    },
+    filters: any = {}
+  ) {
+    const params = new HttpParams({ fromObject: filters });
     return this.http.get<{ count: number; list: IRequestDetails[] }>(
-      `${environment.url}/beneficiary/filters/1/1000`
+      `${environment.url}/beneficiary/filters/${page.pageIndex || 1}/${
+        page.pageSize || 1000
+      }`,
+      { params }
     );
   }
 
@@ -33,11 +43,10 @@ export class RequestsService {
     );
   }
 
-  getBeneficiariesByFilter(httpParams: { [keys: string]: string }): Observable<{ count: number; list: IRequestDetails[] }> {
-    const params = new HttpParams({ fromObject: httpParams });
-    return this.http.get<{ count: number; list: IRequestDetails[] }>(
-      `${environment.url}/beneficiary/filters/1/1000?`, { params },
-    );
-  }
-
+  // getBeneficiariesByFilter(httpParams: { [keys: string]: string }): Observable<{ count: number; list: IRequestDetails[] }> {
+  //   const params = new HttpParams({ fromObject: httpParams });
+  //   return this.http.get<{ count: number; list: IRequestDetails[] }>(
+  //     `${environment.url}/beneficiary/filters/1/1000?`, { params },
+  //   );
+  // }
 }

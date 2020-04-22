@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { MaterialComponentsModule } from 'src/app/shared/material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-// import { PhoneMaskDirective } from './directives/phone-mask.directive';
 import { EsriMapComponent } from './esri-map/esri-map.component';
 import { FilterComponent } from './filter/filter.component';
+import { GoBackDirective } from './directives/go-back.directive';
 
 @NgModule({
   imports: [
@@ -22,11 +22,9 @@ import { FilterComponent } from './filter/filter.component';
     MaterialComponentsModule,
     FlexLayoutModule,
     EsriMapComponent,
-    FilterComponent
+    FilterComponent,
+    GoBackDirective,
   ],
-  declarations: [
-    EsriMapComponent,
-    FilterComponent
-  ]
+  declarations: [EsriMapComponent, FilterComponent, GoBackDirective],
 })
-export class SharedModule { }
+export class SharedModule {}

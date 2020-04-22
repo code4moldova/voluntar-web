@@ -33,7 +33,7 @@ export class HeaderComponent implements OnInit {
   }
 
   fetchRequests() {
-    this.requestsFacade.getRequests();
+    this.requestsFacade.getRequests({ pageSize: 20, pageIndex: 1 });
     this.requestsFacade.resetNewRequests();
   }
 }

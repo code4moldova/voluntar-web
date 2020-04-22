@@ -63,14 +63,17 @@ export class RequestsFacadeService {
           return interval(this.DELAY_TIME).pipe(
             takeUntil(stopPolling$),
             switchMap(() =>
-              this.requestService.getRequests().pipe(map(({ count }) => count))
+              this.requestService
+                .getRequests({ pageIndex: 1, pageSize: 1 })
+                .pipe(map(({ count }) => count))
             ),
-            map((count) => [count, countFromState])
+            pairwise(),
+            map(([prev, next]) => [next, countFromState, prev])
           );
         })
       )
-      .subscribe(([count, countFromState]) => {
-        console.log('start polling');
+      .subscribe(([count, countFromState, prev]) => {
+        console.log('start polling', prev);
         if (countFromState === null) {
           return;
         }
@@ -89,8 +92,8 @@ export class RequestsFacadeService {
     this.hasNewRequests$.next(false);
   }
 
-  getRequests() {
-    this.store.dispatch(getRequestsAction());
+  getRequests(page: { pageSize: number; pageIndex: number }, filters?: any) {
+    this.store.dispatch(getRequestsAction({ page, filters }));
   }
 
   getRequestById(id: string) {
@@ -114,5 +117,4 @@ export class RequestsFacadeService {
   toggleNewRequestsPolling(value: boolean) {
     this.newRequests$.next(value);
   }
-
 }

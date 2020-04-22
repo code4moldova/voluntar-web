@@ -5,17 +5,20 @@ import { Subject, of } from 'rxjs';
 
 import { IRequestDetails } from '@models/requests';
 import { RequestsFacadeService } from '@services/requests/requests-facade.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-request-details',
   templateUrl: './request-details.component.html',
   styleUrls: ['./request-details.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RequestDetailsComponent implements OnDestroy {
   private componentDestroyed$ = new Subject();
 
-  currentRequestId$ = this.route.paramMap.pipe(map((params) => params.get('id')));
+  currentRequestId$ = this.route.paramMap.pipe(
+    map((params) => params.get('id'))
+  );
   currentRequest$ = this.currentRequestId$.pipe(
     // tap((id) => {
     //   if (id) {
@@ -25,7 +28,9 @@ export class RequestDetailsComponent implements OnDestroy {
     //   }
     // }),
     tap((id) => id && this.requestsFacade.getRequestById(id)),
-    switchMap((id) => id ? this.requestsFacade.requestDetails$ : of(null as IRequestDetails)),
+    switchMap((id) =>
+      id ? this.requestsFacade.requestDetails$ : of(null as IRequestDetails)
+    ),
     takeUntil(this.componentDestroyed$)
   );
   // .subscribe((request) => {
@@ -48,10 +53,16 @@ export class RequestDetailsComponent implements OnDestroy {
   constructor(
     private requestsFacade: RequestsFacadeService,
     private route: ActivatedRoute,
-  ) { }
+    private location: Location
+  ) {}
 
   ngOnDestroy() {
     this.componentDestroyed$.next();
     this.componentDestroyed$.complete();
+  }
+
+  back(e) {
+    e.preventDefault();
+    this.location.back();
   }
 }

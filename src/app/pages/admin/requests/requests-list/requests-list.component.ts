@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -9,7 +9,11 @@ import { RequestsFacadeService } from '@services/requests/requests-facade.servic
 import { UsersFacadeService } from '@services/users/users-facade.service';
 import { GeolocationService } from '@services/geolocation/geolocation.service';
 
-import { FilterInputColumns, FilterSelectColumns, FilterObservableSelectColumns } from '@models/filter';
+import {
+  FilterInputColumns,
+  FilterSelectColumns,
+  FilterObservableSelectColumns,
+} from '@models/filter';
 import { IRequest } from '@models/requests';
 import { IUser } from '@models/user';
 import { ZoneI } from '@models/geolocation';
@@ -23,13 +27,21 @@ import { TagsFacadeService } from '@services/tags/tags-facade.service';
 export class RequestsListComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   displayedColumns: string[] = ['name', 'phone', 'hasMoney', 'city', 'status'];
-  dataSource$: Observable<MatTableDataSource<IRequest>>;
+  dataSource$: Observable<IRequest[]>;
   isLoading$ = this.requestsFacade.isLoading$;
   newRequest$ = this.requestsFacade.newRequests;
+  count$ = this.requestsFacade.requestsCount$;
 
   public inputColumns: FilterInputColumns[];
-  public selectColumns: FilterSelectColumns<{ label: string; _id: string | boolean }>[];
-  public observableSelectColumns: FilterObservableSelectColumns<IUser | ZoneI>[];
+  public selectColumns: FilterSelectColumns<{
+    label: string;
+    _id: string | boolean;
+  }>[];
+  public observableSelectColumns: FilterObservableSelectColumns<
+    IUser | ZoneI
+  >[];
+
+  lastFilter = {};
 
   private isActive = [
     {
@@ -45,19 +57,13 @@ export class RequestsListComponent implements OnInit {
     private requestsFacade: RequestsFacadeService,
     private usersFacadeService: UsersFacadeService,
     private geolocationService: GeolocationService,
-    private tagsFacade: TagsFacadeService,
-  ) { }
+    private tagsFacade: TagsFacadeService
+  ) {}
 
   ngOnInit() {
     this.fetchRequests();
     this.usersFacadeService.getUsers();
-    this.dataSource$ = this.requestsFacade.requests$.pipe(
-      map((data) => {
-        const dataSource = new MatTableDataSource(data);
-        dataSource.paginator = this.paginator;
-        return dataSource;
-      })
-    );
+    this.dataSource$ = this.requestsFacade.requests$;
 
     this.inputColumns = [
       { name: 'First Name', value: 'first_name' },
@@ -67,24 +73,46 @@ export class RequestsListComponent implements OnInit {
 
     this.observableSelectColumns = [
       { name: 'Fixer', value: 'fixer', array: this.usersFacadeService.users$ },
-      { name: 'Zone address', value: 'zone_address', array: this.geolocationService.getZonesFromFilter() },
+      {
+        name: 'Zone address',
+        value: 'zone_address',
+        array: this.geolocationService.getZonesFromFilter(),
+      },
     ];
 
     this.selectColumns = [
-      { name: 'Status', value: 'status', array: this.tagsFacade.getStatusOptions()},
+      {
+        name: 'Status',
+        value: 'status',
+        array: this.tagsFacade.getStatusOptions(),
+      },
       { name: 'Is Active', value: 'is_active', array: this.isActive },
     ];
-
   }
 
   fetchRequests() {
-    this.requestsFacade.getRequests();
+    this.requestsFacade.getRequests({ pageSize: 20, pageIndex: 1 });
     this.requestsFacade.resetNewRequests();
   }
 
-
   queryResult(criteria: { [keys: string]: string }) {
-    this.requestsFacade.getBeneficiaresByFilter(criteria);
+    this.lastFilter = criteria;
+    this.requestsFacade.getRequests(
+      {
+        pageSize: 20,
+        pageIndex: 1,
+      },
+      criteria
+    );
   }
 
+  onPageChange(event: PageEvent) {
+    this.requestsFacade.getRequests(
+      {
+        pageSize: event.pageSize,
+        pageIndex: event.pageIndex + 1,
+      },
+      this.lastFilter
+    );
+  }
 }

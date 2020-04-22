@@ -9,13 +9,19 @@ import {
 import { FormBuilder, FormControl } from '@angular/forms';
 
 import { Subscription, EMPTY } from 'rxjs';
-import { debounceTime, distinctUntilChanged, catchError } from 'rxjs/operators';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  catchError,
+  take,
+} from 'rxjs/operators';
 
 import {
   FilterInputColumns,
   FilterSelectColumns,
   FilterObservableSelectColumns,
 } from '@models/filter';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-filter',
@@ -31,9 +37,17 @@ export class FilterComponent implements OnInit, OnDestroy {
   public form = this.fb.group({});
   private subscription: Subscription;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
+    this.subscription = this.route.queryParams.subscribe((params) => {
+      this.queryResult.emit(params);
+    });
+
     this.inputColumns.forEach((col) => {
       this.form.addControl(col.value, new FormControl(null));
     });
@@ -46,15 +60,15 @@ export class FilterComponent implements OnInit, OnDestroy {
       this.form.addControl(col.value, new FormControl(null));
     });
 
-    const search$ = this.form.valueChanges.pipe(
-      debounceTime(300),
-      distinctUntilChanged(),
-      catchError((err) => EMPTY)
-    );
-
-    this.subscription = search$.subscribe((criterion) => {
-      this.search(this.form.value);
+    this.route.queryParams.pipe(take(1)).subscribe((params) => {
+      this.form.patchValue(params);
     });
+
+    this.subscription = this.form.valueChanges
+      .pipe(debounceTime(300), distinctUntilChanged())
+      .subscribe((value) => {
+        this.search(value);
+      });
   }
 
   onFiltersSubmit() {
@@ -65,7 +79,10 @@ export class FilterComponent implements OnInit, OnDestroy {
     Object.keys(filters).forEach((key) =>
       filters[key] === '' || filters[key] === null ? delete filters[key] : ''
     );
-    this.queryResult.emit(filters);
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: filters,
+    });
   }
 
   public reset(): void {

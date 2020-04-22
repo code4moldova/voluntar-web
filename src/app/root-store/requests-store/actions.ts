@@ -27,7 +27,10 @@ export enum ActionTypes {
   GET_ZONES_FAILURE = '[Request] Get Zones Failure',
 }
 
-export const getRequestsAction = createAction(ActionTypes.GET_REQUESTS);
+export const getRequestsAction = createAction(
+  ActionTypes.GET_REQUESTS,
+  props<{ page: { pageSize: number; pageIndex: number }; filters?: any }>()
+);
 export const getRequestsFailureAction = createAction(
   ActionTypes.GET_REQUESTS_FAILURE,
   props<{ error: any }>()
