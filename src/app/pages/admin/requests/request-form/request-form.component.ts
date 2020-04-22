@@ -84,6 +84,7 @@ export class RequestFormComponent implements OnInit, OnDestroy, OnChanges {
       [Validators.required, Validators.minLength(8), Validators.maxLength(8)],
     ],
     is_active: [false, Validators.required],
+    is_urgent: [false, Validators.required],
     offer: [null, Validators.required],
     city: [null],
     address: [null, Validators.required],
@@ -94,8 +95,17 @@ export class RequestFormComponent implements OnInit, OnDestroy, OnChanges {
     have_money: [false, Validators.required],
     has_symptoms: [false, Validators.required],
     curator: [false, Validators.required],
+    has_disabilities: [false, Validators.required],
+
+    paying_by_card: [false, Validators.required],
+    warm_lunch: [false, Validators.required],
+    grocery: [false, Validators.required],
+    medicine: [false, Validators.required],
+    in_blacklist: [false, Validators.required],
+
     comments: [null, Validators.required],
     questions: [null, Validators.required],
+    additional_info: [null],
     status: [{ value: 'new', disabled: true }, Validators.required],
     secret: [null, Validators.required],
     fixer: [null, Validators.required],
@@ -137,13 +147,13 @@ export class RequestFormComponent implements OnInit, OnDestroy, OnChanges {
           map(({ list }) =>
             list.length
               ? [
-                  list
-                    .filter((v) => v.count < 2)
-                    .sort((v1, v2) => (v1.distance < v2.distance ? -1 : 1)),
-                  list
-                    .filter((v) => v.count >= 2)
-                    .sort((v1, v2) => (v1.distance < v2.distance ? -1 : 1)),
-                ]
+                list
+                  .filter((v) => v.count < 2)
+                  .sort((v1, v2) => (v1.distance < v2.distance ? -1 : 1)),
+                list
+                  .filter((v) => v.count >= 2)
+                  .sort((v1, v2) => (v1.distance < v2.distance ? -1 : 1)),
+              ]
               : null
           ),
           finalize(() => this.volunteersNearbyIsLoading$.next(false))
@@ -265,9 +275,19 @@ export class RequestFormComponent implements OnInit, OnDestroy, OnChanges {
   ngOnChanges() {
     if (this.request) {
       this.form.patchValue(this.request);
+      this.form.get('status').enable();
+      if (!this.request.volunteer) {
+        this.form.get('volunteer').reset();
+      }
+      if (this.request.address) {
+        this.fakeAddressControl.patchValue({ address: this.request.address });
+      }
     } else {
       this.form.reset();
       this.form.markAsUntouched();
+      this.tagsFacade.getRandomWord().pipe(first()).subscribe(secret => {
+        this.form.get('secret').setValue(secret);
+      });
     }
   }
 

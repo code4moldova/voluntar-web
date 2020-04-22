@@ -1,5 +1,5 @@
 export interface IRequest {
-  _id?: number;
+  _id?: string;
   email: string;
   first_name: string;
   last_name: string;
@@ -18,6 +18,21 @@ export interface IRequest {
   secret: string;
   availability_volunteer: number;
   volunteer: string;
+
+  is_urgent: boolean;
+  offer: string;
+  city: string;
+  has_symptoms: boolean;
+  curator: boolean;
+  has_disabilities: boolean;
+  additional_info: string;
+  fixer: string;
+
+  paying_by_card: boolean;
+  warm_lunch: boolean;
+  grocery: boolean;
+  medicine: boolean;
+  in_blacklist: boolean;
 }
 
 export interface IRequestDetails extends IRequest {

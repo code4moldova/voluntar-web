@@ -20,13 +20,6 @@ export class RequestDetailsComponent implements OnDestroy {
     map((params) => params.get('id'))
   );
   currentRequest$ = this.currentRequestId$.pipe(
-    // tap((id) => {
-    //   if (id) {
-    //     this.form.get('status').enable();
-    //   } else {
-    //     this.form.get('status').disable();
-    //   }
-    // }),
     tap((id) => id && this.requestsFacade.getRequestById(id)),
     switchMap((id) =>
       id ? this.requestsFacade.requestDetails$ : of(null as IRequestDetails)
@@ -54,7 +47,7 @@ export class RequestDetailsComponent implements OnDestroy {
     private requestsFacade: RequestsFacadeService,
     private route: ActivatedRoute,
     private location: Location
-  ) {}
+  ) { }
 
   ngOnDestroy() {
     this.componentDestroyed$.next();
