@@ -25,7 +25,9 @@
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef>Nume</th>
       <td mat-cell *matCellDef="let element">
-        <mat-icon [matTooltip]="element.have_money ? 'Has money' : 'No money'">{{ element.have_money ? 'attach_money' : 'money_off' }}</mat-icon> {{ element.first_name }} {{ element.last_name }}
+        <span *ngIf="element.black_list" matTooltip="Black List" class="blacklist"></span>
+        <mat-icon [matTooltip]="element.have_money ? 'Has money' : 'No money'">{{ element.have_money ? 'attach_money' : 'money_off' }}</mat-icon>
+        {{ element.first_name }} {{ element.last_name }}
       </td>
     </ng-container>
 
