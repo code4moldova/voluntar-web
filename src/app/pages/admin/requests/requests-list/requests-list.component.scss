@@ -11,3 +11,23 @@ mat-accordion {
   display: block;
   margin-bottom: 25px;
 }
+
+.new {
+  color: rgb(66, 113, 241);
+}
+
+.done {
+  color: rgb(44, 145, 44);
+}
+
+.onprogress {
+  color: rgb(202, 155, 25);
+}
+
+.cancelled {
+  color: rgb(224, 53, 10);
+}
+
+mat-icon {
+  vertical-align: middle;
+}

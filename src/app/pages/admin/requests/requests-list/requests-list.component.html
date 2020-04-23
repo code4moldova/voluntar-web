@@ -25,7 +25,7 @@
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef>Nume</th>
       <td mat-cell *matCellDef="let element">
-        {{ element.first_name }} {{ element.last_name }}
+        <mat-icon [matTooltip]="element.have_money ? 'Has money' : 'No money'">{{ element.have_money ? 'attach_money' : 'money_off' }}</mat-icon> {{ element.first_name }} {{ element.last_name }}
       </td>
     </ng-container>
 
@@ -34,10 +34,10 @@
       <td mat-cell *matCellDef="let element">{{ element.phone }}</td>
     </ng-container>
 
-    <ng-container matColumnDef="hasMoney">
-      <th mat-header-cell *matHeaderCellDef>Are bani</th>
+    <ng-container matColumnDef="sector">
+      <th mat-header-cell *matHeaderCellDef>Sector</th>
       <td mat-cell *matCellDef="let element">
-        {{ element.has_money ? "Da" : "Nu" }}
+        {{ (zoneById$(element.zone_address) | async)?.ro }}
       </td>
     </ng-container>
 
@@ -47,9 +47,9 @@
     </ng-container>
 
     <ng-container matColumnDef="status">
-      <th mat-header-cell *matHeaderCellDef>Activ</th>
-      <td mat-cell *matCellDef="let element">
-        {{ element.status ? "Da" : "Nu" }}
+      <th mat-header-cell *matHeaderCellDef>Status</th>
+      <td mat-cell *matCellDef="let element" class="{{element.status}}">
+        {{ getStatusLabel(element.status) }}
       </td>
     </ng-container>
 

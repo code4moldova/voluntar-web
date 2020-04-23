@@ -26,7 +26,7 @@ import { TagsFacadeService } from '@services/tags/tags-facade.service';
 })
 export class RequestsListComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  displayedColumns: string[] = ['name', 'phone', 'hasMoney', 'city', 'status'];
+  displayedColumns: string[] = ['name', 'phone', 'sector', 'status'];
   dataSource$: Observable<IRequest[]>;
   isLoading$ = this.requestsFacade.isLoading$;
   newRequest$ = this.requestsFacade.newRequests;
@@ -60,6 +60,12 @@ export class RequestsListComponent implements OnInit {
     private tagsFacade: TagsFacadeService
   ) {}
 
+  zoneById$(zoneId: string) {
+    return this.requestsFacade.zones$.pipe(
+      map((zones) => zones.find((z) => z._id === zoneId))
+    );
+  }
+
   ngOnInit() {
     this.fetchRequests();
     this.usersFacadeService.getUsers();
@@ -88,6 +94,11 @@ export class RequestsListComponent implements OnInit {
       },
       { name: 'Is Active', value: 'is_active', array: this.isActive },
     ];
+  }
+
+  getStatusLabel(status: string) {
+    const allStatuses = this.tagsFacade.getStatusOptions();
+    return (allStatuses.find((s) => s._id === status) || {}).label || 'unknown';
   }
 
   fetchRequests() {

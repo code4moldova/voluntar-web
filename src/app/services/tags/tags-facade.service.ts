@@ -23,15 +23,7 @@ export class TagsFacadeService {
       _id: 'new',
     },
     {
-      label: 'Waiting',
-      _id: 'waiting',
-    },
-    {
-      label: 'Accepted',
-      _id: 'accepted',
-    },
-    {
-      label: 'On progress',
+      label: 'In progress',
       _id: 'onprogress',
     },
     {
@@ -42,7 +34,7 @@ export class TagsFacadeService {
       label: 'Done',
       _id: 'done',
     },
-  ]
+  ];
 
   isLoading$ = this.store.pipe(select(selectTagsIsLoading));
   error$ = this.store.pipe(select(selectTagsError));
@@ -56,9 +48,12 @@ export class TagsFacadeService {
   availabilitiesById$ = (id: any) =>
     this.store
       .pipe(select(selectAvailabilitiesTags))
-      .pipe(map((tags) => tags.find((t) => t._id === id)))
+      .pipe(map((tags) => tags.find((t) => t._id === id)));
 
-  constructor(private store: Store<TagsState>, private tagsService: TagsService) { }
+  constructor(
+    private store: Store<TagsState>,
+    private tagsService: TagsService
+  ) {}
 
   getRandomWord() {
     return this.tagsService.getRandomWord().pipe(map(({ secret }) => secret));
@@ -67,5 +62,4 @@ export class TagsFacadeService {
   getStatusOptions() {
     return this.statusOptions;
   }
-
 }

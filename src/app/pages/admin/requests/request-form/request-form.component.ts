@@ -84,7 +84,7 @@ export class RequestFormComponent implements OnInit, OnDestroy, OnChanges {
       [Validators.required, Validators.minLength(8), Validators.maxLength(8)],
     ],
     is_active: [false, Validators.required],
-    is_urgent: [false, Validators.required],
+    urgent: [false, Validators.required],
     offer: [null, Validators.required],
     city: [null],
     address: [null, Validators.required],
@@ -147,13 +147,13 @@ export class RequestFormComponent implements OnInit, OnDestroy, OnChanges {
           map(({ list }) =>
             list.length
               ? [
-                list
-                  .filter((v) => v.count < 2)
-                  .sort((v1, v2) => (v1.distance < v2.distance ? -1 : 1)),
-                list
-                  .filter((v) => v.count >= 2)
-                  .sort((v1, v2) => (v1.distance < v2.distance ? -1 : 1)),
-              ]
+                  list
+                    .filter((v) => v.count < 2)
+                    .sort((v1, v2) => (v1.distance < v2.distance ? -1 : 1)),
+                  list
+                    .filter((v) => v.count >= 2)
+                    .sort((v1, v2) => (v1.distance < v2.distance ? -1 : 1)),
+                ]
               : null
           ),
           finalize(() => this.volunteersNearbyIsLoading$.next(false))
@@ -285,9 +285,12 @@ export class RequestFormComponent implements OnInit, OnDestroy, OnChanges {
     } else {
       this.form.reset();
       this.form.markAsUntouched();
-      this.tagsFacade.getRandomWord().pipe(first()).subscribe(secret => {
-        this.form.get('secret').setValue(secret);
-      });
+      this.tagsFacade
+        .getRandomWord()
+        .pipe(first())
+        .subscribe((secret) => {
+          this.form.get('secret').setValue(secret);
+        });
     }
   }
 
