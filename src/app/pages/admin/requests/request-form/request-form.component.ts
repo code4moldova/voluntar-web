@@ -7,8 +7,14 @@ import {
   Input,
   OnChanges,
   ViewEncapsulation,
+  SimpleChanges,
 } from '@angular/core';
-import { Validators, FormBuilder, AbstractControl } from '@angular/forms';
+import {
+  Validators,
+  FormBuilder,
+  AbstractControl,
+  FormArray,
+} from '@angular/forms';
 import {
   map,
   finalize,
@@ -46,6 +52,7 @@ import { VolunteersService } from '@services/volunteers/volunteers.service';
 })
 export class RequestFormComponent implements OnInit, OnDestroy, OnChanges {
   @Input() request: IRequestDetails;
+  @Input() mode: 'new' | 'edit';
 
   public statusOptions = this.tagsFacade.getStatusOptions();
 
@@ -96,20 +103,22 @@ export class RequestFormComponent implements OnInit, OnDestroy, OnChanges {
     has_symptoms: [false, Validators.required],
     curator: [false, Validators.required],
     has_disabilities: [false, Validators.required],
-
-    paying_by_card: [false, Validators.required],
-    warm_lunch: [false, Validators.required],
-    grocery: [false, Validators.required],
-    medicine: [false, Validators.required],
-    in_blacklist: [false, Validators.required],
+    black_list: [false, Validators.required],
 
     comments: [null, Validators.required],
     questions: [null, Validators.required],
-    additional_info: [null],
+    additional_info: this.fb.array([]),
     status: [{ value: 'new', disabled: true }, Validators.required],
     secret: [null, Validators.required],
     fixer: [null, Validators.required],
     volunteer: [null],
+  });
+
+  additionalInfoForm = this.fb.group({
+    paying_by_card: false,
+    warm_lunch: false,
+    grocery: false,
+    medicine: false,
   });
 
   addressIsLoading$ = new Subject();
@@ -176,6 +185,16 @@ export class RequestFormComponent implements OnInit, OnDestroy, OnChanges {
   ) {
     this.zones$.pipe(takeUntil(this.componentDestroyed$)).subscribe((z) => {
       this.zones = z;
+    });
+
+    this.additionalInfoForm.valueChanges.subscribe((infoValues) => {
+      const additionalInfoArray = this.form.get('additional_info') as FormArray;
+      additionalInfoArray.clear();
+      Object.keys(infoValues).forEach((key) => {
+        if (infoValues[key]) {
+          additionalInfoArray.push(this.fb.control(key));
+        }
+      });
     });
   }
 
@@ -272,8 +291,9 @@ export class RequestFormComponent implements OnInit, OnDestroy, OnChanges {
     this.form.markAsUntouched();
   }
 
-  ngOnChanges() {
+  ngOnChanges(changes: SimpleChanges) {
     if (this.request) {
+      this.updateAdditionalInfoForm();
       this.form.patchValue(this.request);
       this.form.get('status').enable();
       if (!this.request.volunteer) {
@@ -285,12 +305,25 @@ export class RequestFormComponent implements OnInit, OnDestroy, OnChanges {
     } else {
       this.form.reset();
       this.form.markAsUntouched();
-      this.tagsFacade
-        .getRandomWord()
-        .pipe(first())
-        .subscribe((secret) => {
-          this.form.get('secret').setValue(secret);
-        });
+      if (this.mode === 'new') {
+        this.tagsFacade
+          .getRandomWord()
+          .pipe(first())
+          .subscribe((secret) => {
+            this.form.get('secret').setValue(secret);
+          });
+      }
+    }
+  }
+
+  updateAdditionalInfoForm() {
+    const { additional_info } = this.request;
+    if (additional_info && additional_info.length > 0) {
+      this.additionalInfoForm.reset();
+      additional_info.forEach((info) => {
+        // (this.form.get('additional_info') as FormArray).push(this.fb.control(info));
+        this.additionalInfoForm.get(info).patchValue(true);
+      });
     }
   }
 
@@ -314,7 +347,7 @@ export class RequestFormComponent implements OnInit, OnDestroy, OnChanges {
       //   this.router.navigateByUrl('/admin/requests/list');
       // });
     } else {
-      console.log('Invalid form', this.form);
+      this.getInvalidControls();
       this.snackBar.open('Update required fields', '', {
         duration: 5000,
         panelClass: 'info',
@@ -328,6 +361,16 @@ export class RequestFormComponent implements OnInit, OnDestroy, OnChanges {
         element.scrollIntoView({ behavior: 'smooth' });
       }
     }
+  }
+
+  getInvalidControls() {
+    const controls = this.form.controls;
+    Object.keys(controls).forEach((key) => {
+      const control = controls[key];
+      if (control.invalid) {
+        console.log(key, control);
+      }
+    });
   }
 
   get addressIsInvalid() {

@@ -25,7 +25,7 @@ export interface IRequest {
   has_symptoms: boolean;
   curator: boolean;
   has_disabilities: boolean;
-  additional_info: string;
+  additional_info: string[];
   fixer: string;
 
   paying_by_card: boolean;

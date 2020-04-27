@@ -22,11 +22,16 @@
 <mat-card>
 
   <table mat-table [dataSource]="dataSource$ | async">
+    <ng-container matColumnDef="icons">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element">
+        <span *ngIf="element.black_list" matTooltip="Black List" class="blacklist"></span>
+        <mat-icon *ngIf="!element.have_money" [matTooltip]="'No money'">money_off</mat-icon>
+      </td>
+    </ng-container>
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef>Nume</th>
       <td mat-cell *matCellDef="let element">
-        <span *ngIf="element.black_list" matTooltip="Black List" class="blacklist"></span>
-        <mat-icon [matTooltip]="element.have_money ? 'Has money' : 'No money'">{{ element.have_money ? 'attach_money' : 'money_off' }}</mat-icon>
         {{ element.first_name }} {{ element.last_name }}
       </td>
     </ng-container>
@@ -62,7 +67,11 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns" class="clickable-row"
+    <tr
+      mat-row
+      *matRowDef="let row; columns: displayedColumns"
+      class="clickable-row"
+      [ngClass]="{cancelled: getStatusLabel(row.status) === 'Cancelled'}"
       [routerLink]="['/admin/requests/details', row._id]"></tr>
   </table>
 

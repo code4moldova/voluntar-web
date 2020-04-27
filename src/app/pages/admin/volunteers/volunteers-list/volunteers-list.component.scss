@@ -1,3 +1,17 @@
 mat-card {
   min-height: 400px;
 }
+
+table {
+  .mat-column-icons {
+    width: 55px;
+    padding: 0 10px 0 0;
+    text-align: center;
+    * {
+      &:first-child {
+        margin-left: 0;
+      }
+      margin-left: 5px;
+    }
+  }
+}

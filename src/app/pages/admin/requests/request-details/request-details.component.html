@@ -15,5 +15,5 @@
 </div>
 
 <div class="container">
-  <app-request-form [request]="currentRequest$ | async"></app-request-form>
+  <app-request-form [mode]="(currentRequestId$ | async) ? 'edit' : 'new'" [request]="currentRequest$ | async"></app-request-form>
 </div>

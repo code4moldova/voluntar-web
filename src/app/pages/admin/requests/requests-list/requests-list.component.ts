@@ -26,7 +26,7 @@ import { TagsFacadeService } from '@services/tags/tags-facade.service';
 })
 export class RequestsListComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  displayedColumns: string[] = ['name', 'phone', 'sector', 'status'];
+  displayedColumns: string[] = ['icons', 'name', 'phone', 'sector', 'status'];
   dataSource$: Observable<IRequest[]>;
   isLoading$ = this.requestsFacade.isLoading$;
   newRequest$ = this.requestsFacade.newRequests;

@@ -148,10 +148,6 @@
             Questions is required
           </mat-error> -->
       </mat-form-field>
-      <mat-form-field class="full-width-input">
-        <textarea matInput placeholder="Additional Info" formControlName="additional_info" cdkTextareaAutosize
-          cdkAutosizeMinRows="4"></textarea>
-      </mat-form-field>
       <div fxLayoutGap="15px">
         <mat-form-field fxFlex class="full-width-input">
           <input matInput placeholder="Secret" formControlName="secret" required />
@@ -180,7 +176,8 @@
         <mat-slide-toggle fxFlex formControlName="has_disabilities">Has Disabilities?</mat-slide-toggle>
       </div>
       <mat-divider></mat-divider>
-      <div fxLayoutGap="15px" class="pad-t-10 pad-b-10">
+      <h3>Additional Info</h3>
+      <div fxLayoutGap="15px" class="pad-t-10 pad-b-10" [formGroup]="additionalInfoForm">
         <mat-slide-toggle fxFlex formControlName="paying_by_card">Paying by Card?</mat-slide-toggle>
         <mat-slide-toggle fxFlex formControlName="warm_lunch">Warm lunch?</mat-slide-toggle>
         <mat-slide-toggle fxFlex formControlName="grocery">Grocery?</mat-slide-toggle>
@@ -204,7 +201,7 @@
         <div fxLayout="column" fxLayoutGap="15px">
           <mat-slide-toggle formControlName="is_active">Active?</mat-slide-toggle>
           <mat-slide-toggle formControlName="urgent">Is Urgent?</mat-slide-toggle>
-          <mat-slide-toggle formControlName="in_blacklist">Blacklist?</mat-slide-toggle>
+          <mat-slide-toggle formControlName="black_list">Blacklist?</mat-slide-toggle>
         </div>
       </mat-card-content>
     </mat-card>

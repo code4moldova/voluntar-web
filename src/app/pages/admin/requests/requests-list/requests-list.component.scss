@@ -1,3 +1,5 @@
+@import "~@angular/material/theming";
+
 mat-card {
   min-height: 400px;
 }
@@ -12,22 +14,43 @@ mat-accordion {
   margin-bottom: 25px;
 }
 
-.new {
-  color: rgb(66, 113, 241);
-}
+// .new {
+//   color: rgb(66, 113, 241);
+// }
 
-.done {
-  color: rgb(44, 145, 44);
-}
+// .done {
+//   color: rgb(44, 145, 44);
+// }
 
-.onprogress {
-  color: rgb(202, 155, 25);
-}
+// .onprogress {
+//   color: rgb(202, 155, 25);
+// }
 
-.cancelled {
-  color: rgb(224, 53, 10);
-}
+// .cancelled {
+//   color: rgb(224, 53, 10);
+// }
 
 mat-icon {
   vertical-align: middle;
+}
+
+table {
+  .mat-column-icons {
+    width: 55px;
+    padding: 0 10px 0 0;
+    text-align: center;
+    * {
+      &:first-child {
+        margin-left: 0;
+      }
+      margin-left: 5px;
+    }
+  }
+}
+
+tr.cancelled {
+  text-decoration: line-through;
+  td {
+    color: $dark-disabled-text;
+  }
 }
