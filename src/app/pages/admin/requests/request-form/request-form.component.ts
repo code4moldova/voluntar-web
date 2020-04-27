@@ -27,8 +27,17 @@ import {
   startWith,
   catchError,
   exhaustMap,
+  tap,
 } from 'rxjs/operators';
-import { Subject, Observable, EMPTY, of, combineLatest, concat } from 'rxjs';
+import {
+  Subject,
+  Observable,
+  EMPTY,
+  of,
+  combineLatest,
+  concat,
+  BehaviorSubject,
+} from 'rxjs';
 import { IVolunteer } from '@models/volunteers';
 import { ISectorTag } from '@models/tags';
 import { IRequest, IRequestDetails } from '@models/requests';
@@ -172,6 +181,8 @@ export class RequestFormComponent implements OnInit, OnDestroy, OnChanges {
     })
   );
 
+  isSearchingByPhone$ = new BehaviorSubject(false);
+
   constructor(
     private fb: FormBuilder,
     private requestsFacade: RequestsFacadeService,
@@ -267,20 +278,30 @@ export class RequestFormComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnInit() {
-    this.beneficiar$ = this.requestsFacade.requests$;
+    // this.beneficiar$ = this.requestsFacade.requests$;
     const search$ = this.phone.valueChanges.pipe(
-      startWith([null]),
-      debounceTime(1000),
+      debounceTime(300),
       distinctUntilChanged(),
       catchError(() => EMPTY)
     );
 
-    search$.pipe(takeUntil(this.componentDestroyed$)).subscribe(() => {
-      if (this.phone.value && this.phone.touched && this.phone.valid) {
-        this.queryResult({ phone: this.phone.value });
-        this.autoImport = true;
-      }
-    });
+    this.beneficiar$ = search$.pipe(
+      takeUntil(this.componentDestroyed$),
+      filter(() => this.mode === 'new'),
+      filter((phone) => phone && phone.length > 0),
+      tap(() => {
+        this.isSearchingByPhone$.next(true);
+      }),
+      switchMap((phone) =>
+        this.requestsFacade
+          .getRequestByPhone(phone)
+          .pipe(catchError((e) => of({ list: [] })))
+      ),
+      tap(() => {
+        this.isSearchingByPhone$.next(false);
+      }),
+      map((res) => res.list)
+    );
   }
 
   ngOnDestroy() {
@@ -388,14 +409,32 @@ export class RequestFormComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   insertAuto(bnf: MatAutocompleteSelectedEvent) {
+    const requestData: IRequestDetails = bnf.option.value;
+    const personRelatedProps = [
+      'address',
+      'city',
+      'age',
+      'black_list',
+      'email',
+      'first_name',
+      'has_disabilities',
+      'has_symptoms',
+      'last_name',
+      'latitude',
+      'longitude',
+      'phone',
+      'zone_address',
+    ];
     Object.keys(this.form.controls).forEach((key) => {
-      if (['valunteer', 'is_active'].indexOf(key) === -1) {
+      if (personRelatedProps.includes(key)) {
         this.form
           .get(key)
-          .setValue(bnf.option.value[key], { emitEvent: false });
+          .patchValue(requestData[key], { emitEvent: false, onlySelf: true });
       }
     });
-    this.form.get('_id').patchValue(null);
+    if (requestData.address) {
+      this.fakeAddressControl.patchValue({ address: requestData.address });
+    }
   }
 
   showZoneLabel(value: any) {

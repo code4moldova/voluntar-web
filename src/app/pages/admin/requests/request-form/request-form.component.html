@@ -2,31 +2,16 @@
   <mat-card fxFlex="75">
     <mat-card-content>
       <input type="hidden" formControlName="_id" />
-      <div fxLayoutGap="15px">
+      <div fxLayoutGap="15px" class="mb-10">
         <mat-form-field fxFlex class="full-width-input">
-          <input matInput placeholder="First Name" formControlName="first_name" required />
-          <mat-error>
-            Please provide the name of Beneficiar
-          </mat-error>
-        </mat-form-field>
-        <mat-form-field fxFlex class="full-width-input">
-          <input matInput placeholder="Last Name" formControlName="last_name" required />
-          <mat-error>
-            Please provide the name of Beneficiar
-          </mat-error>
-        </mat-form-field>
-      </div>
-      <div fxLayoutGap="15px">
-        <mat-form-field fxFlex class="full-width-input">
-          <input matInput placeholder="Phone" aria-label="tel" formControlName="phone" type="tel" required />
-          <mat-error>
-            Please provide a valid phone number
-          </mat-error>
-        </mat-form-field>
-
-        <mat-form-field fxFlex class="full-width-input" *ngIf="autoImport &&(beneficiar$ | async)?.length">
-          <input matInput placeholder="Import Auto" [value]="phone.value + ' | ' +(first_name.value|| '')"
-            [matAutocomplete]="bnfauto" />
+          <input
+            matInput
+            placeholder="Phone"
+            aria-label="tel"
+            formControlName="phone"
+            type="tel"
+            [matAutocomplete]="bnfauto"
+            required/>
           <mat-autocomplete #bnfauto="matAutocomplete" (optionSelected)="insertAuto($event)">
             <div *ngFor="let bnfc of beneficiar$ | async">
               <div *ngFor="let key of objectKeys(bnfc)">
@@ -42,11 +27,26 @@
 
             </div>
           </mat-autocomplete>
+          <mat-progress-bar *ngIf="isSearchingByPhone$ | async" mode="query"></mat-progress-bar>
+          <mat-hint *ngIf="mode === 'new'">Search by phone number</mat-hint>
           <mat-error>
             Please provide a valid phone number
           </mat-error>
         </mat-form-field>
-
+        <mat-form-field fxFlex class="full-width-input">
+          <input matInput placeholder="First Name" formControlName="first_name" required />
+          <mat-error>
+            Please provide the name of Beneficiar
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field fxFlex class="full-width-input">
+          <input matInput placeholder="Last Name" formControlName="last_name" required />
+          <mat-error>
+            Please provide the name of Beneficiar
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxLayoutGap="15px">
         <mat-form-field fxFlex class="full-width-input">
           <input matInput placeholder="Age" formControlName="age" type="number" required />
         </mat-form-field>

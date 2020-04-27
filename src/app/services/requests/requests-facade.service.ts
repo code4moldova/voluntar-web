@@ -96,6 +96,18 @@ export class RequestsFacadeService {
     this.store.dispatch(getRequestsAction({ page, filters }));
   }
 
+  getRequestByPhone(phone: string) {
+    return this.requestService.getRequests(
+      {
+        pageIndex: 0,
+        pageSize: 10,
+      },
+      {
+        phone,
+      }
+    );
+  }
+
   getRequestById(id: string) {
     this.store.dispatch(getRequestAction({ id }));
   }
