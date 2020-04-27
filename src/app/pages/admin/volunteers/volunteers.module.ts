@@ -8,6 +8,7 @@ import { MaterialComponentsModule } from '@shared/material.module';
 import { SharedModule } from '@shared/shared.module';
 import { PhoneMaskDirective } from '@shared/directives/phone-mask.directive';
 import { VolunteerModalInfoComponent } from './volunteer-modal-info/volunteer-modal-info.component';
+import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
   declarations: [
@@ -15,13 +16,14 @@ import { VolunteerModalInfoComponent } from './volunteer-modal-info/volunteer-mo
     VolunteersListComponent,
     VolunteersDetailsComponent,
     PhoneMaskDirective,
-    VolunteerModalInfoComponent
+    VolunteerModalInfoComponent,
   ],
   imports: [
     CommonModule,
     VolunteersRoutingModule,
     MaterialComponentsModule,
-    SharedModule
-  ]
+    SharedModule,
+    NgxMaskModule.forChild(),
+  ],
 })
-export class VolunteersModule { }
+export class VolunteersModule {}

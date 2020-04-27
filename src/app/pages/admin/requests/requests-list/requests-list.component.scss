@@ -14,21 +14,21 @@ mat-accordion {
   margin-bottom: 25px;
 }
 
-// .new {
-//   color: rgb(66, 113, 241);
-// }
+.new {
+  color: rgb(66, 113, 241);
+}
 
-// .done {
-//   color: rgb(44, 145, 44);
-// }
+.done {
+  color: rgb(44, 145, 44);
+}
 
-// .onprogress {
-//   color: rgb(202, 155, 25);
-// }
+.onprogress {
+  color: rgb(202, 155, 25);
+}
 
-// .cancelled {
-//   color: rgb(224, 53, 10);
-// }
+.cancelled {
+  color: rgb(224, 53, 10);
+}
 
 mat-icon {
   vertical-align: middle;
@@ -48,9 +48,9 @@ table {
   }
 }
 
-tr.cancelled {
+/* tr.cancelled {
   text-decoration: line-through;
   td {
     color: $dark-disabled-text;
   }
-}
+} */

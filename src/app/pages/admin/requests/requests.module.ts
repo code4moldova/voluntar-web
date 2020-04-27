@@ -8,6 +8,7 @@ import { MaterialComponentsModule } from '@shared/material.module';
 import { SharedModule } from '@shared/shared.module';
 import { RequestModalInfoComponent } from './request-modal-info/request-modal-info.component';
 import { RequestFormComponent } from './request-form/request-form.component';
+import { NgxMaskModule, IConfig } from 'ngx-mask';
 
 @NgModule({
   declarations: [
@@ -15,14 +16,15 @@ import { RequestFormComponent } from './request-form/request-form.component';
     RequestDetailsComponent,
     RequestsListComponent,
     RequestModalInfoComponent,
-    RequestFormComponent
+    RequestFormComponent,
   ],
   imports: [
     CommonModule,
     RequestsRoutingModule,
     MaterialComponentsModule,
-    SharedModule
+    SharedModule,
+    NgxMaskModule.forChild(),
   ],
-  providers: []
+  providers: [],
 })
 export class RequestsModule {}

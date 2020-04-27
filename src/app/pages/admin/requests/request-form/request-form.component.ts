@@ -115,6 +115,7 @@ export class RequestFormComponent implements OnInit, OnDestroy, OnChanges {
     black_list: [false, Validators.required],
 
     comments: [null, Validators.required],
+    fixer_comment: [null, Validators.required],
     questions: [null, Validators.required],
     additional_info: this.fb.array([]),
     status: [{ value: 'new', disabled: true }, Validators.required],

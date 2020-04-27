@@ -38,7 +38,7 @@
     <!-- Weight Column -->
     <ng-container matColumnDef="phone">
       <th mat-header-cell *matHeaderCellDef>Phone</th>
-      <td mat-cell *matCellDef="let element">{{ element.phone }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.phone | mask: '00 000 000' }}</td>
     </ng-container>
 
     <!-- Symbol Column -->

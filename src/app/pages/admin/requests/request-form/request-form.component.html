@@ -137,17 +137,25 @@
       <mat-form-field class="full-width-input">
         <textarea matInput placeholder="Questions" formControlName="questions" cdkTextareaAutosize
           cdkAutosizeMinRows="4"></textarea>
-        <!-- <mat-error>
-            Questions is required
-          </mat-error> -->
       </mat-form-field>
-      <mat-form-field class="full-width-input">
-        <textarea matInput placeholder="Comments" formControlName="comments" cdkTextareaAutosize
-          cdkAutosizeMinRows="4"></textarea>
-        <!-- <mat-error>
-            Questions is required
-          </mat-error> -->
-      </mat-form-field>
+
+      <div fxLayoutGap="15px">
+        <mat-form-field fxFlex class="full-width-input">
+          <textarea matInput placeholder="Comments" formControlName="comments" cdkTextareaAutosize
+            cdkAutosizeMinRows="4"></textarea>
+          <mat-hint>Use this to provide extra info for volunteers</mat-hint>
+        </mat-form-field>
+  
+        <mat-form-field fxFlex class="full-width-input mb-10">
+          <textarea
+            matInput
+            placeholder="Internal comment"
+            formControlName="fixer_comment"
+            cdkTextareaAutosize
+            cdkAutosizeMinRows="4"></textarea>
+        </mat-form-field>
+      </div>
+
       <div fxLayoutGap="15px">
         <mat-form-field fxFlex class="full-width-input">
           <input matInput placeholder="Secret" formControlName="secret" required />
