@@ -100,7 +100,7 @@ export class RequestsFacadeService {
     return this.requestService.getRequests(
       {
         pageIndex: 0,
-        pageSize: 10,
+        pageSize: 20,
       },
       {
         phone,
