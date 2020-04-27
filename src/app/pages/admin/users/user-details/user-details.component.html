@@ -39,11 +39,27 @@
               </mat-error>
             </mat-form-field>
           </div>
-          <div fxFlex *ngIf="!id">
+        </div>
+        <div *ngIf="!id" fxLayout fxLayoutGap="15px">
+          <div fxFlex>
             <mat-form-field class="full-width-input">
               <input matInput type="password" placeholder="Password" formControlName="password" required />
               <mat-error>
                 Please provide a valid password
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div fxFlex>
+            <mat-form-field class="full-width-input">
+              <input
+                matInput
+                type="password"
+                placeholder="Repeat password"
+                formControlName="repeatPassword"
+                [errorStateMatcher]="matcher"
+                required />
+              <mat-error *ngIf="form.hasError('notMatch')">
+                Password doesn't match
               </mat-error>
             </mat-form-field>
           </div>
