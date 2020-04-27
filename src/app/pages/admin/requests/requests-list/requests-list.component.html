@@ -27,6 +27,7 @@
       <td mat-cell *matCellDef="let element">
         <span *ngIf="element.black_list" matTooltip="Black List" class="blacklist"></span>
         <mat-icon *ngIf="!element.have_money" [matTooltip]="'No money'">money_off</mat-icon>
+        <mat-icon *ngIf="element.has_disabilities" [matTooltip]="'Has disabilities'">accessible</mat-icon>
       </td>
     </ng-container>
     <ng-container matColumnDef="name">

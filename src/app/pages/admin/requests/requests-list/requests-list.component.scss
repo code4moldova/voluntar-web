@@ -36,7 +36,8 @@ mat-icon {
 
 table {
   .mat-column-icons {
-    width: 55px;
+    white-space: nowrap;
+    width: 1%;
     padding: 0 10px 0 0;
     text-align: center;
     * {
