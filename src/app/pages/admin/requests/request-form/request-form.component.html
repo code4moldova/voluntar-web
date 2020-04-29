@@ -135,13 +135,13 @@
       </div>
 
       <mat-form-field class="full-width-input">
-        <textarea matInput placeholder="Questions" formControlName="questions" cdkTextareaAutosize
+        <textarea matInput required placeholder="Questions" formControlName="questions" cdkTextareaAutosize
           cdkAutosizeMinRows="4"></textarea>
       </mat-form-field>
 
       <div fxLayoutGap="15px">
         <mat-form-field fxFlex class="full-width-input">
-          <textarea matInput placeholder="Comments" formControlName="comments" cdkTextareaAutosize
+          <textarea matInput required placeholder="Comments" formControlName="comments" cdkTextareaAutosize
             cdkAutosizeMinRows="4"></textarea>
           <mat-hint>Use this to provide extra info for volunteers</mat-hint>
         </mat-form-field>
@@ -149,6 +149,7 @@
         <mat-form-field fxFlex class="full-width-input mb-10">
           <textarea
             matInput
+            required
             placeholder="Internal comment"
             formControlName="fixer_comment"
             cdkTextareaAutosize

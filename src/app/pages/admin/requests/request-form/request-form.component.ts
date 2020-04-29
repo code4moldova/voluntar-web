@@ -325,7 +325,7 @@ export class RequestFormComponent implements OnInit, OnDestroy, OnChanges {
         this.fakeAddressControl.patchValue({ address: this.request.address });
       }
     } else {
-      this.form.reset();
+      // this.form.reset();
       this.form.markAsUntouched();
       if (this.mode === 'new') {
         this.tagsFacade
