@@ -10,6 +10,7 @@
             aria-label="tel"
             formControlName="phone"
             type="tel"
+            autocomplete="doNotAutoComplete"
             [matAutocomplete]="bnfauto"
             required/>
           <mat-autocomplete #bnfauto="matAutocomplete" (optionSelected)="insertAuto($event)">
