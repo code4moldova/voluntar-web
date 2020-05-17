@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
 import { Observable } from 'rxjs';
@@ -26,7 +25,15 @@ import { TagsFacadeService } from '@services/tags/tags-facade.service';
 })
 export class RequestsListComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  displayedColumns: string[] = ['icons', 'name', 'phone', 'sector', 'status'];
+  displayedColumns: string[] = [
+    'icons',
+    'name',
+    'phone',
+    'sector',
+    'createdDate',
+    'status',
+    'fixer',
+  ];
   dataSource$: Observable<IRequest[]>;
   isLoading$ = this.requestsFacade.isLoading$;
   newRequest$ = this.requestsFacade.newRequests;
@@ -63,6 +70,12 @@ export class RequestsListComponent implements OnInit {
   zoneById$(zoneId: string) {
     return this.requestsFacade.zones$.pipe(
       map((zones) => zones.find((z) => z._id === zoneId))
+    );
+  }
+
+  operatorById$(fixer: string) {
+    return this.usersFacadeService.users$.pipe(
+      map((users) => users.find((u) => u._id === fixer))
     );
   }
 
