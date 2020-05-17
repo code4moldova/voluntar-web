@@ -1,4 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  Renderer2,
+  ElementRef,
+} from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
 import { Observable } from 'rxjs';
@@ -60,11 +66,14 @@ export class RequestsListComponent implements OnInit {
       _id: false,
     },
   ];
+
+  @ViewChild('empty', { static: true }) empty: ElementRef;
   constructor(
     private requestsFacade: RequestsFacadeService,
     private usersFacadeService: UsersFacadeService,
     private geolocationService: GeolocationService,
-    private tagsFacade: TagsFacadeService
+    private tagsFacade: TagsFacadeService,
+    private renderer: Renderer2
   ) {}
 
   zoneById$(zoneId: string) {
@@ -138,5 +147,24 @@ export class RequestsListComponent implements OnInit {
       },
       this.lastFilter
     );
+  }
+
+  onExport() {
+    this.requestsFacade.getExportRequests().subscribe((res) => {
+      console.log(res);
+      this.downloadCsv(res);
+    });
+  }
+
+  downloadCsv(blob: Blob) {
+    if (window.navigator.msSaveOrOpenBlob) {
+      window.navigator.msSaveBlob(blob, 'requests.csv');
+    } else {
+      const a = this.renderer.createElement('a');
+      this.renderer.setAttribute(a, 'href', window.URL.createObjectURL(blob));
+      this.renderer.setAttribute(a, 'download', 'requests.csv');
+
+      a.click();
+    }
   }
 }

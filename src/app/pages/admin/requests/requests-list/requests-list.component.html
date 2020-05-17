@@ -7,9 +7,13 @@
       </button>
     </div>
     <div fxFlex fxLayoutAlign="end">
-      <a routerLink="/admin/requests/new" mat-raised-button color="primary">
-        <mat-icon>add</mat-icon> New Beneficiar
-      </a>
+      <button mat-icon-button [matMenuTriggerFor]="menu"><mat-icon>more_vert</mat-icon></button>
+      <mat-menu #menu="matMenu">
+        <a routerLink="/admin/requests/new" mat-menu-item>
+          <mat-icon>add</mat-icon> New Beneficiar
+        </a>
+        <button mat-menu-item (click)="onExport()"><mat-icon>get_app</mat-icon> Export</button>
+      </mat-menu>
     </div>
   </div>
 
@@ -98,3 +102,5 @@
     </mat-paginator>
   </mat-card-footer>
 </mat-card>
+
+<div #empty></div>

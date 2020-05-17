@@ -129,4 +129,8 @@ export class RequestsFacadeService {
   toggleNewRequestsPolling(value: boolean) {
     this.newRequests$.next(value);
   }
+
+  getExportRequests() {
+    return this.requestService.exportRequests();
+  }
 }
