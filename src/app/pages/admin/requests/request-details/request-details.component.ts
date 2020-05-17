@@ -6,6 +6,7 @@ import { Subject, of } from 'rxjs';
 import { IRequestDetails } from '@models/requests';
 import { RequestsFacadeService } from '@services/requests/requests-facade.service';
 import { Location } from '@angular/common';
+import { Clipboard } from '@angular/cdk/clipboard';
 
 @Component({
   selector: 'app-request-details',
@@ -20,34 +21,24 @@ export class RequestDetailsComponent implements OnDestroy {
     map((params) => params.get('id'))
   );
   currentRequest$ = this.currentRequestId$.pipe(
-    tap((id) => id && this.requestsFacade.getRequestById(id)),
     switchMap((id) =>
       id ? this.requestsFacade.requestDetails$ : of(null as IRequestDetails)
     ),
     takeUntil(this.componentDestroyed$)
   );
-  // .subscribe((request) => {
-  //   this.form.patchValue(request);
-  //   // Reset volunteer
-  //   if (!request.volunteer) {
-  //     this.form.get('volunteer').reset();
-  //   }
-  //   if (request.address) {
-  //     this.fakeAddressControl.patchValue({ address: request.address });
-  //   }
-  //   // Autofill secret field
-  //   if (!request.secret) {
-  //     this.tagsFacade.getRandomWord().pipe(first()).subscribe(secret => {
-  //       this.form.get('secret').patchValue(secret);
-  //     });
-  //   }
-  // });
 
   constructor(
     private requestsFacade: RequestsFacadeService,
     private route: ActivatedRoute,
-    private location: Location
-  ) { }
+    private location: Location,
+    private clipboard: Clipboard
+  ) {
+    this.currentRequestId$.subscribe((id) => {
+      if (id) {
+        this.requestsFacade.getRequestById(id);
+      }
+    });
+  }
 
   ngOnDestroy() {
     this.componentDestroyed$.next();
@@ -57,5 +48,12 @@ export class RequestDetailsComponent implements OnDestroy {
   back(e) {
     e.preventDefault();
     this.location.back();
+  }
+
+  onCopy() {
+    this.currentRequest$.subscribe((request) => {
+      const requestText = `Nume: ${request.first_name} ${request.last_name}\nTel: ${request.phone}\nAge: ${request.age}\nAddress: ${request.address}`;
+      this.clipboard.copy(requestText);
+    });
   }
 }

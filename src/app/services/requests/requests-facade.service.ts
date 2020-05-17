@@ -96,14 +96,14 @@ export class RequestsFacadeService {
     this.store.dispatch(getRequestsAction({ page, filters }));
   }
 
-  getRequestByPhone(phone: string) {
+  getRequestByPhone(phone: string, key: string = 'phone') {
     return this.requestService.getRequests(
       {
         pageIndex: 0,
         pageSize: 20,
       },
       {
-        phone,
+        [key]: phone,
       }
     );
   }
