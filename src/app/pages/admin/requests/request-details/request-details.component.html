@@ -11,6 +11,9 @@
         </div>
       </a>
     </div>
+    <div *ngIf="(currentRequestId$ | async)">
+      <button type="button" mat-raised-button color="primary" (click)="onCopy()"><mat-icon>file_copy</mat-icon> Copy</button>
+    </div>
   </div>
 </div>
 

@@ -37,6 +37,7 @@ import {
   combineLatest,
   concat,
   BehaviorSubject,
+  merge,
 } from 'rxjs';
 import { IVolunteer } from '@models/volunteers';
 import { ISectorTag } from '@models/tags';
@@ -57,7 +58,6 @@ import { VolunteersService } from '@services/volunteers/volunteers.service';
   templateUrl: './request-form.component.html',
   styleUrls: ['./request-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  // encapsulation: ViewEncapsulation.None
 })
 export class RequestFormComponent implements OnInit, OnDestroy, OnChanges {
   @Input() request: IRequestDetails;
@@ -99,6 +99,7 @@ export class RequestFormComponent implements OnInit, OnDestroy, OnChanges {
       null,
       [Validators.required, Validators.minLength(8), Validators.maxLength(8)],
     ],
+    phone_home: [null],
     is_active: [false, Validators.required],
     urgent: [false, Validators.required],
     offer: [null, Validators.required],
@@ -283,19 +284,27 @@ export class RequestFormComponent implements OnInit, OnDestroy, OnChanges {
     const search$ = this.phone.valueChanges.pipe(
       debounceTime(300),
       distinctUntilChanged(),
+      map((value) => ({ value, key: 'phone' })),
       catchError(() => EMPTY)
     );
 
-    this.beneficiar$ = search$.pipe(
+    const phoneHomeSearch$ = this.form.get('phone_home').valueChanges.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      map((value) => ({ value, key: 'phone_home' })),
+      catchError(() => EMPTY)
+    );
+
+    this.beneficiar$ = merge(search$, phoneHomeSearch$).pipe(
       takeUntil(this.componentDestroyed$),
       filter(() => this.mode === 'new'),
-      filter((phone) => phone && phone.length > 0),
+      filter((phone) => phone && phone.value.length > 0),
       tap(() => {
         this.isSearchingByPhone$.next(true);
       }),
       switchMap((phone) =>
         this.requestsFacade
-          .getRequestByPhone(phone)
+          .getRequestByPhone(phone.value, phone.key)
           .pipe(catchError((e) => of({ list: [] })))
       ),
       tap(() => {
@@ -424,6 +433,7 @@ export class RequestFormComponent implements OnInit, OnDestroy, OnChanges {
       'latitude',
       'longitude',
       'phone',
+      'phone_home',
       'zone_address',
     ];
     Object.keys(this.form.controls).forEach((key) => {

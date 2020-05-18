@@ -13,6 +13,7 @@ export interface IRequest {
   activity_types: string;
   have_money: true;
   comments: string;
+  fixer_comment: string;
   questions: string;
   status: string;
   secret: string;

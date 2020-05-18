@@ -1,0 +1,13 @@
+{
+  "editor.tabSize": 2,
+  "editor.formatOnSave": true,
+  "[html]": {
+    "editor.formatOnSave": false
+  },
+  "prettier.trailingComma": "all",
+  "prettier.bracketSpacing": true,
+  "prettier.singleQuote": true,
+  "prettier.disableLanguages": ["json", "html"],
+
+  "typescript.tsdk": "node_modules/typescript/lib"
+}

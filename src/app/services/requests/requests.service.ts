@@ -43,6 +43,12 @@ export class RequestsService {
     );
   }
 
+  exportRequests() {
+    return this.http.get(`${environment.url}/export/csv/beneficiaries`, {
+      responseType: 'blob',
+    });
+  }
+
   // getBeneficiariesByFilter(httpParams: { [keys: string]: string }): Observable<{ count: number; list: IRequestDetails[] }> {
   //   const params = new HttpParams({ fromObject: httpParams });
   //   return this.http.get<{ count: number; list: IRequestDetails[] }>(
