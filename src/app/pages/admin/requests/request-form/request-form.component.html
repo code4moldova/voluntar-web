@@ -6,11 +6,7 @@
         <mat-form-field fxFlex class="full-width-input">
           <input
             matInput
-<<<<<<< .merge_file_T2IKwE
             placeholder="Phone"
-=======
-            placeholder="Mobil"
->>>>>>> .merge_file_5Wwtmy
             aria-label="tel"
             formControlName="phone"
             type="tel"
@@ -33,41 +29,7 @@
             </div>
           </mat-autocomplete>
           <mat-progress-bar *ngIf="isSearchingByPhone$ | async" mode="query"></mat-progress-bar>
-<<<<<<< .merge_file_T2IKwE
           <mat-hint *ngIf="mode === 'new'">Search by phone number</mat-hint>
-=======
-          <mat-hint *ngIf="mode === 'new'">Search by mobile phone number</mat-hint>
-          <mat-error>
-            Please provide a valid phone number
-          </mat-error>
-        </mat-form-field>
-        <mat-form-field fxFlex class="full-width-input">
-          <input
-            matInput
-            placeholder="Fix"
-            aria-label="fix tel"
-            formControlName="phone_home"
-            autocomplete="doNotAutoComplete"
-            [matAutocomplete]="bnfauto"
-            required/>
-          <mat-autocomplete #bnfauto="matAutocomplete" (optionSelected)="insertAuto($event)">
-            <div *ngFor="let bnfc of beneficiar$ | async">
-              <div *ngFor="let key of objectKeys(bnfc)">
-                <mat-option *ngIf="key==='first_name'" [value]="bnfc">
-                  <span>Insert auto </span> |
-                  <small> All value for {{bnfc[key]}}</small>
-                </mat-option>
-                <!-- <mat-option *ngIf="format(key,bnfc)">
-                    <span *ngIf="format(key,bnfc)">Insert auto</span> |
-                    <small> {{format(key,bnfc)}} </small>
-                  </mat-option> -->
-              </div>
-
-            </div>
-          </mat-autocomplete>
-          <mat-progress-bar *ngIf="isSearchingByPhone$ | async" mode="query"></mat-progress-bar>
-          <mat-hint *ngIf="mode === 'new'">Search by fix phone number</mat-hint>
->>>>>>> .merge_file_5Wwtmy
           <mat-error>
             Please provide a valid phone number
           </mat-error>
@@ -180,11 +142,7 @@
 
       <div fxLayoutGap="15px">
         <mat-form-field fxFlex class="full-width-input">
-<<<<<<< .merge_file_T2IKwE
-          <textarea matInput required placeholder="Comments" formControlName="comments" cdkTextareaAutosize
-=======
           <textarea matInput required placeholder="Comentariile Voluntarului" formControlName="comments" cdkTextareaAutosize
->>>>>>> .merge_file_5Wwtmy
             cdkAutosizeMinRows="4"></textarea>
           <mat-hint>Use this to provide extra info for volunteers</mat-hint>
         </mat-form-field>
@@ -193,11 +151,7 @@
           <textarea
             matInput
             required
-<<<<<<< .merge_file_T2IKwE
-            placeholder="Internal comment"
-=======
             placeholder="Comentariile Operatorului"
->>>>>>> .merge_file_5Wwtmy
             formControlName="fixer_comment"
             cdkTextareaAutosize
             cdkAutosizeMinRows="4"></textarea>

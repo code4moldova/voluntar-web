@@ -4,11 +4,6 @@
       <h1 class="mb-0 mt-0 mr-10">Requests</h1>
     </div>
     <div fxFlex fxLayoutAlign="end">
-<<<<<<< HEAD
-      <a routerLink="/admin/requests/new" mat-raised-button color="primary" class="button--cta">
-        <mat-icon>add</mat-icon> New Request
-      </a>
-=======
       <button mat-icon-button [matMenuTriggerFor]="menu"><mat-icon>more_vert</mat-icon></button>
       <mat-menu #menu="matMenu">
         <a routerLink="/admin/requests/new" mat-menu-item>
@@ -16,7 +11,6 @@
         </a>
         <button mat-menu-item (click)="onExport()"><mat-icon>get_app</mat-icon> Export</button>
       </mat-menu>
->>>>>>> 4281108a411f9b11bf0a60b6d9182708acce79bf
     </div>
   </div>
 
