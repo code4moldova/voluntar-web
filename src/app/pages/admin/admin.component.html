@@ -4,16 +4,8 @@
   class="sidenav-container"
   (backdropClick)="close('backdrop')"
 >
-  <mat-sidenav
-    [opened]="!(isHandset$ | async)"
-    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-    [mode]="(isHandset$ | async) ? 'over' : 'side'"
-    [opened]="!(isHandset$ | async)"
-  >
-    <app-sidebar></app-sidebar>
-  </mat-sidenav>
   <mat-sidenav-content>
-    <div class="main-container">
+    <div class="main-container container">
       <router-outlet></router-outlet>
     </div>
   </mat-sidenav-content>

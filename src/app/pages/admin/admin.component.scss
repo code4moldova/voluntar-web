@@ -1,16 +1,13 @@
+@import "../../../styles/colors";
+
 mat-sidenav-container {
   height: 100%;
   position: relative;
-  background: #eee;
-  padding-top: 64px;
-}
-
-mat-sidenav {
-  width: 250px;
-  padding-top: 64px;
+  background: $color-grays-gray-10;
+  padding-top: 72px;
 }
 
 .main-container {
-  padding: 25px;
+  padding: 56px 25px;
   box-sizing: border-box;
 }

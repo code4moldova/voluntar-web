@@ -1,14 +1,11 @@
 <div class="mb-25">
   <div fxLayout="row" fxLayoutAlign="space-between center">
     <div fxFlex fxLayout="row">
-      <h1 class="mb-0 mt-0 mr-10">Beneficiars</h1>
-      <button mat-icon-button (click)="fetchRequests()">
-        <mat-icon>autorenew</mat-icon>
-      </button>
+      <h1 class="mb-0 mt-0 mr-10">Requests</h1>
     </div>
     <div fxFlex fxLayoutAlign="end">
-      <a routerLink="/admin/requests/new" mat-raised-button color="primary">
-        <mat-icon>add</mat-icon> New Beneficiar
+      <a routerLink="/admin/requests/new" mat-raised-button color="primary" class="button--cta">
+        <mat-icon>add</mat-icon> New Request
       </a>
     </div>
   </div>

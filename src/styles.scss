@@ -1,6 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
-@import "form";
-@import "spacing";
+@import "../src/styles/colors";
+@import "../src/styles/buttons";
+@import "../src/styles/badges";
+@import "../src/styles/form";
+@import "../src/styles/spacing";
 
 html,
 body {
@@ -70,10 +73,6 @@ a {
   padding: 0;
 }
 
-.success {
-  color: #66bb6a;
-}
-
 .text-truncate {
   max-width: inherit;
   text-overflow: ellipsis;
@@ -111,14 +110,4 @@ a {
     box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.14),
       0 7px 10px -5px rgba(0, 188, 212, 0.4);
   }
-}
-
-.blacklist {
-  display: inline-block;
-  vertical-align: middle;
-  // margin-right: 4px;
-  border-radius: 4px;
-  background: #000;
-  width: 16px;
-  height: 16px;
 }

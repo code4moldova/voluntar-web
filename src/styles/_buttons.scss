@@ -1,0 +1,31 @@
+@import "colors";
+
+[class*="-button"] {
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+[mat-raised-button] {
+    &[color="primary"] {
+        background-color: $color-theme-base;
+        color: $color-grays-white;
+    }
+
+    &[color="error"] {
+        background-color: $color-functional-error;
+        color: $color-grays-white;
+    }
+}
+
+[mat-flat-button] {
+    &[color="primary"] {
+        background-color: $color-theme-base;
+        color: $color-grays-white;
+    }
+
+    &[color="error"] {
+        background-color: $color-functional-error;
+        color: $color-grays-white;
+    }
+}

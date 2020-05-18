@@ -1,6 +1,11 @@
+@import "../../../styles/colors";
+
 .mat-toolbar {
+  height: 72px;
   font-size: 16px;
-  background: #ffffff;
+  background: $color-grays-white;
+  border-bottom: 1px solid $color-border-divider;
+
   @media (max-width: 640px) {
     font-size: 14px;
   }
@@ -12,7 +17,7 @@
   left: 0;
   right: 0;
   z-index: 2;
-  background: #fff;
+  background: $color-grays-white;
 }
 
 .user-name {
@@ -40,13 +45,38 @@
   width: 234px;
   display: flex;
   box-sizing: border-box;
-  justify-content: space-between;
-  border-right: 1px solid #ebebeb;
-  margin-right: 25px;
   height: 100%;
   padding: 10px 10px 10px 0;
   align-items: center;
   @media (max-width: 768px) {
     width: 110px;
+  }
+}
+
+.mat-nav-list {
+  display: flex;
+
+  height: calc(100% - 1px);
+
+  padding-top: 0;
+
+  .mat-list-item {
+    height: 100%;
+    
+    margin-right: 12px;
+
+    font-size: 14px;
+    font-weight: normal;
+
+    &.active {
+      color: $color-theme-base;
+
+      border-bottom: 2px solid $color-theme-base;
+    }
+
+    &:hover,
+    &:focus {
+      background-color: $color-grays-white;
+    }
   }
 }
