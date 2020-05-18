@@ -97,6 +97,13 @@ mat-card {
             background-color: $color-functional-error-bg;
           }
         }
+
+        .mat-chip {
+          font-size: 13px;
+          padding: 2px 8px;
+          min-height: 20px;
+          height: auto;
+        }
       }
 
       .mat-chip-list {
@@ -169,6 +176,11 @@ tr {
 
     td {
       color: $color-type-disabled !important;
+
+      .mat-chip {
+        background-color: $color-grays-gray-30 !important;
+        color: $color-grays-gray-90 !important;
+      }
     }
   }
 }
