@@ -27,8 +27,16 @@
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let element">
         <span *ngIf="element.black_list" matTooltip="Black List" class="blacklist"></span>
-        <mat-icon *ngIf="element.have_money" [matTooltip]="'Has money'">attach_money</mat-icon>
-        <mat-icon *ngIf="element.has_disabilities" [matTooltip]="'Has disabilities'">accessible</mat-icon>
+        <!-- <pre>
+          <code>
+            {{ element | json }}
+          </code>
+        </pre> -->
+        <mat-chip-list>
+          <mat-chip *ngIf="element.have_money" [matTooltip]="'Has money'" class="money"><mat-icon>monetization_on</mat-icon></mat-chip>
+          <mat-chip *ngIf="element.has_disabilities" [matTooltip]="'Has disabilities'" class="disabilities"><mat-icon>accessible</mat-icon></mat-chip>
+          <mat-chip *ngIf="element.has_symptoms" [matTooltip]="'Has symtoms'" class="symptoms"><mat-icon>face</mat-icon></mat-chip>
+        </mat-chip-list>
       </td>
     </ng-container>
     <ng-container matColumnDef="name">
@@ -40,12 +48,13 @@
 
     <ng-container matColumnDef="phone">
       <th mat-header-cell *matHeaderCellDef>Telefon</th>
-      <td mat-cell *matCellDef="let element">{{ element.phone | mask: '00 000 000' }}</td>
+      <td mat-cell *matCellDef="let element"><mat-icon>phone_in_talk</mat-icon>{{ element.phone | mask: '00 000 000' }}</td>
     </ng-container>
 
     <ng-container matColumnDef="sector">
       <th mat-header-cell *matHeaderCellDef>Sector</th>
       <td mat-cell *matCellDef="let element">
+        <mat-icon>location_on</mat-icon>
         {{ (zoneById$(element.zone_address) | async)?.ro }}
       </td>
     </ng-container>
@@ -53,6 +62,7 @@
     <ng-container matColumnDef="createdDate">
       <th mat-header-cell *matHeaderCellDef>Adaugat</th>
       <td mat-cell *matCellDef="let element">
+        <mat-icon>today</mat-icon>
         {{ element.created_at | date : 'd MMM' }}
       </td>
     </ng-container>
@@ -60,6 +70,7 @@
     <ng-container matColumnDef="fixer">
       <th mat-header-cell *matHeaderCellDef>Fixer</th>
       <td mat-cell *matCellDef="let element">
+        <mat-icon>settings</mat-icon>
         <ng-container *ngIf="element.fixer === 'None'; else getFixer">{{ element.fixer }}</ng-container>
         <ng-template #getFixer>
           <ng-container *ngIf="operatorById$(element.fixer) | async as fixer">
@@ -72,7 +83,7 @@
     <ng-container matColumnDef="status">
       <th mat-header-cell *matHeaderCellDef>Status</th>
       <td mat-cell *matCellDef="let element" class="{{element.status}}">
-        {{ getStatusLabel(element.status) }}
+        <mat-chip>{{ getStatusLabel(element.status) }}</mat-chip>
       </td>
     </ng-container>
 
@@ -81,13 +92,12 @@
       <th mat-header-cell *matHeaderCellDef>Ore pe zi</th>
       <td mat-cell *matCellDef="let element">{{ element.available_hours }}</td>
     </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    
     <tr
       mat-row
       *matRowDef="let row; columns: displayedColumns"
       class="clickable-row"
-      [ngClass]="{cancelled: getStatusLabel(row.status) === 'Cancelled'}"
+      [ngClass]="{cancelled: getStatusLabel(row.status) === 'Cancelled', blacklist: row.black_list === true}"
       [routerLink]="['/admin/requests/details', row._id]"></tr>
   </table>
 
