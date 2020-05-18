@@ -4,13 +4,10 @@
       <h1 class="mb-0 mt-0 mr-10">Requests</h1>
     </div>
     <div fxFlex fxLayoutAlign="end">
-      <button mat-icon-button [matMenuTriggerFor]="menu"><mat-icon>more_vert</mat-icon></button>
-      <mat-menu #menu="matMenu">
-        <a routerLink="/admin/requests/new" mat-menu-item>
-          <mat-icon>add</mat-icon> New Beneficiar
-        </a>
-        <button mat-menu-item (click)="onExport()"><mat-icon>get_app</mat-icon> Export</button>
-      </mat-menu>
+      <button mat-raised-button class="mr-10" type="button" (click)="onExport()"><mat-icon>get_app</mat-icon> Export</button>
+      <a routerLink="/admin/requests/new" mat-raised-button color="primary">
+        <mat-icon>add</mat-icon> New Beneficiar
+      </a>
     </div>
   </div>
 
