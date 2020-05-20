@@ -1,8 +1,24 @@
 @import "colors";
 
 [class*="-button"] {
+    border-radius: 8px !important;
+
     &:hover {
         text-decoration: none;
+    }
+
+    &.large {
+        padding: 14px 24px;
+        line-height: 20px;
+
+        &[color="primary"] {
+            min-width: 200px;
+        }
+    }
+
+    &.secondary {
+        background-color: $color-theme-lightest;
+        color: $color-theme-light-alt;
     }
 }
 

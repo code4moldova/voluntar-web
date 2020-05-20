@@ -4,11 +4,12 @@ import {
   ViewChild,
   Renderer2,
   ElementRef,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, count } from 'rxjs/operators';
 
 import { RequestsFacadeService } from '@services/requests/requests-facade.service';
 import { UsersFacadeService } from '@services/users/users-facade.service';
@@ -23,6 +24,8 @@ import { IRequest } from '@models/requests';
 import { IUser } from '@models/user';
 import { ZoneI } from '@models/geolocation';
 import { TagsFacadeService } from '@services/tags/tags-facade.service';
+import { MatTabChangeEvent } from '@angular/material/tabs';
+import { async } from '@angular/core/testing';
 
 @Component({
   selector: 'app-requests-list',
@@ -53,6 +56,7 @@ export class RequestsListComponent implements OnInit {
   public observableSelectColumns: FilterObservableSelectColumns<
     IUser | ZoneI
   >[];
+  public selectedIndex: number = 0;
 
   lastFilter = {};
 
@@ -68,13 +72,17 @@ export class RequestsListComponent implements OnInit {
   ];
 
   @ViewChild('empty', { static: true }) empty: ElementRef;
+  selectedTab: string = "all";
+  filteredRows: any;
+
   constructor(
     private requestsFacade: RequestsFacadeService,
     private usersFacadeService: UsersFacadeService,
     private geolocationService: GeolocationService,
     private tagsFacade: TagsFacadeService,
-    private renderer: Renderer2
-  ) {}
+    private renderer: Renderer2,
+    private change: ChangeDetectorRef
+  ) { }
 
   zoneById$(zoneId: string) {
     return this.requestsFacade.zones$.pipe(
@@ -118,9 +126,34 @@ export class RequestsListComponent implements OnInit {
     ];
   }
 
+  ngAfterContentChecked() {
+    this.selectedIndex = 0;
+    this.change.detectChanges();
+  }
+
   getStatusLabel(status: string) {
     const allStatuses = this.tagsFacade.getStatusOptions();
     return (allStatuses.find((s) => s._id === status) || {}).label || 'unknown';
+  }
+
+  getAllStatuses() {
+    const allStatuses = this.tagsFacade.getStatusOptions();
+
+    return allStatuses;
+  }
+
+  onTabChanged(event: MatTabChangeEvent) {
+    event.tab.textLabel = (this.getAllStatuses()[event.index - 1] !== undefined) ? this.getAllStatuses()[event.index - 1]['_id'] : 'all';
+    this.selectedTab = event.tab.textLabel;
+
+    if (this.selectedTab !== "all") {
+      this.filteredRows = this.queryResult({ "status": this.selectedTab });
+    }
+    else {
+      this.filteredRows = this.fetchRequests();
+    }
+
+    return this.filteredRows;
   }
 
   fetchRequests() {

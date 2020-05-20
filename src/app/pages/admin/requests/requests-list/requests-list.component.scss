@@ -1,20 +1,26 @@
 @import "~@angular/material/theming";
 @import "../../../../../styles/colors";
 
-.button--cta {
-  padding: 6px 20px;
-
-  mat-icon {
-    margin-top: 0;
-
-    font-size: 20px;
-    line-height: 20px;
+.mat-flat-button {
+  .mat-icon {
+    width: 16px;
+    height: 16px;
+    font-size: 16px;
   }
 }
 
 mat-card {
   padding: 0;
   min-height: 400px;
+
+  .mat-table {
+    margin-bottom: 56px;
+  }
+
+  .mat-card-footer {
+    position: absolute;
+    bottom: 0;
+  }
 
   tr.mat-row {
     td.mat-cell {
@@ -185,149 +191,121 @@ tr {
   }
 }
 
-// .mat-tab-group {
-//   margin-top: 56px;
+::ng-deep.mat-tab-group {
+  margin-top: 56px;
+  min-height: 400px;
 
-//   .mat-tab-body {
-//     padding-top: 32px;
-//   }
+  .mat-tab-body {
+    padding-top: 32px;
+  }
 
-//   &.mat-primary {
-//     &.selected-tab-0 {
-//       .mat-tab-label-active {
-//         .mat-badge {
-//           &.primary {
-//             color: $color-theme-base !important;
+  &.mat-primary {
+    &.selected-tab-all {
+      .mat-tab-label-active {
+        .mat-badge {
+          color: $color-type-primary !important;
 
-//             .mat-badge-content {
-//               background-color: $color-functional-info-bg;
-//               color: $color-functional-info;
-//             }
-//           }
-//         }
-//       }
+          .mat-badge-content {
+            background-color: $color-grays-gray-30;
+            color: $color-type-disabled;
+          }
+        }
+      }
 
-//       .mat-ink-bar {
-//         background-color: $color-theme-base;
-//       }
-//     }
+      .mat-ink-bar {
+        background-color: $color-type-primary;
+      }
+    }
 
-//     &.selected-tab-1 {
-//       .mat-tab-label-active {
-//         .mat-badge {
-//           &.error {
-//             color: $color-functional-error !important;
+    &.selected-tab-cancelled {
+      .mat-tab-label-active {
+        .mat-badge {
+          color: $color-functional-error !important;
 
-//             .mat-badge-content {
-//               background-color: $color-functional-error-bg;
-//               color: $color-functional-error;
-//             }
-//           }
-//         }
-//       }
+          .mat-badge-content {
+            background-color: $color-functional-error-bg;
+            color: $color-functional-error;
+          }
+        }
+      }
 
-//       .mat-ink-bar {
-//         background-color: $color-functional-error;
-//       }
-//     }
+      .mat-ink-bar {
+        background-color: $color-functional-error;
+      }
+    }
 
-//     &.selected-tab-2 {
-//       .mat-tab-label-active {
-//         .mat-badge {
-//           &.info {
-//             color: $color-functional-info !important;
+    &.selected-tab-new {
+      .mat-tab-label-active {
+        .mat-badge {
+          color: $color-functional-info !important;
 
-//             .mat-badge-content {
-//               background-color: $color-functional-info-bg;
-//               color: $color-functional-info;
-//             }
-//           }
-//         }
-//       }
+          .mat-badge-content {
+            background-color: $color-functional-info-bg;
+            color: $color-functional-info;
+          }
+        }
+      }
 
-//       .mat-ink-bar {
-//         background-color: $color-functional-info;
-//       }
-//     }
+      .mat-ink-bar {
+        background-color: $color-functional-info;
+      }
+    }
 
-//     &.selected-tab-3 {
-//       .mat-tab-label-active {
-//         .mat-badge {
-//           &.warning {
-//             color: darken($color-functional-warning, 5%) !important;
+    &.selected-tab-onprogress {
+      .mat-tab-label-active {
+        .mat-badge {
+          color: darken($color-functional-warning, 5%) !important;
 
-//             .mat-badge-content {
-//               background-color: lighten($color-functional-warning, 35%);
-//               color: darken($color-functional-warning, 8%);
-//             }
-//           }
-//         }
-//       }
+          .mat-badge-content {
+            background-color: lighten($color-functional-warning, 35%);
+            color: darken($color-functional-warning, 8%);
+          }
+        }
+      }
 
-//       .mat-ink-bar {
-//         background-color: $color-functional-warning;
-//       }
-//     }
+      .mat-ink-bar {
+        background-color: $color-functional-warning;
+      }
+    }
 
-//     &.selected-tab-4 {
-//       .mat-tab-label-active {
-//         .mat-badge {
-//           &.error {
-//             color: $color-functional-error !important;
+    &.selected-tab-done {
+      .mat-tab-label-active {
+        .mat-badge {
+          color: $color-functional-success !important;
 
-//             .mat-badge-content {
-//               background-color: $color-functional-error-bg;
-//               color: $color-functional-error;
-//             }
-//           }
-//         }
-//       }
+          .mat-badge-content {
+            background-color: $color-functional-success-bg;
+            color: $color-functional-success;
+          }
+        }
+      }
 
-//       .mat-ink-bar {
-//         background-color: $color-functional-error;
-//       }
-//     }
+      .mat-ink-bar {
+        background-color: $color-functional-success;
+      }
+    }
 
-//     &.selected-tab-5 {
-//       .mat-tab-label-active {
-//         .mat-badge {
-//           &.success {
-//             color: $color-functional-success !important;
+    .mat-tab-label {
+      color: $color-type-secondary;
+      opacity: 1;
 
-//             .mat-badge-content {
-//               background-color: $color-functional-success-bg;
-//               color: $color-functional-success;
-//             }
-//           }
-//         }
-//       }
+      .mat-badge-content {
+        width: auto;
+        height: auto;
+        position: static;
 
-//       .mat-ink-bar {
-//         background-color: $color-functional-success;
-//       }
-//     }
+        padding: 4px 8px;
+        margin: 0 0 -4px 8px;
 
-//     .mat-tab-label {
-//       color: $color-type-secondary;
-//       opacity: 1;
+        font-size: 10px;
+        line-height: 100%;
+        text-overflow: unset;
 
-//       .mat-badge-content {
-//         width: auto;
-//         height: auto;
-//         position: static;
+        background-color: $color-grays-gray-30;
+        color: $color-grays-gray-90;
 
-//         padding: 4px 8px;
-//         margin: 0 0 -4px 8px;
-
-//         font-size: 10px;
-//         line-height: 100%;
-//         text-overflow: unset;
-
-//         background-color: $color-grays-gray-30;
-//         color: $color-grays-gray-90;
-
-//         border-radius: 12px;
-//       }
-//     }
-//   }
-// }
+        border-radius: 12px;
+      }
+    }
+  }
+}

@@ -58,7 +58,7 @@ export class VolunteersListComponent implements OnInit {
     private volunteersFacade: VolunteersFacadeService,
     private tagsFacadeService: TagsFacadeService,
     private geolocationService: GeolocationService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.volunteersFacade.getVolunteers({ pageSize: 20, pageIndex: 1 });
