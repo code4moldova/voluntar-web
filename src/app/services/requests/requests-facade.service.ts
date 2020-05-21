@@ -96,6 +96,19 @@ export class RequestsFacadeService {
     this.store.dispatch(getRequestsAction({ page, filters }));
   }
 
+  getRequestByStatus(status: string) {
+    const page = {
+      pageIndex: 0,
+      pageSize: 1,
+    };
+    const filters = status
+      ? {
+          status,
+        }
+      : {};
+    return this.requestService.getRequests(page, filters);
+  }
+
   getRequestByPhone(phone: string, key: string = 'phone') {
     return this.requestService.getRequests(
       {

@@ -16,96 +16,10 @@
   [selectColumns]="selectColumns" (queryResult)="queryResult($event)">
 </app-filter>
 
-<mat-tab-group mat-stretch-tabs class="selected-tab-{{ selectedTab }}" (selectedTabChange)="onTabChanged($event)" #tabGroup [disableRipple]="true">  
+<mat-tab-group [selectedIndex]="selectedTabIndex$ | async" mat-stretch-tabs class="selected-tab-{{ selectedTab }}" (selectedTabChange)="onTabChanged($event)" #tabGroup [disableRipple]="true">  
   <mat-tab>
     <ng-template mat-tab-label>
       <span matBadge="{{count$ | async}}" matBadgeOverlap="false" class="primary">All requests</span>
-    </ng-template>
-
-    <ng-template matTabContent>
-      <mat-card>
-        <table mat-table [dataSource]="dataSource$ | async">
-          <ng-container matColumnDef="icons">
-            <th mat-header-cell *matHeaderCellDef></th>
-            <td mat-cell *matCellDef="let element">
-              <span *ngIf="element.black_list" matTooltip="Black List" class="blacklist"></span>
-              <mat-chip-list>
-                <mat-chip *ngIf="element.have_money" [matTooltip]="'Has money'" class="money"><mat-icon>monetization_on</mat-icon></mat-chip>
-                <mat-chip *ngIf="element.has_disabilities" [matTooltip]="'Has disabilities'" class="disabilities"><mat-icon>accessible</mat-icon></mat-chip>
-                <mat-chip *ngIf="element.has_symptoms" [matTooltip]="'Has symtoms'" class="symptoms"><mat-icon>face</mat-icon></mat-chip>
-              </mat-chip-list>
-            </td>
-          </ng-container>
-          <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef>Nume</th>
-            <td mat-cell *matCellDef="let element">
-              {{ element.first_name }} {{ element.last_name }}
-            </td>
-          </ng-container>
-      
-          <ng-container matColumnDef="phone">
-            <th mat-header-cell *matHeaderCellDef>Telefon</th>
-            <td mat-cell *matCellDef="let element"><mat-icon>phone_in_talk</mat-icon>{{ element.phone | mask: '00 000 000' }}</td>
-          </ng-container>
-      
-          <ng-container matColumnDef="sector">
-            <th mat-header-cell *matHeaderCellDef>Sector</th>
-            <td mat-cell *matCellDef="let element">
-              <mat-icon>location_on</mat-icon>
-              {{ (zoneById$(element.zone_address) | async)?.ro }}
-            </td>
-          </ng-container>
-      
-          <ng-container matColumnDef="createdDate">
-            <th mat-header-cell *matHeaderCellDef>Adaugat</th>
-            <td mat-cell *matCellDef="let element">
-              <mat-icon>today</mat-icon>
-              {{ element.created_at | date : 'd MMM' }}
-            </td>
-          </ng-container>
-      
-          <ng-container matColumnDef="fixer">
-            <th mat-header-cell *matHeaderCellDef>Fixer</th>
-            <td mat-cell *matCellDef="let element">
-              <mat-icon>settings</mat-icon>
-              <ng-container *ngIf="element.fixer === 'None'; else getFixer">{{ element.fixer }}</ng-container>
-              <ng-template #getFixer>
-                <ng-container *ngIf="operatorById$(element.fixer) | async as fixer">
-                  {{ fixer.first_name }} {{ fixer.last_name }}
-                </ng-container>
-              </ng-template>
-            </td>
-          </ng-container>
-      
-          <ng-container matColumnDef="status">
-            <th mat-header-cell *matHeaderCellDef>Status</th>
-            <td mat-cell *matCellDef="let element" class="{{element.status}}">
-              <mat-chip>{{ getStatusLabel(element.status) }}</mat-chip>
-            </td>
-          </ng-container>
-      
-          <!-- Symbol Column -->
-          <ng-container matColumnDef="availableHours">
-            <th mat-header-cell *matHeaderCellDef>Ore pe zi</th>
-            <td mat-cell *matCellDef="let element">{{ element.available_hours }}</td>
-          </ng-container>
-          
-          <tr
-            mat-row
-            *matRowDef="let row; columns: displayedColumns"
-            class="clickable-row"
-            [ngClass]="{cancelled: getStatusLabel(row.status) === 'Cancelled', blacklist: row.black_list === true}"
-            [routerLink]="['/admin/requests/details', row._id]"></tr>
-        </table>
-      
-        <div class="loading-shade" *ngIf="isLoading$ | async">
-          <mat-spinner></mat-spinner>
-        </div>
-        <mat-card-footer class="container m-0">
-          <mat-paginator (page)="onPageChange($event)" [length]="count$ | async" [pageSizeOptions]="[20, 50, 100]">
-          </mat-paginator>
-        </mat-card-footer>
-      </mat-card>
     </ng-template>
   </mat-tab>
 
@@ -113,94 +27,92 @@
     <ng-template mat-tab-label>
       <span matBadge="{{count$ | async}}" matBadgeOverlap="false" ngClass="{{status._id}}">{{ status.label }}</span>
     </ng-template>
-
-    <ng-template matTabContent>
-      <mat-card>
-        <table mat-table [dataSource]="dataSource$ | async">
-          <ng-container matColumnDef="icons">
-            <th mat-header-cell *matHeaderCellDef></th>
-            <td mat-cell *matCellDef="let element">
-              <span *ngIf="element.black_list" matTooltip="Black List" class="blacklist"></span>
-              <mat-chip-list>
-                <mat-chip *ngIf="element.have_money" [matTooltip]="'Has money'" class="money"><mat-icon>monetization_on</mat-icon></mat-chip>
-                <mat-chip *ngIf="element.has_disabilities" [matTooltip]="'Has disabilities'" class="disabilities"><mat-icon>accessible</mat-icon></mat-chip>
-                <mat-chip *ngIf="element.has_symptoms" [matTooltip]="'Has symtoms'" class="symptoms"><mat-icon>face</mat-icon></mat-chip>
-              </mat-chip-list>
-            </td>
-          </ng-container>
-          <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef>Nume</th>
-            <td mat-cell *matCellDef="let element">
-              {{ element.first_name }} {{ element.last_name }}
-            </td>
-          </ng-container>
-      
-          <ng-container matColumnDef="phone">
-            <th mat-header-cell *matHeaderCellDef>Telefon</th>
-            <td mat-cell *matCellDef="let element"><mat-icon>phone_in_talk</mat-icon>{{ element.phone | mask: '00 000 000' }}</td>
-          </ng-container>
-      
-          <ng-container matColumnDef="sector">
-            <th mat-header-cell *matHeaderCellDef>Sector</th>
-            <td mat-cell *matCellDef="let element">
-              <mat-icon>location_on</mat-icon>
-              {{ (zoneById$(element.zone_address) | async)?.ro }}
-            </td>
-          </ng-container>
-      
-          <ng-container matColumnDef="createdDate">
-            <th mat-header-cell *matHeaderCellDef>Adaugat</th>
-            <td mat-cell *matCellDef="let element">
-              <mat-icon>today</mat-icon>
-              {{ element.created_at | date : 'd MMM' }}
-            </td>
-          </ng-container>
-      
-          <ng-container matColumnDef="fixer">
-            <th mat-header-cell *matHeaderCellDef>Fixer</th>
-            <td mat-cell *matCellDef="let element">
-              <mat-icon>settings</mat-icon>
-              <ng-container *ngIf="element.fixer === 'None'; else getFixer">{{ element.fixer }}</ng-container>
-              <ng-template #getFixer>
-                <ng-container *ngIf="operatorById$(element.fixer) | async as fixer">
-                  {{ fixer.first_name }} {{ fixer.last_name }}
-                </ng-container>
-              </ng-template>
-            </td>
-          </ng-container>
-      
-          <ng-container matColumnDef="status" hidden>
-            <th mat-header-cell *matHeaderCellDef>Status</th>
-            <td mat-cell *matCellDef="let element" class="{{element.status}}">
-              <mat-chip>{{ getStatusLabel(element.status) }}</mat-chip>
-            </td>
-          </ng-container>
-      
-          <!-- Symbol Column -->
-          <ng-container matColumnDef="availableHours">
-            <th mat-header-cell *matHeaderCellDef>Ore pe zi</th>
-            <td mat-cell *matCellDef="let element">{{ element.available_hours }}</td>
-          </ng-container>
-  
-          <tr
-            mat-row
-            *matRowDef="let row; columns: displayedColumns"
-            class="clickable-row"
-            [ngClass]="{filtered: getStatusLabel(row.status) !== selectedTab, cancelled: getStatusLabel(row.status) === 'Cancelled', blacklist: row.black_list === true}"
-            [routerLink]="['/admin/requests/details', row._id]">
-          </tr>
-        </table>
-
-        <div class="loading-shade" *ngIf="isLoading$ | async">
-          <mat-spinner></mat-spinner>
-        </div>
-        <mat-card-footer class="container m-0">
-          <mat-paginator (page)="onPageChange($event)" [length]="count$ | async" [pageSizeOptions]="[20, 50, 100]">
-          </mat-paginator>
-        </mat-card-footer>
-      </mat-card>
-    </ng-template>
   </mat-tab>
 </mat-tab-group>
+
+<mat-card>
+  <table mat-table [dataSource]="dataSource$ | async">
+    <ng-container matColumnDef="icons">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element">
+        <span *ngIf="element.black_list" matTooltip="Black List" class="blacklist"></span>
+        <mat-chip-list>
+          <mat-chip *ngIf="element.have_money" [matTooltip]="'Has money'" class="money"><mat-icon>monetization_on</mat-icon></mat-chip>
+          <mat-chip *ngIf="element.has_disabilities" [matTooltip]="'Has disabilities'" class="disabilities"><mat-icon>accessible</mat-icon></mat-chip>
+          <mat-chip *ngIf="element.has_symptoms" [matTooltip]="'Has symtoms'" class="symptoms"><mat-icon>face</mat-icon></mat-chip>
+        </mat-chip-list>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Nume</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.first_name }} {{ element.last_name }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="phone">
+      <th mat-header-cell *matHeaderCellDef>Telefon</th>
+      <td mat-cell *matCellDef="let element"><mat-icon>phone_in_talk</mat-icon>{{ element.phone | mask: '00 000 000' }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="sector">
+      <th mat-header-cell *matHeaderCellDef>Sector</th>
+      <td mat-cell *matCellDef="let element">
+        <mat-icon>location_on</mat-icon>
+        {{ (zoneById$(element.zone_address) | async)?.ro }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="createdDate">
+      <th mat-header-cell *matHeaderCellDef>Adaugat</th>
+      <td mat-cell *matCellDef="let element">
+        <mat-icon>today</mat-icon>
+        {{ element.created_at | date : 'd MMM' }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="fixer">
+      <th mat-header-cell *matHeaderCellDef>Fixer</th>
+      <td mat-cell *matCellDef="let element">
+        <mat-icon>settings</mat-icon>
+        <ng-container *ngIf="element.fixer === 'None'; else getFixer">{{ element.fixer }}</ng-container>
+        <ng-template #getFixer>
+          <ng-container *ngIf="operatorById$(element.fixer) | async as fixer">
+            {{ fixer.first_name }} {{ fixer.last_name }}
+          </ng-container>
+        </ng-template>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>Status</th>
+      <td mat-cell *matCellDef="let element" class="{{element.status}}">
+        <mat-chip>{{ getStatusLabel(element.status) }}</mat-chip>
+      </td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="availableHours">
+      <th mat-header-cell *matHeaderCellDef>Ore pe zi</th>
+      <td mat-cell *matCellDef="let element">{{ element.available_hours }}</td>
+    </ng-container>
+    
+    <tr
+      mat-row
+      *matRowDef="let row; columns: displayedColumns"
+      class="clickable-row"
+      [ngClass]="{cancelled: getStatusLabel(row.status) === 'Cancelled', blacklist: row.black_list === true}"
+      [routerLink]="['/admin/requests/details', row._id]"></tr>
+  </table>
+
+  <div class="loading-shade" *ngIf="isLoading$ | async">
+    <mat-spinner></mat-spinner>
+  </div>
+  <mat-card-footer class="container m-0">
+    <mat-paginator (page)="onPageChange($event)" [length]="count$ | async" [pageSizeOptions]="[20, 50, 100]">
+    </mat-paginator>
+  </mat-card-footer>
+</mat-card>
+
 
 <div #empty></div>

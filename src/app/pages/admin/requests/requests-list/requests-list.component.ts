@@ -5,6 +5,7 @@ import {
   Renderer2,
   ElementRef,
   ChangeDetectorRef,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
@@ -25,12 +26,13 @@ import { IUser } from '@models/user';
 import { ZoneI } from '@models/geolocation';
 import { TagsFacadeService } from '@services/tags/tags-facade.service';
 import { MatTabChangeEvent } from '@angular/material/tabs';
-import { async } from '@angular/core/testing';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-requests-list',
   templateUrl: './requests-list.component.html',
   styleUrls: ['./requests-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RequestsListComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -72,7 +74,20 @@ export class RequestsListComponent implements OnInit {
   ];
 
   @ViewChild('empty', { static: true }) empty: ElementRef;
-  selectedTab: string = "all";
+  selectedTab: string = 'all';
+  selectedTabIndex$ = this.activeRoute.queryParams.pipe(
+    map((params) => {
+      const status = params['status'];
+      if (status) {
+        return (
+          this.tagsFacade.getStatusOptions().findIndex((stats) => {
+            return stats._id === status;
+          }) + 1
+        );
+      }
+      return 0;
+    })
+  );
   filteredRows: any;
 
   constructor(
@@ -81,8 +96,15 @@ export class RequestsListComponent implements OnInit {
     private geolocationService: GeolocationService,
     private tagsFacade: TagsFacadeService,
     private renderer: Renderer2,
-    private change: ChangeDetectorRef
-  ) { }
+    private router: Router,
+    private activeRoute: ActivatedRoute
+  ) {}
+
+  helperGetCountByStatus(status: string) {
+    return this.requestsFacade
+      .getRequestByStatus(status)
+      .pipe(map((res) => res.count));
+  }
 
   zoneById$(zoneId: string) {
     return this.requestsFacade.zones$.pipe(
@@ -117,18 +139,8 @@ export class RequestsListComponent implements OnInit {
     ];
 
     this.selectColumns = [
-      {
-        name: 'Status',
-        value: 'status',
-        array: this.tagsFacade.getStatusOptions(),
-      },
       { name: 'Is Active', value: 'is_active', array: this.isActive },
     ];
-  }
-
-  ngAfterContentChecked() {
-    this.selectedIndex = 0;
-    this.change.detectChanges();
   }
 
   getStatusLabel(status: string) {
@@ -137,23 +149,24 @@ export class RequestsListComponent implements OnInit {
   }
 
   getAllStatuses() {
-    const allStatuses = this.tagsFacade.getStatusOptions();
-
-    return allStatuses;
+    return this.tagsFacade.getStatusOptions();
   }
 
   onTabChanged(event: MatTabChangeEvent) {
-    event.tab.textLabel = (this.getAllStatuses()[event.index - 1] !== undefined) ? this.getAllStatuses()[event.index - 1]['_id'] : 'all';
-    this.selectedTab = event.tab.textLabel;
-
-    if (this.selectedTab !== "all") {
-      this.filteredRows = this.queryResult({ "status": this.selectedTab });
-    }
-    else {
-      this.filteredRows = this.fetchRequests();
+    let status = null;
+    if (typeof event.tab.textLabel !== 'string') {
+      status = event.tab.textLabel['_id'];
     }
 
-    return this.filteredRows;
+    this.router.navigate([], {
+      relativeTo: this.activeRoute,
+      queryParams: {
+        status,
+      },
+      queryParamsHandling: 'merge',
+    });
+
+    return;
   }
 
   fetchRequests() {
