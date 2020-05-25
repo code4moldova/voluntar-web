@@ -19,13 +19,13 @@
 <mat-tab-group [selectedIndex]="selectedTabIndex$ | async" mat-stretch-tabs class="selected-tab-{{ selectedTab }}" (selectedTabChange)="onTabChanged($event)" #tabGroup [disableRipple]="true">  
   <mat-tab>
     <ng-template mat-tab-label>
-      <span matBadge="{{count$ | async}}" matBadgeOverlap="false" class="primary">All requests</span>
+      <span matBadge="{{(allStatusesCounts$ | async)[0]}}" matBadgeOverlap="false" class="primary">All requests</span>
     </ng-template>
   </mat-tab>
 
-  <mat-tab *ngFor="let status of getAllStatuses()" [label]="status">
+  <mat-tab *ngFor="let status of allStatuses; let i = index" [label]="status">
     <ng-template mat-tab-label>
-      <span matBadge="{{count$ | async}}" matBadgeOverlap="false" ngClass="{{status._id}}">{{ status.label }}</span>
+      <span matBadge="{{(allStatusesCounts$ | async)[i+1]}}" matBadgeOverlap="false" ngClass="{{status._id}}">{{ status.label }}</span>
     </ng-template>
   </mat-tab>
 </mat-tab-group>
