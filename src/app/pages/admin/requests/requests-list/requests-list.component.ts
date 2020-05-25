@@ -78,7 +78,10 @@ export class RequestsListComponent implements OnInit {
   selectedTabIndex$ = this.activeRoute.queryParams.pipe(
     map((params) => {
       const status = params['status'];
+
       if (status) {
+        this.selectedTab = status;
+
         return (
           this.tagsFacade.getStatusOptions().findIndex((stats) => {
             return stats._id === status;
@@ -154,8 +157,10 @@ export class RequestsListComponent implements OnInit {
 
   onTabChanged(event: MatTabChangeEvent) {
     let status = null;
+
     if (typeof event.tab.textLabel !== 'string') {
       status = event.tab.textLabel['_id'];
+      this.selectedTab = status;
     }
 
     this.router.navigate([], {

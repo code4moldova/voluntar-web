@@ -12,13 +12,13 @@
 mat-card {
   padding: 0;
   min-height: 400px;
-
-  .mat-table {
-    margin-bottom: 56px;
-  }
+  position: relative;
+  padding-bottom: 56px;
 
   .mat-card-footer {
+    width: 100%;
     position: absolute;
+    left: 0;
     bottom: 0;
   }
 
