@@ -9,8 +9,8 @@ import {
 } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
-import { Observable } from 'rxjs';
-import { map, count } from 'rxjs/operators';
+import { Observable, BehaviorSubject, zip, forkJoin } from 'rxjs';
+import { map, count, take } from 'rxjs/operators';
 
 import { RequestsFacadeService } from '@services/requests/requests-facade.service';
 import { UsersFacadeService } from '@services/users/users-facade.service';
@@ -93,6 +93,10 @@ export class RequestsListComponent implements OnInit {
   );
   filteredRows: any;
 
+  allStatuses = this.tagsFacade.getStatusOptions();
+
+  allStatusesCounts$: BehaviorSubject<number[]> = new BehaviorSubject([]);
+
   constructor(
     private requestsFacade: RequestsFacadeService,
     private usersFacadeService: UsersFacadeService,
@@ -101,7 +105,20 @@ export class RequestsListComponent implements OnInit {
     private renderer: Renderer2,
     private router: Router,
     private activeRoute: ActivatedRoute
-  ) {}
+  ) {
+    this.getAllStatusesCount();
+  }
+
+  getAllStatusesCount() {
+    const requests = [{}, ...this.allStatuses].map((status) =>
+      this.helperGetCountByStatus(status['_id'])
+    );
+    forkJoin(requests)
+      .pipe(take(1))
+      .subscribe((res) => {
+        this.allStatusesCounts$.next(res);
+      });
+  }
 
   helperGetCountByStatus(status: string) {
     return this.requestsFacade
@@ -151,10 +168,6 @@ export class RequestsListComponent implements OnInit {
     return (allStatuses.find((s) => s._id === status) || {}).label || 'unknown';
   }
 
-  getAllStatuses() {
-    return this.tagsFacade.getStatusOptions();
-  }
-
   onTabChanged(event: MatTabChangeEvent) {
     let status = null;
 
@@ -162,6 +175,12 @@ export class RequestsListComponent implements OnInit {
       status = event.tab.textLabel['_id'];
       this.selectedTab = status;
     }
+
+    this.helperGetCountByStatus(status).subscribe((count) => {
+      const counts = this.allStatusesCounts$.getValue();
+      counts[event.index] = count;
+      this.allStatusesCounts$.next(counts);
+    });
 
     this.router.navigate([], {
       relativeTo: this.activeRoute,
