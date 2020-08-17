@@ -1,3 +1,2 @@
-https://covid19md.netlify.com/* https://test.voluntar.md/:splat 301!
-http://covid19md.netlify.com/* https://test.voluntar.md/:splat 301!
+/api/*  http://185.181.229.182:5000/:splat  200
 /*    /index.html   200
