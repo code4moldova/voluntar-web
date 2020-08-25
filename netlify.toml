@@ -12,10 +12,3 @@
   from = "/*"
   to = "/index.html"
   status = 200
-
-[context.branch-deploy]
-  [[redirects]]
-    from = "/testredirect"
-    to = "/testredirectdev"
-    status = 301
-    force = false
