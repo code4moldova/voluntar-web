@@ -1,0 +1,14 @@
+[build]
+  publish = "dist/"
+  command = "npx ng build --prod"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/api/*"
+  to = "http://185.181.229.182:5000/api/:splat"
+  status = 200
+  force = true
