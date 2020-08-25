@@ -2,7 +2,6 @@
   publish = "dist/"
   command = "npx ng build --prod"
 
-
 [[redirects]]
   from = "/api/*"
   to = "http://185.181.229.182:5000/api/:splat"
@@ -13,3 +12,10 @@
   from = "/*"
   to = "/index.html"
   status = 200
+
+[context.branch-deploy]
+  [[redirects]]
+    from = "/testredirect"
+    to = "/testredirectdev"
+    status = 301
+    force = false
