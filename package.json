@@ -1,15 +1,15 @@
 {
-  "name": "client",
+  "name": "voluntar-web",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build --prod && firebase deploy",
+    "start": "ng serve --open",
+    "build": "ng build --prod",
+    "preci:build": "node scripts/generate-redirects.js",
+    "ci:build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "docker-compose": "docker-compose up -d --build",
-    "docker-compose-dev": "docker-compose -f docker-compose-dev.yml up -d --build"
+    "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {
