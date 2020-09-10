@@ -1,6 +1,6 @@
 # voluntar-web
 
-This is a companion app for [`voluntar-server`](https://github.com/code4moldova/covid19md-voluntari-server)
+This is a companion app for [`voluntar-backend`](https://github.com/code4moldova/voluntar-backend)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.0.
 
