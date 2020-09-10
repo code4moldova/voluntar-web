@@ -8,7 +8,7 @@ console.log('HEAD:', process.env.HEAD) // e.g. genesis
 
 const domain = process.env.CONTEXT === 'production'
   ? 'http://185.181.229.182:5000'
-  : 'http://185.181.229.182:5500'
+  : 'http://185.181.229.182:5000'
 
 const _redirects = `
 /api/*  ${domain}/api/:splat  200
