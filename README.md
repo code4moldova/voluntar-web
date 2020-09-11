@@ -1,18 +1,14 @@
-# voluntar-web
+# VoluntarWeb
 
-This is a companion app for [`voluntar-backend`](https://github.com/code4moldova/voluntar-backend)
+> This is a companion app for [`voluntar-backend`](https://github.com/code4moldova/voluntar-backend)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.0.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.1.
 
-## Get started
+## Development server
 
-Clone this repository and run `npm install` to install all needed development dependencies.
+Run `npx ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Local Development server
-
-Run `npm run start` for a dev server. The app will automatically reload if you change any of the source files.
-
-In local development mode all requests that start with `/api` will be proxied to a deployed development backend server. See [`proxy.conf.json`](./src/proxy.conf.json) for more info. In production, `proxy.conf.json` is ignored, for more info read [Deployment instructions](#deployment-instructions)
+> In local development mode all requests that start with `/api` will be proxied to a deployed development backend server. See [`proxy.conf.json`](./src/proxy.conf.json) for more info. In production, `proxy.conf.json` is ignored, for more info read [Deployment instructions](#deployment-instructions)
 
 ## Code scaffolding
 
@@ -20,19 +16,19 @@ Run `npx ng generate component component-name` to generate a new component. You 
 
 ## Build
 
-Run `npm run build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Run `npx ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
 ## Running unit tests
 
-Run `npm run test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Run `npx ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
 ## Running end-to-end tests
 
-Run `npm run e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Run `npx ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
 ## Further help
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+To get more help on the Angular CLI use `npx ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
 ## Deployment instructions
 

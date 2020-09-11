@@ -23,9 +23,6 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "aot": true,
-            "stylePreprocessorOptions": {
-              "includePaths": ["src/styles"]
-            },
             "assets": ["src/favicon.ico", "src/assets", "src/_redirects"],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
@@ -70,9 +67,6 @@
             "browserTarget": "client:build",
             "proxyConfig": "src/proxy.conf.json"
           },
-          "stylePreprocessorOptions": {
-            "includePaths": ["src/styles"]
-          },
           "configurations": {
             "production": {
               "browserTarget": "client:build:production"
@@ -93,9 +87,6 @@
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "assets": ["src/favicon.ico", "src/assets"],
-            "stylePreprocessorOptions": {
-              "includePaths": ["src/styles"]
-            },
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
@@ -129,8 +120,5 @@
       }
     }
   },
-  "defaultProject": "client",
-  "cli": {
-    "analytics": "11bdf562-cebf-43b0-a2dd-7b241a32732a"
-  }
+  "defaultProject": "client"
 }
