@@ -1,34 +1,43 @@
 <mat-accordion>
   <mat-expansion-panel [expanded]="true" hideToggle>
     <mat-expansion-panel-header>
-      <mat-panel-title>
-        Filters
-      </mat-panel-title>
+      <mat-panel-title>Filters</mat-panel-title>
       <mat-panel-description>
-
         <mat-icon>filter_list</mat-icon>
       </mat-panel-description>
     </mat-expansion-panel-header>
 
     <form novalidate [formGroup]="form" (ngSubmit)="onFiltersSubmit()">
-      <div fxLayout="row wrap" fxLayoutAlign="flex-start center" fxLayoutGap="15px">
+      <div
+        fxLayout="row wrap"
+        fxLayoutAlign="flex-start center"
+        fxLayoutGap="15px"
+      >
         <div *ngFor="let col of inputColumns" fxFlex>
           <mat-form-field class="full-width-input">
-            <mat-label>{{col.name}}</mat-label>
-            <input matInput [placeholder]="col.placeholder||'Filter'" [formControlName]="col.value" type="text" />
-            <mat-icon matSuffix>{{col.icon}}</mat-icon>
+            <mat-label>{{ col.name }}</mat-label>
+            <input
+              matInput
+              [placeholder]="col.placeholder || 'Filter'"
+              [formControlName]="col.value"
+              type="text"
+            />
+            <mat-icon matSuffix>{{ col.icon }}</mat-icon>
           </mat-form-field>
         </div>
 
         <div *ngFor="let col of observableSelectColumns" fxFlex>
           <mat-form-field class="full-width-input">
-            <mat-label>{{col.name}}</mat-label>
+            <mat-label>{{ col.name }}</mat-label>
             <mat-select [formControlName]="col.value">
-              <mat-option *ngFor="let item of col.array|async" [value]="item._id">
-                {{ item.first_name|| item.ro||item.label}}
+              <mat-option
+                *ngFor="let item of col.array | async"
+                [value]="item._id"
+              >
+                {{ item.first_name || item.ro || item.label }}
               </mat-option>
               <mat-option [value]="''">
-                {{ 'All'}}
+                {{ "All" }}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -36,13 +45,13 @@
 
         <div *ngFor="let col of selectColumns" fxFlex>
           <mat-form-field class="full-width-input">
-            <mat-label>{{col.name}}</mat-label>
+            <mat-label>{{ col.name }}</mat-label>
             <mat-select [formControlName]="col.value">
               <mat-option *ngFor="let item of col.array" [value]="item._id">
-                {{ item.first_name|| item.ro||item.label}}
+                {{ item.first_name || item.ro || item.label }}
               </mat-option>
               <mat-option [value]="''">
-                {{ 'All'}}
+                {{ "All" }}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -52,9 +61,7 @@
         <button mat-button type="button" color="primary" (click)="reset()">
           Reset
         </button>
-        <button mat-flat-button color="primary">
-          Search
-        </button>
+        <button mat-flat-button color="primary">Search</button>
       </mat-action-row>
     </form>
   </mat-expansion-panel>

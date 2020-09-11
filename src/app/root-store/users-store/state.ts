@@ -11,5 +11,5 @@ export const initialState: UsersState = {
   data: [],
   userDetails: null,
   isLoading: false,
-  error: null
+  error: null,
 };

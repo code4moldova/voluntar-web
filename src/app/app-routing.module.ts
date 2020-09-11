@@ -8,7 +8,7 @@ const routes: Routes = [
     path: '',
     // canActivate: [PublicGuard],
     loadChildren: () =>
-      import('./pages/welcome/welcome.module').then(m => m.WelcomeModule)
+      import('./pages/welcome/welcome.module').then((m) => m.WelcomeModule),
   },
   {
     path: 'admin',
@@ -33,4 +33,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

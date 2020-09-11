@@ -4,28 +4,64 @@
       <h1 class="mb-0 mt-0 mr-10">Requests</h1>
     </div>
     <div fxFlex fxLayoutAlign="end">
-      <button mat-flat-button class="mr-20 large secondary" type="button" (click)="onExport()"><mat-icon>cloud_download</mat-icon> Export Excel</button>
-      <a routerLink="/admin/requests/new" mat-flat-button color="primary" class="large">
-        <mat-icon>add</mat-icon> New Request
+      <button
+        mat-flat-button
+        class="mr-20 large secondary"
+        type="button"
+        (click)="onExport()"
+      >
+        <mat-icon>cloud_download</mat-icon>
+        Export Excel
+      </button>
+      <a
+        routerLink="/admin/requests/new"
+        mat-flat-button
+        color="primary"
+        class="large"
+      >
+        <mat-icon>add</mat-icon>
+        New Request
       </a>
     </div>
   </div>
 </div>
 
-<app-filter [inputColumns]="inputColumns" [observableSelectColumns]="observableSelectColumns"
-  [selectColumns]="selectColumns" (queryResult)="queryResult($event)">
-</app-filter>
+<app-filter
+  [inputColumns]="inputColumns"
+  [observableSelectColumns]="observableSelectColumns"
+  [selectColumns]="selectColumns"
+  (queryResult)="queryResult($event)"
+></app-filter>
 
-<mat-tab-group [selectedIndex]="selectedTabIndex$ | async" mat-stretch-tabs class="selected-tab-{{ selectedTab }}" (selectedTabChange)="onTabChanged($event)" #tabGroup [disableRipple]="true">  
+<mat-tab-group
+  [selectedIndex]="selectedTabIndex$ | async"
+  mat-stretch-tabs
+  class="selected-tab-{{ selectedTab }}"
+  (selectedTabChange)="onTabChanged($event)"
+  #tabGroup
+  [disableRipple]="true"
+>
   <mat-tab>
     <ng-template mat-tab-label>
-      <span matBadge="{{(allStatusesCounts$ | async)[0]}}" matBadgeOverlap="false" class="primary">All requests</span>
+      <span
+        matBadge="{{ (allStatusesCounts$ | async)[0] }}"
+        matBadgeOverlap="false"
+        class="primary"
+      >
+        All requests
+      </span>
     </ng-template>
   </mat-tab>
 
   <mat-tab *ngFor="let status of allStatuses; let i = index" [label]="status">
     <ng-template mat-tab-label>
-      <span matBadge="{{(allStatusesCounts$ | async)[i+1]}}" matBadgeOverlap="false" ngClass="{{status._id}}">{{ status.label }}</span>
+      <span
+        matBadge="{{ (allStatusesCounts$ | async)[i + 1] }}"
+        matBadgeOverlap="false"
+        ngClass="{{ status._id }}"
+      >
+        {{ status.label }}
+      </span>
     </ng-template>
   </mat-tab>
 </mat-tab-group>
@@ -35,11 +71,33 @@
     <ng-container matColumnDef="icons">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let element">
-        <span *ngIf="element.black_list" matTooltip="Black List" class="blacklist"></span>
+        <span
+          *ngIf="element.black_list"
+          matTooltip="Black List"
+          class="blacklist"
+        ></span>
         <mat-chip-list>
-          <mat-chip *ngIf="element.have_money" [matTooltip]="'Has money'" class="money"><mat-icon>monetization_on</mat-icon></mat-chip>
-          <mat-chip *ngIf="element.has_disabilities" [matTooltip]="'Has disabilities'" class="disabilities"><mat-icon>accessible</mat-icon></mat-chip>
-          <mat-chip *ngIf="element.has_symptoms" [matTooltip]="'Has symtoms'" class="symptoms"><mat-icon>face</mat-icon></mat-chip>
+          <mat-chip
+            *ngIf="element.have_money"
+            [matTooltip]="'Has money'"
+            class="money"
+          >
+            <mat-icon>monetization_on</mat-icon>
+          </mat-chip>
+          <mat-chip
+            *ngIf="element.has_disabilities"
+            [matTooltip]="'Has disabilities'"
+            class="disabilities"
+          >
+            <mat-icon>accessible</mat-icon>
+          </mat-chip>
+          <mat-chip
+            *ngIf="element.has_symptoms"
+            [matTooltip]="'Has symtoms'"
+            class="symptoms"
+          >
+            <mat-icon>face</mat-icon>
+          </mat-chip>
         </mat-chip-list>
       </td>
     </ng-container>
@@ -52,7 +110,10 @@
 
     <ng-container matColumnDef="phone">
       <th mat-header-cell *matHeaderCellDef>Telefon</th>
-      <td mat-cell *matCellDef="let element"><mat-icon>phone_in_talk</mat-icon>{{ element.phone | mask: '00 000 000' }}</td>
+      <td mat-cell *matCellDef="let element">
+        <mat-icon>phone_in_talk</mat-icon>
+        {{ element.phone | mask: "00 000 000" }}
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="sector">
@@ -67,7 +128,7 @@
       <th mat-header-cell *matHeaderCellDef>Adaugat</th>
       <td mat-cell *matCellDef="let element">
         <mat-icon>today</mat-icon>
-        {{ element.created_at | date : 'd MMM' }}
+        {{ element.created_at | date: "d MMM" }}
       </td>
     </ng-container>
 
@@ -75,7 +136,9 @@
       <th mat-header-cell *matHeaderCellDef>Fixer</th>
       <td mat-cell *matCellDef="let element">
         <mat-icon>settings</mat-icon>
-        <ng-container *ngIf="element.fixer === 'None'; else getFixer">{{ element.fixer }}</ng-container>
+        <ng-container *ngIf="element.fixer === 'None'; else getFixer">
+          {{ element.fixer }}
+        </ng-container>
         <ng-template #getFixer>
           <ng-container *ngIf="operatorById$(element.fixer) | async as fixer">
             {{ fixer.first_name }} {{ fixer.last_name }}
@@ -86,7 +149,7 @@
 
     <ng-container matColumnDef="status">
       <th mat-header-cell *matHeaderCellDef>Status</th>
-      <td mat-cell *matCellDef="let element" class="{{element.status}}">
+      <td mat-cell *matCellDef="let element" class="{{ element.status }}">
         <mat-chip>{{ getStatusLabel(element.status) }}</mat-chip>
       </td>
     </ng-container>
@@ -96,23 +159,29 @@
       <th mat-header-cell *matHeaderCellDef>Ore pe zi</th>
       <td mat-cell *matCellDef="let element">{{ element.available_hours }}</td>
     </ng-container>
-    
+
     <tr
       mat-row
       *matRowDef="let row; columns: displayedColumns"
       class="clickable-row"
-      [ngClass]="{cancelled: getStatusLabel(row.status) === 'Cancelled', blacklist: row.black_list === true}"
-      [routerLink]="['/admin/requests/details', row._id]"></tr>
+      [ngClass]="{
+        cancelled: getStatusLabel(row.status) === 'Cancelled',
+        blacklist: row.black_list === true
+      }"
+      [routerLink]="['/admin/requests/details', row._id]"
+    ></tr>
   </table>
 
   <div class="loading-shade" *ngIf="isLoading$ | async">
     <mat-spinner></mat-spinner>
   </div>
   <mat-card-footer class="container m-0">
-    <mat-paginator (page)="onPageChange($event)" [length]="count$ | async" [pageSizeOptions]="[20, 50, 100]">
-    </mat-paginator>
+    <mat-paginator
+      (page)="onPageChange($event)"
+      [length]="count$ | async"
+      [pageSizeOptions]="[20, 50, 100]"
+    ></mat-paginator>
   </mat-card-footer>
 </mat-card>
-
 
 <div #empty></div>

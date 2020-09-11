@@ -12,31 +12,31 @@ const routes: Routes = [
       {
         path: '',
         redirectTo: 'list',
-        pathMatch: 'full'
+        pathMatch: 'full',
       },
       {
         path: 'details/:id',
-        component: VolunteersDetailsComponent
+        component: VolunteersDetailsComponent,
       },
       {
         path: 'list',
-        component: VolunteersListComponent
+        component: VolunteersListComponent,
       },
       {
         path: 'new',
-        component: VolunteersDetailsComponent
+        component: VolunteersDetailsComponent,
       },
       {
         path: '**',
         redirectTo: 'list',
-        pathMatch: 'full'
-      }
-    ]
-  }
+        pathMatch: 'full',
+      },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class VolunteersRoutingModule { }
+export class VolunteersRoutingModule {}

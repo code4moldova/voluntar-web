@@ -5,7 +5,8 @@
     </div>
     <div fxFlex fxLayoutAlign="end">
       <a routerLink="/admin/users/new" mat-raised-button color="primary">
-        <mat-icon>add</mat-icon> Nou user
+        <mat-icon>add</mat-icon>
+        Nou user
       </a>
     </div>
   </div>
@@ -42,8 +43,12 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns" class="clickable-row"
-      [routerLink]="['/admin/users/details', row._id]"></tr>
+    <tr
+      mat-row
+      *matRowDef="let row; columns: displayedColumns"
+      class="clickable-row"
+      [routerLink]="['/admin/users/details', row._id]"
+    ></tr>
   </table>
 
   <div class="loading-shade" *ngIf="isLoading$ | async">

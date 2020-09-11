@@ -13,7 +13,7 @@ import { SharedModule } from '@shared/shared.module';
     CommonModule,
     UsersRoutingModule,
     MaterialComponentsModule,
-    SharedModule
-  ]
+    SharedModule,
+  ],
 })
 export class UsersModule {}

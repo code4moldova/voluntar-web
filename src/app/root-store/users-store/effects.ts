@@ -16,7 +16,7 @@ import {
   createUserFailureAction,
   updateUserAction,
   updateUserSuccessAction,
-  updateUserFailureAction
+  updateUserFailureAction,
 } from './actions';
 import { UserService } from '@services/users/user.service';
 
@@ -33,9 +33,9 @@ export class UsersEffects {
       ofType(getUsersAction),
       switchMap(() =>
         this.usersService.getList().pipe(
-          map(res => {
+          map((res) => {
             return getUsersSuccessAction({
-              payload: res.list
+              payload: res.list,
             });
           }),
           catchError(({ error }) => of(getUsersFailureAction({ error })))
@@ -49,9 +49,9 @@ export class UsersEffects {
       ofType(getUserDetailsAction),
       switchMap(({ id }) =>
         this.usersService.getById(id).pipe(
-          map(res => {
+          map((res) => {
             return getUserDetailsSuccessAction({
-              payload: res
+              payload: res,
             });
           }),
           catchError(({ error }) => of(getUserDetailsFailureAction({ error })))
@@ -66,9 +66,9 @@ export class UsersEffects {
       switchMap(({ payload }) => {
         const { _id, ...withoutId } = payload;
         return this.usersService.save(withoutId).pipe(
-          map(res => {
+          map((res) => {
             return createUserSuccessAction({
-              payload: res.user
+              payload: res.user,
             });
           }),
           catchError(({ error }) => of(createUserFailureAction({ error })))
@@ -82,9 +82,9 @@ export class UsersEffects {
       ofType(updateUserAction),
       switchMap(({ payload }) =>
         this.usersService.update(payload).pipe(
-          map(res => {
+          map((res) => {
             return updateUserSuccessAction({
-              payload: res
+              payload: res,
             });
           }),
           catchError(({ error }) => of(updateUserFailureAction({ error })))

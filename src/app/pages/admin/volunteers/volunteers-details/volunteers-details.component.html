@@ -15,47 +15,74 @@
 </div>
 
 <div class="container">
-  <form [formGroup]="form" (ngSubmit)="onSubmit()" fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="25px">
+  <form
+    [formGroup]="form"
+    (ngSubmit)="onSubmit()"
+    fxLayout="row"
+    fxLayoutAlign="start start"
+    fxLayoutGap="25px"
+  >
     <mat-card fxFlex="75">
       <mat-card-content>
         <mat-form-field class="full-width-input">
-          <input matInput placeholder="First Name" formControlName="first_name" required />
-          <mat-error>
-            Please provide the name of volunteer
-          </mat-error>
+          <input
+            matInput
+            placeholder="First Name"
+            formControlName="first_name"
+            required
+          />
+          <mat-error>Please provide the name of volunteer</mat-error>
         </mat-form-field>
         <mat-form-field class="full-width-input">
-          <input matInput placeholder="Last Name" formControlName="last_name" required />
-          <mat-error>
-            Please provide the name of volunteer
-          </mat-error>
+          <input
+            matInput
+            placeholder="Last Name"
+            formControlName="last_name"
+            required
+          />
+          <mat-error>Please provide the name of volunteer</mat-error>
         </mat-form-field>
         <div fxLayout fxLayoutGap="15px">
           <div fxFlex>
             <mat-form-field class="full-width-input">
-              <input matInput placeholder="Email" formControlName="email" type="email" required />
-              <mat-error>
-                Please provide a valid email address
-              </mat-error>
+              <input
+                matInput
+                placeholder="Email"
+                formControlName="email"
+                type="email"
+                required
+              />
+              <mat-error>Please provide a valid email address</mat-error>
             </mat-form-field>
           </div>
         </div>
         <div fxLayout fxLayoutGap="15px">
           <div>
             <mat-form-field class="full-width-input">
-              <input matInput placeholder="Phone" formControlName="phone" required />
-              <mat-error>
-                Please provide a valid phone number
-              </mat-error>
+              <input
+                matInput
+                placeholder="Phone"
+                formControlName="phone"
+                required
+              />
+              <mat-error>Please provide a valid phone number</mat-error>
             </mat-form-field>
           </div>
           <div>
             <mat-form-field class="full-width-input">
-              <input matInput placeholder="Telegram ID" formControlName="telegram_id" />
-              <mat-icon matSuffix *ngIf="hasTelegramChatId$ | async" class="success">done</mat-icon>
-              <mat-error>
-                Please provide a Telegram ID
-              </mat-error>
+              <input
+                matInput
+                placeholder="Telegram ID"
+                formControlName="telegram_id"
+              />
+              <mat-icon
+                matSuffix
+                *ngIf="hasTelegramChatId$ | async"
+                class="success"
+              >
+                done
+              </mat-icon>
+              <mat-error>Please provide a Telegram ID</mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -65,31 +92,53 @@
           <div fxLayoutGap="15px" class="pt-10 pb-10">
             <div fxFlex fxLayoutGap="10px">
               <mat-form-field fxFlex class="full-width-input">
-                <input matInput autocomplete="off" placeholder="Address" aria-label="Address" [matAutocomplete]="auto"
-                  [formControl]="fakeAddressControl" required />
+                <input
+                  matInput
+                  autocomplete="off"
+                  placeholder="Address"
+                  aria-label="Address"
+                  [matAutocomplete]="auto"
+                  [formControl]="fakeAddressControl"
+                  required
+                />
                 <mat-hint>Use to prefill address data</mat-hint>
-                <mat-progress-bar *ngIf="addressIsLoading$ | async" mode="query"></mat-progress-bar>
-                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"
-                  (optionSelected)="onAddressSelected($event)" [displayWith]="displayFn">
-                  <mat-option *ngFor="let address of addresses$ | async" [value]="address">
-                    <span>{{address.address}}</span> |
-                    <small>Score: {{address.score}}</small>
+                <mat-progress-bar
+                  *ngIf="addressIsLoading$ | async"
+                  mode="query"
+                ></mat-progress-bar>
+                <mat-autocomplete
+                  autoActiveFirstOption
+                  #auto="matAutocomplete"
+                  (optionSelected)="onAddressSelected($event)"
+                  [displayWith]="displayFn"
+                >
+                  <mat-option
+                    *ngFor="let address of addresses$ | async"
+                    [value]="address"
+                  >
+                    <span>{{ address.address }}</span>
+                    |
+                    <small>Score: {{ address.score }}</small>
                   </mat-option>
                 </mat-autocomplete>
               </mat-form-field>
-              <button mat-icon-button type="button" color="primary" (click)="showMapDialog()">
+              <button
+                mat-icon-button
+                type="button"
+                color="primary"
+                (click)="showMapDialog()"
+              >
                 <mat-icon>map</mat-icon>
               </button>
             </div>
           </div>
           <mat-accordion>
             <mat-expansion-panel hideToggle>
-              <mat-expansion-panel-header [ngClass]="{'ng-invalid': formSubmitted && addressIsInvalid}">
-                <mat-panel-title>
-                  Full Address Info
-                </mat-panel-title>
+              <mat-expansion-panel-header
+                [ngClass]="{ 'ng-invalid': formSubmitted && addressIsInvalid }"
+              >
+                <mat-panel-title>Full Address Info</mat-panel-title>
                 <mat-panel-description>
-
                   <mat-icon>explore</mat-icon>
                 </mat-panel-description>
               </mat-expansion-panel-header>
@@ -98,25 +147,38 @@
                 <mat-form-field class="full-width-input">
                   <mat-label>City</mat-label>
                   <mat-select formControlName="city">
-                    <mat-option *ngFor="let city of cities" [value]="city.value">
-                      {{city.name}}
+                    <mat-option
+                      *ngFor="let city of cities"
+                      [value]="city.value"
+                    >
+                      {{ city.name }}
                     </mat-option>
                   </mat-select>
                 </mat-form-field>
                 <mat-form-field class="full-width-input">
-                  <input matInput placeholder="Address" formControlName="address" />
-                  <mat-error>
-                    Please provide an Address
-                  </mat-error>
+                  <input
+                    matInput
+                    placeholder="Address"
+                    formControlName="address"
+                  />
+                  <mat-error>Please provide an Address</mat-error>
                 </mat-form-field>
               </div>
               <h3>Coordinates</h3>
               <div fxLayout="row" fxLayoutGap="15px">
                 <mat-form-field class="full-width-input">
-                  <input matInput placeholder="Longitude" formControlName="longitude" />
+                  <input
+                    matInput
+                    placeholder="Longitude"
+                    formControlName="longitude"
+                  />
                 </mat-form-field>
                 <mat-form-field class="full-width-input">
-                  <input matInput placeholder="Latitude" formControlName="latitude" />
+                  <input
+                    matInput
+                    placeholder="Latitude"
+                    formControlName="latitude"
+                  />
                 </mat-form-field>
               </div>
             </mat-expansion-panel>
@@ -125,56 +187,70 @@
 
         <div fxLayout="row" fxLayoutGap="15px" class="mt-15">
           <mat-form-field class="full-width-input">
-            <mat-select placeholder="Raion" formControlName="zone_address" required>
+            <mat-select
+              placeholder="Raion"
+              formControlName="zone_address"
+              required
+            >
               <mat-option *ngFor="let zone of zones" [value]="zone.value">
                 {{ zone.label }}
               </mat-option>
             </mat-select>
-            <mat-error>
-              Please provide a valid zone
-            </mat-error>
+            <mat-error>Please provide a valid zone</mat-error>
           </mat-form-field>
 
-          <mat-form-field class=" full-width-input">
-            <input matInput type="text" placeholder="Suburbie name" formControlName="suburbia" />
-            <mat-error>
-              Please insert the name of suburbie
-            </mat-error>
+          <mat-form-field class="full-width-input">
+            <input
+              matInput
+              type="text"
+              placeholder="Suburbie name"
+              formControlName="suburbia"
+            />
+            <mat-error>Please insert the name of suburbie</mat-error>
           </mat-form-field>
         </div>
 
         <mat-form-field class="full-width-input">
-          <input matInput placeholder="Facebook Profile" formControlName="facebook_profile" />
-          <mat-error>
-            Please provide a Facebook Profile
-          </mat-error>
+          <input
+            matInput
+            placeholder="Facebook Profile"
+            formControlName="facebook_profile"
+          />
+          <mat-error>Please provide a Facebook Profile</mat-error>
         </mat-form-field>
 
         <div fxLayoutGap="15px">
           <mat-form-field fxFlex class="full-width-input">
             <mat-select placeholder="Age" formControlName="age">
-              <mat-option *ngFor="let age of ages$ | async" [value]="age._id">{{ age.ro }}</mat-option>
+              <mat-option *ngFor="let age of ages$ | async" [value]="age._id">
+                {{ age.ro }}
+              </mat-option>
             </mat-select>
-            <mat-error>
-              Please provide Volunteer age
-            </mat-error>
+            <mat-error>Please provide Volunteer age</mat-error>
           </mat-form-field>
           <mat-form-field fxFlex class="full-width-input">
-            <mat-select placeholder="Hours per day" formControlName="availability">
-              <mat-option *ngFor="let availability of availabilities$ | async" [value]="availability._id">
+            <mat-select
+              placeholder="Hours per day"
+              formControlName="availability"
+            >
+              <mat-option
+                *ngFor="let availability of availabilities$ | async"
+                [value]="availability._id"
+              >
                 {{ availability.ro }}
               </mat-option>
             </mat-select>
-            <mat-error>
-              Please provide a valid number
-            </mat-error>
+            <mat-error>Please provide a valid number</mat-error>
           </mat-form-field>
         </div>
 
         <div fxLayoutGap="15px">
           <mat-form-field fxFlex class="full-width-input">
             <mat-select placeholder="Offer" formControlName="offer" required>
-              <mat-option *ngFor="let offer of offers$ | async" [value]="offer._id">
+              <mat-option
+                *ngFor="let offer of offers$ | async"
+                [value]="offer._id"
+              >
                 {{ offer.ro }}
               </mat-option>
             </mat-select>
@@ -193,112 +269,221 @@
 
         <div [hidden]="true">
           <mat-form-field class="full-width-input">
-            <input matInput placeholder="Created By" formControlName="created_by" type="string" />
+            <input
+              matInput
+              placeholder="Created By"
+              formControlName="created_by"
+              type="string"
+            />
             <mat-error *ngIf="created_by.errors?.maxlength">
-              Created by can be max {{created_by.errors?.maxlength.requiredLength}} characters long.
+              Created by can be max
+              {{ created_by.errors?.maxlength.requiredLength }} characters long.
             </mat-error>
           </mat-form-field>
         </div>
 
         <mat-form-field class="full-width-input">
-          <input matInput placeholder="Profession" formControlName="profession" type="string" />
+          <input
+            matInput
+            placeholder="Profession"
+            formControlName="profession"
+            type="string"
+          />
           <mat-error *ngIf="profession.errors?.maxlength">
-            Profession can be max {{profession.errors?.maxlength.requiredLength}} characters long.
+            Profession can be max
+            {{ profession.errors?.maxlength.requiredLength }} characters long.
           </mat-error>
         </mat-form-field>
 
         <mat-form-field class="full-width-input">
-          <input matInput placeholder="Comments" formControlName="comments" type="string" />
+          <input
+            matInput
+            placeholder="Comments"
+            formControlName="comments"
+            type="string"
+          />
           <mat-error *ngIf="comments.errors?.maxlength">
-            Comments can be max {{comments.errors?.maxlength.requiredLength}} characters long.
+            Comments can be max
+            {{ comments.errors?.maxlength.requiredLength }} characters long.
           </mat-error>
         </mat-form-field>
 
         <mat-form-field class="full-width-input">
-          <input matInput placeholder="Last tempreture" formControlName="last_temperature" type="number"
-            [step]="tempStep" required />
+          <input
+            matInput
+            placeholder="Last tempreture"
+            formControlName="last_temperature"
+            type="number"
+            [step]="tempStep"
+            required
+          />
           <mat-error *ngIf="last_temperature.errors?.required">
             Please provide a valid last tempreture
           </mat-error>
           <mat-error *ngIf="last_temperature.errors?.minlength">
-            Last temperature must be at least {{last_temperature.errors?.minlength.requiredLength}} characters long.
+            Last temperature must be at least
+            {{ last_temperature.errors?.minlength.requiredLength }} characters
+            long.
           </mat-error>
           <mat-error *ngIf="last_temperature.errors?.maxlength">
-            Last temperature can be max {{last_temperature.errors?.maxlength.requiredLength}} characters long.
+            Last temperature can be max
+            {{ last_temperature.errors?.maxlength.requiredLength }} characters
+            long.
           </mat-error>
         </mat-form-field>
 
         <div>
-          <mat-radio-group formControlName="need_sim_unite" aria-label="Select an option">
-            <label for="need_sim_unite" class="col-md-12"> Need sim unite ?</label>
+          <mat-radio-group
+            formControlName="need_sim_unite"
+            aria-label="Select an option"
+          >
+            <label for="need_sim_unite" class="col-md-12">
+              Need sim unite ?
+            </label>
             <div class="col-md-12" class="radio_buton_container">
-              <mat-radio-button [value]="false" [checked]="need_sim_unite.value === false"> No</mat-radio-button>
-              <mat-radio-button [value]="true" [checked]="need_sim_unite.value === true"> Yes</mat-radio-button>
+              <mat-radio-button
+                [value]="false"
+                [checked]="need_sim_unite.value === false"
+              >
+                No
+              </mat-radio-button>
+              <mat-radio-button
+                [value]="true"
+                [checked]="need_sim_unite.value === true"
+              >
+                Yes
+              </mat-radio-button>
             </div>
           </mat-radio-group>
           <mat-divider></mat-divider>
         </div>
 
-
         <div class="mt-15">
-          <mat-radio-group formControlName="new_volunteer" aria-label="Select an option">
-            <label for="new_volunteer" class="col-md-12"> New volunteer ?</label>
+          <mat-radio-group
+            formControlName="new_volunteer"
+            aria-label="Select an option"
+          >
+            <label for="new_volunteer" class="col-md-12">New volunteer ?</label>
             <div class="col-md-12" class="radio_buton_container">
-              <mat-radio-button [value]="false" [checked]="new_volunteer.value === false"> No</mat-radio-button>
-              <mat-radio-button [value]="true" [checked]="new_volunteer.value === true"> Yes</mat-radio-button>
+              <mat-radio-button
+                [value]="false"
+                [checked]="new_volunteer.value === false"
+              >
+                No
+              </mat-radio-button>
+              <mat-radio-button
+                [value]="true"
+                [checked]="new_volunteer.value === true"
+              >
+                Yes
+              </mat-radio-button>
             </div>
             <mat-divider></mat-divider>
           </mat-radio-group>
         </div>
 
         <div class="mt-15">
-          <mat-radio-group formControlName="black_list" aria-label="Select an option">
-            <label for="black_list" class="col-md-12"> Black list ?</label>
+          <mat-radio-group
+            formControlName="black_list"
+            aria-label="Select an option"
+          >
+            <label for="black_list" class="col-md-12">Black list ?</label>
             <div class="col-md-12" class="radio_buton_container">
-              <mat-radio-button [value]="false" [checked]="black_list.value === false"> No</mat-radio-button>
-              <mat-radio-button [value]="true" [checked]="black_list.value === true"> Yes</mat-radio-button>
+              <mat-radio-button
+                [value]="false"
+                [checked]="black_list.value === false"
+              >
+                No
+              </mat-radio-button>
+              <mat-radio-button
+                [value]="true"
+                [checked]="black_list.value === true"
+              >
+                Yes
+              </mat-radio-button>
             </div>
             <mat-divider></mat-divider>
           </mat-radio-group>
         </div>
 
         <div class="mt-15">
-          <mat-radio-group formControlName="received_cards" aria-label="Select an option">
-            <label for="received_cards" class="col-md-12"> Received cards ?</label>
+          <mat-radio-group
+            formControlName="received_cards"
+            aria-label="Select an option"
+          >
+            <label for="received_cards" class="col-md-12">
+              Received cards ?
+            </label>
             <div class="col-md-12" class="radio_buton_container">
-              <mat-radio-button [value]="false" [checked]="received_cards.value === false"> No</mat-radio-button>
-              <mat-radio-button [value]="true" [checked]="received_cards.value === true"> Yes</mat-radio-button>
+              <mat-radio-button
+                [value]="false"
+                [checked]="received_cards.value === false"
+              >
+                No
+              </mat-radio-button>
+              <mat-radio-button
+                [value]="true"
+                [checked]="received_cards.value === true"
+              >
+                Yes
+              </mat-radio-button>
             </div>
             <mat-divider></mat-divider>
           </mat-radio-group>
         </div>
 
         <div class="mt-15">
-          <mat-radio-group formControlName="sent_photo" aria-label="Select an option">
-            <label for="sent_photo" class="col-md-12"> Sent photo ?</label>
+          <mat-radio-group
+            formControlName="sent_photo"
+            aria-label="Select an option"
+          >
+            <label for="sent_photo" class="col-md-12">Sent photo ?</label>
             <div class="col-md-12" class="radio_buton_container">
-              <mat-radio-button [value]="false" [checked]="sent_photo.value === false"> No</mat-radio-button>
-              <mat-radio-button [value]="true" [checked]="sent_photo.value === true"> Yes</mat-radio-button>
+              <mat-radio-button
+                [value]="false"
+                [checked]="sent_photo.value === false"
+              >
+                No
+              </mat-radio-button>
+              <mat-radio-button
+                [value]="true"
+                [checked]="sent_photo.value === true"
+              >
+                Yes
+              </mat-radio-button>
             </div>
             <mat-divider></mat-divider>
           </mat-radio-group>
         </div>
 
         <div class="mt-15">
-          <mat-radio-group formControlName="received_contract" aria-label="Select an option">
-            <label for="received_contract" class="col-md-12"> Contract Signed ?</label>
+          <mat-radio-group
+            formControlName="received_contract"
+            aria-label="Select an option"
+          >
+            <label for="received_contract" class="col-md-12">
+              Contract Signed ?
+            </label>
             <div class="col-md-12" class="radio_buton_container">
-              <mat-radio-button [value]="false" [checked]="received_contract.value === false"> No</mat-radio-button>
-              <mat-radio-button [value]="true" [checked]="received_contract.value === true"> Yes</mat-radio-button>
+              <mat-radio-button
+                [value]="false"
+                [checked]="received_contract.value === false"
+              >
+                No
+              </mat-radio-button>
+              <mat-radio-button
+                [value]="true"
+                [checked]="received_contract.value === true"
+              >
+                Yes
+              </mat-radio-button>
             </div>
             <mat-divider></mat-divider>
           </mat-radio-group>
         </div>
 
         <div class="form-action-container">
-          <button mat-raised-button color="primary">
-            Save
-          </button>
+          <button mat-raised-button color="primary">Save</button>
         </div>
       </mat-card-content>
       <div class="loading-shade" *ngIf="isLoading$ | async">
@@ -308,7 +493,9 @@
     <mat-card fxFlex="25">
       <mat-card-content>
         <div>
-          <mat-slide-toggle formControlName="is_active">Active?</mat-slide-toggle>
+          <mat-slide-toggle formControlName="is_active">
+            Active?
+          </mat-slide-toggle>
         </div>
       </mat-card-content>
     </mat-card>

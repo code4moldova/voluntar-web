@@ -3,7 +3,7 @@ import {
   HttpInterceptor,
   HttpRequest,
   HttpHandler,
-  HttpEvent
+  HttpEvent,
 } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, EMPTY } from 'rxjs';
@@ -11,14 +11,17 @@ import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private snackBar: MatSnackBar, private router: Router) { }
+  constructor(private snackBar: MatSnackBar, private router: Router) {}
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     // This has to be ignored
     // Headers injected in coresponding services
-    if (request.url.endsWith('/token') || request.url.startsWith('https://info.iharta.md')) {
+    if (
+      request.url.endsWith('/token') ||
+      request.url.startsWith('https://info.iharta.md')
+    ) {
       return next.handle(request);
     } else {
       const token: string = localStorage.getItem('accessToken');
@@ -28,7 +31,7 @@ export class AuthInterceptor implements HttpInterceptor {
         console.log('Canceled by Interceptor.');
         this.snackBar.open('Token doesnt exist or expired, please Login', '', {
           duration: 3000,
-          panelClass: 'danger'
+          panelClass: 'danger',
         });
         this.router.navigate(['/login']);
         return EMPTY;
@@ -37,7 +40,7 @@ export class AuthInterceptor implements HttpInterceptor {
         headers: request.headers.set(
           'Authorization',
           `Basic ${btoa(token + ':.')}`
-        )
+        ),
       });
     }
 

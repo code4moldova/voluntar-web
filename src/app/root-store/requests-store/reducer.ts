@@ -16,7 +16,7 @@ import {
   getZonesSuccessAction,
   getBeneficiariesByFilterSuccesAction,
   getBeneficiariesByFilterFailureAction,
-  getBeneficiariesByFilterAction
+  getBeneficiariesByFilterAction,
 } from './actions';
 
 const requestReducer = createReducer(
@@ -92,21 +92,21 @@ const requestReducer = createReducer(
     ...state,
     zones,
   })),
-  on(getBeneficiariesByFilterAction, state => ({
+  on(getBeneficiariesByFilterAction, (state) => ({
     ...state,
     error: null,
-    isLoading: true
+    isLoading: true,
   })),
   on(getBeneficiariesByFilterSuccesAction, (state, { payload }) => ({
     ...state,
     isLoading: false,
-    data: payload
+    data: payload,
   })),
   on(getBeneficiariesByFilterFailureAction, (state, { error }) => ({
     ...state,
     isLoading: false,
-    error
-  })),
+    error,
+  }))
 );
 
 export function reducer(state: RequestsState | undefined, action: Action) {

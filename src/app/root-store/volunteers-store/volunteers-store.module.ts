@@ -9,8 +9,8 @@ import { reducer } from './reducer';
   imports: [
     CommonModule,
     StoreModule.forFeature('volunteers', reducer),
-    EffectsModule.forFeature([VolunteersEffects])
+    EffectsModule.forFeature([VolunteersEffects]),
   ],
-  providers: [VolunteersEffects]
+  providers: [VolunteersEffects],
 })
 export class VolunteersStoreModule {}

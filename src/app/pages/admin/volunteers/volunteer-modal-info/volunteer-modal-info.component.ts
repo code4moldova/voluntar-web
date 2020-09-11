@@ -7,24 +7,24 @@ import { map } from 'rxjs/operators';
 @Component({
   selector: 'app-volunteer-modal-info',
   templateUrl: './volunteer-modal-info.component.html',
-  styleUrls: ['./volunteer-modal-info.component.scss']
+  styleUrls: ['./volunteer-modal-info.component.scss'],
 })
 export class VolunteerModalInfoComponent implements OnInit {
   activityTypes$ = this.tagsFacade.activityTypesTags$.pipe(
-    map(types => types.filter(({ _id }) => this.volunteer.activity_types.includes(_id)))
+    map((types) =>
+      types.filter(({ _id }) => this.volunteer.activity_types.includes(_id))
+    )
   );
 
   constructor(
     private tagsFacade: TagsFacadeService,
     private dialogRef: MatDialogRef<VolunteerModalInfoComponent>,
-    @Inject(MAT_DIALOG_DATA) public volunteer: IVolunteer & { distance: number },
-  ) { }
+    @Inject(MAT_DIALOG_DATA) public volunteer: IVolunteer & { distance: number }
+  ) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   closeDialog() {
     this.dialogRef.close();
   }
-
 }

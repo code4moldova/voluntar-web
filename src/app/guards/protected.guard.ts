@@ -4,14 +4,14 @@ import {
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
   UrlTree,
-  Router
+  Router,
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { TokenStorage } from '../services/auth/token-storage.service';
 import { map } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProtectedGuard implements CanActivate {
   constructor(private tokenStorage: TokenStorage, private router: Router) {}
@@ -24,7 +24,7 @@ export class ProtectedGuard implements CanActivate {
     | boolean
     | UrlTree {
     return this.tokenStorage.getAccessToken().pipe(
-      map(token => {
+      map((token) => {
         if (Boolean(token)) {
           return true;
         }

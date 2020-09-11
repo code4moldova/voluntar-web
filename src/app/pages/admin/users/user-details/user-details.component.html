@@ -15,38 +15,57 @@
 </div>
 
 <div class="container">
-  <form [formGroup]="form" (ngSubmit)="onSubmit()" fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="25px">
+  <form
+    [formGroup]="form"
+    (ngSubmit)="onSubmit()"
+    fxLayout="row"
+    fxLayoutAlign="start start"
+    fxLayoutGap="25px"
+  >
     <mat-card fxFlex="75">
       <mat-card-content>
         <mat-form-field class="full-width-input">
-          <input matInput placeholder="First Name" formControlName="first_name" required />
-          <mat-error>
-            Please provide First name
-          </mat-error>
+          <input
+            matInput
+            placeholder="First Name"
+            formControlName="first_name"
+            required
+          />
+          <mat-error>Please provide First name</mat-error>
         </mat-form-field>
         <mat-form-field class="full-width-input">
-          <input matInput placeholder="Last Name" formControlName="last_name" required />
-          <mat-error>
-            Please provide the Last name
-          </mat-error>
+          <input
+            matInput
+            placeholder="Last Name"
+            formControlName="last_name"
+            required
+          />
+          <mat-error>Please provide the Last name</mat-error>
         </mat-form-field>
         <div fxLayout fxLayoutGap="15px">
           <div fxFlex>
             <mat-form-field class="full-width-input">
-              <input matInput placeholder="Email" formControlName="email" required />
-              <mat-error>
-                Please provide a valid email address
-              </mat-error>
+              <input
+                matInput
+                placeholder="Email"
+                formControlName="email"
+                required
+              />
+              <mat-error>Please provide a valid email address</mat-error>
             </mat-form-field>
           </div>
         </div>
         <div *ngIf="!id" fxLayout fxLayoutGap="15px">
           <div fxFlex>
             <mat-form-field class="full-width-input">
-              <input matInput type="password" placeholder="Password" formControlName="password" required />
-              <mat-error>
-                Please provide a valid password
-              </mat-error>
+              <input
+                matInput
+                type="password"
+                placeholder="Password"
+                formControlName="password"
+                required
+              />
+              <mat-error>Please provide a valid password</mat-error>
             </mat-form-field>
           </div>
           <div fxFlex>
@@ -57,7 +76,8 @@
                 placeholder="Repeat password"
                 formControlName="repeatPassword"
                 [errorStateMatcher]="matcher"
-                required />
+                required
+              />
               <mat-error *ngIf="form.hasError('notMatch')">
                 Password doesn't match
               </mat-error>
@@ -67,10 +87,14 @@
         <div fxLayout fxLayoutGap="15px">
           <div>
             <mat-form-field class="full-width-input">
-              <input matInput type="number" placeholder="Phone" formControlName="phone" required />
-              <mat-error>
-                Please provide a valid phone number
-              </mat-error>
+              <input
+                matInput
+                type="number"
+                placeholder="Phone"
+                formControlName="phone"
+                required
+              />
+              <mat-error>Please provide a valid phone number</mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -78,14 +102,12 @@
           <mat-label>Roles</mat-label>
           <mat-select formControlName="roles" multiple>
             <mat-option *ngFor="let role of availableRoles" [value]="role">
-              {{role}}
+              {{ role }}
             </mat-option>
           </mat-select>
         </mat-form-field>
         <div class="form-action-container">
-          <button mat-raised-button color="primary">
-            Save
-          </button>
+          <button mat-raised-button color="primary">Save</button>
         </div>
       </mat-card-content>
       <div class="loading-shade" *ngIf="isLoading$ | async">
@@ -95,7 +117,9 @@
     <mat-card fxFlex="25">
       <mat-card-content>
         <div>
-          <mat-slide-toggle formControlName="is_active">Active?</mat-slide-toggle>
+          <mat-slide-toggle formControlName="is_active">
+            Active?
+          </mat-slide-toggle>
         </div>
       </mat-card-content>
     </mat-card>

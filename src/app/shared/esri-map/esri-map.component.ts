@@ -30,7 +30,7 @@ export class EsriMapComponent implements OnDestroy, AfterViewInit {
   constructor(
     private dialogRef: MatDialogRef<EsriMapComponent>,
     @Inject(MAT_DIALOG_DATA) private data: { coors: number[]; address: string }
-  ) { }
+  ) {}
 
   ngAfterViewInit() {
     this.initializeMap();
@@ -114,7 +114,9 @@ export class EsriMapComponent implements OnDestroy, AfterViewInit {
         this.view.popup.clear();
         if (this.search.activeSource) {
           const resp = await this.search.activeSource.locator.locationToAddress(
-            { location: evt.mapPoint }
+            {
+              location: evt.mapPoint,
+            }
           );
           // console.log(resp);
 

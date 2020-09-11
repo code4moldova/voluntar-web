@@ -7,7 +7,7 @@ import {
   loginAction,
   loginFailureAction,
   loginSuccessAction,
-  logoutAction
+  logoutAction,
 } from './actions';
 import { Router } from '@angular/router';
 import { TokenStorage } from '@services/auth/token-storage.service';
@@ -20,7 +20,7 @@ export class AuthEffects {
     private authService: AuthService,
     private tokenStorage: TokenStorage,
     private router: Router
-  ) { }
+  ) {}
 
   login$: Observable<Action> = createEffect(() => {
     return this.actions$.pipe(
@@ -30,13 +30,13 @@ export class AuthEffects {
           tap(() => {
             this.router.navigate(['/admin']);
           }),
-          map(res => {
+          map((res) => {
             this.tokenStorage.setAccessToken(res.token);
             return loginSuccessAction({
-              accessToken: res.token
+              accessToken: res.token,
             });
           }),
-          catchError(error => of(loginFailureAction({ error })))
+          catchError((error) => of(loginFailureAction({ error })))
         )
       )
     );

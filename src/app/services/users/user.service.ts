@@ -5,16 +5,13 @@ import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   save(user: IUser) {
-    return this.http.post<{ user: IUser }>(
-      `${environment.url}/operator`,
-      user
-    );
+    return this.http.post<{ user: IUser }>(`${environment.url}/operator`, user);
   }
 
   update(user: IUser) {

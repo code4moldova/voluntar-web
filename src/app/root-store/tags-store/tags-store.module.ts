@@ -9,8 +9,8 @@ import { reducer } from './reducer';
   imports: [
     CommonModule,
     StoreModule.forFeature('tags', reducer),
-    EffectsModule.forFeature([TagsEffects])
+    EffectsModule.forFeature([TagsEffects]),
   ],
-  providers: [TagsEffects]
+  providers: [TagsEffects],
 })
-export class TagsStoreModule { }
+export class TagsStoreModule {}

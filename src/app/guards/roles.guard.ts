@@ -20,7 +20,7 @@ export class RolesGuard implements CanActivate {
     private userFacade: UserFacadeService,
     private snakBar: MatSnackBar,
     private route: Router
-  ) { }
+  ) {}
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot

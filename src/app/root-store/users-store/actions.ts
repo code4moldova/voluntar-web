@@ -16,7 +16,7 @@ export enum ActionTypes {
 
   UPDATE_USER = '[USERS] Update User',
   UPDATE_USER_SUCCESS = '[USERS] Update User Success',
-  UPDATE_USER_FAILURE = '[USERS] Update User Failure'
+  UPDATE_USER_FAILURE = '[USERS] Update User Failure',
 }
 
 export const getUsersAction = createAction(ActionTypes.GET_USERS);

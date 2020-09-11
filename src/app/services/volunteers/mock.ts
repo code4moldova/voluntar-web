@@ -9,7 +9,7 @@ export const data = [
     status: false,
     social_profile: 'https://ow.ly/justo/in/hac/habitasse/platea/dictumst.json',
     available_hours: 2,
-    activity_type: 'Technical Writer'
+    activity_type: 'Technical Writer',
   },
   {
     id: 2,
@@ -21,7 +21,7 @@ export const data = [
     status: true,
     social_profile: 'http://admin.ch/luctus/tincidunt.js',
     available_hours: 6,
-    activity_type: 'Account Executive'
+    activity_type: 'Account Executive',
   },
   {
     id: 3,
@@ -34,7 +34,7 @@ export const data = [
     social_profile:
       'https://devhub.com/turpis/nec/euismod/scelerisque/quam.aspx',
     available_hours: 3,
-    activity_type: 'Account Representative IV'
+    activity_type: 'Account Representative IV',
   },
   {
     id: 4,
@@ -46,7 +46,7 @@ export const data = [
     status: true,
     social_profile: 'http://networksolutions.com/justo/morbi/ut/odio.jsp',
     available_hours: 3,
-    activity_type: 'Automation Specialist I'
+    activity_type: 'Automation Specialist I',
   },
   {
     id: 5,
@@ -58,7 +58,7 @@ export const data = [
     status: true,
     social_profile: 'http://google.nl/non/mattis.html',
     available_hours: 2,
-    activity_type: 'Civil Engineer'
+    activity_type: 'Civil Engineer',
   },
   {
     id: 6,
@@ -70,7 +70,7 @@ export const data = [
     status: false,
     social_profile: 'http://networkadvertising.org/adipiscing/elit.aspx',
     available_hours: 5,
-    activity_type: 'Help Desk Technician'
+    activity_type: 'Help Desk Technician',
   },
   {
     id: 7,
@@ -82,7 +82,7 @@ export const data = [
     status: false,
     social_profile: 'https://smugmug.com/commodo/placerat/praesent.json',
     available_hours: 7,
-    activity_type: 'Sales Representative'
+    activity_type: 'Sales Representative',
   },
   {
     id: 8,
@@ -94,7 +94,7 @@ export const data = [
     status: false,
     social_profile: 'https://virginia.edu/vel/nisl/duis/ac/nibh.xml',
     available_hours: 7,
-    activity_type: 'Senior Editor'
+    activity_type: 'Senior Editor',
   },
   {
     id: 9,
@@ -107,7 +107,7 @@ export const data = [
     social_profile:
       'https://wsj.com/pharetra/magna/vestibulum/aliquet/ultrices.xml',
     available_hours: 2,
-    activity_type: 'Structural Analysis Engineer'
+    activity_type: 'Structural Analysis Engineer',
   },
   {
     id: 10,
@@ -120,7 +120,7 @@ export const data = [
     social_profile:
       'https://constantcontact.com/suspendisse/ornare/consequat.js',
     available_hours: 3,
-    activity_type: 'Recruiting Manager'
+    activity_type: 'Recruiting Manager',
   },
   {
     id: 11,
@@ -133,7 +133,7 @@ export const data = [
     social_profile:
       'https://xrea.com/turpis/elementum/ligula/vehicula/consequat/morbi/a.aspx',
     available_hours: 5,
-    activity_type: 'Research Nurse'
+    activity_type: 'Research Nurse',
   },
   {
     id: 12,
@@ -146,7 +146,7 @@ export const data = [
     social_profile:
       'http://homestead.com/vestibulum/sagittis/sapien/cum/sociis.html',
     available_hours: 5,
-    activity_type: 'Senior Quality Engineer'
+    activity_type: 'Senior Quality Engineer',
   },
   {
     id: 13,
@@ -159,7 +159,7 @@ export const data = [
     social_profile:
       'https://miitbeian.gov.cn/nullam/orci/pede/venenatis/non.html',
     available_hours: 6,
-    activity_type: 'Nuclear Power Engineer'
+    activity_type: 'Nuclear Power Engineer',
   },
   {
     id: 14,
@@ -171,7 +171,7 @@ export const data = [
     status: true,
     social_profile: 'https://eepurl.com/mauris/enim/leo.png',
     available_hours: 6,
-    activity_type: 'Engineer II'
+    activity_type: 'Engineer II',
   },
   {
     id: 15,
@@ -184,7 +184,7 @@ export const data = [
     social_profile:
       'https://blogspot.com/in/hac/habitasse/platea/dictumst/etiam/faucibus.json',
     available_hours: 2,
-    activity_type: 'Nurse'
+    activity_type: 'Nurse',
   },
   {
     id: 16,
@@ -196,7 +196,7 @@ export const data = [
     status: true,
     social_profile: 'https://flickr.com/semper/est/quam/pharetra.aspx',
     available_hours: 4,
-    activity_type: 'Help Desk Technician'
+    activity_type: 'Help Desk Technician',
   },
   {
     id: 17,
@@ -209,7 +209,7 @@ export const data = [
     social_profile:
       'http://sciencedaily.com/dui/maecenas/tristique/est/et.html',
     available_hours: 4,
-    activity_type: 'Information Systems Manager'
+    activity_type: 'Information Systems Manager',
   },
   {
     id: 18,
@@ -221,7 +221,7 @@ export const data = [
     status: false,
     social_profile: 'https://mashable.com/porttitor/id/consequat.json',
     available_hours: 8,
-    activity_type: 'Software Engineer III'
+    activity_type: 'Software Engineer III',
   },
   {
     id: 19,
@@ -233,7 +233,7 @@ export const data = [
     status: true,
     social_profile: 'https://state.tx.us/in/blandit/ultrices/enim/lorem.js',
     available_hours: 8,
-    activity_type: 'Database Administrator II'
+    activity_type: 'Database Administrator II',
   },
   {
     id: 20,
@@ -246,7 +246,7 @@ export const data = [
     social_profile:
       'http://nifty.com/magna/vestibulum/aliquet/ultrices/erat/tortor/sollicitudin.html',
     available_hours: 8,
-    activity_type: 'Professor'
+    activity_type: 'Professor',
   },
   {
     id: 21,
@@ -258,7 +258,7 @@ export const data = [
     status: true,
     social_profile: 'http://google.com.br/risus/semper.js',
     available_hours: 3,
-    activity_type: 'Editor'
+    activity_type: 'Editor',
   },
   {
     id: 22,
@@ -270,7 +270,7 @@ export const data = [
     status: false,
     social_profile: 'http://skyrock.com/dui/maecenas/tristique/est.png',
     available_hours: 3,
-    activity_type: 'Chief Design Engineer'
+    activity_type: 'Chief Design Engineer',
   },
   {
     id: 23,
@@ -283,7 +283,7 @@ export const data = [
     social_profile:
       'http://state.gov/curabitur/convallis/duis/consequat/dui/nec/nisi.png',
     available_hours: 6,
-    activity_type: 'Staff Scientist'
+    activity_type: 'Staff Scientist',
   },
   {
     id: 24,
@@ -295,7 +295,7 @@ export const data = [
     status: true,
     social_profile: 'https://forbes.com/lorem/ipsum/dolor/sit.aspx',
     available_hours: 7,
-    activity_type: 'VP Product Management'
+    activity_type: 'VP Product Management',
   },
   {
     id: 25,
@@ -307,7 +307,7 @@ export const data = [
     status: true,
     social_profile: 'http://europa.eu/elit/sodales/scelerisque.xml',
     available_hours: 6,
-    activity_type: 'Professor'
+    activity_type: 'Professor',
   },
   {
     id: 26,
@@ -319,7 +319,7 @@ export const data = [
     status: false,
     social_profile: 'http://devhub.com/odio.js',
     available_hours: 8,
-    activity_type: 'Account Representative IV'
+    activity_type: 'Account Representative IV',
   },
   {
     id: 27,
@@ -331,7 +331,7 @@ export const data = [
     status: true,
     social_profile: 'http://soup.io/ultrices/aliquet.xml',
     available_hours: 5,
-    activity_type: 'Senior Developer'
+    activity_type: 'Senior Developer',
   },
   {
     id: 28,
@@ -343,7 +343,7 @@ export const data = [
     status: false,
     social_profile: 'https://indiatimes.com/duis/at/velit.jpg',
     available_hours: 7,
-    activity_type: 'Senior Sales Associate'
+    activity_type: 'Senior Sales Associate',
   },
   {
     id: 29,
@@ -356,7 +356,7 @@ export const data = [
     social_profile:
       'https://senate.gov/luctus/tincidunt/nulla/mollis/molestie/lorem/quisque.js',
     available_hours: 7,
-    activity_type: 'Pharmacist'
+    activity_type: 'Pharmacist',
   },
   {
     id: 30,
@@ -368,7 +368,7 @@ export const data = [
     status: true,
     social_profile: 'http://smh.com.au/orci/luctus.aspx',
     available_hours: 5,
-    activity_type: 'Food Chemist'
+    activity_type: 'Food Chemist',
   },
   {
     id: 31,
@@ -380,7 +380,7 @@ export const data = [
     status: true,
     social_profile: 'https://facebook.com/nam/nulla/integer.xml',
     available_hours: 2,
-    activity_type: 'Assistant Media Planner'
+    activity_type: 'Assistant Media Planner',
   },
   {
     id: 32,
@@ -393,7 +393,7 @@ export const data = [
     social_profile:
       'https://businessinsider.com/nisi/volutpat/eleifend/donec.jpg',
     available_hours: 5,
-    activity_type: 'Human Resources Manager'
+    activity_type: 'Human Resources Manager',
   },
   {
     id: 33,
@@ -405,7 +405,7 @@ export const data = [
     status: false,
     social_profile: 'http://photobucket.com/vitae/nisi/nam/ultrices/libero.png',
     available_hours: 8,
-    activity_type: 'Quality Control Specialist'
+    activity_type: 'Quality Control Specialist',
   },
   {
     id: 34,
@@ -418,7 +418,7 @@ export const data = [
     social_profile:
       'http://imgur.com/elementum/eu/interdum/eu/tincidunt/in/leo.jsp',
     available_hours: 2,
-    activity_type: 'VP Accounting'
+    activity_type: 'VP Accounting',
   },
   {
     id: 35,
@@ -430,7 +430,7 @@ export const data = [
     status: false,
     social_profile: 'http://jimdo.com/praesent.jpg',
     available_hours: 3,
-    activity_type: 'Quality Control Specialist'
+    activity_type: 'Quality Control Specialist',
   },
   {
     id: 36,
@@ -442,7 +442,7 @@ export const data = [
     status: false,
     social_profile: 'http://abc.net.au/massa/donec/dapibus/duis/at/velit.xml',
     available_hours: 3,
-    activity_type: 'Senior Editor'
+    activity_type: 'Senior Editor',
   },
   {
     id: 37,
@@ -454,7 +454,7 @@ export const data = [
     status: true,
     social_profile: 'http://freewebs.com/purus.aspx',
     available_hours: 4,
-    activity_type: 'Geologist II'
+    activity_type: 'Geologist II',
   },
   {
     id: 38,
@@ -466,7 +466,7 @@ export const data = [
     status: true,
     social_profile: 'http://mail.ru/cum/sociis/natoque/penatibus.json',
     available_hours: 4,
-    activity_type: 'Nurse'
+    activity_type: 'Nurse',
   },
   {
     id: 39,
@@ -478,7 +478,7 @@ export const data = [
     status: false,
     social_profile: 'http://yale.edu/enim/sit/amet.png',
     available_hours: 6,
-    activity_type: 'Media Manager I'
+    activity_type: 'Media Manager I',
   },
   {
     id: 40,
@@ -491,7 +491,7 @@ export const data = [
     social_profile:
       'https://google.com.br/augue/vestibulum/ante/ipsum/primis/in.jpg',
     available_hours: 6,
-    activity_type: 'Clinical Specialist'
+    activity_type: 'Clinical Specialist',
   },
   {
     id: 41,
@@ -504,7 +504,7 @@ export const data = [
     social_profile:
       'http://tinyurl.com/sapien/placerat/ante/nulla/justo/aliquam.png',
     available_hours: 8,
-    activity_type: 'Technical Writer'
+    activity_type: 'Technical Writer',
   },
   {
     id: 42,
@@ -517,7 +517,7 @@ export const data = [
     social_profile:
       'http://pen.io/turpis/donec/posuere/metus/vitae/ipsum/aliquam.html',
     available_hours: 3,
-    activity_type: 'Assistant Media Planner'
+    activity_type: 'Assistant Media Planner',
   },
   {
     id: 43,
@@ -530,7 +530,7 @@ export const data = [
     social_profile:
       'https://acquirethisname.com/ultrices/libero/non/mattis/pulvinar.js',
     available_hours: 8,
-    activity_type: 'Nurse'
+    activity_type: 'Nurse',
   },
   {
     id: 44,
@@ -542,7 +542,7 @@ export const data = [
     status: true,
     social_profile: 'http://slashdot.org/sapien/a/libero/nam/dui/proin/leo.jpg',
     available_hours: 8,
-    activity_type: 'Programmer Analyst III'
+    activity_type: 'Programmer Analyst III',
   },
   {
     id: 45,
@@ -554,7 +554,7 @@ export const data = [
     status: false,
     social_profile: 'https://wikipedia.org/pellentesque.png',
     available_hours: 7,
-    activity_type: 'VP Marketing'
+    activity_type: 'VP Marketing',
   },
   {
     id: 46,
@@ -567,7 +567,7 @@ export const data = [
     social_profile:
       'http://digg.com/justo/nec/condimentum/neque/sapien/placerat/ante.jpg',
     available_hours: 2,
-    activity_type: 'Research Associate'
+    activity_type: 'Research Associate',
   },
   {
     id: 47,
@@ -579,7 +579,7 @@ export const data = [
     status: true,
     social_profile: 'https://narod.ru/donec.jsp',
     available_hours: 3,
-    activity_type: 'Account Coordinator'
+    activity_type: 'Account Coordinator',
   },
   {
     id: 48,
@@ -592,7 +592,7 @@ export const data = [
     social_profile:
       'https://illinois.edu/aliquet/massa/id/lobortis/convallis/tortor/risus.json',
     available_hours: 2,
-    activity_type: 'Junior Executive'
+    activity_type: 'Junior Executive',
   },
   {
     id: 49,
@@ -604,7 +604,7 @@ export const data = [
     status: false,
     social_profile: 'https://salon.com/donec/vitae/nisi/nam/ultrices.aspx',
     available_hours: 3,
-    activity_type: 'Registered Nurse'
+    activity_type: 'Registered Nurse',
   },
   {
     id: 50,
@@ -616,6 +616,6 @@ export const data = [
     status: false,
     social_profile: 'http://symantec.com/orci/pede.png',
     available_hours: 6,
-    activity_type: 'Staff Scientist'
-  }
+    activity_type: 'Staff Scientist',
+  },
 ];

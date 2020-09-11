@@ -1,6 +1,11 @@
 import { createAction, props } from '@ngrx/store';
 import {
-  IActivityTypeTag, ISectorTag, IAgeTag, IAvailabilityTag, ITeamTag, IOfferTag
+  IActivityTypeTag,
+  ISectorTag,
+  IAgeTag,
+  IAvailabilityTag,
+  ITeamTag,
+  IOfferTag,
 } from '@models/tags';
 
 export enum ActionTypes {
@@ -27,7 +32,9 @@ export const getTagsFailureAction = createAction(
   props<{ error: any }>()
 );
 
-export const getActivityTypesTagsAction = createAction(ActionTypes.GET_ACTIVITY_TYPES_TAGS);
+export const getActivityTypesTagsAction = createAction(
+  ActionTypes.GET_ACTIVITY_TYPES_TAGS
+);
 export const getActivityTypesTagsSuccessAction = createAction(
   ActionTypes.GET_ACTIVITY_TYPES_TAGS_SUCCESS,
   props<{ payload: IActivityTypeTag[] }>()
@@ -39,7 +46,9 @@ export const getAgesTagsSuccessAction = createAction(
   props<{ payload: IAgeTag[] }>()
 );
 
-export const getAvailabilitiesTagsAction = createAction(ActionTypes.GET_AVAILABILITIES_TAGS);
+export const getAvailabilitiesTagsAction = createAction(
+  ActionTypes.GET_AVAILABILITIES_TAGS
+);
 export const getAvailabilitiesTagsSuccessAction = createAction(
   ActionTypes.GET_AVAILABILITIES_TAGS_SUCCESS,
   props<{ payload: IAvailabilityTag[] }>()

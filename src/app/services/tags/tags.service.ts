@@ -1,18 +1,25 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { IActivityTypeTag, IAgeTag, IAvailabilityTag, ITeamTag, IOfferTag } from '@models/tags';
+import {
+  IActivityTypeTag,
+  IAgeTag,
+  IAvailabilityTag,
+  ITeamTag,
+  IOfferTag,
+} from '@models/tags';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TagsService {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getActivityTypes(): Observable<{ list: IActivityTypeTag[] }> {
-    return this.http.get<{ list: IActivityTypeTag[] }>(`${environment.url}/tag/activity_types`);
+    return this.http.get<{ list: IActivityTypeTag[] }>(
+      `${environment.url}/tag/activity_types`
+    );
   }
 
   getAges(): Observable<{ list: IAgeTag[] }> {
@@ -20,7 +27,9 @@ export class TagsService {
   }
 
   getAvailabilities(): Observable<{ list: IAvailabilityTag[] }> {
-    return this.http.get<{ list: IAvailabilityTag[] }>(`${environment.url}/tag/availability`);
+    return this.http.get<{ list: IAvailabilityTag[] }>(
+      `${environment.url}/tag/availability`
+    );
   }
 
   getTeams(): Observable<{ list: ITeamTag[] }> {
@@ -32,6 +41,6 @@ export class TagsService {
   }
 
   getRandomWord() {
-    return this.http.get<{ secret: string }>(`${environment.url}/secret`)
+    return this.http.get<{ secret: string }>(`${environment.url}/secret`);
   }
 }
