@@ -4,23 +4,23 @@ import { loginAction, loginSuccessAction, loginFailureAction } from './actions';
 
 const customerReducer = createReducer(
   initialState,
-  on(loginAction, state => ({
+  on(loginAction, (state) => ({
     ...state,
     error: null,
-    isLoading: true
+    isLoading: true,
   })),
   on(loginSuccessAction, (state, { accessToken, refreshToken }) => ({
     ...state,
     isLoading: false,
     token: {
       accessToken,
-      refreshToken
-    }
+      refreshToken,
+    },
   })),
   on(loginFailureAction, (state, { error }) => ({
     ...state,
     isLoading: false,
-    error
+    error,
   }))
 );
 

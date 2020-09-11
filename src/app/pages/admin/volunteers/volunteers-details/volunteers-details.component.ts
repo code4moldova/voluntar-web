@@ -40,14 +40,16 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
     {
       label: 'Botanica',
       value: 'botanica',
-    }, {
+    },
+    {
       label: 'Buiucani',
       value: 'buiucani',
     },
     {
       label: 'Ciocana',
       value: 'ciocana',
-    }, {
+    },
+    {
       label: 'Rîșcani',
       value: 'rîșcani',
     },
@@ -121,7 +123,9 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
   offers$ = this.tagsFacade.offersTags$;
   activityTypes$ = this.tagsFacade.activityTypesTags$;
 
-  hasTelegramChatId$ = this.volunteerFacade.volunteerDetails$.pipe(map(volunteer => !!volunteer?.telegram_chat_id));
+  hasTelegramChatId$ = this.volunteerFacade.volunteerDetails$.pipe(
+    map((volunteer) => !!volunteer?.telegram_chat_id)
+  );
 
   constructor(
     private fb: FormBuilder,
@@ -166,7 +170,6 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
       });
   }
 
-
   ngOnDestroy() {
     this.componentDestroyed$.next();
     this.componentDestroyed$.complete();
@@ -178,10 +181,15 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
       this.volunteerFacade.saveVolunteer(this.form.getRawValue());
       combineLatest([
         this.volunteerFacade.isLoading$,
-        this.volunteerFacade.error$
-      ]).pipe(filter(([status, error]) => !status && !error), first()).subscribe(() => {
-        this.router.navigateByUrl('/admin/volunteers/list');
-      });
+        this.volunteerFacade.error$,
+      ])
+        .pipe(
+          filter(([status, error]) => !status && !error),
+          first()
+        )
+        .subscribe(() => {
+          this.router.navigateByUrl('/admin/volunteers/list');
+        });
     } else {
       console.log('invalid form', this.form);
       this.snackBar.open('Update required fields', '', {
@@ -297,7 +305,6 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
   get zone_address() {
     return this.form.get('zone_address');
   }
-
 }
 
 export function ValidateTemperature(control: AbstractControl) {

@@ -1,47 +1,47 @@
 @import "colors";
 
 [class*="-button"] {
-    border-radius: 8px !important;
+  border-radius: 8px !important;
 
-    &:hover {
-        text-decoration: none;
+  &:hover {
+    text-decoration: none;
+  }
+
+  &.large {
+    padding: 14px 24px;
+    line-height: 20px;
+
+    &[color="primary"] {
+      min-width: 200px;
     }
+  }
 
-    &.large {
-        padding: 14px 24px;
-        line-height: 20px;
-
-        &[color="primary"] {
-            min-width: 200px;
-        }
-    }
-
-    &.secondary {
-        background-color: $color-theme-lightest;
-        color: $color-theme-light-alt;
-    }
+  &.secondary {
+    background-color: $color-theme-lightest;
+    color: $color-theme-light-alt;
+  }
 }
 
 [mat-raised-button] {
-    &[color="primary"] {
-        background-color: $color-theme-base;
-        color: $color-grays-white;
-    }
+  &[color="primary"] {
+    background-color: $color-theme-base;
+    color: $color-grays-white;
+  }
 
-    &[color="error"] {
-        background-color: $color-functional-error;
-        color: $color-grays-white;
-    }
+  &[color="error"] {
+    background-color: $color-functional-error;
+    color: $color-grays-white;
+  }
 }
 
 [mat-flat-button] {
-    &[color="primary"] {
-        background-color: $color-theme-base;
-        color: $color-grays-white;
-    }
+  &[color="primary"] {
+    background-color: $color-theme-base;
+    color: $color-grays-white;
+  }
 
-    &[color="error"] {
-        background-color: $color-functional-error;
-        color: $color-grays-white;
-    }
+  &[color="error"] {
+    background-color: $color-functional-error;
+    color: $color-grays-white;
+  }
 }

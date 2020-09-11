@@ -2,7 +2,11 @@
   <div fxLayout="row" fxLayoutAlign="space-between center">
     <div fxFlex>
       <h1 class="mb-10 mt-0">
-        {{ (currentRequestId$ | async) ? "Beneficiar Details" : "Create Beneficiar" }}
+        {{
+          (currentRequestId$ | async)
+            ? "Beneficiar Details"
+            : "Create Beneficiar"
+        }}
       </h1>
       <a href="#" appGoBack class="go-back">
         <div fxFlex fxLayoutAlign="start center">
@@ -11,12 +15,23 @@
         </div>
       </a>
     </div>
-    <div *ngIf="(currentRequestId$ | async)">
-      <button type="button" mat-raised-button color="primary" (click)="onCopy()"><mat-icon>file_copy</mat-icon> Copy</button>
+    <div *ngIf="currentRequestId$ | async">
+      <button
+        type="button"
+        mat-raised-button
+        color="primary"
+        (click)="onCopy()"
+      >
+        <mat-icon>file_copy</mat-icon>
+        Copy
+      </button>
     </div>
   </div>
 </div>
 
 <div class="container">
-  <app-request-form [mode]="(currentRequestId$ | async) ? 'edit' : 'new'" [request]="currentRequest$ | async"></app-request-form>
+  <app-request-form
+    [mode]="(currentRequestId$ | async) ? 'edit' : 'new'"
+    [request]="currentRequest$ | async"
+  ></app-request-form>
 </div>

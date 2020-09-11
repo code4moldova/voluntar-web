@@ -8,9 +8,8 @@ describe('VolunteersListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ VolunteersListComponent ]
-    })
-    .compileComponents();
+      declarations: [VolunteersListComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

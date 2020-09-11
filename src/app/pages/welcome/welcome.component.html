@@ -6,7 +6,7 @@
           <div class="float-right">
             <div class="langs">
               <a href="#" id="language" (click)="changeLang()">
-                {{ translate.currentLang == 'ru' ? 'Româna' : 'Русский' }}
+                {{ translate.currentLang == "ru" ? "Româna" : "Русский" }}
               </a>
             </div>
           </div>
@@ -17,57 +17,70 @@
 </div>
 <div class="section intro flex middle">
   <div class="container">
-      <a routerLink='/'>
-        <h1>{{'WELCOME.NAME_OF_INITIATIVE' | translate }}</h1>
-        <h2>VOLUNTAR.MD</h2>
-      </a>
-      <h4>{{'WELCOME.DETAILS_OF_INITIATIVE' | translate }}</h4>
-      <div class="row">
-        <div class="col">
-            <div class="call_to_action">
-              <a href="https://docs.google.com/forms/d/e/1FAIpQLSeOMOaAwXeMyWA6RC6yZtSSIAblaE1yhHz0rsDrTRsruXLXHg/viewform?fbclid=IwAR2Q-AYsGP7_IX_LGKX9nHNOzPqnM9NFNp8dKhIhUrTpwSeLqS_8vcqdfug"
-                class="tap green white view-progress" target="_blank">
-                {{'WELCOME.WANT_TO_HELP' | translate}}
-              </a>
-            </div>
-        </div>
-
-        <div class="col">
-          <div class="call_to_action">
-            <a href="#green_line" class="tap green white view-progress">
-              {{'WELCOME.NEED_HELP' | translate}}
-            </a>
-          </div>
-        </div>
-
-        <div class="col">
-          <div class="call_to_action">
-            <a href="https://chuffed.org/project/initiativa-impreuna-impotriva-covid-19"
-               class="tap green white view-progress" target="_blank">
-              {{'WELCOME.WANT_TO_DONATE' | translate}}
-            </a>
-          </div>
+    <a routerLink="/">
+      <h1>{{ "WELCOME.NAME_OF_INITIATIVE" | translate }}</h1>
+      <h2>VOLUNTAR.MD</h2>
+    </a>
+    <h4>{{ "WELCOME.DETAILS_OF_INITIATIVE" | translate }}</h4>
+    <div class="row">
+      <div class="col">
+        <div class="call_to_action">
+          <a
+            href="https://docs.google.com/forms/d/e/1FAIpQLSeOMOaAwXeMyWA6RC6yZtSSIAblaE1yhHz0rsDrTRsruXLXHg/viewform?fbclid=IwAR2Q-AYsGP7_IX_LGKX9nHNOzPqnM9NFNp8dKhIhUrTpwSeLqS_8vcqdfug"
+            class="tap green white view-progress"
+            target="_blank"
+          >
+            {{ "WELCOME.WANT_TO_HELP" | translate }}
+          </a>
         </div>
       </div>
-  </div>
 
+      <div class="col">
+        <div class="call_to_action">
+          <a href="#green_line" class="tap green white view-progress">
+            {{ "WELCOME.NEED_HELP" | translate }}
+          </a>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="call_to_action">
+          <a
+            href="https://chuffed.org/project/initiativa-impreuna-impotriva-covid-19"
+            class="tap green white view-progress"
+            target="_blank"
+          >
+            {{ "WELCOME.WANT_TO_DONATE" | translate }}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div style="margin-top: 1%;">
-  <h2 class="text-center text-secondary">{{ 'WELCOME.TITLE_CARICATURES'  | translate }}</h2>
+<div style="margin-top: 1%">
+  <h2 class="text-center text-secondary">
+    {{ "WELCOME.TITLE_CARICATURES" | translate }}
+  </h2>
   <div class="row">
     <div class="col">
       <figure class="figure">
-        <img src="assets/welcome/caricatures/1.png" class="figure-img img-fluid">
-        <figcaption class="figure-caption text-center" >
+        <img
+          src="assets/welcome/caricatures/1.png"
+          class="figure-img img-fluid"
+        />
+        <figcaption class="figure-caption text-center">
           <p [innerHTML]="'WELCOME.CARICATURE_1' | translate"></p>
         </figcaption>
       </figure>
     </div>
     <div class="col">
       <figure class="figure">
-        <img src="assets/welcome/caricatures/2.png" class="figure-img img-fluid">
-        <figcaption class="figure-caption text-center" >
+        <img
+          src="assets/welcome/caricatures/2.png"
+          class="figure-img img-fluid"
+        />
+        <figcaption class="figure-caption text-center">
           <p [innerHTML]="'WELCOME.CARICATURE_2' | translate"></p>
         </figcaption>
       </figure>
@@ -75,16 +88,22 @@
 
     <div class="col">
       <figure class="figure">
-        <img src="assets/welcome/caricatures/3.png" class="figure-img img-fluid">
-        <figcaption class="figure-caption text-center" >
+        <img
+          src="assets/welcome/caricatures/3.png"
+          class="figure-img img-fluid"
+        />
+        <figcaption class="figure-caption text-center">
           <p [innerHTML]="'WELCOME.CARICATURE_3' | translate"></p>
         </figcaption>
       </figure>
     </div>
     <div class="col">
       <figure class="figure">
-        <img src="assets/welcome/caricatures/4.png" class="figure-img img-fluid">
-        <figcaption class="figure-caption text-center" >
+        <img
+          src="assets/welcome/caricatures/4.png"
+          class="figure-img img-fluid"
+        />
+        <figcaption class="figure-caption text-center">
           <p [innerHTML]="'WELCOME.CARICATURE_4' | translate"></p>
         </figcaption>
       </figure>
@@ -96,24 +115,35 @@
   <div class="container">
     <div class="heading">
       <h2 id="green_line" class="text-secondary">
-        {{ 'WELCOME.NEED_HELP' | translate }}
+        {{ "WELCOME.NEED_HELP" | translate }}
       </h2>
     </div>
-    <span class="info_row text-secondary"> {{ 'WELCOME.CALL_ON' | translate }}
-      <a href="tel:22 27 0945" class="badge green" title="Apeleaza">22 27 0945</a>
-      {{ 'WELCOME.OR_ON' | translate }} <a href="tel:080000090" class="badge green" title="Apelează">0800 00090</a>
+    <span class="info_row text-secondary">
+      {{ "WELCOME.CALL_ON" | translate }}
+      <a href="tel:22 27 0945" class="badge green" title="Apeleaza">
+        22 27 0945
+      </a>
+      {{ "WELCOME.OR_ON" | translate }}
+      <a href="tel:080000090" class="badge green" title="Apelează">
+        0800 00090
+      </a>
     </span>
   </div>
 </div>
 
 <div class="section footer">
   <div class="footer_buttons">
-    <a class="footer_button text-secondary" routerLink="/login"> {{ 'WELCOME.LOG_IN' | translate }} </a>
+    <a class="footer_button text-secondary" routerLink="/login">
+      {{ "WELCOME.LOG_IN" | translate }}
+    </a>
   </div>
   <div class="created_by text-secondary">
-    <span>{{ 'WELCOME.CREATED_WITH' | translate }}</span> <span class="heart"> &#9825; </span> <span>{{ 'WELCOME.BY_C4MD' | translate }}</span>
+    <span>{{ "WELCOME.CREATED_WITH" | translate }}</span>
+    <span class="heart">&#9825;</span>
+    <span>{{ "WELCOME.BY_C4MD" | translate }}</span>
   </div>
   <div class="copyright text-secondary">
-    &#169; <span>2020 Code for Moldova. {{ 'WELCOME.COPYRIGHT' | translate }}</span>
+    &#169;
+    <span>2020 Code for Moldova. {{ "WELCOME.COPYRIGHT" | translate }}</span>
   </div>
 </div>

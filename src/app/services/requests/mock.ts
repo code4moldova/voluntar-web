@@ -13,7 +13,7 @@ export const data = [
     request: 'captopril',
     has_money: true,
     curator: true,
-    comments: [{}]
+    comments: [{}],
   },
   {
     id: 2,
@@ -29,7 +29,7 @@ export const data = [
     request: 'Glyburide',
     has_money: true,
     curator: true,
-    comments: [{}, {}, {}, {}, {}]
+    comments: [{}, {}, {}, {}, {}],
   },
   {
     id: 3,
@@ -45,7 +45,7 @@ export const data = [
     request: 'METHYL SALICYLATE MENTHOL CAPSAICIN LIDOCAINE',
     has_money: true,
     curator: false,
-    comments: [{}, {}, {}, {}, {}]
+    comments: [{}, {}, {}, {}, {}],
   },
   {
     id: 4,
@@ -61,7 +61,7 @@ export const data = [
     request: 'DIPHENHYDRAMINE HYDROCHLORIDE',
     has_money: false,
     curator: true,
-    comments: [{}]
+    comments: [{}],
   },
   {
     id: 5,
@@ -78,7 +78,7 @@ export const data = [
       'Allium sativum, Berberis vulgaris, Glycyrrhiza glabra, Lappa major, Phytolacca Decandra, Rahmnus frangula, Stillingia sylvatica,',
     has_money: true,
     curator: true,
-    comments: [{}, {}]
+    comments: [{}, {}],
   },
   {
     id: 6,
@@ -94,7 +94,7 @@ export const data = [
     request: 'Phenytoin Sodium',
     has_money: false,
     curator: true,
-    comments: [{}, {}, {}]
+    comments: [{}, {}, {}],
   },
   {
     id: 7,
@@ -110,7 +110,7 @@ export const data = [
     request: 'Doxorubicin Hydrochloride',
     has_money: false,
     curator: false,
-    comments: [{}, {}, {}]
+    comments: [{}, {}, {}],
   },
   {
     id: 8,
@@ -126,7 +126,7 @@ export const data = [
     request: 'Nicotine Polacrilex',
     has_money: false,
     curator: false,
-    comments: [{}, {}, {}]
+    comments: [{}, {}, {}],
   },
   {
     id: 9,
@@ -142,7 +142,7 @@ export const data = [
     request: 'minocycline hydrochloride',
     has_money: true,
     curator: false,
-    comments: [{}, {}, {}]
+    comments: [{}, {}, {}],
   },
   {
     id: 10,
@@ -158,7 +158,7 @@ export const data = [
     request: 'OATMEAL',
     has_money: true,
     curator: true,
-    comments: [{}, {}, {}, {}]
+    comments: [{}, {}, {}, {}],
   },
   {
     id: 11,
@@ -174,7 +174,7 @@ export const data = [
     request: 'Paroxetine Hydrochloride',
     has_money: true,
     curator: true,
-    comments: [{}, {}, {}, {}, {}]
+    comments: [{}, {}, {}, {}, {}],
   },
   {
     id: 12,
@@ -190,7 +190,7 @@ export const data = [
     request: 'Digoxin',
     has_money: true,
     curator: true,
-    comments: [{}, {}, {}, {}, {}]
+    comments: [{}, {}, {}, {}, {}],
   },
   {
     id: 13,
@@ -206,7 +206,7 @@ export const data = [
     request: 'Flecainide Acetate',
     has_money: false,
     curator: false,
-    comments: [{}, {}]
+    comments: [{}, {}],
   },
   {
     id: 14,
@@ -222,7 +222,7 @@ export const data = [
     request: 'Acetaminophen',
     has_money: true,
     curator: true,
-    comments: [{}, {}, {}, {}]
+    comments: [{}, {}, {}, {}],
   },
   {
     id: 15,
@@ -238,7 +238,7 @@ export const data = [
     request: 'Dibasic sodium phosphate, Monobasic sodium phosphate',
     has_money: true,
     curator: false,
-    comments: [{}, {}, {}]
+    comments: [{}, {}, {}],
   },
   {
     id: 16,
@@ -254,7 +254,7 @@ export const data = [
     request: 'ceftibuten dihydrate',
     has_money: false,
     curator: false,
-    comments: [{}]
+    comments: [{}],
   },
   {
     id: 17,
@@ -270,7 +270,7 @@ export const data = [
     request: 'fenoprofen',
     has_money: true,
     curator: true,
-    comments: [{}]
+    comments: [{}],
   },
   {
     id: 18,
@@ -286,7 +286,7 @@ export const data = [
     request: 'Silver Maple',
     has_money: false,
     curator: true,
-    comments: [{}, {}]
+    comments: [{}, {}],
   },
   {
     id: 19,
@@ -302,7 +302,7 @@ export const data = [
     request: 'Octinoxate and Oxybenzone',
     has_money: true,
     curator: false,
-    comments: [{}, {}, {}, {}]
+    comments: [{}, {}, {}, {}],
   },
   {
     id: 20,
@@ -318,7 +318,7 @@ export const data = [
     request: 'OCTINOXATE, TITANIUM DIOXIDE',
     has_money: false,
     curator: false,
-    comments: [{}, {}, {}, {}]
+    comments: [{}, {}, {}, {}],
   },
   {
     id: 21,
@@ -334,7 +334,7 @@ export const data = [
     request: 'Camphor (Synthetic) and Menthol',
     has_money: true,
     curator: true,
-    comments: [{}]
+    comments: [{}],
   },
   {
     id: 22,
@@ -350,7 +350,7 @@ export const data = [
     request: 'Plantain English',
     has_money: true,
     curator: false,
-    comments: [{}, {}, {}, {}, {}]
+    comments: [{}, {}, {}, {}, {}],
   },
   {
     id: 23,
@@ -366,7 +366,7 @@ export const data = [
     request: 'RIFAMPIN',
     has_money: true,
     curator: false,
-    comments: [{}]
+    comments: [{}],
   },
   {
     id: 24,
@@ -382,7 +382,7 @@ export const data = [
     request: 'Loperamide Hydrochloride',
     has_money: true,
     curator: true,
-    comments: [{}]
+    comments: [{}],
   },
   {
     id: 25,
@@ -398,7 +398,7 @@ export const data = [
     request: 'Hydralazine Hydrochloride',
     has_money: false,
     curator: true,
-    comments: [{}]
+    comments: [{}],
   },
   {
     id: 26,
@@ -414,7 +414,7 @@ export const data = [
     request: 'DIOSCOREA VILLOSA ROOT GINGER',
     has_money: false,
     curator: false,
-    comments: [{}, {}, {}, {}]
+    comments: [{}, {}, {}, {}],
   },
   {
     id: 27,
@@ -430,7 +430,7 @@ export const data = [
     request: 'Ultramicrosize Griseofulvin Tablets',
     has_money: true,
     curator: false,
-    comments: [{}, {}, {}, {}, {}]
+    comments: [{}, {}, {}, {}, {}],
   },
   {
     id: 28,
@@ -446,7 +446,7 @@ export const data = [
     request: 'estradiol and norethindrone acetate',
     has_money: false,
     curator: false,
-    comments: [{}, {}]
+    comments: [{}, {}],
   },
   {
     id: 29,
@@ -462,7 +462,7 @@ export const data = [
     request: 'Ranitidine',
     has_money: false,
     curator: true,
-    comments: [{}, {}, {}, {}, {}]
+    comments: [{}, {}, {}, {}, {}],
   },
   {
     id: 30,
@@ -478,7 +478,7 @@ export const data = [
     request: 'Viscum 3',
     has_money: false,
     curator: false,
-    comments: [{}, {}]
+    comments: [{}, {}],
   },
   {
     id: 31,
@@ -495,7 +495,7 @@ export const data = [
       'Dextromethorphan Hydrobromide, Guaifenesin, and Pseudoephedrine Hydrochloride',
     has_money: true,
     curator: false,
-    comments: [{}, {}]
+    comments: [{}, {}],
   },
   {
     id: 32,
@@ -511,7 +511,7 @@ export const data = [
     request: 'Prednisone',
     has_money: true,
     curator: true,
-    comments: [{}, {}, {}, {}]
+    comments: [{}, {}, {}, {}],
   },
   {
     id: 33,
@@ -527,7 +527,7 @@ export const data = [
     request: 'Acyclovir',
     has_money: true,
     curator: true,
-    comments: [{}, {}, {}]
+    comments: [{}, {}, {}],
   },
   {
     id: 34,
@@ -543,7 +543,7 @@ export const data = [
     request: 'Butalbital, Acetaminophen, and Caffeine',
     has_money: false,
     curator: false,
-    comments: [{}, {}, {}]
+    comments: [{}, {}, {}],
   },
   {
     id: 35,
@@ -559,7 +559,7 @@ export const data = [
     request: 'Quinapril',
     has_money: false,
     curator: true,
-    comments: [{}, {}, {}, {}]
+    comments: [{}, {}, {}, {}],
   },
   {
     id: 36,
@@ -575,7 +575,7 @@ export const data = [
     request: 'Octinoxate',
     has_money: false,
     curator: false,
-    comments: [{}, {}, {}, {}, {}]
+    comments: [{}, {}, {}, {}, {}],
   },
   {
     id: 37,
@@ -591,7 +591,7 @@ export const data = [
     request: 'POLYETHYLENE GLYCOL 3350',
     has_money: false,
     curator: false,
-    comments: [{}, {}, {}, {}, {}]
+    comments: [{}, {}, {}, {}, {}],
   },
   {
     id: 38,
@@ -607,7 +607,7 @@ export const data = [
     request: 'Sodium Monofluorophosphate',
     has_money: true,
     curator: false,
-    comments: [{}, {}, {}, {}, {}]
+    comments: [{}, {}, {}, {}, {}],
   },
   {
     id: 39,
@@ -623,7 +623,7 @@ export const data = [
     request: 'INATAL Ultra',
     has_money: false,
     curator: false,
-    comments: [{}, {}, {}]
+    comments: [{}, {}, {}],
   },
   {
     id: 40,
@@ -639,7 +639,7 @@ export const data = [
     request: 'Gabapentin',
     has_money: false,
     curator: false,
-    comments: [{}, {}]
+    comments: [{}, {}],
   },
   {
     id: 41,
@@ -655,7 +655,7 @@ export const data = [
     request: 'Tramadol Hydrochloride Tablets',
     has_money: false,
     curator: false,
-    comments: [{}, {}]
+    comments: [{}, {}],
   },
   {
     id: 42,
@@ -671,7 +671,7 @@ export const data = [
     request: 'Benzoyl Peroxide',
     has_money: false,
     curator: false,
-    comments: [{}, {}, {}, {}]
+    comments: [{}, {}, {}, {}],
   },
   {
     id: 43,
@@ -687,7 +687,7 @@ export const data = [
     request: 'Oxygen',
     has_money: true,
     curator: false,
-    comments: [{}, {}, {}]
+    comments: [{}, {}, {}],
   },
   {
     id: 44,
@@ -703,7 +703,7 @@ export const data = [
     request: 'Benzalkonium chloride',
     has_money: true,
     curator: false,
-    comments: [{}, {}, {}, {}, {}]
+    comments: [{}, {}, {}, {}, {}],
   },
   {
     id: 45,
@@ -719,7 +719,7 @@ export const data = [
     request: 'Hydrocodone Bitartate and Acetaminophen',
     has_money: false,
     curator: true,
-    comments: [{}]
+    comments: [{}],
   },
   {
     id: 46,
@@ -735,7 +735,7 @@ export const data = [
     request: 'OCTINOXATE and OXYBENZONE',
     has_money: true,
     curator: true,
-    comments: [{}, {}, {}, {}, {}]
+    comments: [{}, {}, {}, {}, {}],
   },
   {
     id: 47,
@@ -751,7 +751,7 @@ export const data = [
     request: 'Venlafaxine',
     has_money: true,
     curator: false,
-    comments: [{}]
+    comments: [{}],
   },
   {
     id: 48,
@@ -767,7 +767,7 @@ export const data = [
     request: 'ZINC GLUCONATE and ZINC ACETATE',
     has_money: false,
     curator: false,
-    comments: [{}, {}]
+    comments: [{}, {}],
   },
   {
     id: 49,
@@ -783,7 +783,7 @@ export const data = [
     request: 'TITANIUM DIOXIDE, ZINC OXIDE',
     has_money: false,
     curator: true,
-    comments: [{}, {}]
+    comments: [{}, {}],
   },
   {
     id: 50,
@@ -799,6 +799,6 @@ export const data = [
     request: 'ondansetron hydrochloride',
     has_money: false,
     curator: false,
-    comments: [{}]
-  }
+    comments: [{}],
+  },
 ];

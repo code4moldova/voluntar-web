@@ -14,7 +14,7 @@ import { map } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class PublicGuard implements CanActivate {
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router) {}
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot

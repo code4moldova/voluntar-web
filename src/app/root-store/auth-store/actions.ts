@@ -5,7 +5,7 @@ export enum ActionTypes {
   LOGIN_SUCCESS = '[AUTH] Login Success',
   LOGIN_FAILURE = '[AUTH] Login Failure',
 
-  LOGOUT = '[AUTH] Logout'
+  LOGOUT = '[AUTH] Logout',
 }
 
 export const loginAction = createAction(

@@ -5,27 +5,33 @@
     </div>
     <div fxFlex fxLayoutAlign="end">
       <a routerLink="/admin/volunteers/new" mat-raised-button color="primary">
-        <mat-icon>add</mat-icon> Nou voluntar
+        <mat-icon>add</mat-icon>
+        Nou voluntar
       </a>
     </div>
   </div>
 </div>
 
-<app-filter [inputColumns]="inputColumns" [selectColumns]="selectColumns"
-  [observableSelectColumns]="observableSelectColumns" (queryResult)="queryResult($event)">
-</app-filter>
+<app-filter
+  [inputColumns]="inputColumns"
+  [selectColumns]="selectColumns"
+  [observableSelectColumns]="observableSelectColumns"
+  (queryResult)="queryResult($event)"
+></app-filter>
 
 <mat-card>
   <table mat-table [dataSource]="dataSource$ | async">
-
     <!-- Icons Column -->
     <ng-container matColumnDef="icons">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let element">
-        <span *ngIf="element.black_list" matTooltip="Black List" class="blacklist"></span>
+        <span
+          *ngIf="element.black_list"
+          matTooltip="Black List"
+          class="blacklist"
+        ></span>
       </td>
     </ng-container>
-
 
     <!-- Name Column -->
     <ng-container matColumnDef="name">
@@ -38,7 +44,9 @@
     <!-- Weight Column -->
     <ng-container matColumnDef="phone">
       <th mat-header-cell *matHeaderCellDef>Phone</th>
-      <td mat-cell *matCellDef="let element">{{ element.phone | mask: '00 000 000' }}</td>
+      <td mat-cell *matCellDef="let element">
+        {{ element.phone | mask: "00 000 000" }}
+      </td>
     </ng-container>
 
     <!-- Symbol Column -->
@@ -54,23 +62,31 @@
       <td mat-cell *matCellDef="let element">{{ element.cases_solved }}</td>
     </ng-container>
 
-
     <!-- Symbol Column -->
     <ng-container matColumnDef="availableHours">
       <th mat-header-cell *matHeaderCellDef>Ore pe zi</th>
-      <td mat-cell *matCellDef="let element">{{ (tagById$(element.availability) | async)?.ro }}</td>
+      <td mat-cell *matCellDef="let element">
+        {{ (tagById$(element.availability) | async)?.ro }}
+      </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns" class="clickable-row"
-      [routerLink]="['/admin/volunteers/details', row._id]"></tr>
+    <tr
+      mat-row
+      *matRowDef="let row; columns: displayedColumns"
+      class="clickable-row"
+      [routerLink]="['/admin/volunteers/details', row._id]"
+    ></tr>
   </table>
 
   <div class="loading-shade" *ngIf="isLoading$ | async">
     <mat-spinner></mat-spinner>
   </div>
   <mat-card-footer>
-    <mat-paginator (page)="onPageChange($event)" [length]="count$ | async" [pageSizeOptions]="[20, 50, 100]">
-    </mat-paginator>
+    <mat-paginator
+      (page)="onPageChange($event)"
+      [length]="count$ | async"
+      [pageSizeOptions]="[20, 50, 100]"
+    ></mat-paginator>
   </mat-card-footer>
 </mat-card>

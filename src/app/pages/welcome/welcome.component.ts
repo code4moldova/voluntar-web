@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {TranslateService} from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-welcome',
@@ -7,7 +7,6 @@ import {TranslateService} from '@ngx-translate/core';
   styleUrls: ['./welcome.component.scss'],
 })
 export class WelcomeComponent implements OnInit {
-
   KEY_STORAGE_LANG = 'lang';
 
   constructor(public translate: TranslateService) {

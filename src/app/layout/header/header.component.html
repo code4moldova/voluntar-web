@@ -7,11 +7,9 @@
     <a routerLink="/admin/requests" routerLinkActive="active" mat-list-item>
       Requests
     </a>
-
     <a routerLink="/admin/volunteers" routerLinkActive="active" mat-list-item>
       Volunteers
     </a>
-    
     <a routerLink="/admin/users" routerLinkActive="active" mat-list-item>
       Users
     </a>
@@ -25,8 +23,14 @@
       [disabled]="!(newRequest$ | async)"
       (click)="fetchRequests()"
       [matTooltip]="(newRequest$ | async) ? 'New Request' : null"
-      aria-label="Notifications">
-      <mat-icon [matBadge]="(newRequest$ | async) ? '!' : null" matBadgeColor="primary">notifications_none</mat-icon>
+      aria-label="Notifications"
+    >
+      <mat-icon
+        [matBadge]="(newRequest$ | async) ? '!' : null"
+        matBadgeColor="primary"
+      >
+        notifications_none
+      </mat-icon>
     </button>
 
     <button mat-button [matMenuTriggerFor]="menu">

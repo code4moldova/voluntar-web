@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class VolunteersService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   saveVolunteer(volunteer: IVolunteer) {
     return this.http.post<any>(`${environment.url}/volunteer`, volunteer);
@@ -31,16 +31,14 @@ export class VolunteersService {
     const params = new HttpParams({ fromObject: filters });
     return this.http.get<{ list: IVolunteer[]; count: number }>(
       `${environment.url}/volunteer/filters/${page.pageIndex || 1}/${
-      page.pageSize || 1000
+        page.pageSize || 1000
       }`,
       { params }
     );
   }
 
   getVolunteerById(id: string): Observable<IVolunteer> {
-    return this.http.get<IVolunteer>(
-      `${environment.url}/volunteer?id=${id}`
-    );
+    return this.http.get<IVolunteer>(`${environment.url}/volunteer?id=${id}`);
   }
 
   getVolunteersNearbyRequest(requestId: string, volunteers = 10) {
@@ -55,7 +53,9 @@ export class VolunteersService {
     const params = new HttpParams({ fromObject: httpParams });
     return this.http.get<{ count: number; list: IVolunteer[] }>(
       `${environment.url}/volunteer/filters/1/1000?`,
-      { params }
+      {
+        params,
+      }
     );
   }
 }

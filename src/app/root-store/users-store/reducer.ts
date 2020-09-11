@@ -12,73 +12,73 @@ import {
   createUserFailureAction,
   updateUserAction,
   updateUserSuccessAction,
-  updateUserFailureAction
+  updateUserFailureAction,
 } from './actions';
 
 const customerReducer = createReducer(
   initialState,
-  on(getUsersAction, state => ({
+  on(getUsersAction, (state) => ({
     ...state,
     error: null,
-    isLoading: true
+    isLoading: true,
   })),
   on(getUsersSuccessAction, (state, { payload }) => ({
     ...state,
     isLoading: false,
-    data: payload
+    data: payload,
   })),
   on(getUsersFailureAction, (state, { error }) => ({
     ...state,
     isLoading: false,
-    error
+    error,
   })),
 
-  on(getUserDetailsAction, state => ({
+  on(getUserDetailsAction, (state) => ({
     ...state,
     error: null,
-    isLoading: true
+    isLoading: true,
   })),
   on(getUserDetailsSuccessAction, (state, { payload }) => ({
     ...state,
     isLoading: false,
-    userDetails: payload
+    userDetails: payload,
   })),
   on(getUserDetailsFailureAction, (state, { error }) => ({
     ...state,
     isLoading: false,
-    error
+    error,
   })),
 
-  on(createUserAction, state => ({
+  on(createUserAction, (state) => ({
     ...state,
     error: null,
-    isLoading: true
+    isLoading: true,
   })),
   on(createUserSuccessAction, (state, { payload }) => ({
     ...state,
     isLoading: false,
-    userDetails: payload
+    userDetails: payload,
   })),
   on(createUserFailureAction, (state, { error }) => ({
     ...state,
     isLoading: false,
-    error
+    error,
   })),
 
-  on(updateUserAction, state => ({
+  on(updateUserAction, (state) => ({
     ...state,
     error: null,
-    isLoading: true
+    isLoading: true,
   })),
   on(updateUserSuccessAction, (state, { payload }) => ({
     ...state,
     isLoading: false,
-    userDetails: payload
+    userDetails: payload,
   })),
   on(updateUserFailureAction, (state, { error }) => ({
     ...state,
     isLoading: false,
-    error
+    error,
   }))
 );
 

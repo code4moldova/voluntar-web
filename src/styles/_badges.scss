@@ -1,15 +1,15 @@
 @import "colors";
 
 .mat-chip-list {
-    mat-chip {
-        &[color="error"] {
-            background-color: $color-functional-error-bg;
-            color: $color-functional-error;
-        }
-
-        &[color="success"] {
-            background-color: $color-functional-success-bg;
-            color: $color-functional-success;
-        }
+  mat-chip {
+    &[color="error"] {
+      background-color: $color-functional-error-bg;
+      color: $color-functional-error;
     }
+
+    &[color="success"] {
+      background-color: $color-functional-success-bg;
+      color: $color-functional-success;
+    }
+  }
 }

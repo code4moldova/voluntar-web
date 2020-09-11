@@ -4,7 +4,7 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpErrorResponse
+  HttpErrorResponse,
 } from '@angular/common/http';
 
 import { Observable, throwError } from 'rxjs';
@@ -41,7 +41,7 @@ export class ErrorInterceptor implements HttpInterceptor {
 
         this.snackBar.open(message, '', {
           duration: 3000,
-          panelClass: 'danger'
+          panelClass: 'danger',
         });
         return throwError(error);
       })

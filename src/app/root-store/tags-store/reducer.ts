@@ -19,68 +19,68 @@ const tagsReducer = createReducer(
   on(getTagsFailureAction, (state, { error }) => ({
     ...state,
     isLoading: false,
-    error
+    error,
   })),
 
   // Activity Types
-  on(getActivityTypesTagsAction, state => ({
+  on(getActivityTypesTagsAction, (state) => ({
     ...state,
     error: null,
-    isLoading: true
+    isLoading: true,
   })),
   on(getActivityTypesTagsSuccessAction, (state, { payload }) => ({
     ...state,
     isLoading: false,
-    activityTypes: payload
+    activityTypes: payload,
   })),
 
   // Ages
-  on(getAgesTagsAction, state => ({
+  on(getAgesTagsAction, (state) => ({
     ...state,
     error: null,
-    isLoading: true
+    isLoading: true,
   })),
   on(getAgesTagsSuccessAction, (state, { payload }) => ({
     ...state,
     isLoading: false,
-    ages: payload
+    ages: payload,
   })),
 
   // Availabilities
-  on(getAvailabilitiesTagsAction, state => ({
+  on(getAvailabilitiesTagsAction, (state) => ({
     ...state,
     error: null,
-    isLoading: true
+    isLoading: true,
   })),
   on(getAvailabilitiesTagsSuccessAction, (state, { payload }) => ({
     ...state,
     isLoading: false,
-    availabilities: payload
+    availabilities: payload,
   })),
 
   // Teams
-  on(getTeamsTagsAction, state => ({
+  on(getTeamsTagsAction, (state) => ({
     ...state,
     error: null,
-    isLoading: true
+    isLoading: true,
   })),
   on(getTeamsTagsSuccessAction, (state, { payload }) => ({
     ...state,
     isLoading: false,
-    teams: payload
+    teams: payload,
   })),
 
   // Tags
-  on(getOffersTagsAction, state => ({
+  on(getOffersTagsAction, (state) => ({
     ...state,
     error: null,
-    isLoading: true
+    isLoading: true,
   })),
   on(getOffersTagsSuccessAction, (state, { payload }) => ({
     ...state,
     isLoading: false,
-    offers: payload
-  })),
+    offers: payload,
+  }))
 );
 
 export function reducer(state: TagsState | undefined, action: Action) {

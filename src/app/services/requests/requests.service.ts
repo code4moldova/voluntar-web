@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class RequestsService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getRequests(
     page: { pageIndex: number; pageSize: number } = {
@@ -20,7 +20,7 @@ export class RequestsService {
     const params = new HttpParams({ fromObject: filters });
     return this.http.get<{ count: number; list: IRequestDetails[] }>(
       `${environment.url}/beneficiary/filters/${page.pageIndex || 1}/${
-      page.pageSize || 1000
+        page.pageSize || 1000
       }`,
       { params }
     );

@@ -1,5 +1,10 @@
 import {
-  IActivityTypeTag, ISectorTag, IAgeTag, IAvailabilityTag, ITeamTag, IOfferTag
+  IActivityTypeTag,
+  ISectorTag,
+  IAgeTag,
+  IAvailabilityTag,
+  ITeamTag,
+  IOfferTag,
 } from '@models/tags';
 
 export interface TagsState {
@@ -21,5 +26,5 @@ export const initialState: TagsState = {
   offers: [],
   // sectors: [],
   isLoading: false,
-  error: null
+  error: null,
 };

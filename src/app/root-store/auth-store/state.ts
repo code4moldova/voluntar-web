@@ -14,5 +14,5 @@ export const initialState: AuthState = {
   token: null,
   isLoading: false,
   userData: null,
-  error: null
+  error: null,
 };

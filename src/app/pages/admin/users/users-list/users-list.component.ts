@@ -11,7 +11,7 @@ import { UsersFacadeService } from '@services/users/users-facade.service';
 @Component({
   selector: 'app-users-list',
   templateUrl: './users-list.component.html',
-  styleUrls: ['./users-list.component.scss']
+  styleUrls: ['./users-list.component.scss'],
 })
 export class UsersListComponent implements OnInit {
   displayedColumns: string[] = ['name', 'email', 'phone', 'status'];
@@ -23,7 +23,7 @@ export class UsersListComponent implements OnInit {
   ngOnInit() {
     this.usersFacade.getUsers();
     this.dataSource$ = this.usersFacade.users$.pipe(
-      map(data => {
+      map((data) => {
         const dataSource = new MatTableDataSource(data);
         dataSource.paginator = this.paginator;
         return dataSource;

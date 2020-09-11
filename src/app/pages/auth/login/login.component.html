@@ -1,21 +1,34 @@
 <div class="container" fxLayout="row" fxLayoutAlign="center center">
   <mat-card>
-    <mat-progress-bar *ngIf="isLoading$ | async" mode="indeterminate"></mat-progress-bar>
+    <mat-progress-bar
+      *ngIf="isLoading$ | async"
+      mode="indeterminate"
+    ></mat-progress-bar>
     <mat-card-content>
       <form [formGroup]="form" (ngSubmit)="onSubmit()">
         <h2>Log In</h2>
-        <p *ngIf="isTestEnvironment">You are currently on <strong>Test environment.</strong></p>
+        <p *ngIf="isTestEnvironment">
+          You are currently on
+          <strong>Test environment.</strong>
+        </p>
         <mat-form-field class="full-width-input">
-          <input matInput placeholder="Email" formControlName="login" required />
-          <mat-error>
-            Please provide a valid email address
-          </mat-error>
+          <input
+            matInput
+            placeholder="Email"
+            formControlName="login"
+            required
+          />
+          <mat-error>Please provide a valid email address</mat-error>
         </mat-form-field>
         <mat-form-field class="full-width-input">
-          <input matInput type="password" placeholder="Password" formControlName="password" required />
-          <mat-error>
-            Please provide a valid password
-          </mat-error>
+          <input
+            matInput
+            type="password"
+            placeholder="Password"
+            formControlName="password"
+            required
+          />
+          <mat-error>Please provide a valid password</mat-error>
         </mat-form-field>
         <div class="login-action">
           <button mat-raised-button color="primary">Login</button>

@@ -4,17 +4,17 @@ import {
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
   UrlTree,
-  CanActivateChild
+  CanActivateChild,
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { RequestsFacadeService } from '@services/requests/requests-facade.service';
 import { filter, map, debounceTime } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DelayGuard implements CanActivate, CanActivateChild {
-  constructor(private requestFacade: RequestsFacadeService) { }
+  constructor(private requestFacade: RequestsFacadeService) {}
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -24,10 +24,10 @@ export class DelayGuard implements CanActivate, CanActivateChild {
     | boolean
     | UrlTree {
     return this.requestFacade.zones$.pipe(
-      filter(z => {
+      filter((z) => {
         return z.length > 0;
       }),
-      map(z => {
+      map((z) => {
         return true;
       })
     );
