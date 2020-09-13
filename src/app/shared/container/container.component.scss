@@ -1,0 +1,15 @@
+:host {
+  width: 100%;
+  display: block;
+  box-sizing: border-box;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+@media (min-width: 1280px) {
+  :host {
+    max-width: 1280px;
+  }
+}
