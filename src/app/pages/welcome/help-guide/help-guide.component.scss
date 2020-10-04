@@ -1,0 +1,25 @@
+@import "0-abstract/variables";
+
+.landing-help-guide-tab {
+  font-weight: 400;
+  color: #aaa;
+  transition: color ease-out 0.2s;
+  cursor: pointer;
+
+  &:hover {
+    color: darken(#aaa, 20%);
+  }
+
+  &.active-tab {
+    color: $body-color;
+    cursor: default;
+  }
+}
+
+.landing-help-guide-need-help {
+  background-color: #fcffd9;
+}
+
+.landing-help-guide-give-help {
+  background-color: #eeffeb;
+}

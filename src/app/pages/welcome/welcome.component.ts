@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -8,7 +8,18 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class WelcomeComponent {
   KEY_STORAGE_LANG = 'lang';
-  hotLineSection = 'hot-line';
+
+  formularUrl =
+    'https://docs.google.com/forms/d/e/1FAIpQLSeOMOaAwXeMyWA6RC6yZtSSIAblaE1yhHz0rsDrTRsruXLXHg/viewform?fbclid=IwAR2Q-AYsGP7_IX_LGKX9nHNOzPqnM9NFNp8dKhIhUrTpwSeLqS_8vcqdfug';
+
+  whoNeedsHelpSectionId = 'who-needs-help';
+  whoCanHelpSectionId = 'who-can-help';
+
+  /**
+   * TODO: to be removed after implementing "Get help" contact form
+   * `whoNeedsHelpSectionId` part is needed for correct in-page navigation
+   */
+  hotLineSectionId = `${this.whoNeedsHelpSectionId}-hot-line`;
 
   constructor(public translate: TranslateService) {
     translate.addLangs(['ru', 'ro']);

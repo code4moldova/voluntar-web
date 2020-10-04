@@ -13,5 +13,6 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeroComponent {
-  @Input() requestHelpUrl;
+  @Input() requestHelpUrl: string;
+  @Input() formularUrl: string;
 }

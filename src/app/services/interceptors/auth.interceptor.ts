@@ -19,13 +19,14 @@ export class AuthInterceptor implements HttpInterceptor {
     // This has to be ignored
     // Headers injected in coresponding services
     if (
+      request.url.includes('assets/') ||
       request.url.endsWith('/token') ||
       request.url.startsWith('https://info.iharta.md')
     ) {
       return next.handle(request);
     } else {
       const token: string = localStorage.getItem('accessToken');
-      if (!token && !(this.router.url == '/')) {
+      if (!token) {
         console.log('accessToken doesnt exist');
         console.log('URL: ', request.url);
         console.log('Canceled by Interceptor.');

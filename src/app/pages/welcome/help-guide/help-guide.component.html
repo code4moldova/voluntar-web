@@ -1,0 +1,213 @@
+<!-- these wrapper divs are needed for in page navigation -->
+<div id="{{ whoNeedsHelpSectionId }}">
+  <div id="{{ whoCanHelpSectionId }}">
+    <div class="landing-help-guide" *ngIf="activeTab$ | async as activeTab">
+      <div class="pt-5 pb-4 pt-lg-6 pb-lg-5">
+        <div class="container">
+          <div class="d-flex justify-content-center mb-4 mb-lg-5">
+            <h3
+              class="landing-help-guide-tab mr-3"
+              [class.active-tab]="activeTab === 1"
+              (click)="activateTab(1)"
+            >
+              {{ "common.who_needs_help" | translate }}
+            </h3>
+            <h3
+              class="landing-help-guide-tab ml-3"
+              [class.active-tab]="activeTab === 2"
+              (click)="activateTab(2)"
+            >
+              {{ "common.who_can_help" | translate }}
+            </h3>
+          </div>
+          <div class="position-relative">
+            <div class="row" *ngIf="activeTab === 1" @fadeInOut>
+              <div class="col-12 col-sm-6 col-lg-3 text-center">
+                <figure class="figure mb-4">
+                  <img
+                    src="/assets/images/landing/help-guide/1y.jpg"
+                    width="190"
+                    height="170"
+                    alt=""
+                    class="figure-img img-fluid"
+                  />
+                  <figcaption>
+                    {{ "help_guide.need_help.1" | translate }}
+                  </figcaption>
+                </figure>
+              </div>
+              <div class="col-12 col-sm-6 col-lg-3 text-center">
+                <figure class="figure mb-4">
+                  <img
+                    src="/assets/images/landing/help-guide/2y.jpg"
+                    width="190"
+                    height="170"
+                    alt=""
+                    class="figure-img img-fluid"
+                  />
+                  <figcaption>
+                    {{ "help_guide.need_help.2" | translate }}
+                  </figcaption>
+                </figure>
+              </div>
+              <div class="col-12 col-sm-6 col-lg-3 text-center">
+                <figure class="figure mb-4">
+                  <img
+                    src="/assets/images/landing/help-guide/3y.jpg"
+                    width="190"
+                    height="170"
+                    alt=""
+                    class="figure-img img-fluid"
+                  />
+                  <figcaption>
+                    {{ "help_guide.need_help.3" | translate }}
+                  </figcaption>
+                </figure>
+              </div>
+              <div class="col-12 col-sm-6 col-lg-3 text-center">
+                <figure class="figure mb-4">
+                  <img
+                    src="/assets/images/landing/help-guide/4y.jpg"
+                    width="190"
+                    height="170"
+                    alt=""
+                    class="figure-img img-fluid"
+                  />
+                  <figcaption>
+                    {{ "help_guide.need_help.4" | translate }}
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+            <div class="row" *ngIf="activeTab === 2" @fadeInOut>
+              <div class="col-12 col-sm-6 col-lg-3 text-center">
+                <figure class="figure mb-4">
+                  <img
+                    src="/assets/images/landing/help-guide/1g.jpg"
+                    width="190"
+                    height="170"
+                    alt=""
+                    class="figure-img img-fluid"
+                  />
+                  <figcaption>
+                    {{ "help_guide.can_help.1" | translate }}
+                  </figcaption>
+                </figure>
+              </div>
+              <div class="col-12 col-sm-6 col-lg-3 text-center">
+                <figure class="figure mb-4">
+                  <img
+                    src="/assets/images/landing/help-guide/2g.jpg"
+                    width="190"
+                    height="170"
+                    alt=""
+                    class="figure-img img-fluid"
+                  />
+                  <figcaption>
+                    {{ "help_guide.can_help.2" | translate }}
+                  </figcaption>
+                </figure>
+              </div>
+              <div class="col-12 col-sm-6 col-lg-3 text-center">
+                <figure class="figure mb-4">
+                  <img
+                    src="/assets/images/landing/help-guide/3g.jpg"
+                    width="190"
+                    height="170"
+                    alt=""
+                    class="figure-img img-fluid"
+                  />
+                  <figcaption>
+                    {{ "help_guide.can_help.3" | translate }}
+                  </figcaption>
+                </figure>
+              </div>
+              <div class="col-12 col-sm-6 col-lg-3 text-center">
+                <figure class="figure mb-4">
+                  <img
+                    src="/assets/images/landing/help-guide/4g.jpg"
+                    width="190"
+                    height="170"
+                    alt=""
+                    class="figure-img img-fluid"
+                  />
+                  <figcaption>
+                    {{ "help_guide.can_help.4" | translate }}
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="{{ hotLineSectionId }}" class="position-relative">
+        <div
+          class="landing-help-guide-need-help w-100"
+          *ngIf="activeTab === 1"
+          @fadeInOut
+        >
+          <div class="container">
+            <div class="d-flex align-items-center justify-content-center py-6">
+              <figure class="figure mb-0 mr-2 mr-sm-3 mr-md-4">
+                <img
+                  src="/assets/images/landing/help-guide/old-phone.svg"
+                  width="212"
+                  height="137"
+                  alt=""
+                  class="img-fluid"
+                />
+              </figure>
+              <div class="ml-2 ml-sm-3 ml-md-4">
+                <h4>{{ "common.request_help" | translate }}</h4>
+                <p
+                  class="my-3"
+                  [innerHTML]="'help_guide.need_help.description' | translate"
+                ></p>
+                <a
+                  href="tel:080000090"
+                  class="btn btn-success"
+                  title="Apelează"
+                >
+                  080 000 090
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="landing-help-guide-give-help w-100"
+          *ngIf="activeTab === 2"
+          @fadeInOut
+        >
+          <div class="container">
+            <div class="d-flex align-items-center justify-content-center py-6">
+              <figure class="figure mb-n6 mr-2 mr-sm-3 mr-md-4">
+                <img
+                  src="/assets/images/landing/help-guide/raised-hand.svg"
+                  width="151"
+                  height="233"
+                  alt=""
+                  class="img-fluid"
+                />
+              </figure>
+              <div class="ml-2 ml-sm-3 ml-md-4">
+                <h4>{{ "common.give_help" | translate }}</h4>
+                <p
+                  class="my-3"
+                  [innerHTML]="'help_guide.can_help.description' | translate"
+                ></p>
+                <a
+                  href="{{ formularUrl }}"
+                  target="_blank"
+                  class="btn btn-success"
+                >
+                  {{ "common.formular" | translate }}
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
