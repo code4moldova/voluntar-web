@@ -1,0 +1,35 @@
+<div class="hero-landing-section">
+  <div class="container">
+    <div class="hero-headline my-3 my-md-5 my-xl-6">
+      <div class="d-none d-md-block py-md-4">
+        <img
+          class="mw-100"
+          src="/assets/images/landing/hero-logo.svg"
+          alt="Oameni pentru oameni"
+        />
+      </div>
+      <div class="d-none d-md-block hero-headline-separator"></div>
+      <h1 class="py-md-4" [innerHTML]="'hero.headline' | translate"></h1>
+    </div>
+    <div class="hero-statement my-3 my-md-5 my-xl-6">
+      <h4>voluntar.md</h4>
+      <p>{{ "hero.description" | translate }}</p>
+    </div>
+    <div class="text-center">
+      <a
+        class="btn btn-lg hero-give-help"
+        href="https://docs.google.com/forms/d/e/1FAIpQLSeOMOaAwXeMyWA6RC6yZtSSIAblaE1yhHz0rsDrTRsruXLXHg/viewform?fbclid=IwAR2Q-AYsGP7_IX_LGKX9nHNOzPqnM9NFNp8dKhIhUrTpwSeLqS_8vcqdfug"
+        role="button"
+      >
+        {{ "common.give_help" | translate }}
+      </a>
+      <a
+        class="btn btn-lg hero-request-help"
+        href="#{{ requestHelpUrl }}"
+        role="button"
+      >
+        {{ "common.request_help" | translate }}
+      </a>
+    </div>
+  </div>
+</div>

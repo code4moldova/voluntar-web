@@ -1,10 +1,13 @@
 {
+  "common": {
+    "give_help": "Vreau să ajut",
+    "request_help": "Vreau ajutor"
+  },
+  "hero": {
+    "headline": "Inițiativa <span>împreună<br />împotriva COVID-19</span>",
+    "description": "Rețea de voluntari și voluntare care oferă suport celor din zona de risc, în parteneriat cu Serviciile de Asistență Socială din Republica Moldova în contextul situației de criză creată de pandemia de COVID-19."
+  },
   "WELCOME": {
-    "TITLE": "",
-    "NAME_OF_INITIATIVE": "Inițiativa Împreună Împotriva COVID-19",
-    "DETAILS_OF_INITIATIVE": "Proiect civic care unește eforturile și ajută oamenii aflați în situații nefavorabile în timpul pandemiei COVID-19",
-    "WANT_TO_HELP": "Vreau să ajut",
-    "NEED_HELP": "Vreau ajutor",
     "WANT_TO_DONATE": "Vreau să donez",
     "CALL_ON": "Sună la",
     "OR_ON": "ori la",
