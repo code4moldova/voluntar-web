@@ -1,3 +1,11 @@
+<!-- hero -->
+<!-- latest in need -->
+<!-- how to help -->
+<!-- help line -->
+<!-- make donation -->
+<!-- partners -->
+<!-- footer -->
+
 <div id="header" class="header">
   <div class="header_main flex middle">
     <div class="container">
@@ -15,53 +23,13 @@
     </div>
   </div>
 </div>
-<div class="section intro flex middle">
-  <div class="container">
-    <a routerLink="/">
-      <h1>{{ "WELCOME.NAME_OF_INITIATIVE" | translate }}</h1>
-      <h2>VOLUNTAR.MD</h2>
-    </a>
-    <h4>{{ "WELCOME.DETAILS_OF_INITIATIVE" | translate }}</h4>
-    <div class="row">
-      <div class="col">
-        <div class="call_to_action">
-          <a
-            href="https://docs.google.com/forms/d/e/1FAIpQLSeOMOaAwXeMyWA6RC6yZtSSIAblaE1yhHz0rsDrTRsruXLXHg/viewform?fbclid=IwAR2Q-AYsGP7_IX_LGKX9nHNOzPqnM9NFNp8dKhIhUrTpwSeLqS_8vcqdfug"
-            class="tap green white view-progress"
-            target="_blank"
-          >
-            {{ "WELCOME.WANT_TO_HELP" | translate }}
-          </a>
-        </div>
-      </div>
 
-      <div class="col">
-        <div class="call_to_action">
-          <a href="#green_line" class="tap green white view-progress">
-            {{ "WELCOME.NEED_HELP" | translate }}
-          </a>
-        </div>
-      </div>
-
-      <div class="col">
-        <div class="call_to_action">
-          <a
-            href="https://chuffed.org/project/initiativa-impreuna-impotriva-covid-19"
-            class="tap green white view-progress"
-            target="_blank"
-          >
-            {{ "WELCOME.WANT_TO_DONATE" | translate }}
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+<app-hero [requestHelpUrl]="hotLineSection"></app-hero>
 
 <div style="margin-top: 1%">
-  <h2 class="text-center text-secondary">
+  <h3 class="text-center text-secondary">
     {{ "WELCOME.TITLE_CARICATURES" | translate }}
-  </h2>
+  </h3>
   <div class="row">
     <div class="col">
       <figure class="figure">
@@ -111,11 +79,11 @@
   </div>
 </div>
 
-<div class="section">
+<div [id]="hotLineSection" class="section">
   <div class="container">
     <div class="heading">
-      <h2 id="green_line" class="text-secondary">
-        {{ "WELCOME.NEED_HELP" | translate }}
+      <h2 class="text-secondary">
+        {{ "common.request_help" | translate }}
       </h2>
     </div>
     <span class="info_row text-secondary">

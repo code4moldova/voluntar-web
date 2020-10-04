@@ -1,22 +1,6 @@
-// @import "~bootstrap/scss/functions";
-// @import "~bootstrap/scss/variables";
-// @import "~bootstrap/scss/mixins";
-// @import "~bootstrap/dist/css/bootstrap.min.css";
-// @import "~@fortawesome/fontawesome-free/css/fontawesome.min.css";
-
-// @import "~bootstrap/scss/utilities";
-// @import "~bootstrap/scss/type";
-// @import "~bootstrap/scss/images";
-// @import "~bootstrap/scss/reboot";
-// @import "~bootstrap/scss/grid";
-@import "~bootstrap-4-grid";
-
-* {
-  outline: none;
-}
-
-html {
-  scroll-behavior: smooth;
+// to be removed after refactor
+.figure {
+  margin: 16px 40px;
 }
 
 button:focus,
@@ -38,10 +22,6 @@ a {
   display: inline-block;
   color: #db1c1c;
   text-decoration: none;
-  -webkit-transition: all 0.3s;
-  -moz-transition: all 0.3s;
-  -ms-transition: all 0.3s;
-  -o-transition: all 0.3s;
   transition: all 0.3s;
 }
 
@@ -110,33 +90,6 @@ a:hover {
 .tap.green {
   background-color: #23b67a;
   color: #fff;
-}
-
-html,
-body {
-  overflow-x: hidden;
-}
-
-body {
-  font-size: 17px;
-  color: #575757;
-  font-family: "Open Sans", sans-serif;
-}
-
-.container {
-  max-width: 980px;
-  padding: 0 30px;
-  margin: 0 auto;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  line-height: 1.2;
-  font-family: "Open Sans", sans-serif;
 }
 
 .flex {

@@ -1,9 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
-@import "../src/styles/colors";
-@import "../src/styles/buttons";
-@import "../src/styles/badges";
-@import "../src/styles/form";
-@import "../src/styles/spacing";
+@import "./styles/main";
+
+@import "./styles/colors";
+@import "./styles/buttons";
+@import "./styles/badges";
+@import "./styles/form";
+@import "./styles/spacing";
 
 html,
 body {

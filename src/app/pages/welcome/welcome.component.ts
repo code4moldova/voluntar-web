@@ -6,14 +6,15 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './welcome.component.html',
   styleUrls: ['./welcome.component.scss'],
 })
-export class WelcomeComponent implements OnInit {
+export class WelcomeComponent {
   KEY_STORAGE_LANG = 'lang';
+  hotLineSection = 'hot-line';
 
   constructor(public translate: TranslateService) {
     translate.addLangs(['ru', 'ro']);
     translate.setDefaultLang('ro');
     const browserLang = translate.getBrowserLang();
-    let storageLang = localStorage.getItem(this.KEY_STORAGE_LANG);
+    const storageLang = localStorage.getItem(this.KEY_STORAGE_LANG);
     if (storageLang) {
       translate.use(storageLang);
     } else {
@@ -22,10 +23,8 @@ export class WelcomeComponent implements OnInit {
   }
 
   changeLang(): void {
-    let newLang = this.translate.currentLang === 'ru' ? 'ro' : 'ru';
+    const newLang = this.translate.currentLang === 'ru' ? 'ro' : 'ru';
     this.translate.use(newLang);
     localStorage.setItem(this.KEY_STORAGE_LANG, newLang);
   }
-
-  ngOnInit(): void {}
 }
