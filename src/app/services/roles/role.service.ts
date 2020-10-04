@@ -11,11 +11,14 @@ export class RoleService {
     requests: {
       roles: ['admin', 'operator', 'fixer'],
     },
+    beneficiaries: {
+      roles: ['admin', 'fixer'],
+    },
     volunteers: {
       roles: ['admin', 'fixer'],
     },
   };
-  constructor() {}
+  constructor() { }
 
   static GET_FROM_CONFIG(
     item: keyof typeof RoleService.ACCESS_CONFIG
