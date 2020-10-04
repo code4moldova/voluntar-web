@@ -175,7 +175,7 @@
   <div class="loading-shade" *ngIf="isLoading$ | async">
     <mat-spinner></mat-spinner>
   </div>
-  <mat-card-footer class="container m-0">
+  <mat-card-footer class="m-0">
     <mat-paginator
       (page)="onPageChange($event)"
       [length]="count$ | async"
