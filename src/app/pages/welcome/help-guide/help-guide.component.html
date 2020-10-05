@@ -142,22 +142,24 @@
       </div>
       <div id="{{ hotLineSectionId }}" class="position-relative">
         <div
-          class="landing-help-guide-need-help w-100"
+          class="landing-help-guide-need-help w-100 py-6"
           *ngIf="activeTab === 1"
           @fadeInOut
         >
           <div class="container">
-            <div class="d-flex align-items-center justify-content-center py-6">
-              <figure class="figure mb-0 mr-2 mr-sm-3 mr-md-4">
-                <img
-                  src="/assets/images/landing/help-guide/old-phone.svg"
-                  width="212"
-                  height="137"
-                  alt=""
-                  class="img-fluid"
-                />
-              </figure>
-              <div class="ml-2 ml-sm-3 ml-md-4">
+            <div class="row">
+              <div class="col-6 text-right pr-2 pr-sm-3 pr-md-4">
+                <figure class="figure mb-0">
+                  <img
+                    src="/assets/images/landing/help-guide/old-phone.svg"
+                    width="212"
+                    height="137"
+                    alt=""
+                    class="img-fluid"
+                  />
+                </figure>
+              </div>
+              <div class="col-6 pl-2 pl-sm-3 pl-md-4">
                 <h4>{{ "common.request_help" | translate }}</h4>
                 <p
                   class="my-3"
@@ -175,22 +177,24 @@
           </div>
         </div>
         <div
-          class="landing-help-guide-give-help w-100"
+          class="landing-help-guide-give-help w-100 py-6"
           *ngIf="activeTab === 2"
           @fadeInOut
         >
           <div class="container">
-            <div class="d-flex align-items-center justify-content-center py-6">
-              <figure class="figure mb-n6 mr-2 mr-sm-3 mr-md-4">
-                <img
-                  src="/assets/images/landing/help-guide/raised-hand.svg"
-                  width="151"
-                  height="233"
-                  alt=""
-                  class="img-fluid"
-                />
-              </figure>
-              <div class="ml-2 ml-sm-3 ml-md-4">
+            <div class="row">
+              <div class="col-6 text-right pr-2 pr-sm-3 pr-md-4">
+                <figure class="figure mb-n6">
+                  <img
+                    src="/assets/images/landing/help-guide/raised-hand.svg"
+                    width="151"
+                    height="233"
+                    alt=""
+                    class="img-fluid"
+                  />
+                </figure>
+              </div>
+              <div class="col-6 pl-2 pl-sm-3 pl-md-4">
                 <h4>{{ "common.give_help" | translate }}</h4>
                 <p
                   class="my-3"

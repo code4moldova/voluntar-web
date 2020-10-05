@@ -1,0 +1,36 @@
+<div class="landing-make-donation">
+  <div class="py-4 py-sm-5 py-lg-6">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h3>{{ "make_donation.headline" | translate }}</h3>
+          <p>{{ "make_donation.description" | translate }}</p>
+          <ul
+            class="list-unstyled my-4 py-2 landing-make-donation-arguments-list"
+          >
+            <li [innerHTML]="'make_donation.arguments.1' | translate"></li>
+            <li [innerHTML]="'make_donation.arguments.2' | translate"></li>
+          </ul>
+          <a
+            href="https://paypal.me/ecaterinanemerenco"
+            target="_blank"
+            class="btn btn-primary btn-lg px-5"
+            role="button"
+          >
+            <strong>Paypal</strong>
+          </a>
+        </div>
+        <div class="col-md-6 pt-4 pt-md-0 text-center">
+          <iframe
+            width="100%"
+            height="380"
+            src="https://chuffed.org/iframe/68626/"
+            frameborder="0"
+            style="max-width: 310px; border: 0 solid #fff"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -26,6 +26,14 @@
       "description": "Devino voluntar, completează<br />formularul de înregistrare."
     }
   },
+  "make_donation": {
+    "headline": "Donează",
+    "description": "Dar din dar se face rai!",
+    "arguments": {
+      "1": "Asigurăm și <strong>facilităm aprovizionarea</strong> cu medicamente, produse alimentare și de igienă pentru persoanele care au nevoie.",
+      "2": "<strong>Asigurăm transparența</strong> deplină a cheltuielilor prin postări regulate și rapoarte financiare."
+    }
+  },
   "WELCOME": {
     "WANT_TO_DONATE": "Vreau să donez",
     "CALL_ON": "Sună la",
