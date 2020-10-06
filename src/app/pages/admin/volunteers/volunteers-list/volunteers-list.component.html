@@ -4,10 +4,15 @@
       <h1 class="mb-0 mt-0">Voluntarii</h1>
     </div>
     <div fxFlex fxLayoutAlign="end">
-      <a routerLink="/admin/volunteers/new" mat-raised-button color="primary">
+      <button
+        mat-flat-button
+        type="button"
+        color="primary"
+        (click)="openNewVolunteerDialog()"
+      >
         <mat-icon>add</mat-icon>
         Nou voluntar
-      </a>
+      </button>
     </div>
   </div>
 </div>

@@ -4,7 +4,7 @@
       <h1 class="mb-10 mt-0">
         {{ currentVolunteeerId ? "Volunteer Details" : "Create Volunteer" }}
       </h1>
-      <a href="#" appGoBack class="go-back">
+      <a href="#" appGoBack class="go-back" *ngIf="currentVolunteeerId">
         <div fxFlex fxLayoutAlign="start center">
           <mat-icon>arrow_back</mat-icon>
           <span>Back to List</span>

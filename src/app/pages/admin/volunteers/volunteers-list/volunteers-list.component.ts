@@ -1,8 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 
-import { VolunteersFacadeService } from '@services/volunteers/volunteers-facade.service';
+import {
+  VolunteerPageParams,
+  VolunteersFacadeService,
+} from '@services/volunteers/volunteers-facade.service';
 import { TagsFacadeService } from '@services/tags/tags-facade.service';
 import { GeolocationService } from '@services/geolocation/geolocation.service';
 
@@ -14,6 +18,11 @@ import {
   FilterObservableSelectColumns,
 } from '@models/filter';
 import { ZoneI } from '@models/geolocation';
+import { ActionsSubject } from '@ngrx/store';
+import { ofType } from '@ngrx/effects';
+import { VolunteersDetailsComponent } from '../volunteers-details/volunteers-details.component';
+import { takeUntil } from 'rxjs/operators';
+import { saveVolunteerSuccessAction } from '@store/volunteers-store/actions';
 
 @Component({
   selector: 'app-volunteers-list',
@@ -52,16 +61,19 @@ export class VolunteersListComponent implements OnInit {
     },
   ];
 
+  page: VolunteerPageParams = { pageSize: 20, pageIndex: 1 };
   lastFilter = {};
   tagById$ = (id: any) => this.tagsFacadeService.availabilitiesById$(id);
   constructor(
     private volunteersFacade: VolunteersFacadeService,
     private tagsFacadeService: TagsFacadeService,
+    private matDialog: MatDialog,
+    private actions$: ActionsSubject,
     private geolocationService: GeolocationService
   ) {}
 
   ngOnInit() {
-    this.volunteersFacade.getVolunteers({ pageSize: 20, pageIndex: 1 });
+    this.volunteersFacade.getVolunteers(this.page);
     this.dataSource$ = this.volunteersFacade.volunteers$;
 
     this.inputColumns = [
@@ -91,22 +103,30 @@ export class VolunteersListComponent implements OnInit {
 
   queryResult(criteria: { [keys: string]: string }) {
     this.lastFilter = criteria;
-    this.volunteersFacade.getVolunteers(
-      {
-        pageSize: 20,
-        pageIndex: 1,
-      },
-      criteria
-    );
+    this.page = { pageSize: 20, pageIndex: 1 };
+    this.volunteersFacade.getVolunteers(this.page, criteria);
   }
 
   onPageChange(event: PageEvent) {
-    this.volunteersFacade.getVolunteers(
-      {
-        pageSize: event.pageSize,
-        pageIndex: event.pageIndex + 1,
-      },
-      this.lastFilter
-    );
+    this.page = { pageSize: event.pageSize, pageIndex: event.pageIndex + 1 };
+    this.volunteersFacade.getVolunteers(this.page, this.lastFilter);
+  }
+
+  openNewVolunteerDialog() {
+    let dialogRef = this.matDialog.open(VolunteersDetailsComponent, {
+      data: {},
+      maxWidth: '100%',
+      maxHeight: '90vh',
+    });
+
+    this.actions$
+      .pipe(
+        ofType(saveVolunteerSuccessAction),
+        takeUntil(dialogRef.afterClosed())
+      )
+      .subscribe(() => {
+        this.volunteersFacade.getVolunteers(this.page, this.lastFilter);
+        dialogRef.close();
+      });
   }
 }

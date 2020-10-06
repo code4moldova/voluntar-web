@@ -35,7 +35,6 @@ export class VolunteersEffects {
         const { _id, ...withoutId } = payload;
         return this.volunteerService.saveVolunteer(withoutId).pipe(
           map(({ user }) => {
-            this.router.navigate(['volunteers/details', user._id]);
             return saveVolunteerSuccessAction({ payload: user });
           }),
           catchError(({ error }) => of(saveVolunteerFailureAction({ error })))
