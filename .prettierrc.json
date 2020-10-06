@@ -1,3 +1,11 @@
 {
-  "htmlWhitespaceSensitivity": "ignore"
+  "htmlWhitespaceSensitivity": "ignore",
+  "overrides": [
+    {
+      "files": ["*.css", "*.scss"],
+      "options": {
+        "printWidth": 100
+      }
+    }
+  ]
 }

@@ -4,7 +4,9 @@
     "give_help": "Vreau să ajut",
     "request_help": "Vreau ajutor",
     "who_needs_help": "Cine sunt ajutați?",
-    "who_can_help": "Cine poate ajuta?"
+    "who_can_help": "Cine poate ajuta?",
+    "make_donation": "Donează",
+    "sign_in": "Logare în sistem"
   },
   "hero": {
     "headline": "Inițiativa <span>împreună<br />împotriva COVID-19</span>",
@@ -27,20 +29,22 @@
     }
   },
   "make_donation": {
-    "headline": "Donează",
     "description": "Dar din dar se face rai!",
     "arguments": {
       "1": "Asigurăm și <strong>facilităm aprovizionarea</strong> cu medicamente, produse alimentare și de igienă pentru persoanele care au nevoie.",
       "2": "<strong>Asigurăm transparența</strong> deplină a cheltuielilor prin postări regulate și rapoarte financiare."
     }
   },
-  "WELCOME": {
-    "WANT_TO_DONATE": "Vreau să donez",
-    "CALL_ON": "Sună la",
-    "OR_ON": "ori la",
-    "LOG_IN": "Logare în sistem",
-    "CREATED_WITH": "creat cu",
-    "BY_C4MD": "de Code for Moldova",
-    "COPYRIGHT": "Organizație neguvernamentală independentă, neafiliată politic"
+  "footer": {
+    "created_by": "Creat de",
+    "description": "Organizație neguvernamentală independentă, neafiliată politic",
+    "copyright": "© 2020 Code for Moldova",
+    "terms": "Termeni și Condiții",
+    "find_us_on_social": "Ne găsești pe rețele:"
+  },
+  "pages": {
+    "terms": {
+      "headline": "Termeni și Condiții"
+    }
   }
 }

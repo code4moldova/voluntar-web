@@ -1,23 +1,25 @@
 @import "0-abstract/variables";
 @import "0-abstract/mixins";
 
-.hero-landing-section {
-  background: #36ba7e url("/assets/images/landing/hero.jpg") no-repeat 15%
-    center;
+.landing-hero {
+  background: #36ba7e url("/assets/images/landing/hero.jpg") no-repeat 15% center;
   background-size: cover;
   color: #fff;
-  padding: 70px 0 20px;
+}
+
+.landing-hero-content {
+  padding: 50px 0 20px;
 
   @include media-breakpoint-up(md) {
-    padding: 80px 0 40px;
+    padding: 60px 0 40px;
   }
 
   @include media-breakpoint-up(lg) {
-    padding: 110px 0 50px;
+    padding: 90px 0 50px;
   }
 
   @include media-breakpoint-up(xl) {
-    padding: 140px 0 80px;
+    padding: 120px 0 80px;
   }
 }
 
