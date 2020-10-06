@@ -1,11 +1,30 @@
 {
   "common": {
+    "formular": "Formular",
     "give_help": "Vreau să ajut",
-    "request_help": "Vreau ajutor"
+    "request_help": "Vreau ajutor",
+    "who_needs_help": "Cine sunt ajutați?",
+    "who_can_help": "Cine poate ajuta?"
   },
   "hero": {
     "headline": "Inițiativa <span>împreună<br />împotriva COVID-19</span>",
     "description": "Rețea de voluntari și voluntare care oferă suport celor din zona de risc, în parteneriat cu Serviciile de Asistență Socială din Republica Moldova în contextul situației de criză creată de pandemia de COVID-19."
+  },
+  "help_guide": {
+    "need_help": {
+      "1": "Persoanele susceptibile la virus. Vârstnicii, persoanele cu dizabilități locomotorii și boli cronice.",
+      "2": "Părintele singur cu mai mulți copii.",
+      "3": "Oamenii aflați în autoizolare sau carantină, fie că au revenit din străinătate sau au fost în contact cu o persoană infectată de COVID-19.",
+      "4": "Persoanele aflate în situații financiare critice (rămași în stradă sau nu-și pot asigura necesitățile primare).",
+      "description": "Sună la <strong>Linia Verde</strong><br />pentru asistență socială."
+    },
+    "can_help": {
+      "1": "Orice persoană dornică de a ajuta persoanele din grupurile de risc.",
+      "2": "Persoana care vrea să facă o schimbare.",
+      "3": "Persoana care dispune de timp și motivație.",
+      "4": "Persoana care vrea să facă parte dintr-o echipă super faină și deschisă la minte.",
+      "description": "Devino voluntar, completează<br />formularul de înregistrare."
+    }
   },
   "WELCOME": {
     "WANT_TO_DONATE": "Vreau să donez",
@@ -14,11 +33,6 @@
     "LOG_IN": "Logare în sistem",
     "CREATED_WITH": "creat cu",
     "BY_C4MD": "de Code for Moldova",
-    "COPYRIGHT": "Organizație neguvernamentală independentă, neafiliată politic",
-    "TITLE_CARICATURES": "Cine sunt ajutați?",
-    "CARICATURE_1": "<strong>Persoanele susceptibile la virus.</strong> Vârstnicii, persoanele cu dizabilități locomotorii și boli cronice",
-    "CARICATURE_2": "<strong>Părintele</strong> care-și crește copiii de unul <strong>singur</strong>",
-    "CARICATURE_3": "<strong>Oamenii</strong> ce se află în <strong>autoizolare</strong> sau <strong>carantină</strong>",
-    "CARICATURE_4": "<strong>Persoanele aflate în situații critice financiare</strong>"
+    "COPYRIGHT": "Organizație neguvernamentală independentă, neafiliată politic"
   }
 }

@@ -1,7 +1,7 @@
-@import "~bootstrap/scss/functions";
-@import "~bootstrap/scss/variables";
+$green: #23b67a;
+$blue: #1fa8df;
+$body-color: #424242;
 
-$font-family-base: Roboto, #{$font-family-sans-serif};
 $headings-font-weight: 700;
 
 $container-max-widths: (
@@ -11,25 +11,11 @@ $container-max-widths: (
   xl: 960px,
 );
 
-$spacers: map-merge(
-  (
-    0: 0,
-    1: (
-      $spacer * 0.25,
-    ),
-    2: (
-      $spacer * 0.5,
-    ),
-    3: $spacer,
-    4: (
-      $spacer * 1.5,
-    ),
-    5: (
-      $spacer * 3,
-    ),
-    6: (
-      $spacer * 4,
-    ),
-  ),
-  $spacers
+$spacers: (
+  6: 4rem,
 );
+
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+
+$font-family-base: Roboto, #{$font-family-sans-serif};
