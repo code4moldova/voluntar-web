@@ -8,12 +8,14 @@ import { BeneficiariesComponent } from './beneficiaries.component';
 import { BeneficiariesRoutingModule } from './beneficiaries-routing.module';
 import { BeneficiariesListComponent } from './beneficiaries-list/beneficiaries-list.component';
 import { BeneficiaryDetailsComponent } from './beneficiary-details/beneficiary-details.component';
+import { BeneficiaryNewComponent } from './beneficiary-new/beneficiary-new.component';
 
 @NgModule({
   declarations: [
     BeneficiariesComponent,
     BeneficiariesListComponent,
     BeneficiaryDetailsComponent,
+    BeneficiaryNewComponent,
   ],
   imports: [
     CommonModule,
@@ -23,4 +25,4 @@ import { BeneficiaryDetailsComponent } from './beneficiary-details/beneficiary-d
     NgxMaskModule.forChild(),
   ],
 })
-export class BeneficiariesModule { }
+export class BeneficiariesModule {}

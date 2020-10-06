@@ -1,0 +1,102 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="header">
+    <h2>Crează Beneficiar Nou</h2>
+  </div>
+
+  <div class="content">
+    <div class="fieldset">Date personale</div>
+
+    <div class="fields_row">
+      <div class="field mobile" fxFlex fxLayout="column">
+        <div class="title">Telefon (Mobil)</div>
+        <div class="value">
+          <input class="phone_prefix" />
+          <input class="phone_number" />
+        </div>
+      </div>
+
+      <div class="field landline" fxFlex fxLayout="column">
+        <div class="title">Telefon (Fix)</div>
+        <div class="value">
+          <input class="phone_prefix" />
+          <input class="phone_number" />
+        </div>
+      </div>
+    </div>
+
+    <div class="fields_row">
+      <div class="field" fxFlex fxLayout="column">
+        <div class="title">Nume (Familie)</div>
+        <div class="value">
+          <input class="" style="width: 190px" formControlName="last_name" />
+        </div>
+      </div>
+      <div class="field" fxFlex fxLayout="column">
+        <div class="title">Prenume</div>
+        <div class="value">
+          <input class="" style="width: 190px" formControlName="first_name" />
+        </div>
+      </div>
+      <div class="field" fxFlex fxLayout="column">
+        <div class="title">Vîrsta</div>
+        <div class="value">
+          <input class="" style="width: 70px" formControlName="age" />
+        </div>
+      </div>
+    </div>
+
+    <div class="fields_row">
+      <div class="field" fxFlex fxLayout="column">
+        <div class="title">Sector</div>
+        <div class="value">
+          <mat-select style="width: 230px" placeholder="Alege">
+            <mat-option *ngFor="let zone of zones" [value]="zone.value">
+              {{ zone.label }}
+            </mat-option>
+          </mat-select>
+        </div>
+      </div>
+    </div>
+
+    <div class="fields_row">
+      <div class="field" fxFlex fxLayout="column">
+        <div class="title">Adresă</div>
+        <div class="value">
+          <input class="" style="width: 230px" />
+        </div>
+      </div>
+
+      <div class="field" fxFlex fxLayout="column">
+        <div class="title">Scară</div>
+        <div class="value">
+          <input class="" style="width: 70px" />
+        </div>
+      </div>
+      <div class="field" fxFlex fxLayout="column">
+        <div class="title">Etaj</div>
+        <div class="value">
+          <input class="" style="width: 70px" />
+        </div>
+      </div>
+      <div class="field" fxFlex fxLayout="column">
+        <div class="title">Apartament</div>
+        <div class="value">
+          <input class="" style="width: 70px" />
+        </div>
+      </div>
+    </div>
+
+    <div class="fields_row">
+      <div class="field" fxFlex fxLayout="column">
+        <div class="title">Condiții speciale</div>
+        <div class="value">
+          <mat-select style="width: 230px" placeholder="Alege"></mat-select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <button mat-flat-button type="submit" color="primary">Crează</button>
+  </div>
+</form>

@@ -24,10 +24,6 @@ const routes: Routes = [
         component: BeneficiariesListComponent,
       },
       {
-        path: 'new',
-        component: BeneficiaryDetailsComponent,
-      },
-      {
         path: '**',
         redirectTo: 'list',
         pathMatch: 'full',
@@ -40,4 +36,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class BeneficiariesRoutingModule { }
+export class BeneficiariesRoutingModule {}

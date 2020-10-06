@@ -4,10 +4,41 @@
       <h1 class="mb-0 mt-0">Beneficiarii</h1>
     </div>
     <div fxFlex fxLayoutAlign="end">
-      <a routerLink="/admin/beneficiaries/new" mat-raised-button color="primary">
+      <button
+        mat-flat-button
+        type="button"
+        color="primary"
+        (click)="openNewBeneficiaryDialog()"
+      >
         <mat-icon>add</mat-icon>
         Nou beneficiar
-      </a>
+      </button>
     </div>
   </div>
 </div>
+
+<mat-tab-group mat-align-tabs="start">
+  <mat-tab>
+    <ng-template mat-tab-label>
+      Toți
+      <span class="badge-counter">120</span>
+    </ng-template>
+
+    Beneficiary list
+
+    <mat-paginator
+      (page)="onPageChange($event)"
+      [length]="count$ | async"
+      [pageSizeOptions]="[20, 50, 100]"
+    ></mat-paginator>
+  </mat-tab>
+
+  <mat-tab>
+    <ng-template mat-tab-label>
+      Blocați
+      <span class="badge-counter">20</span>
+    </ng-template>
+
+    Block list
+  </mat-tab>
+</mat-tab-group>
