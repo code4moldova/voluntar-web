@@ -1,0 +1,32 @@
+@import "0-abstract/variables";
+
+.public-area-footer {
+  color: $gray-600;
+}
+
+.public-area-footer-copyright-column {
+  font-size: 12px;
+}
+
+.public-area-footer-copyright {
+  color: $gray-500;
+}
+
+.public-area-footer-links-column {
+  font-size: 14px;
+
+  a {
+    color: inherit;
+  }
+}
+
+.public-area-footer-socials {
+  a {
+    opacity: 0.8;
+    transition: opacity 0.2s ease-out;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}

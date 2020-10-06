@@ -1,0 +1,68 @@
+<footer class="public-area-footer pt-4 pb-3 pt-md-5 pb-md-4">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 public-area-footer-links-column">
+        <ul class="list-unstyled">
+          <li>
+            <a href="#asd">
+              {{ "footer.terms" | translate }}
+            </a>
+          </li>
+          <li>
+            <a routerLink="/login">{{ "common.sign_in" | translate }}</a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-4 col-lg-5">
+        <p>{{ "footer.find_us_on_social" | translate }}</p>
+        <div class="d-flex align-items-center public-area-footer-socials">
+          <figure class="figure">
+            <a href="https://www.facebook.com/voluntar.md" target="_blank">
+              <img
+                class="img-fluid"
+                src="/assets/images/landing/facebook-logo.svg"
+                width="44"
+                height="44"
+                alt=""
+              />
+            </a>
+          </figure>
+          <figure class="figure ml-3">
+            <a
+              href="https://www.instagram.com/oamenii_initiativei/"
+              target="_blank"
+            >
+              <img
+                class="img-fluid"
+                src="/assets/images/landing/instagram-logo.svg"
+                width="44"
+                height="44"
+                alt=""
+              />
+            </a>
+          </figure>
+        </div>
+      </div>
+      <div
+        class="col-md-4 col-lg-3 order-md-first public-area-footer-copyright-column"
+      >
+        <p>{{ "footer.created_by" | translate }}</p>
+        <figure class="figure">
+          <a href="https://code4.md" target="_blank">
+            <img
+              class="img-fluid w-50"
+              src="/assets/images/landing/logo-code4md-100h.png"
+              width="237"
+              height="100"
+              alt="code4.md"
+            />
+          </a>
+        </figure>
+        <p>{{ "footer.description" | translate }}</p>
+        <p class="public-area-footer-copyright">
+          {{ "footer.copyright" | translate }}
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>

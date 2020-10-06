@@ -1,0 +1,58 @@
+<header
+  class="d-flex align-items-center public-area-header"
+  [class.inverted]="inverted"
+>
+  <div class="container">
+    <div class="d-flex align-items-center justify-content-end">
+      <figure *ngIf="!inverted" class="figure mb-0">
+        <a routerLink="/">
+          <img
+            src="/assets/images/landing/header-logo.svg"
+            width="48"
+            height="60"
+            alt="voluntar.md"
+            class="img-fluid"
+          />
+        </a>
+      </figure>
+      <div class="flex-grow-1"></div>
+      <a routerLink="/" fragment="{{ navSvc.whoNeedsHelpSectionId }}">
+        {{ "common.who_needs_help" | translate }}
+      </a>
+      <a
+        routerLink="/"
+        fragment="{{ navSvc.whoCanHelpSectionId }}"
+        class="mx-4"
+      >
+        {{ "common.who_can_help" | translate }}
+      </a>
+      <a
+        routerLink="/"
+        fragment="{{ navSvc.makeDonationSectionId }}"
+        class="btn py-1 px-3"
+        [class.btn-outline-success]="!inverted"
+        [class.btn-outline-light]="inverted"
+      >
+        {{ "common.make_donation" | translate }}
+      </a>
+      <div class="landing-header-language-switcher">
+        <a
+          *ngIf="currentLang !== 'ro'"
+          href="#"
+          (click)="changeLang('ro')"
+          class="ml-4"
+        >
+          Româna
+        </a>
+        <a
+          *ngIf="currentLang !== 'ru'"
+          href="#"
+          (click)="changeLang('ru')"
+          class="ml-4"
+        >
+          Русский
+        </a>
+      </div>
+    </div>
+  </div>
+</header>

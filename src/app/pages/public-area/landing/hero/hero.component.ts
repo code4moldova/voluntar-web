@@ -1,9 +1,9 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
   ViewEncapsulation,
 } from '@angular/core';
+import { NavigationService } from '../../shared/navigation.service';
 
 @Component({
   selector: 'app-hero',
@@ -13,6 +13,5 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeroComponent {
-  @Input() requestHelpUrl: string;
-  @Input() formularUrl: string;
+  constructor(public navSvc: NavigationService) {}
 }

@@ -6,9 +6,10 @@ import { PublicGuard } from './guards/public.guard';
 const routes: Routes = [
   {
     path: '',
-    // canActivate: [PublicGuard],
     loadChildren: () =>
-      import('./pages/welcome/welcome.module').then((m) => m.WelcomeModule),
+      import('./pages/public-area/public-area.module').then(
+        (m) => m.PublicAreaModule
+      ),
   },
   {
     path: 'admin',
@@ -24,8 +25,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: '',
-    pathMatch: 'full',
+    redirectTo: '/',
   },
 ];
 

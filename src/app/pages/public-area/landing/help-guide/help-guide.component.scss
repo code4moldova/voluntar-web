@@ -1,0 +1,42 @@
+@import "0-abstract/variables";
+@import "0-abstract/mixins";
+
+.landing-help-guide-tabs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  a {
+    font-size: $h5-font-size;
+    color: #aaa;
+    transition: color ease-out 0.2s;
+    cursor: pointer;
+
+    @include media-breakpoint-up(sm) {
+      font-size: $h4-font-size;
+    }
+
+    @include media-breakpoint-up(md) {
+      font-size: $h3-font-size;
+    }
+
+    &:hover {
+      color: darken(#aaa, 20%);
+      text-decoration: none;
+    }
+
+    &.active-tab {
+      color: $body-color;
+      cursor: default;
+      pointer-events: none;
+    }
+  }
+}
+
+.landing-help-guide-need-help {
+  background-color: #fcffd9;
+}
+
+.landing-help-guide-give-help {
+  background-color: #eeffeb;
+}

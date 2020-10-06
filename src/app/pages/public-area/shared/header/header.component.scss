@@ -1,0 +1,20 @@
+@import "0-abstract/variables";
+
+.public-area-header {
+  height: 100px;
+
+  a:not(.btn) {
+    color: $body-color;
+
+    &:hover {
+      color: darken($body-color, 15%);
+    }
+  }
+
+  // specific only to landing page, because is on top of hero section
+  &.inverted {
+    a:not(.btn) {
+      color: #fff;
+    }
+  }
+}
