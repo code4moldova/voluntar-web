@@ -1,1 +1,86 @@
-<p>beneficiary-details works!</p>
+<div>
+  <a routerLink="/admin/beneficiaries/list" class="back-link">&lt;- Înapoi</a>
+</div>
+
+<div *ngIf="user">
+  <div class="mb-25">
+    <div fxLayout="row" fxLayoutAlign="space">
+      <div>
+        <h1 class="mb-0 mt-0">Vezi Beneficiar</h1>
+      </div>
+      <div fxFlex fxLayoutAlign="end">
+        <a [routerLink]="['/admin/beneficiaries/edit', user._id]">
+          <mat-icon>edit</mat-icon>
+          Editează
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <mat-card>
+    <div class="fieldset">Date personale</div>
+
+    <mat-grid-list cols="4" rowHeight="62px">
+      <mat-grid-tile>
+        <div fxFlex fxLayout="column">
+          <div class="title">Nume, Prenume</div>
+          <div class="value">{{ user.last_name }} {{ user.first_name }}</div>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div fxFlex fxLayout="column">
+          <div class="title">Telefon (Mobil)</div>
+          <div class="value">{{ user.phone }}</div>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div fxFlex fxLayout="column">
+          <div class="title">Telefon (Fix)</div>
+          <div class="value">{{ user.landline }}</div>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div fxFlex fxLayout="column">
+          <div class="title">Vîrsta</div>
+          <div class="value">{{ user.age }}</div>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+
+    <mat-grid-list cols="4" rowHeight="62px">
+      <mat-grid-tile>
+        <div fxFlex fxLayout="column">
+          <div class="title">Sector</div>
+          <div class="value">{{ user.zone | zoneTitle }}</div>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div fxFlex fxLayout="column">
+          <div class="title">Adresă</div>
+          <div class="value">{{ userAddress() }}</div>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+
+    <mat-grid-list cols="4" rowHeight="62px">
+      <mat-grid-tile>
+        <div fxFlex fxLayout="column">
+          <div class="title">Condiții speciale</div>
+          <div class="value">TODO {{ user.special_condition }}</div>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div fxFlex fxLayout="column">
+          <div class="title">Data creare profil</div>
+          <div class="value">{{ user.created_at | date }}</div>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </mat-card>
+
+  <div class="secondary-title">
+    Istoric Cereri
+    <span class="count">(5)</span>
+  </div>
+  <mat-card>...TODO</mat-card>
+</div>
