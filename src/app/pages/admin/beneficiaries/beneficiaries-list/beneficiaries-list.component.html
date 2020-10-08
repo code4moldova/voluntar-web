@@ -21,10 +21,39 @@
   <mat-tab>
     <ng-template mat-tab-label>
       Toți
-      <span class="badge-counter">120</span>
+      <span class="badge-counter">{{ count$ | async }}</span>
     </ng-template>
 
-    Beneficiary list
+    <mat-grid-list
+      *ngFor="let user of dataSource$ | async"
+      cols="6"
+      rowHeight="62px"
+    >
+      <mat-grid-tile>
+        <!-- Condiții speciale -->
+      </mat-grid-tile>
+      <mat-grid-tile>{{ user.first_name }} {{ user.last_name }}</mat-grid-tile>
+      <mat-grid-tile>
+        <mat-icon>phone</mat-icon>
+        {{ user.landline }}
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-icon>room</mat-icon>
+        {{ user.zone | zoneTitle }}
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-icon>history</mat-icon>
+        {{ user.created_at | date }}
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <a
+          mat-stroked-button
+          [routerLink]="['/admin/beneficiaries/details', user._id]"
+        >
+          Detalii
+        </a>
+      </mat-grid-tile>
+    </mat-grid-list>
 
     <mat-paginator
       (page)="onPageChange($event)"

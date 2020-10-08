@@ -19,7 +19,7 @@ import {
   getBeneficiariesFailureAction,
   getBeneficiariesByFilterAction,
   getBeneficiariesByFilterSuccessAction,
-  getBeneficiariesByFilterFailureAction
+  getBeneficiariesByFilterFailureAction,
 } from './actions';
 
 import { BeneficiariesService } from '@services/beneficiaries/beneficiaries.service';
@@ -30,7 +30,7 @@ export class BeneficiariesEffects {
     private actions$: Actions,
     private router: Router,
     private service: BeneficiariesService
-  ) { }
+  ) {}
 
   getBeneficiaryByIdEffect$: Observable<Action> = createEffect(() => {
     return this.actions$.pipe(
@@ -53,7 +53,6 @@ export class BeneficiariesEffects {
         const { _id, ...withoutId } = payload;
         return this.service.saveBeneficiary(withoutId).pipe(
           map(({ user }) => {
-            this.router.navigate(['beneficiaries/details', user._id]);
             return saveBeneficiarySuccessAction({ payload: user });
           }),
           catchError(({ error }) => of(saveBeneficiaryFailureAction({ error })))

@@ -9,6 +9,7 @@ import { BeneficiariesRoutingModule } from './beneficiaries-routing.module';
 import { BeneficiariesListComponent } from './beneficiaries-list/beneficiaries-list.component';
 import { BeneficiaryDetailsComponent } from './beneficiary-details/beneficiary-details.component';
 import { BeneficiaryNewComponent } from './beneficiary-new/beneficiary-new.component';
+import { ZoneTitlePipe } from '../../../zone-title.pipe';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { BeneficiaryNewComponent } from './beneficiary-new/beneficiary-new.compo
     BeneficiariesListComponent,
     BeneficiaryDetailsComponent,
     BeneficiaryNewComponent,
+    ZoneTitlePipe,
   ],
   imports: [
     CommonModule,

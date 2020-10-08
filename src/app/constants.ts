@@ -20,3 +20,8 @@ export const KIV_ZONES = [
     value: 'rîșcani',
   },
 ];
+
+export const KIV_ZONES_MAP = KIV_ZONES.reduce((acc, zone) => {
+  acc[zone.value] = zone.label;
+  return acc;
+}, {});

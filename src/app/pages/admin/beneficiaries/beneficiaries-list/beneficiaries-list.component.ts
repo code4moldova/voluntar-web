@@ -63,8 +63,8 @@ export class BeneficiariesListComponent implements OnInit {
         takeUntil(dialogRef.afterClosed())
       )
       .subscribe(() => {
-        this.reloadBeneficiaries();
         dialogRef.close();
+        this.reloadBeneficiaries();
       });
   }
 }
