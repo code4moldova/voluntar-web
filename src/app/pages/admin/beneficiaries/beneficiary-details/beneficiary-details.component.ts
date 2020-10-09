@@ -59,16 +59,16 @@ export class BeneficiaryDetailsComponent implements OnInit, OnDestroy {
 
     const result = [this.user.address];
 
-    if (this.user.scara) {
-      result.push(`Sc. ${this.user.scara}`);
+    if (this.user.entrance) {
+      result.push(`Sc. ${this.user.entrance}`);
     }
 
     if (this.user.floor) {
       result.push(`Et. ${this.user.floor}`);
     }
 
-    if (this.user.apartament) {
-      result.push(`Ap. ${this.user.apartament}`);
+    if (this.user.apartment) {
+      result.push(`Ap. ${this.user.apartment}`);
     }
 
     return result.join(', ');

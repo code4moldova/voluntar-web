@@ -17,7 +17,7 @@ export const KIV_ZONES = [
   },
   {
     label: 'Rîșcani',
-    value: 'rîșcani',
+    value: 'riscani',
   },
 ];
 

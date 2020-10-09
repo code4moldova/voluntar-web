@@ -7,9 +7,9 @@ export interface Beneficiary {
   age: number;
   zone: string;
   address: string;
-  scara: string;
+  entrance: string;
   floor: string;
-  apartament: string;
+  apartment: string;
   special_condition: string;
   created_at: string | Date;
 }
