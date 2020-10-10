@@ -23,10 +23,6 @@ const routes: Routes = [
         component: UsersListComponent,
       },
       {
-        path: 'new',
-        component: UserDetailsComponent,
-      },
-      {
         path: '**',
         redirectTo: 'list',
         pathMatch: 'full',

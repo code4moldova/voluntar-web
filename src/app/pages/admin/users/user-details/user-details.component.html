@@ -4,7 +4,7 @@
       <h1 class="mb-10 mt-0">
         {{ id ? "User Details" : "Create User" }}
       </h1>
-      <a routerLink="/admin/users/list" class="go-back">
+      <a routerLink="/admin/users/list" class="go-back" *ngIf="id">
         <div fxFlex fxLayoutAlign="start center">
           <mat-icon>arrow_back</mat-icon>
           <span>Back to List</span>

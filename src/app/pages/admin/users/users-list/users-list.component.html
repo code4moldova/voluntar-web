@@ -4,10 +4,15 @@
       <h1 class="mb-0 mt-0">Users</h1>
     </div>
     <div fxFlex fxLayoutAlign="end">
-      <a routerLink="/admin/users/new" mat-raised-button color="primary">
+      <button
+        mat-flat-button
+        type="button"
+        color="primary"
+        (click)="openNewUserDialog()"
+      >
         <mat-icon>add</mat-icon>
         Nou user
-      </a>
+      </button>
     </div>
   </div>
 </div>
