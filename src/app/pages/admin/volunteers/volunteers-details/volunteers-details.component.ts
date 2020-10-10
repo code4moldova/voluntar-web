@@ -179,17 +179,19 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
     this.formSubmitted = true;
     if (this.form.valid) {
       this.volunteerFacade.saveVolunteer(this.form.getRawValue());
-      combineLatest([
-        this.volunteerFacade.isLoading$,
-        this.volunteerFacade.error$,
-      ])
-        .pipe(
-          filter(([status, error]) => !status && !error),
-          first()
-        )
-        .subscribe(() => {
-          this.router.navigateByUrl('/admin/volunteers/list');
-        });
+      if (this.currentVolunteeerId) {
+        combineLatest([
+          this.volunteerFacade.isLoading$,
+          this.volunteerFacade.error$,
+        ])
+          .pipe(
+            filter(([status, error]) => !status && !error),
+            first()
+          )
+          .subscribe(() => {
+            this.router.navigateByUrl('/admin/volunteers/list');
+          });
+      }
     } else {
       console.log('invalid form', this.form);
       this.snackBar.open('Update required fields', '', {

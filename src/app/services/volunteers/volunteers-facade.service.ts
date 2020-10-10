@@ -20,6 +20,8 @@ import {
 import { IVolunteer } from '@models/volunteers';
 import { PageEvent } from '@angular/material/paginator';
 
+export type VolunteerPageParams = { pageSize: number; pageIndex: number };
+
 @Injectable({
   providedIn: 'root',
 })
@@ -39,7 +41,7 @@ export class VolunteersFacadeService {
     }
   }
 
-  getVolunteers(page: { pageSize: number; pageIndex: number }, filters?: any) {
+  getVolunteers(page: VolunteerPageParams, filters?: any) {
     this.store.dispatch(getVolunteersAction({ page, filters }));
   }
 
