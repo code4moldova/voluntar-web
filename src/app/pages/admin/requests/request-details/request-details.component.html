@@ -8,7 +8,7 @@
             : "Create Beneficiar"
         }}
       </h1>
-      <a href="#" appGoBack class="go-back">
+      <a href="#" appGoBack class="go-back" *ngIf="currentRequestId$ | async">
         <div fxFlex fxLayoutAlign="start center">
           <mat-icon>arrow_back</mat-icon>
           <span>Back to List</span>
