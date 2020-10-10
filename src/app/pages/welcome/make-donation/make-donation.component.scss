@@ -1,0 +1,21 @@
+.landing-make-donation-arguments-list {
+  li {
+    position: relative;
+    padding-left: 40px;
+
+    + li {
+      margin-top: 1rem;
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 5px;
+      left: 3px;
+      width: 13px;
+      height: 13px;
+      background-color: #23b67a;
+      transform: rotate(45deg);
+    }
+  }
+}

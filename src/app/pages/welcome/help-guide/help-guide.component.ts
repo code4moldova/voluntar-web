@@ -19,7 +19,7 @@ import { distinctUntilChanged } from 'rxjs/operators';
   animations: [
     trigger('fadeInOut', [
       transition(':enter', [
-        style({ opacity: 0 }),
+        style({ opacity: 0.5 }),
         animate('.3s', style({ opacity: 1 })),
       ]),
       transition(':leave', [

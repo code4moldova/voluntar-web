@@ -4,18 +4,18 @@ $body-color: #424242;
 
 $headings-font-weight: 700;
 
-$container-max-widths: (
-  sm: 540px,
-  md: 720px,
-  lg: 960px,
-  xl: 960px,
-);
-
 $spacers: (
   6: 4rem,
 );
 
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";
+
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 960px,
+);
 
 $font-family-base: Roboto, #{$font-family-sans-serif};
