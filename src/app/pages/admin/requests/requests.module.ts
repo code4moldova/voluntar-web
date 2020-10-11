@@ -9,6 +9,7 @@ import { SharedModule } from '@shared/shared.module';
 import { RequestModalInfoComponent } from './request-modal-info/request-modal-info.component';
 import { RequestFormComponent } from './request-form/request-form.component';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
+import { RequestsMapComponent } from './requests-map/requests-map.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { NgxMaskModule, IConfig } from 'ngx-mask';
     RequestsListComponent,
     RequestModalInfoComponent,
     RequestFormComponent,
+    RequestsMapComponent,
   ],
   imports: [
     CommonModule,
