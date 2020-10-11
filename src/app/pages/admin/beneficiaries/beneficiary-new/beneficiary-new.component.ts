@@ -5,7 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { combineLatest } from 'rxjs';
 import { filter, first } from 'rxjs/operators';
 
-import { KIV_ZONES } from '../../../../constants';
+import { KIV_ZONES, SPECIAL_CONDITIONS } from '../../../../constants';
 import { BeneficiariesFacadeService } from '@services/beneficiaries/beneficiaries-facade.service';
 
 export const COMMON_FIELDS = {
@@ -27,6 +27,7 @@ export const COMMON_FIELDS = {
 })
 export class BeneficiaryNewComponent implements OnInit {
   zones = KIV_ZONES;
+  specialConditions = SPECIAL_CONDITIONS;
   form = this.fb.group({
     ...COMMON_FIELDS,
     phone_prefix: [null, Validators.required],

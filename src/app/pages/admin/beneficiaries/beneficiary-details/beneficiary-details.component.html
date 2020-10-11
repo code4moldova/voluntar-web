@@ -70,7 +70,9 @@
       <mat-grid-tile>
         <div fxFlex fxLayout="column">
           <div class="title">Condiții speciale</div>
-          <div class="value">TODO {{ user.special_condition }}</div>
+          <div class="value">
+            {{ user.special_condition | specialConditionTitle }}
+          </div>
         </div>
       </mat-grid-tile>
       <mat-grid-tile>

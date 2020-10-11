@@ -25,3 +25,23 @@ export const KIV_ZONES_MAP = KIV_ZONES.reduce((acc, zone) => {
   acc[zone.value] = zone.label;
   return acc;
 }, {});
+
+export const SPECIAL_CONDITIONS = [
+  {
+    label: 'Disability',
+    value: 'disability',
+  },
+  {
+    label: 'Deaf-mute',
+    value: 'deaf_mute',
+  },
+  {
+    label: 'Bind/Weak-seer',
+    value: 'blind_weak_seer',
+  },
+];
+
+export const SPECIAL_CONDITIONS_MAP = SPECIAL_CONDITIONS.reduce((acc, zone) => {
+  acc[zone.value] = zone.label;
+  return acc;
+}, {});

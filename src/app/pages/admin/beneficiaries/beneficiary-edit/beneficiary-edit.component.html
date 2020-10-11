@@ -80,7 +80,15 @@
             formControlName="special_condition"
             style="width: 230px"
             placeholder="Alege"
-          ></mat-select>
+          >
+            <mat-option>--</mat-option>
+            <mat-option
+              *ngFor="let item of specialConditions"
+              [value]="item.value"
+            >
+              {{ item.label }}
+            </mat-option>
+          </mat-select>
         </div>
       </div>
     </div>

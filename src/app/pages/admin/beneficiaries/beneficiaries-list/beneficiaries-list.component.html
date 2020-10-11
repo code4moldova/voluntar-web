@@ -30,7 +30,7 @@
       rowHeight="62px"
     >
       <mat-grid-tile>
-        <!-- Condiții speciale -->
+        {{ user.special_condition | specialConditionTitle }}
       </mat-grid-tile>
       <mat-grid-tile class="user-name">
         {{ user.last_name }} {{ user.first_name }}
