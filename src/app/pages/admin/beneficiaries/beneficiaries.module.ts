@@ -12,6 +12,7 @@ import { BeneficiaryNewComponent } from './beneficiary-new/beneficiary-new.compo
 import { ZoneTitlePipe } from '../../../zone-title.pipe';
 import { BeneficiaryEditComponent } from './beneficiary-edit/beneficiary-edit.component';
 import { SpecialConditionTitlePipe } from '../../../special-condition-title.pipe';
+import { DisabilityComponent } from '@shared/disability/disability.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { SpecialConditionTitlePipe } from '../../../special-condition-title.pipe
     ZoneTitlePipe,
     SpecialConditionTitlePipe,
     BeneficiaryEditComponent,
+    DisabilityComponent,
   ],
   imports: [
     CommonModule,

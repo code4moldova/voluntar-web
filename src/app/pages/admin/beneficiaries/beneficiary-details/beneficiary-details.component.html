@@ -71,7 +71,9 @@
         <div fxFlex fxLayout="column">
           <div class="title">Condiții speciale</div>
           <div class="value">
-            {{ user.special_condition | specialConditionTitle }}
+            <app-disability
+              [disability]="user.special_condition"
+            ></app-disability>
           </div>
         </div>
       </mat-grid-tile>

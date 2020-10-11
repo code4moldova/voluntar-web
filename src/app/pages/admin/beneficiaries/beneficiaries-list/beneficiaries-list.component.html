@@ -30,7 +30,10 @@
       rowHeight="62px"
     >
       <mat-grid-tile>
-        {{ user.special_condition | specialConditionTitle }}
+        <app-disability
+          [disability]="user.special_condition"
+          [showLabel]="false"
+        ></app-disability>
       </mat-grid-tile>
       <mat-grid-tile class="user-name">
         {{ user.last_name }} {{ user.first_name }}
