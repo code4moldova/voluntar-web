@@ -1,6 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 
 import { Beneficiary } from '@models/beneficiary';
+import { BeneficiaryRequest } from '@store/beneficiaries-store/state';
 
 export enum ActionTypes {
   GET_BENEFICIARIES = '[Beneficiaries] Get Beneficiaries',
@@ -10,6 +11,10 @@ export enum ActionTypes {
   GET_BENEFICIARY = '[Beneficiary] Get Beneficiary',
   GET_BENEFICIARY_SUCCESS = '[Beneficiary] Get Beneficiary Success',
   GET_BENEFICIARY_FAILURE = '[Beneficiary] Get Beneficiary Failure',
+
+  GET_BENEFICIARY_REQUESTS = '[Beneficiary] Get Beneficiary Requests',
+  GET_BENEFICIARY_REQUESTS_SUCCESS = '[Beneficiary] Get Beneficiary Requests Success',
+  GET_BENEFICIARY_REQUESTS_FAILURE = '[Beneficiary] Get Beneficiary Requests Failure',
 
   GET_BENEFICIARIES_BY_FILTER = '[Beneficiaries] Get Beneficiaries By Filter',
   GET_BENEFICIARIES_BY_FILTER_SUCCES = '[Beneficiaries] Get Beneficiaries By Filter Success',
@@ -47,6 +52,21 @@ export const getBeneficiarySuccessAction = createAction(
 );
 export const getBeneficiaryFailureAction = createAction(
   ActionTypes.GET_BENEFICIARY_FAILURE,
+  props<{ error: any }>()
+);
+
+export const getBeneficiaryRequestsAction = createAction(
+  ActionTypes.GET_BENEFICIARY_REQUESTS,
+  props<{ id: string; page: { pageSize: number; pageIndex: number } }>()
+);
+
+export const getBeneficiaryRequestsSuccessAction = createAction(
+  ActionTypes.GET_BENEFICIARY_REQUESTS_SUCCESS,
+  props<{ payload: BeneficiaryRequest[]; count: number }>()
+);
+
+export const getBeneficiaryRequestsFailureAction = createAction(
+  ActionTypes.GET_BENEFICIARY_REQUESTS_FAILURE,
   props<{ error: any }>()
 );
 

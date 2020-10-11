@@ -16,7 +16,10 @@ import {
   getBeneficiariesFailureAction,
   getBeneficiariesByFilterAction,
   getBeneficiariesByFilterSuccessAction,
-  getBeneficiariesByFilterFailureAction
+  getBeneficiariesByFilterFailureAction,
+  getBeneficiaryRequestsAction,
+  getBeneficiaryRequestsSuccessAction,
+  getBeneficiaryRequestsFailureAction,
 } from './actions';
 
 const beneficiaryReducer = createReducer(
@@ -104,6 +107,19 @@ const beneficiaryReducer = createReducer(
     ...state,
     isLoading: false,
     error,
+  })),
+
+  on(getBeneficiaryRequestsAction, (state) => ({
+    ...state,
+    requests: { ...state.requests, isLoading: true, error: null },
+  })),
+  on(getBeneficiaryRequestsSuccessAction, (state, { payload, count }) => ({
+    ...state,
+    requests: { ...state.requests, isLoading: false, data: payload, count },
+  })),
+  on(getBeneficiaryRequestsFailureAction, (state, { error }) => ({
+    ...state,
+    requests: { ...state.requests, isLoading: false, error },
   }))
 );
 

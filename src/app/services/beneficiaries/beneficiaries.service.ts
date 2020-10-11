@@ -4,12 +4,13 @@ import { Observable } from 'rxjs';
 
 import { Beneficiary } from '@models/beneficiary';
 import { environment } from 'src/environments/environment';
+import { BeneficiaryRequest } from '@store/beneficiaries-store/state';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BeneficiariesService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   saveBeneficiary(beneficiary: Beneficiary) {
     return this.http.post<any>(`${environment.url}/beneficiary`, beneficiary);
@@ -31,14 +32,17 @@ export class BeneficiariesService {
   ) {
     const params = new HttpParams({ fromObject: filters });
     return this.http.get<{ list: Beneficiary[]; count: number }>(
-      `${environment.url}/beneficiary/filters/${page.pageIndex || 1}/${page.pageSize || 1000
+      `${environment.url}/beneficiary/filters/${page.pageIndex || 1}/${
+        page.pageSize || 1000
       }`,
       { params }
     );
   }
 
   getBeneficiaryById(id: string): Observable<Beneficiary> {
-    return this.http.get<Beneficiary>(`${environment.url}/beneficiary?id=${id}`);
+    return this.http.get<Beneficiary>(
+      `${environment.url}/beneficiary?id=${id}`
+    );
   }
 
   getBeneficiariesByFilter(
@@ -50,6 +54,22 @@ export class BeneficiariesService {
       {
         params,
       }
+    );
+  }
+
+  getBeneficiaryRequests(
+    page: { pageIndex: number; pageSize: number } = {
+      pageIndex: 1,
+      pageSize: 20,
+    },
+    id: string
+  ) {
+    const params = new HttpParams({ fromObject: { b_id: id } });
+    return this.http.get<{ list: BeneficiaryRequest[]; count: number }>(
+      `${environment.url}/requests/filters/${page.pageIndex || 1}/${
+        page.pageSize
+      }`,
+      { params }
     );
   }
 }

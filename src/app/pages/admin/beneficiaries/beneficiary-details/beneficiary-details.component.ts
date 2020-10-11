@@ -5,6 +5,12 @@ import { filter, map, takeUntil, tap } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
 import { Beneficiary } from '@models/beneficiary';
+import { select } from '@ngrx/store';
+import {
+  selectRequestsCount,
+  selectRequestsData,
+  selectRequestsError,
+} from '@store/beneficiaries-store/selectors';
 
 @Component({
   selector: 'app-beneficiary-details',
@@ -15,6 +21,11 @@ export class BeneficiaryDetailsComponent implements OnInit, OnDestroy {
   recordId: string;
   componentDestroyed$ = new Subject();
   user: Beneficiary;
+
+  error$ = this.serviceFacade.error$;
+  requestsError$ = this.serviceFacade.requestsError$;
+  requestsData$ = this.serviceFacade.requestsData$;
+  requestsCount$ = this.serviceFacade.requestsCount$;
 
   constructor(
     private route: ActivatedRoute,
@@ -30,6 +41,10 @@ export class BeneficiaryDetailsComponent implements OnInit, OnDestroy {
         this.recordId = id;
         if (id) {
           this.serviceFacade.getBeneficiaryById(id);
+          this.serviceFacade.getBeneficiaryRequests(
+            { pageIndex: 1, pageSize: 20 },
+            id
+          );
         }
       });
   }

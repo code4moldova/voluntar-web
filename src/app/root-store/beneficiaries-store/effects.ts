@@ -20,6 +20,9 @@ import {
   getBeneficiariesByFilterAction,
   getBeneficiariesByFilterSuccessAction,
   getBeneficiariesByFilterFailureAction,
+  getBeneficiaryRequestsAction,
+  getBeneficiaryRequestsFailureAction,
+  getBeneficiaryRequestsSuccessAction,
 } from './actions';
 
 import { BeneficiariesService } from '@services/beneficiaries/beneficiaries.service';
@@ -67,9 +70,11 @@ export class BeneficiariesEffects {
       switchMap(({ payload }) => {
         return this.service.updateBeneficiary(payload).pipe(
           map((res) => {
-            return saveBeneficiarySuccessAction({ payload: res });
+            return updateBeneficiarySuccessAction({ payload: res });
           }),
-          catchError(({ error }) => of(saveBeneficiaryFailureAction({ error })))
+          catchError(({ error }) =>
+            of(updateBeneficiaryFailureAction({ error }))
+          )
         );
       })
     );
@@ -92,7 +97,7 @@ export class BeneficiariesEffects {
     );
   });
 
-  getBeneficiariesByFilterffect$: Observable<Action> = createEffect(() => {
+  getBeneficiariesByFilterEffect$: Observable<Action> = createEffect(() => {
     return this.actions$.pipe(
       ofType(getBeneficiariesByFilterAction),
       switchMap((action) =>
@@ -102,6 +107,25 @@ export class BeneficiariesEffects {
           }),
           catchError((error) =>
             of(getBeneficiariesByFilterFailureAction({ error }))
+          )
+        )
+      )
+    );
+  });
+
+  getBeneficiaryRequestsEffect$: Observable<Action> = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(getBeneficiaryRequestsAction),
+      switchMap(({ page, id }) =>
+        this.service.getBeneficiaryRequests(page, id).pipe(
+          map((res) => {
+            return getBeneficiaryRequestsSuccessAction({
+              payload: res.list,
+              count: res.count,
+            });
+          }),
+          catchError((error) =>
+            of(getBeneficiaryRequestsFailureAction({ error }))
           )
         )
       )

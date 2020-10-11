@@ -9,6 +9,7 @@ import {
   getBeneficiariesByFilterAction,
   getBeneficiariesAction,
   getBeneficiaryAction,
+  getBeneficiaryRequestsAction,
 } from '@store/beneficiaries-store/actions';
 import {
   selectBeneficiariesData,
@@ -16,6 +17,9 @@ import {
   selectBeneficiaryDetails,
   selectError,
   selectBeneficiariesCount,
+  selectRequestsError,
+  selectRequestsData,
+  selectRequestsCount,
 } from '@store/beneficiaries-store/selectors';
 import { Beneficiary } from '@models/beneficiary';
 
@@ -29,7 +33,12 @@ export class BeneficiariesFacadeService {
   isLoading$ = this.store.pipe(select(selectIsLoading));
   error$ = this.store.pipe(select(selectError));
 
-  constructor(private store: Store<RootState>) { }
+  // Requests
+  requestsError$ = this.store.pipe(select(selectRequestsError));
+  requestsData$ = this.store.pipe(select(selectRequestsData));
+  requestsCount$ = this.store.pipe(select(selectRequestsCount));
+
+  constructor(private store: Store<RootState>) {}
 
   saveBeneficiary(beneficiary: Beneficiary) {
     if (beneficiary._id) {
@@ -39,8 +48,18 @@ export class BeneficiariesFacadeService {
     }
   }
 
-  getBeneficiaries(page: { pageSize: number; pageIndex: number }, filters?: any) {
+  getBeneficiaries(
+    page: { pageSize: number; pageIndex: number },
+    filters?: any
+  ) {
     this.store.dispatch(getBeneficiariesAction({ page, filters }));
+  }
+
+  getBeneficiaryRequests(
+    page: { pageSize: number; pageIndex: number },
+    id: string
+  ) {
+    this.store.dispatch(getBeneficiaryRequestsAction({ page, id }));
   }
 
   getBeneficiaryById(id: string) {
