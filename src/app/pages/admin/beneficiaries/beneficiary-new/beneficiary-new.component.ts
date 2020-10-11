@@ -8,6 +8,18 @@ import { filter, first } from 'rxjs/operators';
 import { KIV_ZONES } from '../../../../constants';
 import { BeneficiariesFacadeService } from '@services/beneficiaries/beneficiaries-facade.service';
 
+export const COMMON_FIELDS = {
+  first_name: [null, Validators.required],
+  last_name: [null, Validators.required],
+  age: [null],
+  zone: [null, Validators.required],
+  address: [null, Validators.required],
+  apartment: [null],
+  entrance: [null],
+  floor: [null],
+  special_condition: [null],
+};
+
 @Component({
   selector: 'app-beneficiary-new',
   templateUrl: './beneficiary-new.component.html',
@@ -16,15 +28,7 @@ import { BeneficiariesFacadeService } from '@services/beneficiaries/beneficiarie
 export class BeneficiaryNewComponent implements OnInit {
   zones = KIV_ZONES;
   form = this.fb.group({
-    first_name: [null, Validators.required],
-    last_name: [null, Validators.required],
-    age: [null],
-    zone: [null, Validators.required],
-    address: [null, Validators.required],
-    apartment: [null],
-    entrance: [null],
-    floor: [null],
-    special_condition: [null],
+    ...COMMON_FIELDS,
     phone_prefix: [null, Validators.required],
     phone_number: [null, Validators.required],
     landline_prefix: [null, Validators.required],

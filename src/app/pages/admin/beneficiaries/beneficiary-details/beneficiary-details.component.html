@@ -9,7 +9,11 @@
         <h1 class="mb-0 mt-0">Vezi Beneficiar</h1>
       </div>
       <div fxFlex fxLayoutAlign="end">
-        <a [routerLink]="['/admin/beneficiaries/edit', user._id]">
+        <a
+          mat-stroked-button
+          [routerLink]="['/admin/beneficiaries/edit', user._id]"
+          class="edit-link"
+        >
           <mat-icon>edit</mat-icon>
           Editează
         </a>

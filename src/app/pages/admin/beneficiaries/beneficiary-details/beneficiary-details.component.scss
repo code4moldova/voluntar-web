@@ -9,6 +9,14 @@ h1 {
   color: #2c2c2c;
 }
 
+.edit-link {
+  mat-icon {
+    width: 15px;
+    height: 15px;
+    font-size: 15px;
+  }
+}
+
 .fieldset {
   font-size: 16px;
   font-weight: 700;

@@ -1,0 +1,131 @@
+<div>
+  <a
+    [routerLink]="['/admin/beneficiaries/details', recordId]"
+    class="back-link"
+  >
+    &lt;- Înapoi
+  </a>
+</div>
+<h1>Editează Beneficiar</h1>
+
+<mat-card style="width: 1040px">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="fieldset">Date personale</div>
+
+    <div class="fields_row">
+      <div class="field" fxFlex fxLayout="column">
+        <div class="title">Nume (Familie)</div>
+        <div class="value">
+          <input matInput style="width: 230px" formControlName="last_name" />
+        </div>
+      </div>
+
+      <div class="field" fxFlex fxLayout="column">
+        <div class="title">Prenume</div>
+        <div class="value">
+          <input matInput style="width: 230px" formControlName="first_name" />
+        </div>
+      </div>
+
+      <div class="field mobile" fxFlex fxLayout="column">
+        <div class="title">Telefon (Mobil)</div>
+        <div class="value">
+          <input matInput style="width: 230px" formControlName="phone" />
+        </div>
+      </div>
+
+      <div class="field landline" fxFlex fxLayout="column">
+        <div class="title">Telefon (Fix)</div>
+        <div class="value">
+          <input style="width: 230px" matInput formControlName="landline" />
+        </div>
+      </div>
+    </div>
+
+    <div class="fields_row">
+      <div class="field" fxFlex fxLayout="column">
+        <div class="title">Sector</div>
+        <div class="value">
+          <mat-select
+            formControlName="zone"
+            style="width: 230px"
+            placeholder="Alege"
+          >
+            <mat-option *ngFor="let zone of zones" [value]="zone.value">
+              {{ zone.label }}
+            </mat-option>
+          </mat-select>
+        </div>
+      </div>
+      <!-- Field -->
+      <div class="field" fxFlex fxLayout="column"></div>
+      <!-- Field -->
+      <div class="field" fxFlex fxLayout="column">
+        <div class="title">Vîrsta</div>
+        <div class="value">
+          <input
+            type="number"
+            matInput
+            style="width: 230px"
+            formControlName="age"
+            placeholder="65"
+          />
+        </div>
+      </div>
+      <!-- Field -->
+      <div class="field" fxFlex fxLayout="column">
+        <div class="title">Condiții speciale</div>
+        <div class="value">
+          <mat-select
+            formControlName="special_condition"
+            style="width: 230px"
+            placeholder="Alege"
+          ></mat-select>
+        </div>
+      </div>
+    </div>
+
+    <div class="fields_row" fxLayoutAlign="start start">
+      <div class="field" fxFlex="25" fxLayout="column">
+        <div class="title">Adresă</div>
+        <div class="value">
+          <input matInput formControlName="address" style="width: 230px" />
+        </div>
+      </div>
+      <div>
+        <div class="field" fxFlex fxLayout="column">
+          <div class="title">Scară</div>
+          <div class="value">
+            <input matInput formControlName="entrance" style="width: 70px" />
+          </div>
+        </div>
+        <div class="field" fxFlex fxLayout="column">
+          <div class="title">Etaj</div>
+          <div class="value">
+            <input matInput formControlName="floor" style="width: 70px" />
+          </div>
+        </div>
+        <div class="field" fxFlex fxLayout="column">
+          <div class="title">Apartament</div>
+          <div class="value">
+            <input matInput formControlName="apartment" style="width: 70px" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr />
+    <div class="footer">
+      <div>
+        <mat-slide-toggle formControlName="black_list">
+          Blocklist
+        </mat-slide-toggle>
+      </div>
+      <div class="buttons">
+        <button mat-stroked-button (click)="goBack()">Anulează</button>
+        <button mat-stroked-button type="submit" color="primary">
+          Salvează
+        </button>
+      </div>
+    </div>
+  </form>
+</mat-card>

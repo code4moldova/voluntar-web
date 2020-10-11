@@ -1,7 +1,7 @@
 <div class="mb-25">
   <div fxLayout="row" fxLayoutAlign="space-between center">
     <div fxFlex>
-      <h1 class="mb-0 mt-0">Beneficiarii</h1>
+      <h1 class="mb-0 mt-0">Beneficiari</h1>
     </div>
     <div fxFlex fxLayoutAlign="end">
       <button
@@ -32,7 +32,9 @@
       <mat-grid-tile>
         <!-- Condiții speciale -->
       </mat-grid-tile>
-      <mat-grid-tile>{{ user.last_name }} {{ user.first_name }}</mat-grid-tile>
+      <mat-grid-tile class="user-name">
+        {{ user.last_name }} {{ user.first_name }}
+      </mat-grid-tile>
       <mat-grid-tile>
         <mat-icon>phone</mat-icon>
         {{ user.landline }}

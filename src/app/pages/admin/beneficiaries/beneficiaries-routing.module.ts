@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { BeneficiariesComponent } from './beneficiaries.component';
 import { BeneficiaryDetailsComponent } from './beneficiary-details/beneficiary-details.component';
 import { BeneficiariesListComponent } from './beneficiaries-list/beneficiaries-list.component';
+import { BeneficiaryEditComponent } from './beneficiary-edit/beneficiary-edit.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,10 @@ const routes: Routes = [
       {
         path: 'details/:id',
         component: BeneficiaryDetailsComponent,
+      },
+      {
+        path: 'edit/:id',
+        component: BeneficiaryEditComponent,
       },
       {
         path: 'list',
