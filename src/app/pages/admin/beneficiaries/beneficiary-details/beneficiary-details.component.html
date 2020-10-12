@@ -90,5 +90,39 @@
     Istoric Cereri
     <span class="count">({{ requestsCount$ | async }})</span>
   </div>
-  <mat-card>...TODO</mat-card>
+  <mat-accordion multi displayMode="flat">
+    <mat-expansion-panel
+      *ngFor="let req of requestsData$ | async"
+      displayMode="flat"
+    >
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <div class="number" style="width: 100px">#{{ req.number }}</div>
+          <div class="type" style="width: 300px">
+            {{ req.type }}
+          </div>
+          <div class="date" style="width: 200px">
+            <mat-icon>event</mat-icon>
+            {{ req.created_at | date }}
+          </div>
+          <div class="status" style="width: 170px">
+            {{ req.status }}
+          </div>
+          <div class="volunteer" style="width: 183px">
+            <span *ngIf="req.volunteer">
+              <mat-icon>perm_identity</mat-icon>
+              {{ req.volunteer.last_name }} {{ req.volunteer.first_name }}
+            </span>
+          </div>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      {{ req.comments }}
+    </mat-expansion-panel>
+  </mat-accordion>
+  <mat-paginator
+    (page)="onPageChange($event)"
+    [length]="requestsCount$ | async"
+    [pageSizeOptions]="[20, 50, 100]"
+  ></mat-paginator>
 </div>

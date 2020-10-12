@@ -5,12 +5,7 @@ import { filter, map, takeUntil, tap } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
 import { Beneficiary } from '@models/beneficiary';
-import { select } from '@ngrx/store';
-import {
-  selectRequestsCount,
-  selectRequestsData,
-  selectRequestsError,
-} from '@store/beneficiaries-store/selectors';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-beneficiary-details',
@@ -26,6 +21,8 @@ export class BeneficiaryDetailsComponent implements OnInit, OnDestroy {
   requestsError$ = this.serviceFacade.requestsError$;
   requestsData$ = this.serviceFacade.requestsData$;
   requestsCount$ = this.serviceFacade.requestsCount$;
+  pageIndex = 1;
+  pageSize = 20;
 
   constructor(
     private route: ActivatedRoute,
@@ -41,12 +38,16 @@ export class BeneficiaryDetailsComponent implements OnInit, OnDestroy {
         this.recordId = id;
         if (id) {
           this.serviceFacade.getBeneficiaryById(id);
-          this.serviceFacade.getBeneficiaryRequests(
-            { pageIndex: 1, pageSize: 20 },
-            id
-          );
+          this.loadRequests(id);
         }
       });
+  }
+
+  private loadRequests(id: string) {
+    this.serviceFacade.getBeneficiaryRequests(
+      { pageIndex: this.pageIndex, pageSize: this.pageSize },
+      id
+    );
   }
 
   ngOnInit(): void {
@@ -65,6 +66,12 @@ export class BeneficiaryDetailsComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.componentDestroyed$.next();
     this.componentDestroyed$.complete();
+  }
+
+  onPageChange($event: PageEvent) {
+    this.pageIndex = $event.pageIndex;
+    this.pageSize = $event.pageSize;
+    this.loadRequests(this.recordId);
   }
 
   userAddress(): string {

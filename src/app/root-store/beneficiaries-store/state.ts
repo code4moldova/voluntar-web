@@ -8,6 +8,8 @@ interface Volunteer {
 
 export interface BeneficiaryRequest {
   _id: string;
+  type: string;
+  number: number;
   status: string;
   urgent: boolean;
   comments: string;
