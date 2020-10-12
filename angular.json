@@ -71,6 +71,9 @@
             "proxyConfig": "src/proxy.conf.json"
           },
           "configurations": {
+            "local": {
+              "proxyConfig": "src/proxy-local.conf.json"
+            },
             "production": {
               "browserTarget": "client:build:production"
             }

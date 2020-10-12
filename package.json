@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start:local": "ng serve --configuration=local",
     "build": "ng build",
     "preci:build": "node scripts/generate-redirects.js",
     "ci:build": "ng build --prod",
