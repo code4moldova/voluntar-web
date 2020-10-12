@@ -36,12 +36,12 @@ export const SPECIAL_CONDITIONS = [
     value: 'deaf_mute',
   },
   {
-    label: 'Bind/Weak-seer',
+    label: 'Blind/Weak-seer',
     value: 'blind_weak_seer',
   },
 ];
 
-export const SPECIAL_CONDITIONS_MAP = SPECIAL_CONDITIONS.reduce((acc, zone) => {
-  acc[zone.value] = zone.label;
+export const SPECIAL_CONDITIONS_MAP = SPECIAL_CONDITIONS.reduce((acc, item) => {
+  acc[item.value] = item.label;
   return acc;
 }, {});
