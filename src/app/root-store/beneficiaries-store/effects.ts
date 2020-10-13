@@ -138,9 +138,12 @@ export class BeneficiariesEffects {
   getBeneficiaryBlockListEffect$: Observable<Action> = createEffect(() => {
     return this.actions$.pipe(
       ofType(getBeneficiaryBlockListAction),
-      switchMap(({ page }) =>
+      switchMap(({ page, filters }) =>
         this.service
-          .getBeneficiariesByFilterPaged(page, { black_list: 'true' })
+          .getBeneficiariesByFilterPaged(page, {
+            ...filters,
+            black_list: 'true',
+          })
           .pipe(
             map((res) => {
               return getBeneficiaryBlockListSuccessAction({

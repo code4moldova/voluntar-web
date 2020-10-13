@@ -13,6 +13,7 @@ h1 {
 
 .b-list {
   margin-top: 10px;
+  background: #fff;
 }
 
 .badge-counter {
@@ -28,8 +29,52 @@ h1 {
 }
 
 .mat-tab-label.mat-tab-label-active {
+  // TODO lz how to make it work?
   .badge-counter {
     background: #e6ecff;
     color: #3f51b5;
+  }
+}
+
+// Search bar
+.mat-card-search-bar {
+  padding: 10px;
+  margin: 15px 0;
+}
+
+.search-bar {
+  display: flex;
+  font-size: 14px;
+
+  input {
+    margin-right: 12px;
+    padding: 5px 10px;
+    width: 100%;
+  }
+
+  .mat-select-zone {
+    width: 230px;
+    margin-right: 12px;
+    border: 0.5px solid rgba(0, 0, 0, 0.4);
+
+    .mat-select-trigger {
+      top: 12px; // TODO lz how to make it work?
+    }
+  }
+
+  button {
+    border-radius: 0 !important;
+    min-width: 35px;
+    padding: 0 10px 0 8px;
+    width: 35px;
+    height: 35px;
+
+    mat-icon {
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+      margin: 0;
+      font-weight: bold;
+    }
   }
 }

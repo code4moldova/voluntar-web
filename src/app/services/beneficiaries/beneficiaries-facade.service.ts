@@ -72,8 +72,11 @@ export class BeneficiariesFacadeService {
     this.store.dispatch(getBeneficiaryRequestsAction({ page, id }));
   }
 
-  getBeneficiaryBlockList(page: { pageSize: number; pageIndex: number }) {
-    this.store.dispatch(getBeneficiaryBlockListAction({ page }));
+  getBeneficiaryBlockList(
+    page: { pageSize: number; pageIndex: number },
+    filters: Record<string, string>
+  ) {
+    this.store.dispatch(getBeneficiaryBlockListAction({ page, filters }));
   }
 
   getBeneficiaryById(id: string) {

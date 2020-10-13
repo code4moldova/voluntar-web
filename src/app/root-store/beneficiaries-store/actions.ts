@@ -117,7 +117,10 @@ export const getBeneficiariesByFilterFailureAction = createAction(
 
 export const getBeneficiaryBlockListAction = createAction(
   ActionTypes.GET_BENEFICIARY_BLOCK_LIST,
-  props<{ page: { pageSize: number; pageIndex: number } }>()
+  props<{
+    page: { pageSize: number; pageIndex: number };
+    filters: Record<string, string>;
+  }>()
 );
 
 export const getBeneficiaryBlockListSuccessAction = createAction(

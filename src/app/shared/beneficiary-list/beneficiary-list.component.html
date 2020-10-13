@@ -37,7 +37,7 @@
     <th mat-header-cell *matHeaderCellDef></th>
     <td mat-cell *matCellDef="let user">
       <mat-icon>history</mat-icon>
-      {{ user.created_at | date }}
+      {{ user.created_at | prettyDate }}
     </td>
   </ng-container>
   <!-- Links Column -->

@@ -17,7 +17,38 @@
   </button>
 </div>
 
-<mat-tab-group mat-align-tabs="start" class="b-list">
+<mat-card class="mat-card-search-bar">
+  <form (ngSubmit)="onSearchSubmit()">
+    <div class="search-bar">
+      <input
+        type="text"
+        placeholder="Căutare (Telefon, Nume, Prenume)"
+        matInput
+        [(ngModel)]="filterStr"
+        [ngModelOptions]="{ standalone: true }"
+      />
+      <mat-select
+        class="mat-select-zone"
+        [(value)]="filterSector"
+        placeholder="Sector"
+      >
+        <mat-option value="">--Sector--</mat-option>
+        <mat-option *ngFor="let zone of zones" [value]="zone.value">
+          {{ zone.label }}
+        </mat-option>
+      </mat-select>
+      <button mat-flat-button color="primary" type="submit">
+        <mat-icon>search</mat-icon>
+      </button>
+    </div>
+  </form>
+</mat-card>
+
+<mat-tab-group
+  mat-align-tabs="start"
+  class="b-list"
+  (selectedIndexChange)="onTabChange($event)"
+>
   <mat-tab>
     <ng-template mat-tab-label>
       Toți

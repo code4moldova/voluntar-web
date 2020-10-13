@@ -5,11 +5,13 @@ import { PageEvent } from '@angular/material/paginator';
 import { Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ofType } from '@ngrx/effects';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { Beneficiary } from '@models/beneficiary';
 import { BeneficiariesFacadeService } from '@services/beneficiaries/beneficiaries-facade.service';
 import { BeneficiaryNewComponent } from '../beneficiary-new/beneficiary-new.component';
 import { saveBeneficiarySuccessAction } from '@store/beneficiaries-store/actions';
+import { KIV_ZONES } from '../../../../constants';
 
 @Component({
   selector: 'app-beneficiaries-list',
@@ -17,23 +19,32 @@ import { saveBeneficiarySuccessAction } from '@store/beneficiaries-store/actions
   styleUrls: ['./beneficiaries-list.component.scss'],
 })
 export class BeneficiariesListComponent implements OnInit {
+  tabIndex = 0;
   dataSource$: Observable<Beneficiary[]>;
   count$ = this.serviceFacade.count$;
   isLoading$ = this.serviceFacade.isLoading$;
   pageSize = 20;
   pageIndex = 1;
+  filters = {};
 
   blockListDataSource$: Observable<Beneficiary[]>;
   blockListCount$ = this.serviceFacade.blockListCount$;
   blockListIsLoading$ = this.serviceFacade.blockListIsLoading$;
   blockListPageSize = 20;
   blockListPageIndex = 1;
+  blockListFilters = {};
 
-  lastFilter = {};
+  // Search bar
+  zones = KIV_ZONES;
+  filterStr = '';
+  filterSector = '';
+  prevFilterStr = '';
+  prevFilterSector = '';
 
   constructor(
     private serviceFacade: BeneficiariesFacadeService,
     private matDialog: MatDialog,
+    private snackBar: MatSnackBar,
     private actions$: ActionsSubject
   ) {}
 
@@ -46,15 +57,15 @@ export class BeneficiariesListComponent implements OnInit {
 
   reloadBeneficiaries() {
     const { pageSize, pageIndex } = this;
-    this.serviceFacade.getBeneficiaries(
-      { pageSize, pageIndex },
-      this.lastFilter
-    );
+    this.serviceFacade.getBeneficiaries({ pageSize, pageIndex }, this.filters);
   }
 
   reloadBlockList() {
     const { blockListPageSize: pageSize, blockListPageIndex: pageIndex } = this;
-    this.serviceFacade.getBeneficiaryBlockList({ pageSize, pageIndex });
+    this.serviceFacade.getBeneficiaryBlockList(
+      { pageSize, pageIndex },
+      this.blockListFilters
+    );
   }
 
   onPageChange(event: PageEvent) {
@@ -89,5 +100,49 @@ export class BeneficiariesListComponent implements OnInit {
 
   onExport() {
     window.alert('TODO');
+  }
+
+  onSearchSubmit() {
+    console.log('Search', this.filterStr, this.filterSector);
+
+    if (this.filterStr === '' && this.filterSector === '') {
+      // TODO allow user to reset filters and display full list again
+      // if (this.tabIndex === 0) {
+      // } else {
+      // }
+      this.snackBar.open(
+        'Introduceți textul de căutare sau/și alegi un sector',
+        '',
+        {
+          duration: 5000,
+          panelClass: 'info',
+          horizontalPosition: 'right',
+          verticalPosition: 'top',
+        }
+      );
+      return;
+    }
+
+    const filter = { zone: this.filterSector }; // query: this.filterStr, TODO when backend will be ready
+
+    if (this.tabIndex === 0) {
+      this.filters = filter;
+      this.reloadBeneficiaries();
+    } else {
+      // block list
+      this.blockListFilters = filter;
+      this.reloadBlockList();
+    }
+  }
+
+  onTabChange(index: number) {
+    this.tabIndex = index;
+    // Preserve filters between tabs
+    const tmpFilterStr = this.filterStr;
+    const tmpFilterSector = this.filterSector;
+    this.filterStr = this.prevFilterStr;
+    this.filterSector = this.prevFilterSector;
+    this.prevFilterStr = tmpFilterStr;
+    this.prevFilterSector = tmpFilterSector;
   }
 }
