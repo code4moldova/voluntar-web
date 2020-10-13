@@ -1,4 +1,4 @@
-<div>
+<div class="top-navigation">
   <a routerLink="/admin/beneficiaries/list" class="back-link">&lt;- Înapoi</a>
 </div>
 
@@ -99,14 +99,14 @@
         <mat-panel-title>
           <div class="number" style="width: 100px">#{{ req.number }}</div>
           <div class="type" style="width: 300px">
-            {{ req.type }}
+            <app-request-type [type]="req.type"></app-request-type>
           </div>
           <div class="date" style="width: 200px">
             <mat-icon>event</mat-icon>
-            {{ req.created_at | date }}
+            {{ req.created_at | prettyDate }}
           </div>
           <div class="status" style="width: 170px">
-            {{ req.status }}
+            <app-request-status [status]="req.status"></app-request-status>
           </div>
           <div class="volunteer" style="width: 183px">
             <span *ngIf="req.volunteer">

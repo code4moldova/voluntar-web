@@ -1,10 +1,34 @@
 .header {
-  padding: 13px;
+  padding: 13px 0;
   color: #282828;
   border-bottom: 1px solid #dedede;
+  display: flex;
+  justify-content: space-between;
 
   h2 {
     font-size: 20px;
+    font-weight: 400;
+    line-height: 1;
+    text-align: center;
+    flex-grow: 3;
+  }
+
+  .close-link {
+    color: #adadad;
+
+    a {
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      text-align: center;
+    }
+
+    mat-icon {
+      cursor: pointer;
+      font-size: 16px;
+      width: 16px;
+      height: 16px;
+    }
   }
 }
 

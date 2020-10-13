@@ -1,78 +1,48 @@
-<div class="mb-25">
-  <div fxLayout="row" fxLayoutAlign="space-between center">
-    <div fxFlex>
-      <h1 class="mb-0 mt-0">Beneficiari</h1>
-    </div>
-    <div fxFlex fxLayoutAlign="end">
-      <button
-        mat-flat-button
-        type="button"
-        color="primary"
-        (click)="openNewBeneficiaryDialog()"
-      >
-        <mat-icon>add</mat-icon>
-        Nou beneficiar
-      </button>
-    </div>
-  </div>
+<h1>Beneficiari</h1>
+
+<div class="actions">
+  <button mat-flat-button (click)="onExport()">
+    <mat-icon>cloud_download</mat-icon>
+    Export CSV
+  </button>
+
+  <button
+    mat-flat-button
+    type="button"
+    color="primary"
+    (click)="openNewBeneficiaryDialog()"
+  >
+    <mat-icon>add</mat-icon>
+    Nou beneficiar
+  </button>
 </div>
 
-<mat-tab-group mat-align-tabs="start">
+<mat-tab-group mat-align-tabs="start" class="b-list">
   <mat-tab>
     <ng-template mat-tab-label>
       Toți
       <span class="badge-counter">{{ count$ | async }}</span>
     </ng-template>
 
-    <mat-grid-list
-      *ngFor="let user of dataSource$ | async"
-      cols="6"
-      rowHeight="62px"
-    >
-      <mat-grid-tile>
-        <app-disability
-          [disability]="user.special_condition"
-          [showLabel]="false"
-        ></app-disability>
-      </mat-grid-tile>
-      <mat-grid-tile class="user-name">
-        {{ user.last_name }} {{ user.first_name }}
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <mat-icon>phone</mat-icon>
-        {{ user.landline }}
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <mat-icon>room</mat-icon>
-        {{ user.zone | zoneTitle }}
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <mat-icon>history</mat-icon>
-        {{ user.created_at | date }}
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <a
-          mat-stroked-button
-          [routerLink]="['/admin/beneficiaries/details', user._id]"
-        >
-          Detalii
-        </a>
-      </mat-grid-tile>
-    </mat-grid-list>
-
-    <mat-paginator
-      (page)="onPageChange($event)"
-      [length]="count$ | async"
-      [pageSizeOptions]="[20, 50, 100]"
-    ></mat-paginator>
+    <app-beneficiary-list
+      [dataSource]="dataSource$"
+      [count]="count$"
+      [isLoading]="isLoading$"
+      (pageChangeEvent)="onPageChange($event)"
+    ></app-beneficiary-list>
   </mat-tab>
 
   <mat-tab>
     <ng-template mat-tab-label>
       Blocați
-      <span class="badge-counter">20</span>
+      <span class="badge-counter">{{ blockListCount$ | async }}</span>
     </ng-template>
 
-    Block list
+    <app-beneficiary-list
+      [dataSource]="blockListDataSource$"
+      [count]="blockListCount$"
+      [isLoading]="blockListIsLoading$"
+      (pageChangeEvent)="onBlockListPageChange($event)"
+    ></app-beneficiary-list>
   </mat-tab>
 </mat-tab-group>

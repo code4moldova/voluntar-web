@@ -1,10 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
-import {
-  BeneficiariesState,
-  BeneficiaryRequest,
-  BeneficiaryRequestsState,
-} from './state';
+import { BeneficiariesState, BeneficiaryRequest, LoadableState } from './state';
 import { Beneficiary } from '@models/beneficiary';
 
 export const selectBeneficiaries = createFeatureSelector<
@@ -56,21 +52,56 @@ export const selectRequests = createSelector(
 
 export const selectRequestsError = createSelector(
   selectRequests,
-  (state: BeneficiaryRequestsState): any => {
+  (state: LoadableState<BeneficiaryRequest>): any => {
     return state.error;
   }
 );
 
 export const selectRequestsData = createSelector(
   selectRequests,
-  (state: BeneficiaryRequestsState): BeneficiaryRequest[] => {
+  (state: LoadableState<BeneficiaryRequest>): BeneficiaryRequest[] => {
     return state.data;
   }
 );
 
 export const selectRequestsCount = createSelector(
   selectRequests,
-  (state: BeneficiaryRequestsState): number => {
+  (state: LoadableState<BeneficiaryRequest>): number => {
     return state.count;
+  }
+);
+
+export const selectBlockList = createSelector(
+  selectBeneficiaries,
+  (state: BeneficiariesState): any => {
+    return state.blockList;
+  }
+);
+
+export const selectBlockListError = createSelector(
+  selectBlockList,
+  (state: LoadableState<Beneficiary>): any => {
+    return state.error;
+  }
+);
+
+export const selectBlockListData = createSelector(
+  selectBlockList,
+  (state: LoadableState<Beneficiary>): Beneficiary[] => {
+    return state.data;
+  }
+);
+
+export const selectBlockListCount = createSelector(
+  selectBlockList,
+  (state: LoadableState<Beneficiary>): number => {
+    return state.count;
+  }
+);
+
+export const selectBlockListIsLoading = createSelector(
+  selectBlockList,
+  (state: LoadableState<Beneficiary>): boolean => {
+    return state.isLoading;
   }
 );

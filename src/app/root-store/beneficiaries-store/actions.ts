@@ -16,6 +16,10 @@ export enum ActionTypes {
   GET_BENEFICIARY_REQUESTS_SUCCESS = '[Beneficiary] Get Beneficiary Requests Success',
   GET_BENEFICIARY_REQUESTS_FAILURE = '[Beneficiary] Get Beneficiary Requests Failure',
 
+  GET_BENEFICIARY_BLOCK_LIST = '[Beneficiary] Get Beneficiary Block List',
+  GET_BENEFICIARY_BLOCK_LIST_SUCCESS = '[Beneficiary] Get Beneficiary Block List Success',
+  GET_BENEFICIARY_BLOCK_LIST_FAILURE = '[Beneficiary] Get Beneficiary Block List Failure',
+
   GET_BENEFICIARIES_BY_FILTER = '[Beneficiaries] Get Beneficiaries By Filter',
   GET_BENEFICIARIES_BY_FILTER_SUCCES = '[Beneficiaries] Get Beneficiaries By Filter Success',
   GET_BENEFICIARIES_BY_FILTER_FAILURE = '[Beneficiaries] Get Beneficiaries By Filter Failure',
@@ -108,5 +112,20 @@ export const getBeneficiariesByFilterSuccessAction = createAction(
 
 export const getBeneficiariesByFilterFailureAction = createAction(
   ActionTypes.GET_BENEFICIARIES_BY_FILTER_FAILURE,
+  props<{ error: any }>()
+);
+
+export const getBeneficiaryBlockListAction = createAction(
+  ActionTypes.GET_BENEFICIARY_BLOCK_LIST,
+  props<{ page: { pageSize: number; pageIndex: number } }>()
+);
+
+export const getBeneficiaryBlockListSuccessAction = createAction(
+  ActionTypes.GET_BENEFICIARY_BLOCK_LIST_SUCCESS,
+  props<{ payload: Beneficiary[]; count: number }>()
+);
+
+export const getBeneficiaryBlockListFailureAction = createAction(
+  ActionTypes.GET_BENEFICIARY_BLOCK_LIST_FAILURE,
   props<{ error: any }>()
 );

@@ -1,0 +1,12 @@
+<div class="request-status {{ status }}" [ngSwitch]="status">
+  <mat-icon *ngSwitchCase="'solved'">check_circle</mat-icon>
+  <mat-icon *ngSwitchCase="'canceled'">cancel</mat-icon>
+  <mat-icon *ngSwitchCase="'confirmed'">access_time</mat-icon>
+  <mat-icon *ngSwitchCase="'in_process'">access_time</mat-icon>
+  <mat-icon *ngSwitchCase="'archived'">delete_outline</mat-icon>
+  <mat-icon *ngSwitchDefault>support</mat-icon>
+
+  <span class="title">
+    {{ statusTitle }}
+  </span>
+</div>

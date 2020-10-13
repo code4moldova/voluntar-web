@@ -1,6 +1,11 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <div class="header">
     <h2>Crează Beneficiar Nou</h2>
+    <div class="close-link">
+      <a (click)="closeDialog()">
+        <mat-icon>close</mat-icon>
+      </a>
+    </div>
   </div>
 
   <div class="content">

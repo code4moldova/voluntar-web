@@ -1,0 +1,72 @@
+<table mat-table [dataSource]="dataSource | async" class="beneficiary_list">
+  <!-- Disability Column -->
+  <ng-container matColumnDef="disability">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let user">
+      <app-disability
+        [disability]="user.special_condition"
+        [showLabel]="false"
+      ></app-disability>
+    </td>
+  </ng-container>
+  <!-- Name Column -->
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let user">
+      {{ user.last_name }} {{ user.first_name }}
+    </td>
+  </ng-container>
+  <!-- Phone Column -->
+  <ng-container matColumnDef="phone">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let user">
+      <mat-icon>phone</mat-icon>
+      {{ user.landline }}
+    </td>
+  </ng-container>
+  <!-- Sector Column -->
+  <ng-container matColumnDef="sector">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let user">
+      <mat-icon>room</mat-icon>
+      {{ user.zone | zoneTitle }}
+    </td>
+  </ng-container>
+  <!-- Date Column -->
+  <ng-container matColumnDef="date">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let user">
+      <mat-icon>history</mat-icon>
+      {{ user.created_at | date }}
+    </td>
+  </ng-container>
+  <!-- Links Column -->
+  <ng-container matColumnDef="links">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let user">
+      <a
+        mat-stroked-button
+        [routerLink]="['/admin/beneficiaries/details', user._id]"
+      >
+        Detalii
+      </a>
+    </td>
+  </ng-container>
+
+  <tr
+    mat-header-row
+    *matHeaderRowDef="displayedColumns"
+    style="display: none"
+  ></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
+
+<div class="loading-shade" *ngIf="isLoading | async">
+  <mat-spinner></mat-spinner>
+</div>
+
+<mat-paginator
+  (page)="onPageChange($event)"
+  [length]="count | async"
+  [pageSizeOptions]="[20, 50, 100]"
+></mat-paginator>

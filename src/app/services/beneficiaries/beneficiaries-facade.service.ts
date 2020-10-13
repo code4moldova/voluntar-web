@@ -10,6 +10,7 @@ import {
   getBeneficiariesAction,
   getBeneficiaryAction,
   getBeneficiaryRequestsAction,
+  getBeneficiaryBlockListAction,
 } from '@store/beneficiaries-store/actions';
 import {
   selectBeneficiariesData,
@@ -20,6 +21,10 @@ import {
   selectRequestsError,
   selectRequestsData,
   selectRequestsCount,
+  selectBlockListError,
+  selectBlockListData,
+  selectBlockListCount,
+  selectBlockListIsLoading,
 } from '@store/beneficiaries-store/selectors';
 import { Beneficiary } from '@models/beneficiary';
 
@@ -37,6 +42,11 @@ export class BeneficiariesFacadeService {
   requestsError$ = this.store.pipe(select(selectRequestsError));
   requestsData$ = this.store.pipe(select(selectRequestsData));
   requestsCount$ = this.store.pipe(select(selectRequestsCount));
+  // BlockList
+  blockListError$ = this.store.pipe(select(selectBlockListError));
+  blockListData$ = this.store.pipe(select(selectBlockListData));
+  blockListCount$ = this.store.pipe(select(selectBlockListCount));
+  blockListIsLoading$ = this.store.pipe(select(selectBlockListIsLoading));
 
   constructor(private store: Store<RootState>) {}
 
@@ -60,6 +70,10 @@ export class BeneficiariesFacadeService {
     id: string
   ) {
     this.store.dispatch(getBeneficiaryRequestsAction({ page, id }));
+  }
+
+  getBeneficiaryBlockList(page: { pageSize: number; pageIndex: number }) {
+    this.store.dispatch(getBeneficiaryBlockListAction({ page }));
   }
 
   getBeneficiaryById(id: string) {

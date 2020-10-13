@@ -9,10 +9,14 @@ import { BeneficiariesRoutingModule } from './beneficiaries-routing.module';
 import { BeneficiariesListComponent } from './beneficiaries-list/beneficiaries-list.component';
 import { BeneficiaryDetailsComponent } from './beneficiary-details/beneficiary-details.component';
 import { BeneficiaryNewComponent } from './beneficiary-new/beneficiary-new.component';
-import { ZoneTitlePipe } from '../../../zone-title.pipe';
+import { ZoneTitlePipe } from '../../../pipes/zone-title.pipe';
+import { PrettyDatePipe } from '../../../pipes/pretty-date.pipe';
+import { SpecialConditionTitlePipe } from '../../../pipes/special-condition-title.pipe';
 import { BeneficiaryEditComponent } from './beneficiary-edit/beneficiary-edit.component';
-import { SpecialConditionTitlePipe } from '../../../special-condition-title.pipe';
 import { DisabilityComponent } from '@shared/disability/disability.component';
+import { RequestStatusComponent } from '@shared/request-status/request-status.component';
+import { RequestTypeComponent } from '@shared/request-type/request-type.component';
+import { BeneficiaryListComponent } from '@shared/beneficiary-list/beneficiary-list.component';
 
 @NgModule({
   declarations: [
@@ -22,8 +26,12 @@ import { DisabilityComponent } from '@shared/disability/disability.component';
     BeneficiaryNewComponent,
     ZoneTitlePipe,
     SpecialConditionTitlePipe,
+    PrettyDatePipe,
     BeneficiaryEditComponent,
     DisabilityComponent,
+    RequestStatusComponent,
+    RequestTypeComponent,
+    BeneficiaryListComponent,
   ],
   imports: [
     CommonModule,

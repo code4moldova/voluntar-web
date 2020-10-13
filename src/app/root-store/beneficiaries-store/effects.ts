@@ -23,6 +23,9 @@ import {
   getBeneficiaryRequestsAction,
   getBeneficiaryRequestsFailureAction,
   getBeneficiaryRequestsSuccessAction,
+  getBeneficiaryBlockListAction,
+  getBeneficiaryBlockListFailureAction,
+  getBeneficiaryBlockListSuccessAction,
 } from './actions';
 
 import { BeneficiariesService } from '@services/beneficiaries/beneficiaries.service';
@@ -128,6 +131,27 @@ export class BeneficiariesEffects {
             of(getBeneficiaryRequestsFailureAction({ error }))
           )
         )
+      )
+    );
+  });
+
+  getBeneficiaryBlockListEffect$: Observable<Action> = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(getBeneficiaryBlockListAction),
+      switchMap(({ page }) =>
+        this.service
+          .getBeneficiariesByFilterPaged(page, { black_list: 'true' })
+          .pipe(
+            map((res) => {
+              return getBeneficiaryBlockListSuccessAction({
+                payload: res.list,
+                count: res.count,
+              });
+            }),
+            catchError((error) =>
+              of(getBeneficiaryBlockListFailureAction({ error }))
+            )
+          )
       )
     );
   });

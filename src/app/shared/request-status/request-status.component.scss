@@ -1,0 +1,29 @@
+.request-status {
+  font-size: 14px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+
+  &.solved {
+    color: #3cd278;
+  }
+  &.canceled {
+    color: #ed5555;
+  }
+
+  &.confirmed,
+  &.in_process {
+    color: #4bb0db;
+  }
+
+  &.archived {
+    color: #a6a6a6;
+  }
+
+  mat-icon {
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+    margin-right: 5px;
+  }
+}

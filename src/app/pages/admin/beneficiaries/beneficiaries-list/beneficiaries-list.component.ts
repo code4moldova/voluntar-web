@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActionsSubject } from '@ngrx/store';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { PageEvent } from '@angular/material/paginator';
 import { Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ofType } from '@ngrx/effects';
@@ -17,12 +17,17 @@ import { saveBeneficiarySuccessAction } from '@store/beneficiaries-store/actions
   styleUrls: ['./beneficiaries-list.component.scss'],
 })
 export class BeneficiariesListComponent implements OnInit {
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   dataSource$: Observable<Beneficiary[]>;
   count$ = this.serviceFacade.count$;
   isLoading$ = this.serviceFacade.isLoading$;
   pageSize = 20;
   pageIndex = 1;
+
+  blockListDataSource$: Observable<Beneficiary[]>;
+  blockListCount$ = this.serviceFacade.blockListCount$;
+  blockListIsLoading$ = this.serviceFacade.blockListIsLoading$;
+  blockListPageSize = 20;
+  blockListPageIndex = 1;
 
   lastFilter = {};
 
@@ -34,7 +39,9 @@ export class BeneficiariesListComponent implements OnInit {
 
   ngOnInit(): void {
     this.reloadBeneficiaries();
+    this.reloadBlockList();
     this.dataSource$ = this.serviceFacade.beneficiaries$;
+    this.blockListDataSource$ = this.serviceFacade.blockListData$;
   }
 
   reloadBeneficiaries() {
@@ -45,10 +52,21 @@ export class BeneficiariesListComponent implements OnInit {
     );
   }
 
+  reloadBlockList() {
+    const { blockListPageSize: pageSize, blockListPageIndex: pageIndex } = this;
+    this.serviceFacade.getBeneficiaryBlockList({ pageSize, pageIndex });
+  }
+
   onPageChange(event: PageEvent) {
     this.pageSize = event.pageSize;
     this.pageIndex = event.pageIndex + 1;
     this.reloadBeneficiaries();
+  }
+
+  onBlockListPageChange(event: PageEvent) {
+    this.blockListPageSize = event.pageSize;
+    this.blockListPageIndex = event.pageIndex + 1;
+    this.reloadBlockList();
   }
 
   openNewBeneficiaryDialog() {
@@ -65,6 +83,11 @@ export class BeneficiariesListComponent implements OnInit {
       .subscribe(() => {
         dialogRef.close();
         this.reloadBeneficiaries();
+        this.reloadBlockList();
       });
+  }
+
+  onExport() {
+    window.alert('TODO');
   }
 }

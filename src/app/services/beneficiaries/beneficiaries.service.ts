@@ -57,6 +57,22 @@ export class BeneficiariesService {
     );
   }
 
+  getBeneficiariesByFilterPaged(
+    page: { pageIndex: number; pageSize: number } = {
+      pageIndex: 1,
+      pageSize: 20,
+    },
+    httpParams: { [key: string]: string } = {}
+  ): Observable<{ count: number; list: Beneficiary[] }> {
+    const params = new HttpParams({ fromObject: httpParams });
+    return this.http.get<{ count: number; list: Beneficiary[] }>(
+      `${environment.url}/beneficiary/filters/${page.pageIndex}/${page.pageSize}`,
+      {
+        params,
+      }
+    );
+  }
+
   getBeneficiaryRequests(
     page: { pageIndex: number; pageSize: number } = {
       pageIndex: 1,

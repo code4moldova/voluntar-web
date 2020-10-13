@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { SPECIAL_CONDITIONS_MAP } from './constants';
+import { SPECIAL_CONDITIONS_MAP } from '../constants';
 
 @Pipe({ name: 'specialConditionTitle' })
 export class SpecialConditionTitlePipe implements PipeTransform {

@@ -20,6 +20,9 @@ import {
   getBeneficiaryRequestsAction,
   getBeneficiaryRequestsSuccessAction,
   getBeneficiaryRequestsFailureAction,
+  getBeneficiaryBlockListAction,
+  getBeneficiaryBlockListSuccessAction,
+  getBeneficiaryBlockListFailureAction,
 } from './actions';
 
 const beneficiaryReducer = createReducer(
@@ -108,7 +111,7 @@ const beneficiaryReducer = createReducer(
     isLoading: false,
     error,
   })),
-
+  // Beneficiary requests history
   on(getBeneficiaryRequestsAction, (state) => ({
     ...state,
     requests: { ...state.requests, isLoading: true, error: null },
@@ -120,6 +123,20 @@ const beneficiaryReducer = createReducer(
   on(getBeneficiaryRequestsFailureAction, (state, { error }) => ({
     ...state,
     requests: { ...state.requests, isLoading: false, error },
+  })),
+
+  // Block list
+  on(getBeneficiaryBlockListAction, (state) => ({
+    ...state,
+    blockList: { ...state.blockList, isLoading: true, error: null },
+  })),
+  on(getBeneficiaryBlockListSuccessAction, (state, { payload, count }) => ({
+    ...state,
+    blockList: { ...state.blockList, isLoading: false, data: payload, count },
+  })),
+  on(getBeneficiaryBlockListFailureAction, (state, { error }) => ({
+    ...state,
+    blockList: { ...state.blockList, isLoading: false, error },
   }))
 );
 

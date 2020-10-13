@@ -1,3 +1,8 @@
+.top-navigation {
+  margin-top: 60px;
+  margin-bottom: 15px;
+}
+
 .back-link {
   font-size: 12px;
   font-weight: 400;
@@ -56,10 +61,17 @@ mat-accordion {
     width: 14px;
     height: 14px;
     font-size: 14px;
+    margin-right: 9px;
   }
 
   .number {
     font-size: 12px;
     color: #424242;
+  }
+
+  .date {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
   }
 }

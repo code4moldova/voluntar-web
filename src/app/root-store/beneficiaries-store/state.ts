@@ -1,4 +1,5 @@
 import { Beneficiary } from '@models/beneficiary';
+import { RequestStatus, RequestType } from '@models/requests';
 
 interface Volunteer {
   _id: string;
@@ -8,9 +9,9 @@ interface Volunteer {
 
 export interface BeneficiaryRequest {
   _id: string;
-  type: string;
+  type: RequestType;
   number: number;
-  status: string;
+  status: RequestStatus;
   urgent: boolean;
   comments: string;
   has_symptoms: boolean;
@@ -18,11 +19,11 @@ export interface BeneficiaryRequest {
   volunteer?: Volunteer;
 }
 
-export interface BeneficiaryRequestsState {
+export interface LoadableState<T> {
   count: number;
   isLoading: boolean;
   error: string;
-  data: BeneficiaryRequest[];
+  data: T[];
 }
 
 export interface BeneficiariesState {
@@ -31,7 +32,8 @@ export interface BeneficiariesState {
   details: Beneficiary;
   isLoading: boolean;
   error: string;
-  requests: BeneficiaryRequestsState;
+  requests: LoadableState<BeneficiaryRequest>;
+  blockList: LoadableState<Beneficiary>;
 }
 
 export const initialState: BeneficiariesState = {
@@ -41,6 +43,12 @@ export const initialState: BeneficiariesState = {
   isLoading: false,
   error: null,
   requests: {
+    count: -1,
+    isLoading: false,
+    error: null,
+    data: [],
+  },
+  blockList: {
     count: -1,
     isLoading: false,
     error: null,
