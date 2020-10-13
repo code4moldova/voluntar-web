@@ -54,7 +54,6 @@ export class BeneficiaryDetailsComponent implements OnInit, OnDestroy {
     this.serviceFacade.beneficiaryDetails$
       .pipe(
         filter((record) => !!record),
-        // Fix issue switching between 'new' and 'details' page
         map((record) => (this.recordId ? record : ({} as Beneficiary))),
         takeUntil(this.componentDestroyed$)
       )
