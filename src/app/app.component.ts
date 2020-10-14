@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
 import { getZonesAction } from '@store/requests-store/actions';
 import {
@@ -11,6 +13,8 @@ import {
 import { AuthService } from '@services/auth/auth.service';
 import { getUsersAction } from '@store/users-store/actions';
 
+const ICONS = ['medicine', 'deafmute', 'archived', 'export'];
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -18,7 +22,21 @@ import { getUsersAction } from '@store/users-store/actions';
 })
 export class AppComponent {
   title = 'client';
-  constructor(private store: Store<any>, private authService: AuthService) {
+  constructor(
+    private store: Store<any>,
+    private matIconRegistry: MatIconRegistry,
+    private domSanitizer: DomSanitizer,
+    private authService: AuthService
+  ) {
+    for (let icon of ICONS) {
+      this.matIconRegistry.addSvgIcon(
+        icon,
+        this.domSanitizer.bypassSecurityTrustResourceUrl(
+          `../assets/icons/${icon}.svg`
+        )
+      );
+    }
+
     this.authService.isAuthorized().subscribe((isAutorized) => {
       if (isAutorized) {
         this.store.dispatch(getZonesAction());

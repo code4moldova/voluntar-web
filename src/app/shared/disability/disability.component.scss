@@ -4,22 +4,31 @@
   height: 24px;
   border-radius: 40px;
 
+  &.blind {
+    background: #f1e6ff;
+    color: #b332f0;
+  }
+
+  &.accessible {
+    background: #e6eeff;
+    color: #0080ff;
+  }
+
+  &.deaf_mute {
+    background: rgb(254, 232, 224);
+
+    svg {
+      // TODO css make it align in properly
+      vertical-align: top;
+    }
+  }
+
   mat-icon {
     font-size: 15px;
     width: 15px;
     height: 15px;
     margin: 4px 0 0 4px;
   }
-}
-
-.blind {
-  background: #f1e6ff;
-  color: #b332f0;
-}
-
-.accessible {
-  background: #e6eeff;
-  color: #0080ff;
 }
 
 .label {

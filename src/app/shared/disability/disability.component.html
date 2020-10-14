@@ -1,16 +1,14 @@
-<div *ngIf="disability != null && disability !== ''" fxFlex>
-  <span
-    class="icon blind"
-    *ngIf="disability == 'blind_weak_seer'; else default"
-  >
+<div [ngSwitch]="disability" fxFlex>
+  <span *ngSwitchCase="'blind_weak_seer'" class="icon blind">
     <mat-icon>visibility_off</mat-icon>
   </span>
-  <ng-template #default>
-    <span class="icon accessible">
-      <mat-icon>accessible</mat-icon>
-    </span>
-  </ng-template>
-  <span class="label" *ngIf="showLabel">
+  <span *ngSwitchCase="'disability'" class="icon accessible">
+    <mat-icon>accessible</mat-icon>
+  </span>
+  <span *ngSwitchCase="'deaf_mute'" class="icon deaf_mute">
+    <mat-icon svgIcon="deafmute"></mat-icon>
+  </span>
+  <span class="label" *ngIf="showLabel && disability">
     {{ disability | specialConditionTitle }}
   </span>
 </div>
