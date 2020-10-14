@@ -123,7 +123,7 @@ export class BeneficiariesListComponent implements OnInit {
       return;
     }
 
-    const filter = { zone: this.filterSector }; // query: this.filterStr, TODO when backend will be ready
+    const filter = { query: this.filterStr, zone: this.filterSector };
 
     if (this.tabIndex === 0) {
       this.filters = filter;

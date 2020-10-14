@@ -23,7 +23,8 @@ export const COMMON_FIELDS = {
   ],
   landline: [
     null,
-    [Validators.required, Validators.minLength(8), Validators.maxLength(8)],
+    // because we add prefix 22 at form submit.
+    [Validators.required, Validators.minLength(6), Validators.maxLength(6)],
   ],
   special_condition: [null],
 };
