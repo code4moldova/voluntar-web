@@ -15,30 +15,16 @@
       <div class="field mobile" fxFlex fxLayout="column">
         <div class="title">Telefon (Mobil)</div>
         <div class="value">
-          <input
-            matInput
-            formControlName="phone_prefix"
-            class="phone_prefix"
-            placeholder="373"
-          />
-          <input matInput formControlName="phone_number" class="phone_number" />
+          <input class="phone_prefix" placeholder="+373" readonly />
+          <input matInput formControlName="phone" class="phone_number" />
         </div>
       </div>
 
       <div class="field landline" fxFlex fxLayout="column">
         <div class="title">Telefon (Fix)</div>
         <div class="value">
-          <input
-            matInput
-            formControlName="landline_prefix"
-            class="phone_prefix"
-            placeholder="022"
-          />
-          <input
-            matInput
-            formControlName="landline_number"
-            class="phone_number"
-          />
+          <input class="phone_prefix" placeholder="022" readonly />
+          <input matInput formControlName="landline" class="phone_number" />
         </div>
       </div>
     </div>

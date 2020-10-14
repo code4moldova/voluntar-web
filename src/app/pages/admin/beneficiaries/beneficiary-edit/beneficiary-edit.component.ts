@@ -23,8 +23,6 @@ export class BeneficiaryEditComponent implements OnInit, OnDestroy {
   form = this.fb.group({
     ...COMMON_FIELDS,
     _id: [null],
-    phone: [null, Validators.required],
-    landline: [null, Validators.required],
     black_list: [],
   });
 

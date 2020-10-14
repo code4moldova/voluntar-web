@@ -17,6 +17,14 @@ export const COMMON_FIELDS = {
   apartment: [null],
   entrance: [null],
   floor: [null],
+  phone: [
+    null,
+    [Validators.required, Validators.minLength(8), Validators.maxLength(8)],
+  ],
+  landline: [
+    null,
+    [Validators.required, Validators.minLength(8), Validators.maxLength(8)],
+  ],
   special_condition: [null],
 };
 
@@ -28,13 +36,7 @@ export const COMMON_FIELDS = {
 export class BeneficiaryNewComponent implements OnInit {
   zones = KIV_ZONES;
   specialConditions = SPECIAL_CONDITIONS;
-  form = this.fb.group({
-    ...COMMON_FIELDS,
-    phone_prefix: [null, Validators.required],
-    phone_number: [null, Validators.required],
-    landline_prefix: [null, Validators.required],
-    landline_number: [null, Validators.required],
-  });
+  form = this.fb.group(COMMON_FIELDS);
 
   constructor(
     private fb: FormBuilder,
@@ -53,18 +55,7 @@ export class BeneficiaryNewComponent implements OnInit {
   onSubmit() {
     if (this.form.valid) {
       const payload = this.form.getRawValue();
-      const {
-        phone_prefix,
-        phone_number,
-        landline_prefix,
-        landline_number,
-      } = payload;
-      delete payload.phone_prefix;
-      delete payload.phone_number;
-      delete payload.landline_prefix;
-      delete payload.landline_number;
-      payload.phone = `${phone_prefix} ${phone_number}`;
-      payload.landline = `${landline_prefix} ${landline_number}`;
+      payload.landline = `22${payload.landline}`;
       console.log('Form is valid', payload);
 
       this.serviceFacade.saveBeneficiary(payload);
