@@ -21,11 +21,6 @@ const routes: Routes = [
         component: RequestDetailsComponent,
       },
       {
-        path: 'new',
-        canActivateChild: [DelayGuard],
-        component: RequestDetailsComponent,
-      },
-      {
         path: 'list',
         component: RequestsListComponent,
       },

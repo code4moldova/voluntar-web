@@ -74,7 +74,6 @@ export class RequestsEffects {
         const { _id, ...withoutId } = payload;
         return this.requestService.saveRequest(withoutId).pipe(
           map((res) => {
-            this.router.navigate(['/requests/details', res._id]);
             return saveRequestSuccessAction({ payload: res });
           }),
           catchError((error) => of(saveRequestFailureAction({ error })))

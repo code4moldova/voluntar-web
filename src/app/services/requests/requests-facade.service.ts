@@ -29,6 +29,8 @@ import {
 } from 'rxjs/operators';
 import { BehaviorSubject, interval, Subject, combineLatest } from 'rxjs';
 
+export type RequestPageParams = { pageSize: number; pageIndex: number };
+
 @Injectable({
   providedIn: 'root',
 })
@@ -92,7 +94,7 @@ export class RequestsFacadeService {
     this.hasNewRequests$.next(false);
   }
 
-  getRequests(page: { pageSize: number; pageIndex: number }, filters?: any) {
+  getRequests(page: RequestPageParams, filters?: any) {
     this.store.dispatch(getRequestsAction({ page, filters }));
   }
 

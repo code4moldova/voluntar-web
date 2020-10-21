@@ -10,9 +10,12 @@ import {
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
 import { Observable, BehaviorSubject, zip, forkJoin } from 'rxjs';
-import { map, count, take } from 'rxjs/operators';
+import { map, count, take, takeUntil } from 'rxjs/operators';
 
-import { RequestsFacadeService } from '@services/requests/requests-facade.service';
+import {
+  RequestsFacadeService,
+  RequestPageParams,
+} from '@services/requests/requests-facade.service';
 import { UsersFacadeService } from '@services/users/users-facade.service';
 import { GeolocationService } from '@services/geolocation/geolocation.service';
 
@@ -26,7 +29,12 @@ import { IUser } from '@models/user';
 import { ZoneI } from '@models/geolocation';
 import { TagsFacadeService } from '@services/tags/tags-facade.service';
 import { MatTabChangeEvent } from '@angular/material/tabs';
+import { MatDialog } from '@angular/material/dialog';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ActionsSubject } from '@ngrx/store';
+import { ofType } from '@ngrx/effects';
+import { saveRequestSuccessAction } from '@store/requests-store/actions';
+import { RequestDetailsComponent } from '../request-details/request-details.component';
 
 @Component({
   selector: 'app-requests-list',
@@ -61,6 +69,7 @@ export class RequestsListComponent implements OnInit {
   public selectedIndex: number = 0;
 
   lastFilter = {};
+  page: RequestPageParams = { pageSize: 20, pageIndex: 1 };
 
   private isActive = [
     {
@@ -104,7 +113,9 @@ export class RequestsListComponent implements OnInit {
     private tagsFacade: TagsFacadeService,
     private renderer: Renderer2,
     private router: Router,
-    private activeRoute: ActivatedRoute
+    private activeRoute: ActivatedRoute,
+    private matDialog: MatDialog,
+    private actions$: ActionsSubject
   ) {
     this.getAllStatusesCount();
   }
@@ -194,29 +205,19 @@ export class RequestsListComponent implements OnInit {
   }
 
   fetchRequests() {
-    this.requestsFacade.getRequests({ pageSize: 20, pageIndex: 1 });
+    this.requestsFacade.getRequests(this.page);
     this.requestsFacade.resetNewRequests();
   }
 
   queryResult(criteria: { [keys: string]: string }) {
     this.lastFilter = criteria;
-    this.requestsFacade.getRequests(
-      {
-        pageSize: 20,
-        pageIndex: 1,
-      },
-      criteria
-    );
+    this.page = { pageSize: 20, pageIndex: 1 };
+    this.requestsFacade.getRequests(this.page, criteria);
   }
 
   onPageChange(event: PageEvent) {
-    this.requestsFacade.getRequests(
-      {
-        pageSize: event.pageSize,
-        pageIndex: event.pageIndex + 1,
-      },
-      this.lastFilter
-    );
+    this.page = { pageSize: event.pageSize, pageIndex: event.pageIndex + 1 };
+    this.requestsFacade.getRequests(this.page, this.lastFilter);
   }
 
   onExport() {
@@ -236,5 +237,24 @@ export class RequestsListComponent implements OnInit {
 
       a.click();
     }
+  }
+
+  openNewRequestDialog() {
+    let dialogRef = this.matDialog.open(RequestDetailsComponent, {
+      data: {},
+      maxWidth: '100%',
+      maxHeight: '90vh',
+    });
+
+    this.actions$
+      .pipe(
+        ofType(saveRequestSuccessAction),
+        takeUntil(dialogRef.afterClosed())
+      )
+      .subscribe(() => {
+        this.requestsFacade.getRequests(this.page, this.lastFilter);
+        this.getAllStatusesCount();
+        dialogRef.close();
+      });
   }
 }

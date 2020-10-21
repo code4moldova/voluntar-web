@@ -13,15 +13,16 @@
         <mat-icon>cloud_download</mat-icon>
         Export Excel
       </button>
-      <a
-        routerLink="/admin/requests/new"
+      <button
         mat-flat-button
+        type="button"
         color="primary"
         class="large"
+        (click)="openNewRequestDialog()"
       >
         <mat-icon>add</mat-icon>
         New Request
-      </a>
+      </button>
     </div>
   </div>
 </div>
