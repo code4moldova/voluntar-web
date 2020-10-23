@@ -46,3 +46,6 @@ testem.log
 Thumbs.db
 
 /src/_redirects
+
+
+.idea
