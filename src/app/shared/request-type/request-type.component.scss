@@ -1,0 +1,14 @@
+.request-type {
+  font-size: 14px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+
+  mat-icon {
+    color: #e4ad5a;
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+    margin-right: 5px;
+  }
+}

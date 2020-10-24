@@ -21,6 +21,7 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatDialog } from '@angular/material/dialog';
 import { EsriMapComponent } from '@shared/esri-map/esri-map.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { KIV_ZONES } from '../../../../constants';
 
 const minTemp = 36;
 const maxTemp = 41;
@@ -32,28 +33,8 @@ const maxTemp = 41;
 })
 export class VolunteersDetailsComponent implements OnInit, OnDestroy {
   public tempStep = '0.1';
-  zones = [
-    {
-      label: 'Centru',
-      value: 'centru',
-    },
-    {
-      label: 'Botanica',
-      value: 'botanica',
-    },
-    {
-      label: 'Buiucani',
-      value: 'buiucani',
-    },
-    {
-      label: 'Ciocana',
-      value: 'ciocana',
-    },
-    {
-      label: 'Rîșcani',
-      value: 'rîșcani',
-    },
-  ];
+  zones = KIV_ZONES;
+
   public cities = [
     { name: 'Chisinau', value: 'chisinau' },
     { name: 'Balti', value: 'balti' },

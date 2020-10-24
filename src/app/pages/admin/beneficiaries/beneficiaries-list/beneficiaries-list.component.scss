@@ -1,0 +1,84 @@
+h1 {
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 43px;
+  color: #323130;
+  margin-top: 60px;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+
+  .button-export {
+  }
+}
+
+.b-list {
+  margin-top: 10px;
+  background: #fff;
+}
+
+.badge-counter {
+  padding: 4px;
+
+  border-radius: 12px;
+  margin: 0 5px;
+  font-size: 10px;
+  line-height: 120%;
+  letter-spacing: -0.02em;
+  background: #edebe9;
+  color: #a19f9d;
+}
+
+.mat-tab-label.mat-tab-label-active {
+  // TODO lz how to make it work?
+  .badge-counter {
+    background: #e6ecff;
+    color: #3f51b5;
+  }
+}
+
+// Search bar
+.mat-card-search-bar {
+  padding: 10px;
+  margin: 15px 0;
+}
+
+.search-bar {
+  display: flex;
+  font-size: 14px;
+
+  input {
+    margin-right: 12px;
+    padding: 5px 10px;
+    width: 100%;
+    border: 0.5px solid rgba(0, 0, 0, 0.4);
+  }
+
+  .mat-select-zone {
+    width: 230px;
+    margin-right: 12px;
+    border: 0.5px solid rgba(0, 0, 0, 0.4);
+
+    .mat-select-trigger {
+      top: 12px; // TODO lz how to make it work?
+    }
+  }
+
+  button {
+    border-radius: 0 !important;
+    min-width: 35px;
+    padding: 0 10px 0 8px;
+    width: 35px;
+    height: 35px;
+
+    mat-icon {
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+      margin: 0;
+      font-weight: bold;
+    }
+  }
+}

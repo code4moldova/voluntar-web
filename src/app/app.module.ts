@@ -13,6 +13,7 @@ import {
 } from '@angular/common/http';
 import { AuthInterceptor } from '@services/interceptors/auth.interceptor';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatIconModule } from '@angular/material/icon';
 import { ErrorInterceptor } from '@services/interceptors/error.interceptor';
 import { NotificationInterceptor } from '@services/interceptors/notification.interceptor';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -34,6 +35,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     FlexLayoutModule,
     RootStoreModule,
     MatSnackBarModule,
+    MatIconModule,
     NgxMaskModule.forRoot(),
     TranslateModule.forRoot({
       loader: {

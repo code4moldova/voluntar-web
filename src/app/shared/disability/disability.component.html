@@ -1,0 +1,14 @@
+<div [ngSwitch]="disability" fxFlex>
+  <span *ngSwitchCase="'blind_weak_seer'" class="icon blind">
+    <mat-icon>visibility_off</mat-icon>
+  </span>
+  <span *ngSwitchCase="'disability'" class="icon accessible">
+    <mat-icon>accessible</mat-icon>
+  </span>
+  <span *ngSwitchCase="'deaf_mute'" class="icon deaf_mute">
+    <mat-icon svgIcon="deafmute"></mat-icon>
+  </span>
+  <span class="label" *ngIf="showLabel && disability">
+    {{ disability | specialConditionTitle }}
+  </span>
+</div>

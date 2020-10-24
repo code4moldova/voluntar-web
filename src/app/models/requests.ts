@@ -1,3 +1,12 @@
+export type RequestStatus =
+  | 'new'
+  | 'confirmed'
+  | 'in_process'
+  | 'canceled'
+  | 'solved'
+  | 'archived';
+export type RequestType = 'warm_lunch' | 'grocery' | 'medicine';
+
 export interface IRequest {
   _id?: string;
   email: string;
@@ -15,7 +24,7 @@ export interface IRequest {
   comments: string;
   fixer_comment: string;
   questions: string;
-  status: string;
+  status: RequestStatus;
   secret: string;
   availability_volunteer: number;
   volunteer: string;

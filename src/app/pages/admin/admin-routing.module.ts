@@ -15,6 +15,17 @@ const routes: Routes = [
         pathMatch: 'full',
       },
       {
+        path: 'beneficiaries',
+        data: {
+          ...RoleService.GET_FROM_CONFIG('beneficiaries'),
+        },
+        canActivate: [RolesGuard],
+        loadChildren: () =>
+          import('./beneficiaries/beneficiaries.module').then(
+            (m) => m.BeneficiariesModule
+          ),
+      },
+      {
         path: 'volunteers',
         data: {
           ...RoleService.GET_FROM_CONFIG('volunteers'),
@@ -56,4 +67,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class AdminRoutingModule {}
+export class AdminRoutingModule { }
