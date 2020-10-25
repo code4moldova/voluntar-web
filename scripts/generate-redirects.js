@@ -13,6 +13,7 @@ const domain =
 
 const _redirects = `
 /api/*  ${domain}/api/:splat  200
+/diaspora/* http://185.181.229.182:4000/api/:splat  200
 /*      /index.html   200
 `;
 
