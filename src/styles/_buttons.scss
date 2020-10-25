@@ -35,9 +35,15 @@
 }
 
 [mat-flat-button] {
+  &[color="default"] {
+    background-color: transparent;
+    color: $default-button-color;
+    border: 2px solid $default-button-color;
+  }
+
   &[color="primary"] {
-    background-color: $color-theme-base;
-    color: $color-grays-white;
+    background-color: $default-button-color;
+    color: #ffffff;
   }
 
   &[color="error"] {
