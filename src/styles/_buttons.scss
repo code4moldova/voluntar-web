@@ -11,6 +11,11 @@
     padding: 14px 24px;
     line-height: 20px;
 
+    &:disabled {
+      color: #fff;
+      border: 2px solid #fff;
+    }
+
     &[color="primary"] {
       min-width: 200px;
     }
