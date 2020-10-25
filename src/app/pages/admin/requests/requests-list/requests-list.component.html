@@ -1,28 +1,46 @@
 <div class="mb-40">
-  <div fxLayout="row" fxLayoutAlign="space-between center">
-    <div fxFlex fxLayout="row">
-      <h1 class="mb-0 mt-0 mr-10">Requests</h1>
-    </div>
-    <div fxFlex fxLayoutAlign="end">
-      <button
-        mat-flat-button
-        class="mr-20 large secondary"
-        type="button"
-        (click)="onExport()"
-      >
-        <mat-icon>cloud_download</mat-icon>
-        Export Excel
-      </button>
-      <button
-        mat-flat-button
-        type="button"
-        color="primary"
-        class="large"
-        (click)="openNewRequestDialog()"
-      >
-        <mat-icon>add</mat-icon>
-        New Request
-      </button>
+
+  <div fxLayout="column" class="requests-actions-container">
+    <h1 class="mb-0 mt-0 mr-10">Requests</h1>
+
+    <div fxFlex fxLayout="row" class="actions">
+
+      <div fxFlex fxLayoutAlign="begin" class="files">
+        <button
+          mat-flat-button
+          type="button"
+          color="default"
+          class="large import"
+          disabled
+        >
+          <mat-icon svgIcon="import"></mat-icon>
+          Import
+        </button>
+
+        <button
+          mat-flat-button
+          type="button"
+          color="default"
+          class="large"
+          (click)="onExport()"
+        >
+          <mat-icon svgIcon="export"></mat-icon>
+          Export
+        </button>
+      </div>
+
+      <div fxFlex fxLayoutAlign="end">
+        <button
+          mat-flat-button
+          type="button"
+          color="primary"
+          class="large new"
+          (click)="openNewRequestDialog()"
+        >
+          <mat-icon svgIcon="plus"></mat-icon>
+          New Request
+        </button>
+      </div>
     </div>
   </div>
 </div>
@@ -37,7 +55,7 @@
 <mat-expansion-panel hideToggle class="map-expansion-panel">
   <mat-expansion-panel-header>
     <mat-panel-title class="d-flex justify-content-center">
-      <mat-icon>map</mat-icon>
+      <mat-icon svgIcon="map"></mat-icon>
       <span class="ml-1">Hartă</span>
     </mat-panel-title>
   </mat-expansion-panel-header>
