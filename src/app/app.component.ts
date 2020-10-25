@@ -13,7 +13,7 @@ import {
 import { AuthService } from '@services/auth/auth.service';
 import { getUsersAction } from '@store/users-store/actions';
 
-const ICONS = ['medicine', 'deafmute', 'archived', 'export'];
+const ICONS = ['medicine', 'deafmute', 'archived', 'export', 'import', 'plus', 'map'];
 
 @Component({
   selector: 'app-root',
