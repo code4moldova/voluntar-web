@@ -11,9 +11,12 @@ const domain =
     ? "http://185.181.229.182:5000"
     : "http://185.181.229.182:5000";
 
+// This proxy is used by votdiaspora.md to call backend, because is not on https
+const diasporaProxy = "/diaspora/* http://185.181.229.182:4000/api/:splat  200";
+
 const _redirects = `
 /api/*  ${domain}/api/:splat  200
-/diaspora/* http://185.181.229.182:4000/api/:splat  200
+${diasporaProxy}
 /*      /index.html   200
 `;
 
