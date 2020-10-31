@@ -1,3 +1,6 @@
+@import "~@angular/material/theming";
+@import "src/styles/colors";
+
 mat-card {
   min-height: 400px;
 }
@@ -13,5 +16,39 @@ table {
       }
       margin-left: 5px;
     }
+  }
+}
+
+.table-container {
+  padding: 0;
+  min-height: 400px;
+  position: relative;
+  padding-bottom: 56px;
+}
+
+.mat-tab-label-active {
+  background: $color-theme-lightest;
+  opacity: 1;
+}
+.mat-badge-content {
+  width: auto;
+  height: auto;
+  position: static;
+
+  padding: 4px 8px;
+  margin: 0 0 -4px 8px;
+
+  font-size: 10px;
+  line-height: 100%;
+  text-overflow: unset;
+
+  background-color: $color-grays-gray-30;
+  color: $color-grays-gray-90;
+
+  border-radius: 12px;
+
+  .mat-tab-label-active & {
+    background-color: $color-theme-light;
+    color: $color-theme-darkest;
   }
 }
