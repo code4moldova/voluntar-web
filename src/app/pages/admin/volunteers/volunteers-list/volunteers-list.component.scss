@@ -1,10 +1,6 @@
 @import "~@angular/material/theming";
 @import "src/styles/colors";
 
-mat-card {
-  min-height: 400px;
-}
-
 table {
   .mat-column-icons {
     width: 55px;
@@ -24,6 +20,7 @@ table {
   min-height: 400px;
   position: relative;
   padding-bottom: 56px;
+  min-height: 400px;
 }
 
 .mat-tab-label-active {
@@ -50,5 +47,62 @@ table {
   .mat-tab-label-active & {
     background-color: $color-theme-light;
     color: $color-theme-darkest;
+  }
+}
+
+.mat-card-search-bar {
+  padding: 10px;
+  margin: 15px 0;
+}
+
+.search-bar {
+  display: flex;
+  font-size: 14px;
+
+  input {
+    margin-right: 12px;
+    padding: 5px 10px;
+    width: 100%;
+    border: 0.5px solid rgba(0, 0, 0, 0.4);
+  }
+
+  .mat-select-zone {
+    width: 230px;
+    margin-right: 12px;
+    border: 0.5px solid rgba(0, 0, 0, 0.4);
+
+    .mat-select-trigger {
+      top: 12px; // TODO lz how to make it work?
+    }
+  }
+
+  button {
+    border-radius: 0 !important;
+    min-width: 35px;
+    padding: 0 10px 0 8px;
+    width: 35px;
+    height: 35px;
+
+    mat-icon {
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+      margin: 0;
+      font-weight: bold;
+    }
+  }
+}
+
+mat-select {
+  ::ng-deep {
+    .mat-select-trigger {
+      height: 100%;
+    }
+    .mat-select-value {
+      padding-bottom: 0;
+      height: 100%;
+      vertical-align: middle;
+      padding-left: 10px;
+    }
   }
 }

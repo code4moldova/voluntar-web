@@ -24,6 +24,8 @@ import { VolunteersDetailsComponent } from '../volunteers-details/volunteers-det
 import { map, take, takeUntil } from 'rxjs/operators';
 import { saveVolunteerSuccessAction } from '@store/volunteers-store/actions';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder } from '@angular/forms';
+import { KIV_ZONES, VOLUNTEER_ROLES } from 'src/app/constants';
 
 @Component({
   selector: 'app-volunteers-list',
@@ -85,8 +87,17 @@ export class VolunteersListComponent implements OnInit {
 
   page: VolunteerPageParams = { pageSize: 20, pageIndex: 1 };
   lastFilter = {};
+  currentTab = null;
+  filterForm = this.fb.group({
+    query: [null],
+    zone: [null],
+    role: [null],
+  });
+  zones = KIV_ZONES;
+  roles = VOLUNTEER_ROLES;
   tagById$ = (id: any) => this.tagsFacadeService.availabilitiesById$(id);
   constructor(
+    private fb: FormBuilder,
     private volunteersFacade: VolunteersFacadeService,
     private tagsFacadeService: TagsFacadeService,
     private matDialog: MatDialog,
@@ -94,7 +105,11 @@ export class VolunteersListComponent implements OnInit {
     private geolocationService: GeolocationService,
     private activeRoute: ActivatedRoute,
     private router: Router
-  ) {}
+  ) {
+    this.activeRoute.queryParams.pipe(take(1)).subscribe((params) => {
+      this.filterForm.patchValue(params);
+    });
+  }
 
   ngOnInit() {
     this.getAllStatusesCount();
@@ -173,12 +188,32 @@ export class VolunteersListComponent implements OnInit {
   }
 
   onTabChange(tabId: string) {
+    this.currentTab = tabId;
     this.router.navigate([], {
       relativeTo: this.activeRoute,
       queryParams: {
         status: tabId,
       },
       queryParamsHandling: 'merge',
+    });
+  }
+
+  onSearchSubmit() {
+    const query = {};
+    const filters = this.filterForm.value;
+    Object.keys(filters).forEach((key) => {
+      if (filters[key] && filters[key].length > 0) {
+        query[key] = filters[key];
+      }
+    });
+    if (this.currentTab) {
+      query['status'] = this.currentTab;
+    }
+    this.router.navigate([], {
+      relativeTo: this.activeRoute,
+      queryParams: {
+        ...query,
+      },
     });
   }
 }
