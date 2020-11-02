@@ -1,30 +1,38 @@
-<div class="mb-40">
-  <div fxLayout="row" fxLayoutAlign="space-between center">
-    <div fxFlex fxLayout="row">
-      <h1 class="mb-0 mt-0 mr-10">Requests</h1>
-    </div>
-    <div fxFlex fxLayoutAlign="end">
-      <button
-        mat-flat-button
-        class="mr-20 large secondary"
-        type="button"
-        (click)="onExport()"
-      >
-        <mat-icon>cloud_download</mat-icon>
-        Export Excel
-      </button>
-      <button
-        mat-flat-button
-        type="button"
-        color="primary"
-        class="large"
-        (click)="openNewRequestDialog()"
-      >
-        <mat-icon>add</mat-icon>
-        New Request
-      </button>
-    </div>
-  </div>
+<h2 class="mt-5 mb-2">Requests</h2>
+
+<div class="mb-4 d-flex flex-column flex-sm-row flex-wrap">
+  <button
+    mat-flat-button
+    type="button"
+    color="default"
+    disabled
+    class="mb-1 mr-sm-2"
+  >
+    <mat-icon>publish</mat-icon>
+    Import
+  </button>
+
+  <button
+    mat-flat-button
+    type="button"
+    color="default"
+    (click)="onExport()"
+    class="mb-1 mr-sm-2"
+  >
+    <mat-icon>get_app</mat-icon>
+    Export
+  </button>
+
+  <button
+    mat-flat-button
+    type="button"
+    color="primary"
+    (click)="openNewRequestDialog()"
+    class="mb-1 ml-sm-auto"
+  >
+    <mat-icon>add</mat-icon>
+    New Request
+  </button>
 </div>
 
 <app-filter

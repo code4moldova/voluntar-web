@@ -11,6 +11,11 @@
     padding: 14px 24px;
     line-height: 20px;
 
+    &:disabled {
+      color: #fff;
+      border: 2px solid #fff;
+    }
+
     &[color="primary"] {
       min-width: 200px;
     }
@@ -35,9 +40,15 @@
 }
 
 [mat-flat-button] {
+  &[color="default"] {
+    background-color: transparent;
+    color: $default-button-color;
+    border: 2px solid $default-button-color;
+  }
+
   &[color="primary"] {
-    background-color: $color-theme-base;
-    color: $color-grays-white;
+    background-color: $default-button-color;
+    color: #ffffff;
   }
 
   &[color="error"] {

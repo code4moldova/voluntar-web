@@ -10,10 +10,9 @@
 }
 
 mat-card {
-  padding: 0;
   min-height: 400px;
   position: relative;
-  padding-bottom: 56px;
+  padding: 0 0 56px;
 
   .mat-card-footer {
     width: 100%;
@@ -312,6 +311,6 @@ tr {
 // fill full size of container
 ::ng-deep.map-expansion-panel {
   .mat-expansion-panel-body {
-    padding: 0px;
+    padding: 0;
   }
 }
