@@ -1,48 +1,38 @@
-<div class="mb-40">
+<h2 class="mt-5 mb-2">Requests</h2>
 
-  <div fxLayout="column" class="requests-actions-container">
-    <h1 class="mb-0 mt-0 mr-10">Requests</h1>
+<div class="mb-4 d-flex flex-column flex-sm-row flex-wrap">
+  <button
+    mat-flat-button
+    type="button"
+    color="default"
+    disabled
+    class="mb-1 mr-sm-2"
+  >
+    <mat-icon>publish</mat-icon>
+    Import
+  </button>
 
-    <div fxFlex fxLayout="row" class="actions">
+  <button
+    mat-flat-button
+    type="button"
+    color="default"
+    (click)="onExport()"
+    class="mb-1 mr-sm-2"
+  >
+    <mat-icon>get_app</mat-icon>
+    Export
+  </button>
 
-      <div fxFlex fxLayoutAlign="begin" class="files">
-        <button
-          mat-flat-button
-          type="button"
-          color="default"
-          class="large import"
-          disabled
-        >
-          <mat-icon svgIcon="import"></mat-icon>
-          Import
-        </button>
-
-        <button
-          mat-flat-button
-          type="button"
-          color="default"
-          class="large"
-          (click)="onExport()"
-        >
-          <mat-icon svgIcon="export"></mat-icon>
-          Export
-        </button>
-      </div>
-
-      <div fxFlex fxLayoutAlign="end">
-        <button
-          mat-flat-button
-          type="button"
-          color="primary"
-          class="large new"
-          (click)="openNewRequestDialog()"
-        >
-          <mat-icon svgIcon="plus"></mat-icon>
-          New Request
-        </button>
-      </div>
-    </div>
-  </div>
+  <button
+    mat-flat-button
+    type="button"
+    color="primary"
+    (click)="openNewRequestDialog()"
+    class="mb-1 ml-sm-auto"
+  >
+    <mat-icon>add</mat-icon>
+    New Request
+  </button>
 </div>
 
 <app-filter
@@ -55,7 +45,7 @@
 <mat-expansion-panel hideToggle class="map-expansion-panel">
   <mat-expansion-panel-header>
     <mat-panel-title class="d-flex justify-content-center">
-      <mat-icon svgIcon="map"></mat-icon>
+      <mat-icon>map</mat-icon>
       <span class="ml-1">Hartă</span>
     </mat-panel-title>
   </mat-expansion-panel-header>

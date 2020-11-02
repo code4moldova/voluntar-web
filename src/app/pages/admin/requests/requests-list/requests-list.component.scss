@@ -1,58 +1,18 @@
 @import "~@angular/material/theming";
 @import "../../../../../styles/colors";
 
-.requests-actions-container {
-  margin-top: 59px;
-
-  h1 {
-    font-family: Roboto, sans-serif;
-    font-weight: 500;
-    font-style: normal;
-    font-size: 36px;
-  }
-
-  .actions {
-    margin-top: 28px;
-    margin-bottom: 15px;
-
-    button {
-      text-transform: initial;
-      font-size: 14px;
-      font-family: Roboto, sans-serif;
-      font-style: normal;
-      font-weight: 500;
-      height: 50px;
-
-      .mat-icon {
-        width: 22px;
-        font-size: 22px;
-      }
-    }
-
-    .files {
-      .import {
-        margin-right: 15px;
-      }
-
-      .mat-icon {
-        width: 13px;
-        font-size: 14px;
-      }
-    }
-
-    .new {
-      width: 163px;
-    }
+.mat-flat-button {
+  .mat-icon {
+    width: 16px;
+    height: 16px;
+    font-size: 16px;
   }
 }
 
-
-
 mat-card {
-  padding: 0;
   min-height: 400px;
   position: relative;
-  padding-bottom: 56px;
+  padding: 0 0 56px;
 
   .mat-card-footer {
     width: 100%;
