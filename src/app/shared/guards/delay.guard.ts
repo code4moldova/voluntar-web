@@ -7,14 +7,14 @@ import {
   CanActivateChild,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { RequestsFacadeService } from '@services/requests/requests-facade.service';
+import { RequestsFacade } from '../../pages/admin/requests/requests.facade';
 import { filter, map, debounceTime } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DelayGuard implements CanActivate, CanActivateChild {
-  constructor(private requestFacade: RequestsFacadeService) {}
+  constructor(private requestFacade: RequestsFacade) {}
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot

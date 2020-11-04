@@ -12,7 +12,7 @@ import { Observable, Subject } from 'rxjs';
 import { map, filter, takeUntil } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { Router, NavigationEnd } from '@angular/router';
-import { RequestsFacadeService } from '@services/requests/requests-facade.service';
+import { RequestsFacade } from './requests/requests.facade';
 
 @Component({
   selector: 'app-admin',
@@ -47,7 +47,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     private breakpointObserver: BreakpointObserver,
     private store: Store<any>,
     private router: Router,
-    private requestsFacade: RequestsFacadeService
+    private requestsFacade: RequestsFacade
   ) {
     this.router.events
       .pipe(

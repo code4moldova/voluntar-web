@@ -42,7 +42,7 @@ import {
 import { IVolunteer } from '@models/volunteers';
 import { ISectorTag } from '@models/tags';
 import { IRequest, IRequestDetails } from '@models/requests';
-import { RequestsFacadeService } from '@services/requests/requests-facade.service';
+import { RequestsFacade } from '../requests.facade';
 import { TagsFacadeService } from '@services/tags/tags-facade.service';
 import { UsersFacadeService } from '@services/users/users-facade.service';
 import { GeolocationService } from '@services/geolocation/geolocation.service';
@@ -187,7 +187,7 @@ export class RequestFormComponent implements OnInit, OnDestroy, OnChanges {
 
   constructor(
     private fb: FormBuilder,
-    private requestsFacade: RequestsFacadeService,
+    private requestsFacade: RequestsFacade,
     private volunteersService: VolunteersService,
     private tagsFacade: TagsFacadeService,
     private usersFacade: UsersFacadeService,

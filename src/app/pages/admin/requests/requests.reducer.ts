@@ -1,5 +1,5 @@
 import { createReducer, on, Action } from '@ngrx/store';
-import { initialState, RequestsState } from './state';
+import { initialState, RequestsState } from './requests.state';
 import {
   getRequestsAction,
   getRequestsSuccessAction,
@@ -17,7 +17,7 @@ import {
   getBeneficiariesByFilterSuccesAction,
   getBeneficiariesByFilterFailureAction,
   getBeneficiariesByFilterAction,
-} from './actions';
+} from './requests.actions';
 
 const requestReducer = createReducer(
   initialState,
@@ -109,6 +109,9 @@ const requestReducer = createReducer(
   }))
 );
 
-export function reducer(state: RequestsState | undefined, action: Action) {
+export function requestsReducer(
+  state: RequestsState | undefined,
+  action: Action
+) {
   return requestReducer(state, action);
 }

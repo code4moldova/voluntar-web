@@ -12,10 +12,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Observable, BehaviorSubject, zip, forkJoin } from 'rxjs';
 import { map, count, take, takeUntil } from 'rxjs/operators';
 
-import {
-  RequestsFacadeService,
-  RequestPageParams,
-} from '@services/requests/requests-facade.service';
+import { RequestsFacade, RequestPageParams } from '../requests.facade';
 import { UsersFacadeService } from '@services/users/users-facade.service';
 import { GeolocationService } from '@services/geolocation/geolocation.service';
 
@@ -33,7 +30,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ActionsSubject } from '@ngrx/store';
 import { ofType } from '@ngrx/effects';
-import { saveRequestSuccessAction } from '@store/requests-store/actions';
+import { saveRequestSuccessAction } from '../requests.actions';
 import { RequestDetailsComponent } from '../request-details/request-details.component';
 
 @Component({
@@ -107,7 +104,7 @@ export class RequestsListComponent implements OnInit {
   allStatusesCounts$: BehaviorSubject<number[]> = new BehaviorSubject([]);
 
   constructor(
-    private requestsFacade: RequestsFacadeService,
+    private requestsFacade: RequestsFacade,
     private usersFacadeService: UsersFacadeService,
     private geolocationService: GeolocationService,
     private tagsFacade: TagsFacadeService,

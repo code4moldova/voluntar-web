@@ -11,7 +11,7 @@ import {
 } from 'rxjs/operators';
 import { Action } from '@ngrx/store';
 import { Router } from '@angular/router';
-import { RequestsService } from '@services/requests/requests.service';
+import { RequestsService } from './requests.service';
 import {
   getRequestsSuccessAction,
   getRequestsFailureAction,
@@ -29,7 +29,7 @@ import {
   getZonesSuccessAction,
   getZonesFailureAction,
   getBeneficiariesByFilterAction,
-} from './actions';
+} from './requests.actions';
 import { GeolocationService } from '@services/geolocation/geolocation.service';
 
 @Injectable()

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserFacadeService } from 'src/app/services/auth/user-facade.service';
-import { RequestsFacadeService } from '@services/requests/requests-facade.service';
+import { RequestsFacade } from '../../admin/requests/requests.facade';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private userFacade: UserFacadeService,
-    private requestsFacade: RequestsFacadeService
+    private requestsFacade: RequestsFacade
   ) {
     this.form = this.fb.group({
       login: [null, Validators.required],

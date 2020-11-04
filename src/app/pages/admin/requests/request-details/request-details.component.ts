@@ -4,7 +4,7 @@ import { map, tap, switchMap, takeUntil, withLatestFrom } from 'rxjs/operators';
 import { Subject, of } from 'rxjs';
 
 import { IRequestDetails } from '@models/requests';
-import { RequestsFacadeService } from '@services/requests/requests-facade.service';
+import { RequestsFacade } from '../requests.facade';
 import { Location } from '@angular/common';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { TagsFacadeService } from '@services/tags/tags-facade.service';
@@ -36,7 +36,7 @@ export class RequestDetailsComponent implements OnDestroy {
   );
 
   constructor(
-    private requestsFacade: RequestsFacadeService,
+    private requestsFacade: RequestsFacade,
     private route: ActivatedRoute,
     private location: Location,
     private clipboard: Clipboard,

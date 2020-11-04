@@ -7,7 +7,7 @@ import {
   saveRequestAction,
   updateRequestAction,
   getBeneficiariesByFilterAction,
-} from '@store/requests-store/actions';
+} from './requests.actions';
 import {
   selectIsLoading,
   selectRequestsData,
@@ -15,7 +15,7 @@ import {
   selectRequestsDetails,
   selectZones,
   selectRequestsCount,
-} from '@store/requests-store/selectors';
+} from './requests.selectors';
 import { IRequest, IRequestDetails } from '@models/requests';
 import { RequestsService } from './requests.service';
 import {
@@ -34,7 +34,7 @@ export type RequestPageParams = { pageSize: number; pageIndex: number };
 @Injectable({
   providedIn: 'root',
 })
-export class RequestsFacadeService {
+export class RequestsFacade {
   requests$ = this.store.pipe(select(selectRequestsData));
   isLoading$ = this.store.pipe(select(selectIsLoading));
   error$ = this.store.pipe(select(selectRequestsError));

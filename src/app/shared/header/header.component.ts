@@ -1,7 +1,7 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { UserFacadeService } from '@services/auth/user-facade.service';
 import { map } from 'rxjs/operators';
-import { RequestsFacadeService } from '@services/requests/requests-facade.service';
+import { RequestsFacade } from '../../pages/admin/requests/requests.facade';
 
 @Component({
   selector: 'app-header',
@@ -18,7 +18,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private userFacade: UserFacadeService,
-    private requestsFacade: RequestsFacadeService
+    private requestsFacade: RequestsFacade
   ) {}
 
   ngOnInit(): void {}

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
-import { getZonesAction } from '@store/requests-store/actions';
+import { getZonesAction } from './pages/admin/requests/requests.actions';
 import {
   getActivityTypesTagsAction,
   getAgesTagsAction,
@@ -13,7 +13,15 @@ import {
 import { AuthService } from '@services/auth/auth.service';
 import { getUsersAction } from '@store/users-store/actions';
 
-const ICONS = ['medicine', 'deafmute', 'archived', 'export', 'import', 'plus', 'map'];
+const ICONS = [
+  'medicine',
+  'deafmute',
+  'archived',
+  'export',
+  'import',
+  'plus',
+  'map',
+];
 
 @Component({
   selector: 'app-root',
@@ -28,7 +36,7 @@ export class AppComponent {
     private domSanitizer: DomSanitizer,
     private authService: AuthService
   ) {
-    for (let icon of ICONS) {
+    for (const icon of ICONS) {
       this.matIconRegistry.addSvgIcon(
         icon,
         this.domSanitizer.bypassSecurityTrustResourceUrl(
