@@ -9,9 +9,11 @@ import { BeneficiariesRoutingModule } from './beneficiaries-routing.module';
 import { BeneficiariesListComponent } from './beneficiaries-list/beneficiaries-list.component';
 import { BeneficiaryDetailsComponent } from './beneficiary-details/beneficiary-details.component';
 import { BeneficiaryNewComponent } from './beneficiary-new/beneficiary-new.component';
-import { ZoneTitlePipe } from '../../../pipes/zone-title.pipe';
-import { PrettyDatePipe } from '../../../pipes/pretty-date.pipe';
-import { SpecialConditionTitlePipe } from '../../../pipes/special-condition-title.pipe';
+import {
+  ZoneTitlePipe,
+  PrettyDatePipe,
+  SpecialConditionTitlePipe,
+} from '@shared/pipes';
 import { BeneficiaryEditComponent } from './beneficiary-edit/beneficiary-edit.component';
 import { DisabilityComponent } from '@shared/disability/disability.component';
 import { RequestStatusComponent } from '@shared/request-status/request-status.component';
