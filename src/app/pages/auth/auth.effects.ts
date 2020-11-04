@@ -8,10 +8,10 @@ import {
   loginFailureAction,
   loginSuccessAction,
   logoutAction,
-} from './actions';
+} from './auth.actions';
 import { Router } from '@angular/router';
-import { TokenStorage } from '@services/auth/token-storage.service';
-import { AuthService } from '@services/auth/auth.service';
+import { TokenStorage } from '@shared/token-storage.service';
+import { AuthService } from './auth.service';
 
 @Injectable()
 export class AuthEffects {

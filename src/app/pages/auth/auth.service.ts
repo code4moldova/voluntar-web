@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthCredentials } from '@models/user';
 import { environment } from 'src/environments/environment';
-import { TokenStorage } from './token-storage.service';
+import { TokenStorage } from '@shared/token-storage.service';
 import { map } from 'rxjs/operators';
 
 @Injectable({

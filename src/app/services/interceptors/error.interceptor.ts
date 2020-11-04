@@ -11,8 +11,8 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { TokenStorage } from '@services/auth/token-storage.service';
-import { logoutAction } from '@store/auth-store/actions';
+import { TokenStorage } from '@shared/token-storage.service';
+import { logoutAction } from '../../pages/auth/auth.actions';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {

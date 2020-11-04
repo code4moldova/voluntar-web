@@ -1,8 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { UserFacadeService } from '@services/auth/user-facade.service';
 import { Observable } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
-import { IVolunteer } from '@models/volunteers';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { map, takeUntil } from 'rxjs/operators';
@@ -41,7 +39,7 @@ export class UsersListComponent implements OnInit {
   }
 
   openNewUserDialog() {
-    let dialogRef = this.matDialog.open(UserDetailsComponent, {
+    const dialogRef = this.matDialog.open(UserDetailsComponent, {
       data: {},
       maxWidth: '100%',
     });

@@ -7,7 +7,7 @@ import {
   Router,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { TokenStorage } from '@services/auth/token-storage.service';
+import { TokenStorage } from '@shared/token-storage.service';
 import { map } from 'rxjs/operators';
 
 @Injectable({

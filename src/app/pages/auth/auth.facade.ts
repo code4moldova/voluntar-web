@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { RootState } from 'src/app/root-store/root-state';
-import { loginAction, logoutAction } from '@store/auth-store/actions';
-import { AuthCredentials } from 'src/app/models/user';
-import { selectIsLoading } from '@store/auth-store/selectors';
+import { RootState } from '@store/root-state';
+import { loginAction, logoutAction } from './auth.actions';
+import { AuthCredentials } from '@models/user';
+import { selectIsLoading } from './auth.selectors';
 import { map, filter } from 'rxjs/operators';
-import { TokenStorage } from './token-storage.service';
+import { TokenStorage } from '@shared/token-storage.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class UserFacadeService {
+export class AuthFacade {
   userData$ = this.tokenStorage.getParsedToken();
   userRoles$ = this.tokenStorage.getParsedToken().pipe(
     filter((user) => Boolean(user)),

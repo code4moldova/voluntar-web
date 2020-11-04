@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { UserFacadeService } from '@services/auth/user-facade.service';
+import { AuthFacade } from '../../pages/auth/auth.facade';
 import { map } from 'rxjs/operators';
 import { RequestsFacade } from '../../pages/admin/requests/requests.facade';
 
@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit {
   @Output() toggle = new EventEmitter();
 
   constructor(
-    private userFacade: UserFacadeService,
+    private userFacade: AuthFacade,
     private requestsFacade: RequestsFacade
   ) {}
 

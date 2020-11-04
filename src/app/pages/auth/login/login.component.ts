@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UserFacadeService } from 'src/app/services/auth/user-facade.service';
 import { RequestsFacade } from '../../admin/requests/requests.facade';
 import { environment } from 'src/environments/environment';
+import { AuthFacade } from '../auth.facade';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
   isTestEnvironment = !environment.production;
   constructor(
     private fb: FormBuilder,
-    private userFacade: UserFacadeService,
+    private userFacade: AuthFacade,
     private requestsFacade: RequestsFacade
   ) {
     this.form = this.fb.group({

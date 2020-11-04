@@ -7,7 +7,7 @@ import {
   Router,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { UserFacadeService } from '@services/auth/user-facade.service';
+import { AuthFacade } from '../../pages/auth/auth.facade';
 import { map } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 // import { Route } from '@angular/compiler/src/core';
@@ -17,7 +17,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class RolesGuard implements CanActivate {
   constructor(
-    private userFacade: UserFacadeService,
+    private userFacade: AuthFacade,
     private snakBar: MatSnackBar,
     private route: Router
   ) {}

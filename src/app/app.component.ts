@@ -10,7 +10,7 @@ import {
   getTeamsTagsAction,
   getOffersTagsAction,
 } from '@store/tags-store/actions';
-import { AuthService } from '@services/auth/auth.service';
+import { AuthService } from './pages/auth/auth.service';
 import { getUsersAction } from './pages/admin/users/users.actions';
 
 const ICONS = [
