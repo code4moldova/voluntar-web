@@ -2,15 +2,16 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '@shared/shared.module';
 import { AdminComponent } from './admin.component';
-import { AdminRoutingModule } from './admin-routing.module';
+import { adminRoutes } from './admin.routes';
 import { MaterialComponentsModule } from 'src/app/shared/material.module';
 import { HeaderComponent } from 'src/app/shared/header/header.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [AdminComponent, HeaderComponent],
   imports: [
     CommonModule,
-    AdminRoutingModule,
+    RouterModule.forChild(adminRoutes),
     MaterialComponentsModule,
     SharedModule,
   ],
