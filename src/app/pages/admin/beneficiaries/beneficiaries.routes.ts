@@ -1,12 +1,11 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes } from '@angular/router';
 
 import { BeneficiariesComponent } from './beneficiaries.component';
 import { BeneficiaryDetailsComponent } from './beneficiary-details/beneficiary-details.component';
 import { BeneficiariesListComponent } from './beneficiaries-list/beneficiaries-list.component';
 import { BeneficiaryEditComponent } from './beneficiary-edit/beneficiary-edit.component';
 
-const routes: Routes = [
+export const beneficiariesRoutes: Routes = [
   {
     path: '',
     component: BeneficiariesComponent,
@@ -36,9 +35,3 @@ const routes: Routes = [
     ],
   },
 ];
-
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
-})
-export class BeneficiariesRoutingModule {}
