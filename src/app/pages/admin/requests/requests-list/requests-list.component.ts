@@ -13,7 +13,7 @@ import { Observable, BehaviorSubject, zip, forkJoin } from 'rxjs';
 import { map, count, take, takeUntil } from 'rxjs/operators';
 
 import { RequestsFacade, RequestPageParams } from '../requests.facade';
-import { UsersFacadeService } from '@services/users/users-facade.service';
+import { UsersFacade } from '../../users/users.facade';
 import { GeolocationService } from '@services/geolocation/geolocation.service';
 
 import {
@@ -105,7 +105,7 @@ export class RequestsListComponent implements OnInit {
 
   constructor(
     private requestsFacade: RequestsFacade,
-    private usersFacadeService: UsersFacadeService,
+    private usersFacadeService: UsersFacade,
     private geolocationService: GeolocationService,
     private tagsFacade: TagsFacadeService,
     private renderer: Renderer2,

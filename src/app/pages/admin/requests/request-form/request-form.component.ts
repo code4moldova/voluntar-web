@@ -44,7 +44,7 @@ import { ISectorTag } from '@models/tags';
 import { IRequest, IRequestDetails } from '@models/requests';
 import { RequestsFacade } from '../requests.facade';
 import { TagsFacadeService } from '@services/tags/tags-facade.service';
-import { UsersFacadeService } from '@services/users/users-facade.service';
+import { UsersFacade } from '../../users/users.facade';
 import { GeolocationService } from '@services/geolocation/geolocation.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -190,7 +190,7 @@ export class RequestFormComponent implements OnInit, OnDestroy, OnChanges {
     private requestsFacade: RequestsFacade,
     private volunteersService: VolunteersService,
     private tagsFacade: TagsFacadeService,
-    private usersFacade: UsersFacadeService,
+    private usersFacade: UsersFacade,
     private geolocationService: GeolocationService,
     private matDialog: MatDialog,
     private elementRef: ElementRef,

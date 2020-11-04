@@ -9,7 +9,7 @@ import { AuthStoreModule } from './auth-store/auth-store.module';
 import { BeneficiariesStoreModule } from '../pages/admin/beneficiaries/beneficiaries-store.module';
 import { VolunteersStoreModule } from './volunteers-store/volunteers-store.module';
 import { RequestsStoreModule } from '../pages/admin/requests/requests-store.module';
-import { UsersStoreModule } from './users-store/users-store.module';
+import { UsersStoreModule } from '../pages/admin/users/users-store.module';
 import { TagsStoreModule } from './tags-store/tags-store.module';
 
 @NgModule({

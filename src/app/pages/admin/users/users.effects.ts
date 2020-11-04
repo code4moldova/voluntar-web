@@ -17,15 +17,15 @@ import {
   updateUserAction,
   updateUserSuccessAction,
   updateUserFailureAction,
-} from './actions';
-import { UserService } from '@services/users/user.service';
+} from './users.actions';
+import { UsersService } from './users.service';
 
 @Injectable()
 export class UsersEffects {
   constructor(
     private actions$: Actions,
     private router: Router,
-    private usersService: UserService
+    private usersService: UsersService
   ) {}
 
   getUsers$: Observable<Action> = createEffect(() => {

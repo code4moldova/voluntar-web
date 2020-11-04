@@ -11,7 +11,7 @@ import {
   getOffersTagsAction,
 } from '@store/tags-store/actions';
 import { AuthService } from '@services/auth/auth.service';
-import { getUsersAction } from '@store/users-store/actions';
+import { getUsersAction } from './pages/admin/users/users.actions';
 
 const ICONS = [
   'medicine',

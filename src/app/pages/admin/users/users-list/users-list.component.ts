@@ -7,10 +7,10 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { map, takeUntil } from 'rxjs/operators';
 import { IUser } from '@models/user';
-import { UsersFacadeService } from '@services/users/users-facade.service';
+import { UsersFacade } from '../users.facade';
 import { UserDetailsComponent } from '../user-details/user-details.component';
 import { ActionsSubject } from '@ngrx/store';
-import { createUserSuccessAction } from '@store/users-store/actions';
+import { createUserSuccessAction } from '../users.actions';
 import { ofType } from '@ngrx/effects';
 
 @Component({
@@ -24,7 +24,7 @@ export class UsersListComponent implements OnInit {
   isLoading$ = this.usersFacade.isLoading$;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   constructor(
-    private usersFacade: UsersFacadeService,
+    private usersFacade: UsersFacade,
     private matDialog: MatDialog,
     private actions$: ActionsSubject
   ) {}

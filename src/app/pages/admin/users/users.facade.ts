@@ -5,19 +5,19 @@ import {
   selectIsLoading,
   selectUserDetails,
   selectUsersList,
-} from '@store/users-store/selectors';
+} from './users.selectors';
 import {
   getUserDetailsAction,
   getUsersAction,
   updateUserAction,
   createUserAction,
-} from '@store/users-store/actions';
+} from './users.actions';
 import { IUser } from '@models/user';
 
 @Injectable({
   providedIn: 'root',
 })
-export class UsersFacadeService {
+export class UsersFacade {
   isLoading$ = this.store.pipe(select(selectIsLoading));
   userDetails$ = this.store.pipe(select(selectUserDetails));
   users$ = this.store.pipe(select(selectUsersList));

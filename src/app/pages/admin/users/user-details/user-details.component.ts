@@ -10,7 +10,7 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { map, takeUntil, tap, filter } from 'rxjs/operators';
-import { UsersFacadeService } from '@services/users/users-facade.service';
+import { UsersFacade } from '../users.facade';
 import { Subject } from 'rxjs';
 import { ErrorStateMatcher } from '@angular/material/core';
 
@@ -47,7 +47,7 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
-    private usersFacade: UsersFacadeService
+    private usersFacade: UsersFacade
   ) {
     this.route.paramMap
       .pipe(map((params) => params.get('id')))
