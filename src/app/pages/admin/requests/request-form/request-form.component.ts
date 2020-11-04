@@ -51,7 +51,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { VolunteerModalInfoComponent } from '../../volunteers/volunteer-modal-info/volunteer-modal-info.component';
 import { EsriMapComponent } from '@shared/esri-map/esri-map.component';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { VolunteersService } from '@services/volunteers/volunteers.service';
+import { VolunteersService } from '../../volunteers/volunteers.service';
 
 @Component({
   selector: 'app-request-form',

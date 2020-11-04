@@ -17,8 +17,8 @@ import {
   getVolunteersByFilterAction,
   getVolunteersByFilterSuccessAction,
   getVolunteersByFilterFailureAction,
-} from './actions';
-import { VolunteersService } from '@services/volunteers/volunteers.service';
+} from './volunteers.actions';
+import { VolunteersService } from './volunteers.service';
 
 @Injectable()
 export class VolunteersEffects {

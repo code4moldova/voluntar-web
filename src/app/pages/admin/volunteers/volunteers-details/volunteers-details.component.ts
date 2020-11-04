@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, ElementRef } from '@angular/core';
 import { FormBuilder, Validators, AbstractControl } from '@angular/forms';
-import { VolunteersFacadeService } from '@services/volunteers/volunteers-facade.service';
+import { VolunteersFacade } from '../volunteers.facade';
 import {
   map,
   takeUntil,
@@ -112,7 +112,7 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private volunteerFacade: VolunteersFacadeService,
+    private volunteerFacade: VolunteersFacade,
     private tagsFacade: TagsFacadeService,
     private geolocationService: GeolocationService,
     private matDialog: MatDialog,

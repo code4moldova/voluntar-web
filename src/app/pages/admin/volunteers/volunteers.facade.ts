@@ -3,20 +3,17 @@ import {
   saveVolunteerAction,
   updateVolunteerAction,
   getVolunteersByFilterAction,
-} from '@store/volunteers-store/actions';
+} from './volunteers.actions';
 import { Store, select } from '@ngrx/store';
 import { RootState } from '@store/root-state';
-import {
-  getVolunteersAction,
-  getVolunteerAction,
-} from '@store/volunteers-store/actions';
+import { getVolunteersAction, getVolunteerAction } from './volunteers.actions';
 import {
   selectVolunteersData,
   selectIsLoading,
   selectVolunteersDetails,
   selectError,
   selectVolunteersCount,
-} from '@store/volunteers-store/selectors';
+} from './volunteers.selectors';
 import { IVolunteer } from '@models/volunteers';
 import { PageEvent } from '@angular/material/paginator';
 import { VolunteersService } from './volunteers.service';
@@ -26,7 +23,7 @@ export type VolunteerPageParams = { pageSize: number; pageIndex: number };
 @Injectable({
   providedIn: 'root',
 })
-export class VolunteersFacadeService {
+export class VolunteersFacade {
   volunteers$ = this.store.pipe(select(selectVolunteersData));
   volunteerDetails$ = this.store.pipe(select(selectVolunteersDetails));
   count$ = this.store.pipe(select(selectVolunteersCount));

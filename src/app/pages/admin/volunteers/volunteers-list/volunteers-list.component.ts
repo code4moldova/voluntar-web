@@ -3,10 +3,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
 
-import {
-  VolunteerPageParams,
-  VolunteersFacadeService,
-} from '@services/volunteers/volunteers-facade.service';
+import { VolunteerPageParams, VolunteersFacade } from '../volunteers.facade';
 import { TagsFacadeService } from '@services/tags/tags-facade.service';
 import { GeolocationService } from '@services/geolocation/geolocation.service';
 
@@ -22,7 +19,7 @@ import { ActionsSubject } from '@ngrx/store';
 import { ofType } from '@ngrx/effects';
 import { VolunteersDetailsComponent } from '../volunteers-details/volunteers-details.component';
 import { map, take, takeUntil } from 'rxjs/operators';
-import { saveVolunteerSuccessAction } from '@store/volunteers-store/actions';
+import { saveVolunteerSuccessAction } from '../volunteers.actions';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 import { KIV_ZONES, VOLUNTEER_ROLES } from 'src/app/constants';
@@ -98,7 +95,7 @@ export class VolunteersListComponent implements OnInit {
   tagById$ = (id: any) => this.tagsFacadeService.availabilitiesById$(id);
   constructor(
     private fb: FormBuilder,
-    private volunteersFacade: VolunteersFacadeService,
+    private volunteersFacade: VolunteersFacade,
     private tagsFacadeService: TagsFacadeService,
     private matDialog: MatDialog,
     private actions$: ActionsSubject,

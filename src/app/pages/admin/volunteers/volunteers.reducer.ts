@@ -1,5 +1,5 @@
 import { createReducer, on, Action } from '@ngrx/store';
-import { initialState, VolunteersState } from './state';
+import { initialState, VolunteersState } from './volunteers.state';
 import {
   saveVolunteerAction,
   getVolunteersAction,
@@ -16,7 +16,7 @@ import {
   updateVolunteerAction,
   updateVolunteerSuccessAction,
   updateVolunteerFailureAction,
-} from './actions';
+} from './volunteers.actions';
 
 const volunteerReducer = createReducer(
   initialState,
@@ -106,6 +106,9 @@ const volunteerReducer = createReducer(
   }))
 );
 
-export function reducer(state: VolunteersState | undefined, action: Action) {
+export function volunteersReducer(
+  state: VolunteersState | undefined,
+  action: Action
+) {
   return volunteerReducer(state, action);
 }

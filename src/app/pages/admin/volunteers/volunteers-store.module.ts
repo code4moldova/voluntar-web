@@ -2,13 +2,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { VolunteersEffects } from './effects';
-import { reducer } from './reducer';
+import { VolunteersEffects } from './volunteers.effects';
+import { volunteersReducer } from './volunteers.reducer';
 
 @NgModule({
   imports: [
     CommonModule,
-    StoreModule.forFeature('volunteers', reducer),
+    StoreModule.forFeature('volunteers', volunteersReducer),
     EffectsModule.forFeature([VolunteersEffects]),
   ],
   providers: [VolunteersEffects],
