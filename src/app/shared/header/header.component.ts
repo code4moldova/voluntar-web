@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { UserFacadeService } from 'src/app/services/auth/user-facade.service';
+import { UserFacadeService } from '@services/auth/user-facade.service';
 import { map } from 'rxjs/operators';
 import { RequestsFacadeService } from '@services/requests/requests-facade.service';
 

@@ -4,11 +4,10 @@ import { SharedModule } from '@shared/shared.module';
 import { AdminComponent } from './admin.component';
 import { AdminRoutingModule } from './admin-routing.module';
 import { MaterialComponentsModule } from 'src/app/shared/material.module';
-import { SidebarComponent } from 'src/app/layout/sidebar/sidebar.component';
-import { HeaderComponent } from 'src/app/layout/header/header.component';
+import { HeaderComponent } from 'src/app/shared/header/header.component';
 
 @NgModule({
-  declarations: [AdminComponent, HeaderComponent, SidebarComponent],
+  declarations: [AdminComponent, HeaderComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,
