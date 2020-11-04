@@ -1,25 +1,26 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
+import { appRoutes } from './app.routes';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RootStoreModule } from '@store/root-store.module';
 import {
-  HttpClientModule,
   HTTP_INTERCEPTORS,
   HttpClient,
+  HttpClientModule,
 } from '@angular/common/http';
 import { AuthInterceptor } from '@services/interceptors/auth.interceptor';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { ErrorInterceptor } from '@services/interceptors/error.interceptor';
 import { NotificationInterceptor } from '@services/interceptors/notification.interceptor';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { NgxMaskModule } from 'ngx-mask';
+import { RouterModule } from '@angular/router';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient);
@@ -30,12 +31,12 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
   imports: [
     BrowserModule,
     HttpClientModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
     RootStoreModule,
     MatSnackBarModule,
     MatIconModule,
+    RouterModule.forRoot(appRoutes),
     NgxMaskModule.forRoot(),
     TranslateModule.forRoot({
       loader: {

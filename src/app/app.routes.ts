@@ -1,8 +1,7 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes } from '@angular/router';
 import { ProtectedGuard, PublicGuard } from '@shared/guards';
 
-const routes: Routes = [
+export const appRoutes: Routes = [
   {
     path: '',
     loadChildren: () =>
@@ -27,9 +26,3 @@ const routes: Routes = [
     redirectTo: '/',
   },
 ];
-
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
-})
-export class AppRoutingModule {}
