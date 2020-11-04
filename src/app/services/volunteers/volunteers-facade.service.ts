@@ -19,6 +19,7 @@ import {
 } from '@store/volunteers-store/selectors';
 import { IVolunteer } from '@models/volunteers';
 import { PageEvent } from '@angular/material/paginator';
+import { VolunteersService } from './volunteers.service';
 
 export type VolunteerPageParams = { pageSize: number; pageIndex: number };
 
@@ -31,7 +32,10 @@ export class VolunteersFacadeService {
   count$ = this.store.pipe(select(selectVolunteersCount));
   isLoading$ = this.store.pipe(select(selectIsLoading));
   error$ = this.store.pipe(select(selectError));
-  constructor(private store: Store<RootState>) {}
+  constructor(
+    private store: Store<RootState>,
+    private volunteerService: VolunteersService
+  ) {}
 
   saveVolunteer(volunteer: IVolunteer) {
     if (volunteer._id) {
@@ -51,5 +55,18 @@ export class VolunteersFacadeService {
 
   getVolunteersByFilter(criteria: { [keys: string]: string }) {
     this.store.dispatch(getVolunteersByFilterAction({ payload: criteria }));
+  }
+
+  getByStatus(status: string) {
+    const page = {
+      pageIndex: 0,
+      pageSize: 1,
+    };
+    const filters = status
+      ? {
+          status,
+        }
+      : {};
+    return this.volunteerService.getVolunteers(page, filters);
   }
 }

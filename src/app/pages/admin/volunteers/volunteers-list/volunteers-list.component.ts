@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
 
 import {
   VolunteerPageParams,
@@ -21,8 +21,11 @@ import { ZoneI } from '@models/geolocation';
 import { ActionsSubject } from '@ngrx/store';
 import { ofType } from '@ngrx/effects';
 import { VolunteersDetailsComponent } from '../volunteers-details/volunteers-details.component';
-import { takeUntil } from 'rxjs/operators';
+import { map, take, takeUntil } from 'rxjs/operators';
 import { saveVolunteerSuccessAction } from '@store/volunteers-store/actions';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder } from '@angular/forms';
+import { KIV_ZONES, VOLUNTEER_ROLES } from 'src/app/constants';
 
 @Component({
   selector: 'app-volunteers-list',
@@ -61,18 +64,55 @@ export class VolunteersListComponent implements OnInit {
     },
   ];
 
+  statuses = [
+    { label: 'Activi', _id: 'active' },
+    { label: 'Inactivi', _id: 'inactive' },
+    { label: 'Blacklist', _id: 'blacklist' },
+    { label: 'Toti', _id: null },
+  ];
+  allStatusesCounts$: BehaviorSubject<number[]> = new BehaviorSubject([]);
+  selectedTab = null;
+  selectedTabIndex$ = this.activeRoute.queryParams.pipe(
+    map((params) => {
+      const status = params['status'];
+
+      if (status) {
+        this.selectedTab = status;
+
+        return status;
+      }
+      return null;
+    })
+  );
+
   page: VolunteerPageParams = { pageSize: 20, pageIndex: 1 };
   lastFilter = {};
+  currentTab = null;
+  filterForm = this.fb.group({
+    query: [null],
+    zone: [null],
+    role: [null],
+  });
+  zones = KIV_ZONES;
+  roles = VOLUNTEER_ROLES;
   tagById$ = (id: any) => this.tagsFacadeService.availabilitiesById$(id);
   constructor(
+    private fb: FormBuilder,
     private volunteersFacade: VolunteersFacadeService,
     private tagsFacadeService: TagsFacadeService,
     private matDialog: MatDialog,
     private actions$: ActionsSubject,
-    private geolocationService: GeolocationService
-  ) {}
+    private geolocationService: GeolocationService,
+    private activeRoute: ActivatedRoute,
+    private router: Router
+  ) {
+    this.activeRoute.queryParams.pipe(take(1)).subscribe((params) => {
+      this.filterForm.patchValue(params);
+    });
+  }
 
   ngOnInit() {
+    this.getAllStatusesCount();
     this.volunteersFacade.getVolunteers(this.page);
     this.dataSource$ = this.volunteersFacade.volunteers$;
 
@@ -99,6 +139,23 @@ export class VolunteersListComponent implements OnInit {
     this.selectColumns = [
       { name: 'Is Active', value: 'is_active', array: this.isActive },
     ];
+  }
+
+  getAllStatusesCount() {
+    const requests = this.statuses.map((status) =>
+      this.helperGetCountByStatus(status['_id'])
+    );
+    forkJoin(requests)
+      .pipe(take(1))
+      .subscribe((res) => {
+        this.allStatusesCounts$.next(res);
+      });
+  }
+
+  helperGetCountByStatus(status: string) {
+    return this.volunteersFacade
+      .getByStatus(status)
+      .pipe(map((res) => res.count));
   }
 
   queryResult(criteria: { [keys: string]: string }) {
@@ -128,5 +185,35 @@ export class VolunteersListComponent implements OnInit {
         this.volunteersFacade.getVolunteers(this.page, this.lastFilter);
         dialogRef.close();
       });
+  }
+
+  onTabChange(tabId: string) {
+    this.currentTab = tabId;
+    this.router.navigate([], {
+      relativeTo: this.activeRoute,
+      queryParams: {
+        status: tabId,
+      },
+      queryParamsHandling: 'merge',
+    });
+  }
+
+  onSearchSubmit() {
+    const query = {};
+    const filters = this.filterForm.value;
+    Object.keys(filters).forEach((key) => {
+      if (filters[key] && filters[key].length > 0) {
+        query[key] = filters[key];
+      }
+    });
+    if (this.currentTab) {
+      query['status'] = this.currentTab;
+    }
+    this.router.navigate([], {
+      relativeTo: this.activeRoute,
+      queryParams: {
+        ...query,
+      },
+    });
   }
 }

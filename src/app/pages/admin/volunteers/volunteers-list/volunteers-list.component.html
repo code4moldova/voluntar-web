@@ -17,14 +17,62 @@
   </div>
 </div>
 
-<app-filter
-  [inputColumns]="inputColumns"
-  [selectColumns]="selectColumns"
-  [observableSelectColumns]="observableSelectColumns"
-  (queryResult)="queryResult($event)"
-></app-filter>
+<mat-card class="mat-card-search-bar">
+  <form [formGroup]="filterForm" (ngSubmit)="onSearchSubmit()">
+    <div class="search-bar">
+      <input
+        type="text"
+        placeholder="Căutare (Telefon, Nume, Prenume)"
+        matInput
+        formControlName="query"
+      />
+      <mat-select
+        class="mat-select-zone"
+        placeholder="Sector"
+        formControlName="zone"
+      >
+        <mat-option [value]="null">Sector</mat-option>
+        <mat-option *ngFor="let zone of zones" [value]="zone.value">
+          {{ zone.label }}
+        </mat-option>
+      </mat-select>
+      <mat-select
+        class="mat-select-zone"
+        placeholder="Sector"
+        formControlName="role"
+      >
+        <mat-option [value]="null">Oferta</mat-option>
+        <mat-option *ngFor="let role of roles | keyvalue" [value]="role.value">
+          {{ role.key }}
+        </mat-option>
+      </mat-select>
+      <button mat-flat-button color="primary" type="submit">
+        <mat-icon>search</mat-icon>
+      </button>
+    </div>
+  </form>
+</mat-card>
 
-<mat-card>
+<mat-card class="table-container">
+  <nav mat-tab-nav-bar>
+    <a
+      mat-tab-link
+      *ngFor="let status of statuses; let i = index"
+      (click)="onTabChange(status._id)"
+      [active]="(selectedTabIndex$ | async) == status._id"
+    >
+      <span
+        [matBadge]="
+          (selectedTabIndex$ | async) == status._id
+            ? (count$ | async)
+            : (allStatusesCounts$ | async)[i]
+        "
+        matBadgeOverlap="false"
+      >
+        {{ status.label }}
+      </span>
+    </a>
+  </nav>
   <table mat-table [dataSource]="dataSource$ | async">
     <!-- Icons Column -->
     <ng-container matColumnDef="icons">
@@ -75,7 +123,6 @@
       </td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr
       mat-row
       *matRowDef="let row; columns: displayedColumns"
@@ -87,11 +134,11 @@
   <div class="loading-shade" *ngIf="isLoading$ | async">
     <mat-spinner></mat-spinner>
   </div>
-  <mat-card-footer>
+  <div>
     <mat-paginator
       (page)="onPageChange($event)"
       [length]="count$ | async"
       [pageSizeOptions]="[20, 50, 100]"
     ></mat-paginator>
-  </mat-card-footer>
+  </div>
 </mat-card>
