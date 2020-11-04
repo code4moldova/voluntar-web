@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AdminComponent } from './admin.component';
 import { RoleService } from '@services/roles/role.service';
-import { RolesGuard } from 'src/app/guards/roles.guard';
+import { RolesGuard } from '@shared/guards';
 
 const routes: Routes = [
   {
@@ -67,4 +67,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class AdminRoutingModule { }
+export class AdminRoutingModule {}

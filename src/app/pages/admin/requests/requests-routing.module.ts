@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { RequestDetailsComponent } from './request-details/request-details.component';
 import { RequestsListComponent } from './requests-list/requests-list.component';
 import { RequestsComponent } from './requests.component';
-import { DelayGuard } from 'src/app/guards/delay.guard';
+import { DelayGuard } from '@shared/guards';
 
 const routes: Routes = [
   {

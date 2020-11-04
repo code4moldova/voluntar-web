@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ProtectedGuard } from './guards/protected.guard';
-import { PublicGuard } from './guards/public.guard';
+import { ProtectedGuard, PublicGuard } from '@shared/guards';
 
 const routes: Routes = [
   {
