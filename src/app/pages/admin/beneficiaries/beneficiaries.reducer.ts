@@ -1,6 +1,6 @@
 import { createReducer, on, Action } from '@ngrx/store';
 
-import { initialState, BeneficiariesState } from './state';
+import { initialState, BeneficiariesState } from './beneficiaries.state';
 import {
   getBeneficiaryAction,
   getBeneficiarySuccessAction,
@@ -23,7 +23,7 @@ import {
   getBeneficiaryBlockListAction,
   getBeneficiaryBlockListSuccessAction,
   getBeneficiaryBlockListFailureAction,
-} from './actions';
+} from './beneficiaries.actions';
 
 const beneficiaryReducer = createReducer(
   initialState,
@@ -140,6 +140,9 @@ const beneficiaryReducer = createReducer(
   }))
 );
 
-export function reducer(state: BeneficiariesState | undefined, action: Action) {
+export function beneficiariesReducer(
+  state: BeneficiariesState | undefined,
+  action: Action
+) {
   return beneficiaryReducer(state, action);
 }

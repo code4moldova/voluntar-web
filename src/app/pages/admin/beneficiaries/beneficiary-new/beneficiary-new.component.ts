@@ -6,7 +6,7 @@ import { combineLatest } from 'rxjs';
 import { filter, first } from 'rxjs/operators';
 
 import { KIV_ZONES, SPECIAL_CONDITIONS } from '../../../../constants';
-import { BeneficiariesFacadeService } from '@services/beneficiaries/beneficiaries-facade.service';
+import { BeneficiariesFacade } from '../beneficiaries.facade';
 
 export const COMMON_FIELDS = {
   first_name: [null, Validators.required],
@@ -41,7 +41,7 @@ export class BeneficiaryNewComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private serviceFacade: BeneficiariesFacadeService,
+    private serviceFacade: BeneficiariesFacade,
     private snackBar: MatSnackBar,
     private elementRef: ElementRef,
     public dialogRef: MatDialogRef<BeneficiaryNewComponent>

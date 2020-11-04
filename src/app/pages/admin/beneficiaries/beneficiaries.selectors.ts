@@ -1,6 +1,10 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
-import { BeneficiariesState, BeneficiaryRequest, LoadableState } from './state';
+import {
+  BeneficiariesState,
+  BeneficiaryRequest,
+  LoadableState,
+} from './beneficiaries.state';
 import { Beneficiary } from '@models/beneficiary';
 
 export const selectBeneficiaries = createFeatureSelector<

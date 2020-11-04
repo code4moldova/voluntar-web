@@ -5,7 +5,7 @@ import { combineLatest, Subject } from 'rxjs';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { BeneficiariesFacadeService } from '@services/beneficiaries/beneficiaries-facade.service';
+import { BeneficiariesFacade } from '../beneficiaries.facade';
 import { Beneficiary } from '@models/beneficiary';
 import { KIV_ZONES, SPECIAL_CONDITIONS } from '../../../../constants';
 import { COMMON_FIELDS } from '../beneficiary-new/beneficiary-new.component';
@@ -36,7 +36,7 @@ export class BeneficiaryEditComponent implements OnInit, OnDestroy {
     private router: Router,
     private snackBar: MatSnackBar,
     private elementRef: ElementRef,
-    private serviceFacade: BeneficiariesFacadeService
+    private serviceFacade: BeneficiariesFacade
   ) {
     this.route.paramMap
       .pipe(

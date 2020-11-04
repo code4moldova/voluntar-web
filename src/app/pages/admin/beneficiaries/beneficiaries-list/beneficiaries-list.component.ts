@@ -8,9 +8,9 @@ import { ofType } from '@ngrx/effects';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { Beneficiary } from '@models/beneficiary';
-import { BeneficiariesFacadeService } from '@services/beneficiaries/beneficiaries-facade.service';
+import { BeneficiariesFacade } from '../beneficiaries.facade';
 import { BeneficiaryNewComponent } from '../beneficiary-new/beneficiary-new.component';
-import { saveBeneficiarySuccessAction } from '@store/beneficiaries-store/actions';
+import { saveBeneficiarySuccessAction } from '../beneficiaries.actions';
 import { KIV_ZONES } from '../../../../constants';
 
 @Component({
@@ -42,7 +42,7 @@ export class BeneficiariesListComponent implements OnInit {
   prevFilterSector = '';
 
   constructor(
-    private serviceFacade: BeneficiariesFacadeService,
+    private serviceFacade: BeneficiariesFacade,
     private matDialog: MatDialog,
     private snackBar: MatSnackBar,
     private actions$: ActionsSubject

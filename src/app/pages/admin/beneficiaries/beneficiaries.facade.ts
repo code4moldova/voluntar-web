@@ -11,7 +11,7 @@ import {
   getBeneficiaryAction,
   getBeneficiaryRequestsAction,
   getBeneficiaryBlockListAction,
-} from '@store/beneficiaries-store/actions';
+} from './beneficiaries.actions';
 import {
   selectBeneficiariesData,
   selectIsLoading,
@@ -25,13 +25,13 @@ import {
   selectBlockListData,
   selectBlockListCount,
   selectBlockListIsLoading,
-} from '@store/beneficiaries-store/selectors';
+} from './beneficiaries.selectors';
 import { Beneficiary } from '@models/beneficiary';
 
 @Injectable({
   providedIn: 'root',
 })
-export class BeneficiariesFacadeService {
+export class BeneficiariesFacade {
   beneficiaries$ = this.store.pipe(select(selectBeneficiariesData));
   beneficiaryDetails$ = this.store.pipe(select(selectBeneficiaryDetails));
   count$ = this.store.pipe(select(selectBeneficiariesCount));

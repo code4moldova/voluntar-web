@@ -26,9 +26,9 @@ import {
   getBeneficiaryBlockListAction,
   getBeneficiaryBlockListFailureAction,
   getBeneficiaryBlockListSuccessAction,
-} from './actions';
+} from './beneficiaries.actions';
 
-import { BeneficiariesService } from '@services/beneficiaries/beneficiaries.service';
+import { BeneficiariesService } from './beneficiaries.service';
 
 @Injectable()
 export class BeneficiariesEffects {

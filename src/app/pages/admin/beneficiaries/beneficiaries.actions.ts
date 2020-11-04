@@ -1,7 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 
 import { Beneficiary } from '@models/beneficiary';
-import { BeneficiaryRequest } from '@store/beneficiaries-store/state';
+import { BeneficiaryRequest } from './beneficiaries.state';
 
 export enum ActionTypes {
   GET_BENEFICIARIES = '[Beneficiaries] Get Beneficiaries',

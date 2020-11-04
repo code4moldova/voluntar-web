@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 import { Beneficiary } from '@models/beneficiary';
 import { environment } from 'src/environments/environment';
-import { BeneficiaryRequest } from '@store/beneficiaries-store/state';
+import { BeneficiaryRequest } from './beneficiaries.state';
 
 @Injectable({
   providedIn: 'root',

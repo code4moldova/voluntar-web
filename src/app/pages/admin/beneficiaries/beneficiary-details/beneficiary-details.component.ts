@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { BeneficiariesFacadeService } from '@services/beneficiaries/beneficiaries-facade.service';
+import { BeneficiariesFacade } from '../beneficiaries.facade';
 import { ActivatedRoute } from '@angular/router';
 import { filter, map, takeUntil, tap } from 'rxjs/operators';
 import { Subject } from 'rxjs';
@@ -26,7 +26,7 @@ export class BeneficiaryDetailsComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
-    private serviceFacade: BeneficiariesFacadeService
+    private serviceFacade: BeneficiariesFacade
   ) {
     this.route.paramMap
       .pipe(
