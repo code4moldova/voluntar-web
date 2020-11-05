@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 
-import { RootState } from '@store/root-state';
+import { AppState } from '@store/app.state';
 
 import {
   saveBeneficiaryAction,
@@ -48,7 +48,7 @@ export class BeneficiariesFacade {
   blockListCount$ = this.store.pipe(select(selectBlockListCount));
   blockListIsLoading$ = this.store.pipe(select(selectBlockListIsLoading));
 
-  constructor(private store: Store<RootState>) {}
+  constructor(private store: Store<AppState>) {}
 
   saveBeneficiary(beneficiary: Beneficiary) {
     if (beneficiary._id) {

@@ -5,7 +5,7 @@ import {
   getVolunteersByFilterAction,
 } from './volunteers.actions';
 import { Store, select } from '@ngrx/store';
-import { RootState } from '@store/root-state';
+import { AppState } from '@store/app.state';
 import { getVolunteersAction, getVolunteerAction } from './volunteers.actions';
 import {
   selectVolunteersData,
@@ -30,7 +30,7 @@ export class VolunteersFacade {
   isLoading$ = this.store.pipe(select(selectIsLoading));
   error$ = this.store.pipe(select(selectError));
   constructor(
-    private store: Store<RootState>,
+    private store: Store<AppState>,
     private volunteerService: VolunteersService
   ) {}
 

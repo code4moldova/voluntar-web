@@ -31,4 +31,4 @@ import { TagsStoreModule } from './tags-store/tags-store.module';
         }),
   ],
 })
-export class RootStoreModule {}
+export class AppStoreModule {}

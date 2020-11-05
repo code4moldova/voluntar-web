@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { RootState } from '@store/root-state';
+import { AppState } from '@store/app.state';
 import {
   getRequestsAction,
   getRequestAction,
@@ -48,7 +48,7 @@ export class RequestsFacade {
   private audio = new Audio('/assets/Glass.wav');
 
   constructor(
-    private store: Store<RootState>,
+    private store: Store<AppState>,
     private requestService: RequestsService
   ) {
     const stopPolling$ = new Subject();

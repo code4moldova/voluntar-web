@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { RootState } from '@store/root-state';
+import { AppState } from '@store/app.state';
 import {
   selectIsLoading,
   selectUserDetails,
@@ -21,7 +21,7 @@ export class UsersFacade {
   isLoading$ = this.store.pipe(select(selectIsLoading));
   userDetails$ = this.store.pipe(select(selectUserDetails));
   users$ = this.store.pipe(select(selectUsersList));
-  constructor(private store: Store<RootState>) {}
+  constructor(private store: Store<AppState>) {}
 
   saveUser(user: IUser) {
     if (user._id) {

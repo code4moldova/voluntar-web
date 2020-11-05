@@ -14,7 +14,7 @@
     "module": "es2020",
     "paths": {
       "@services/*": ["src/app/services/*"],
-      "@store/*": ["src/app/root-store/*"],
+      "@store/*": ["src/app/app-store/*"],
       "@models/*": ["src/app/models/*"],
       "@shared/*": ["src/app/shared/*"]
     },
