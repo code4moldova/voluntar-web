@@ -14,7 +14,6 @@
     "module": "es2020",
     "paths": {
       "@app/*": ["src/app/*"],
-      "@store/*": ["src/app/app-store/*"],
       "@shared/*": ["src/app/shared/*"]
     },
     "lib": ["es2018", "dom"]

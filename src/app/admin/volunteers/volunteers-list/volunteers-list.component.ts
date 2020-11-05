@@ -197,7 +197,7 @@ export class VolunteersListComponent implements OnInit {
   }
 
   onSearchSubmit() {
-    const query = {};
+    const query: any = {};
     const filters = this.filterForm.value;
     Object.keys(filters).forEach((key) => {
       if (filters[key] && filters[key].length > 0) {

@@ -117,7 +117,7 @@ export class RequestsListComponent implements OnInit {
   }
 
   getAllStatusesCount() {
-    const requests = [{}, ...this.allStatuses].map((status) =>
+    const requests = [{}, ...this.allStatuses].map((status: any) =>
       this.helperGetCountByStatus(status._id)
     );
     forkJoin(requests)
@@ -179,6 +179,7 @@ export class RequestsListComponent implements OnInit {
     let status = null;
 
     if (typeof event.tab.textLabel !== 'string') {
+      // @ts-ignore TODO
       status = event.tab.textLabel._id;
       this.selectedTab = status;
     }
