@@ -1,6 +1,6 @@
 import { AuthState } from '@auth/auth.state';
 import { BeneficiariesState } from '@beneficiaries/beneficiaries.state';
-import { VolunteersState } from './admin/volunteers/volunteers.state';
+import { VolunteersState } from '@volunteers/volunteers.state';
 import { RequestsState } from '@requests/requests.state';
 
 export interface AppState {

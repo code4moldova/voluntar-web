@@ -18,7 +18,8 @@
       "@auth/*": ["src/app/auth/*"],
       "@beneficiaries/*": ["src/app/admin/beneficiaries/*"],
       "@requests/*": ["src/app/admin/requests/*"],
-      "@users/*": ["src/app/admin/users/*"]
+      "@users/*": ["src/app/admin/users/*"],
+      "@volunteers/*": ["src/app/admin/volunteers/*"]
     },
     "lib": ["es2018", "dom"]
   }
