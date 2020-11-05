@@ -5,7 +5,7 @@ import { appRoutes } from './app.routes';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { AppStoreModule } from '@store/app-store.module';
+import { AppStoreModule } from './app-store.module';
 import {
   HTTP_INTERCEPTORS,
   HttpClient,

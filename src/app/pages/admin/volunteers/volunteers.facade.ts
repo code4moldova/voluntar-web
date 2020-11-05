@@ -5,7 +5,7 @@ import {
   getVolunteersByFilterAction,
 } from './volunteers.actions';
 import { Store, select } from '@ngrx/store';
-import { AppState } from '@store/app.state';
+import { AppState } from '@app/app.state';
 import { getVolunteersAction, getVolunteerAction } from './volunteers.actions';
 import {
   selectVolunteersData,

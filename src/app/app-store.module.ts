@@ -5,11 +5,11 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { environment } from 'src/environments/environment';
-import { AuthStoreModule } from '../pages/auth/auth-store.module';
-import { BeneficiariesStoreModule } from '../pages/admin/beneficiaries/beneficiaries-store.module';
-import { VolunteersStoreModule } from '../pages/admin/volunteers/volunteers-store.module';
-import { RequestsStoreModule } from '../pages/admin/requests/requests-store.module';
-import { UsersStoreModule } from '../pages/admin/users/users-store.module';
+import { AuthStoreModule } from './pages/auth/auth-store.module';
+import { BeneficiariesStoreModule } from './pages/admin/beneficiaries/beneficiaries-store.module';
+import { VolunteersStoreModule } from './pages/admin/volunteers/volunteers-store.module';
+import { RequestsStoreModule } from './pages/admin/requests/requests-store.module';
+import { UsersStoreModule } from './pages/admin/users/users-store.module';
 import { TagsStoreModule } from '@shared/tags/tags-store.module';
 
 @NgModule({

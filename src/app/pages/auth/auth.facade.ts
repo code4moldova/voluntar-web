@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { AppState } from '@store/app.state';
+import { AppState } from '@app/app.state';
 import { loginAction, logoutAction } from './auth.actions';
 import { AuthCredentials } from '@shared/models';
 import { selectIsLoading } from './auth.selectors';
