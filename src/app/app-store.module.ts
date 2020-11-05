@@ -5,7 +5,7 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { environment } from 'src/environments/environment';
-import { AuthStoreModule } from './auth/auth-store.module';
+import { AuthStoreModule } from '@auth/auth-store.module';
 import { BeneficiariesStoreModule } from './admin/beneficiaries/beneficiaries-store.module';
 import { VolunteersStoreModule } from './admin/volunteers/volunteers-store.module';
 import { RequestsStoreModule } from './admin/requests/requests-store.module';

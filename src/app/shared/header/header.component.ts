@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { AuthFacade } from '../../auth/auth.facade';
+import { AuthFacade } from '@auth/auth.facade';
 import { map } from 'rxjs/operators';
 import { RequestsFacade } from '../../admin/requests/requests.facade';
 
