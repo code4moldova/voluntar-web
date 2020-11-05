@@ -1,5 +1,5 @@
 import { AuthState } from '@auth/auth.state';
-import { BeneficiariesState } from './admin/beneficiaries/beneficiaries.state';
+import { BeneficiariesState } from '@beneficiaries/beneficiaries.state';
 import { VolunteersState } from './admin/volunteers/volunteers.state';
 import { RequestsState } from './admin/requests/requests.state';
 
