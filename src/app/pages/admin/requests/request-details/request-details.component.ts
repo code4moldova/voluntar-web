@@ -1,9 +1,9 @@
-import { Component, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { map, tap, switchMap, takeUntil, withLatestFrom } from 'rxjs/operators';
-import { Subject, of } from 'rxjs';
+import { map, switchMap, takeUntil, withLatestFrom } from 'rxjs/operators';
+import { of, Subject } from 'rxjs';
 
-import { IRequestDetails } from '@models/requests';
+import { IRequestDetails } from '@shared/models';
 import { RequestsFacade } from '../requests.facade';
 import { Location } from '@angular/common';
 import { Clipboard } from '@angular/cdk/clipboard';

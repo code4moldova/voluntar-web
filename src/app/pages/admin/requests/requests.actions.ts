@@ -1,5 +1,5 @@
 import { Action, createAction, props } from '@ngrx/store';
-import { IRequest, IRequestDetails } from '@models/requests';
+import { IRequest, IRequestDetails } from '@shared/models';
 
 export enum ActionTypes {
   GET_REQUESTS = '[Requests] Get Requests',

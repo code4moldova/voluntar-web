@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { RequestType } from '@models/requests';
+import { RequestType } from '@shared/models';
 
 const TITLES = {
   warm_lunch: 'Prînz Cald',

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { IRequest, IRequestDetails } from '@models/requests';
+import { IRequest, IRequestDetails } from '@shared/models';
 import { environment } from 'src/environments/environment';
 
 @Injectable({

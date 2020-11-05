@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { VolunteersState } from './volunteers.state';
-import { IVolunteer } from '@models/volunteers';
+import { IVolunteer } from '@shared/models';
 
 export const selectVolunteers = createFeatureSelector<any, VolunteersState>(
   'volunteers'

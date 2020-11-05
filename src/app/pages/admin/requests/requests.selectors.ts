@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { RequestsState } from './requests.state';
-import { IRequest } from '@models/requests';
+import { IRequest } from '@shared/models';
 
 export const selectRequests = createFeatureSelector<any, RequestsState>(
   'requests'

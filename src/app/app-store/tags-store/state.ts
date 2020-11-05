@@ -5,7 +5,7 @@ import {
   IAvailabilityTag,
   ITeamTag,
   IOfferTag,
-} from '@models/tags';
+} from '@shared/models';
 
 export interface TagsState {
   activityTypes: IActivityTypeTag[];

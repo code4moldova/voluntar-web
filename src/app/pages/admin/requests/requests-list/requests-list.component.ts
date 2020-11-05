@@ -1,33 +1,32 @@
 import {
-  Component,
-  OnInit,
-  ViewChild,
-  Renderer2,
-  ElementRef,
-  ChangeDetectorRef,
   ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  OnInit,
+  Renderer2,
+  ViewChild,
 } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
-import { Observable, BehaviorSubject, zip, forkJoin } from 'rxjs';
-import { map, count, take, takeUntil } from 'rxjs/operators';
+import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
+import { map, take, takeUntil } from 'rxjs/operators';
 
-import { RequestsFacade, RequestPageParams } from '../requests.facade';
+import { RequestPageParams, RequestsFacade } from '../requests.facade';
 import { UsersFacade } from '../../users/users.facade';
 import { GeolocationService } from '@services/geolocation/geolocation.service';
 
 import {
   FilterInputColumns,
-  FilterSelectColumns,
   FilterObservableSelectColumns,
-} from '@models/filter';
-import { IRequest } from '@models/requests';
-import { IUser } from '@models/user';
-import { ZoneI } from '@models/geolocation';
+  FilterSelectColumns,
+  IRequest,
+  IUser,
+  ZoneI,
+} from '@shared/models';
 import { TagsFacadeService } from '@services/tags/tags-facade.service';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { MatDialog } from '@angular/material/dialog';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ActionsSubject } from '@ngrx/store';
 import { ofType } from '@ngrx/effects';
 import { saveRequestSuccessAction } from '../requests.actions';

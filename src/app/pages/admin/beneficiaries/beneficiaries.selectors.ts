@@ -5,7 +5,7 @@ import {
   BeneficiaryRequest,
   LoadableState,
 } from './beneficiaries.state';
-import { Beneficiary } from '@models/beneficiary';
+import { Beneficiary } from '@shared/models';
 
 export const selectBeneficiaries = createFeatureSelector<
   any,

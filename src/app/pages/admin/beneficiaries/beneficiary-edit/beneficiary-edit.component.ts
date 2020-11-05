@@ -6,7 +6,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { BeneficiariesFacade } from '../beneficiaries.facade';
-import { Beneficiary } from '@models/beneficiary';
+import { Beneficiary } from '@shared/models';
 import { KIV_ZONES, SPECIAL_CONDITIONS } from '../../../../constants';
 import { COMMON_FIELDS } from '../beneficiary-new/beneficiary-new.component';
 

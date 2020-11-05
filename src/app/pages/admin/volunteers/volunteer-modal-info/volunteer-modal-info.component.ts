@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { IVolunteer } from '@models/volunteers';
+import { IVolunteer } from '@shared/models';
 import { TagsFacadeService } from '@services/tags/tags-facade.service';
 import { map } from 'rxjs/operators';
 

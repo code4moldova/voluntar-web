@@ -20,7 +20,7 @@ import {
   FilterInputColumns,
   FilterSelectColumns,
   FilterObservableSelectColumns,
-} from '@models/filter';
+} from '@shared/models';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({

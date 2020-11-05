@@ -12,7 +12,7 @@ import {
   updateUserAction,
   createUserAction,
 } from './users.actions';
-import { IUser } from '@models/user';
+import { IUser } from '@shared/models';
 
 @Injectable({
   providedIn: 'root',

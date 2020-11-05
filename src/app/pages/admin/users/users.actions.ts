@@ -1,5 +1,5 @@
-import { Action, createAction, props } from '@ngrx/store';
-import { IUser } from '@models/user';
+import { createAction, props } from '@ngrx/store';
+import { IUser } from '@shared/models';
 
 export enum ActionTypes {
   GET_USERS = '[USERS] Get Users',

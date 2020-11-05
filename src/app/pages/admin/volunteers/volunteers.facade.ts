@@ -14,8 +14,7 @@ import {
   selectError,
   selectVolunteersCount,
 } from './volunteers.selectors';
-import { IVolunteer } from '@models/volunteers';
-import { PageEvent } from '@angular/material/paginator';
+import { IVolunteer } from '@shared/models';
 import { VolunteersService } from './volunteers.service';
 
 export type VolunteerPageParams = { pageSize: number; pageIndex: number };

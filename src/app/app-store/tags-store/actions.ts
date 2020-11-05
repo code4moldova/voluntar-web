@@ -6,7 +6,7 @@ import {
   IAvailabilityTag,
   ITeamTag,
   IOfferTag,
-} from '@models/tags';
+} from '@shared/models';
 
 export enum ActionTypes {
   GET_TAGS_FAILURE = '[Tags] Get tags Failure',

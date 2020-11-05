@@ -14,7 +14,7 @@ import {
 } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, combineLatest } from 'rxjs';
-import { IVolunteer } from '@models/volunteers';
+import { IVolunteer } from '@shared/models';
 import { TagsFacadeService } from '@services/tags/tags-facade.service';
 import { GeolocationService } from '@services/geolocation/geolocation.service';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';

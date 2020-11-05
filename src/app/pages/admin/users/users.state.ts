@@ -1,4 +1,4 @@
-import { IUser } from '@models/user';
+import { IUser } from '@shared/models';
 
 export interface UsersState {
   data: IUser[];

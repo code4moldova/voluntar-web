@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { AppState } from '@store/app.state';
 import { loginAction, logoutAction } from './auth.actions';
-import { AuthCredentials } from '@models/user';
+import { AuthCredentials } from '@shared/models';
 import { selectIsLoading } from './auth.selectors';
 import { map, filter } from 'rxjs/operators';
 import { TokenStorage } from '@shared/token-storage.service';

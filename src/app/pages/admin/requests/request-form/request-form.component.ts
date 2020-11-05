@@ -6,7 +6,6 @@ import {
   ChangeDetectionStrategy,
   Input,
   OnChanges,
-  ViewEncapsulation,
   SimpleChanges,
 } from '@angular/core';
 import {
@@ -24,7 +23,6 @@ import {
   switchMap,
   takeUntil,
   first,
-  startWith,
   catchError,
   exhaustMap,
   tap,
@@ -39,9 +37,12 @@ import {
   BehaviorSubject,
   merge,
 } from 'rxjs';
-import { IVolunteer } from '@models/volunteers';
-import { ISectorTag } from '@models/tags';
-import { IRequest, IRequestDetails } from '@models/requests';
+import {
+  IRequest,
+  IRequestDetails,
+  IVolunteer,
+  ISectorTag,
+} from '@shared/models';
 import { RequestsFacade } from '../requests.facade';
 import { TagsFacadeService } from '@services/tags/tags-facade.service';
 import { UsersFacade } from '../../users/users.facade';
@@ -272,9 +273,11 @@ export class RequestFormComponent implements OnInit, OnDestroy, OnChanges {
   get phone(): AbstractControl {
     return this.form.get('phone');
   }
+
   get first_name(): AbstractControl {
     return this.form.get('first_name');
   }
+
   get last_name(): AbstractControl {
     return this.form.get('last_name');
   }

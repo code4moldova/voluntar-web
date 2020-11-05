@@ -1,5 +1,4 @@
-import { IRequestDetails } from '@models/requests';
-import { ISectorTag } from '@models/tags';
+import { IRequestDetails, ISectorTag } from '@shared/models';
 
 export interface RequestsState {
   data: IRequestDetails[];

@@ -4,7 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { map, takeUntil } from 'rxjs/operators';
-import { IUser } from '@models/user';
+import { IUser } from '@shared/models';
 import { UsersFacade } from '../users.facade';
 import { UserDetailsComponent } from '../user-details/user-details.component';
 import { ActionsSubject } from '@ngrx/store';

@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { IVolunteer } from '@models/volunteers';
+import { IVolunteer } from '@shared/models';
 import { PageEvent } from '@angular/material/paginator';
 
 export enum ActionTypes {

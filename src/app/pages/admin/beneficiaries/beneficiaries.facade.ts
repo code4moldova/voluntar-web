@@ -26,7 +26,7 @@ import {
   selectBlockListCount,
   selectBlockListIsLoading,
 } from './beneficiaries.selectors';
-import { Beneficiary } from '@models/beneficiary';
+import { Beneficiary } from '@shared/models';
 
 @Injectable({
   providedIn: 'root',

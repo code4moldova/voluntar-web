@@ -7,14 +7,14 @@ import { VolunteerPageParams, VolunteersFacade } from '../volunteers.facade';
 import { TagsFacadeService } from '@services/tags/tags-facade.service';
 import { GeolocationService } from '@services/geolocation/geolocation.service';
 
-import { IVolunteer } from '@models/volunteers';
-import { IOfferTag } from '@models/tags';
 import {
   FilterInputColumns,
-  FilterSelectColumns,
   FilterObservableSelectColumns,
-} from '@models/filter';
-import { ZoneI } from '@models/geolocation';
+  FilterSelectColumns,
+  IOfferTag,
+  IVolunteer,
+  ZoneI,
+} from '@shared/models';
 import { ActionsSubject } from '@ngrx/store';
 import { ofType } from '@ngrx/effects';
 import { VolunteersDetailsComponent } from '../volunteers-details/volunteers-details.component';
@@ -93,6 +93,7 @@ export class VolunteersListComponent implements OnInit {
   zones = KIV_ZONES;
   roles = VOLUNTEER_ROLES;
   tagById$ = (id: any) => this.tagsFacadeService.availabilitiesById$(id);
+
   constructor(
     private fb: FormBuilder,
     private volunteersFacade: VolunteersFacade,

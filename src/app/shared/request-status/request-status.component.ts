@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { RequestStatus } from '@models/requests';
+import { RequestStatus } from '@shared/models';
 
 const TITLES = {
   new: 'nou',

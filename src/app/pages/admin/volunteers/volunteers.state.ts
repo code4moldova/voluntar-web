@@ -1,4 +1,4 @@
-import { IVolunteer } from '@models/volunteers';
+import { IVolunteer } from '@shared/models';
 
 export interface VolunteersState {
   data: IVolunteer[];

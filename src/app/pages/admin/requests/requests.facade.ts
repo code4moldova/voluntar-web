@@ -16,7 +16,7 @@ import {
   selectZones,
   selectRequestsCount,
 } from './requests.selectors';
-import { IRequest, IRequestDetails } from '@models/requests';
+import { IRequest, IRequestDetails } from '@shared/models';
 import { RequestsService } from './requests.service';
 import {
   map,

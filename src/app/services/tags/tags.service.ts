@@ -7,7 +7,7 @@ import {
   IAvailabilityTag,
   ITeamTag,
   IOfferTag,
-} from '@models/tags';
+} from '@shared/models';
 import { Observable } from 'rxjs';
 
 @Injectable({

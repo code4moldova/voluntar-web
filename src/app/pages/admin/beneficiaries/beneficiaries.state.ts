@@ -1,5 +1,4 @@
-import { Beneficiary } from '@models/beneficiary';
-import { RequestStatus, RequestType } from '@models/requests';
+import { RequestStatus, RequestType, Beneficiary } from '@shared/models';
 
 interface Volunteer {
   _id: string;

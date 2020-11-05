@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { filter, map, takeUntil, tap } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
-import { Beneficiary } from '@models/beneficiary';
+import { Beneficiary } from '@shared/models';
 import { PageEvent } from '@angular/material/paginator';
 
 @Component({
