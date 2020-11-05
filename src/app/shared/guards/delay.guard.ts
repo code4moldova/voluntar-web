@@ -7,7 +7,7 @@ import {
   CanActivateChild,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { RequestsFacade } from '../../admin/requests/requests.facade';
+import { RequestsFacade } from '@requests/requests.facade';
 import { filter, map, debounceTime } from 'rxjs/operators';
 
 @Injectable({

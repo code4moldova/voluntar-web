@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
-import { getZonesAction } from './admin/requests/requests.actions';
+import { getZonesAction } from '@requests/requests.actions';
 import {
   getActivityTypesTagsAction,
   getAgesTagsAction,

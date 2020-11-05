@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
 import { AuthStoreModule } from '@auth/auth-store.module';
 import { BeneficiariesStoreModule } from '@beneficiaries/beneficiaries-store.module';
 import { VolunteersStoreModule } from './admin/volunteers/volunteers-store.module';
-import { RequestsStoreModule } from './admin/requests/requests-store.module';
+import { RequestsStoreModule } from '@requests/requests-store.module';
 import { UsersStoreModule } from './admin/users/users-store.module';
 import { TagsStoreModule } from '@shared/tags/tags-store.module';
 

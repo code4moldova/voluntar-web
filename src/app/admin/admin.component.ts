@@ -12,7 +12,7 @@ import { Observable, Subject } from 'rxjs';
 import { map, filter, takeUntil } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { Router, NavigationEnd } from '@angular/router';
-import { RequestsFacade } from './requests/requests.facade';
+import { RequestsFacade } from '@requests/requests.facade';
 
 @Component({
   selector: 'app-admin',
