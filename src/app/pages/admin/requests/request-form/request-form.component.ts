@@ -44,7 +44,7 @@ import {
   ISectorTag,
 } from '@shared/models';
 import { RequestsFacade } from '../requests.facade';
-import { TagsFacadeService } from '@shared/services/tags/tags-facade.service';
+import { TagsFacade } from '@shared/services/tags/tags.facade';
 import { UsersFacade } from '../../users/users.facade';
 import { GeolocationService } from '@shared/services/geolocation/geolocation.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -190,7 +190,7 @@ export class RequestFormComponent implements OnInit, OnDestroy, OnChanges {
     private fb: FormBuilder,
     private requestsFacade: RequestsFacade,
     private volunteersService: VolunteersService,
-    private tagsFacade: TagsFacadeService,
+    private tagsFacade: TagsFacade,
     private usersFacade: UsersFacade,
     private geolocationService: GeolocationService,
     private matDialog: MatDialog,

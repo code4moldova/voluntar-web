@@ -7,7 +7,7 @@ import { IRequestDetails } from '@shared/models';
 import { RequestsFacade } from '../requests.facade';
 import { Location } from '@angular/common';
 import { Clipboard } from '@angular/cdk/clipboard';
-import { TagsFacadeService } from '@shared/services/tags/tags-facade.service';
+import { TagsFacade } from '@shared/services/tags/tags.facade';
 
 @Component({
   selector: 'app-request-details',
@@ -40,7 +40,7 @@ export class RequestDetailsComponent implements OnDestroy {
     private route: ActivatedRoute,
     private location: Location,
     private clipboard: Clipboard,
-    private tagsFacade: TagsFacadeService
+    private tagsFacade: TagsFacade
   ) {
     this.currentRequestId$.subscribe((id) => {
       if (id) {

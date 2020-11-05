@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { IVolunteer } from '@shared/models';
-import { TagsFacadeService } from '@shared/services/tags/tags-facade.service';
+import { TagsFacade } from '@shared/services/tags/tags.facade';
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -17,7 +17,7 @@ export class VolunteerModalInfoComponent implements OnInit {
   );
 
   constructor(
-    private tagsFacade: TagsFacadeService,
+    private tagsFacade: TagsFacade,
     private dialogRef: MatDialogRef<VolunteerModalInfoComponent>,
     @Inject(MAT_DIALOG_DATA) public volunteer: IVolunteer & { distance: number }
   ) {}

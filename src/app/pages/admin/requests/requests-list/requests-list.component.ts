@@ -23,7 +23,7 @@ import {
   IUser,
   ZoneI,
 } from '@shared/models';
-import { TagsFacadeService } from '@shared/services/tags/tags-facade.service';
+import { TagsFacade } from '@shared/services/tags/tags.facade';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -106,7 +106,7 @@ export class RequestsListComponent implements OnInit {
     private requestsFacade: RequestsFacade,
     private usersFacadeService: UsersFacade,
     private geolocationService: GeolocationService,
-    private tagsFacade: TagsFacadeService,
+    private tagsFacade: TagsFacade,
     private renderer: Renderer2,
     private router: Router,
     private activeRoute: ActivatedRoute,

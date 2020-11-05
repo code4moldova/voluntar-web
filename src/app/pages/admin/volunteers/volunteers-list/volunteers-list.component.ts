@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
 
 import { VolunteerPageParams, VolunteersFacade } from '../volunteers.facade';
-import { TagsFacadeService } from '@shared/services/tags/tags-facade.service';
+import { TagsFacade } from '@shared/services/tags/tags.facade';
 import { GeolocationService } from '@shared/services/geolocation/geolocation.service';
 
 import {
@@ -97,7 +97,7 @@ export class VolunteersListComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private volunteersFacade: VolunteersFacade,
-    private tagsFacadeService: TagsFacadeService,
+    private tagsFacadeService: TagsFacade,
     private matDialog: MatDialog,
     private actions$: ActionsSubject,
     private geolocationService: GeolocationService,

@@ -15,7 +15,7 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, combineLatest } from 'rxjs';
 import { IVolunteer } from '@shared/models';
-import { TagsFacadeService } from '@shared/services/tags/tags-facade.service';
+import { TagsFacade } from '@shared/services/tags/tags.facade';
 import { GeolocationService } from '@shared/services/geolocation/geolocation.service';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatDialog } from '@angular/material/dialog';
@@ -113,7 +113,7 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private volunteerFacade: VolunteersFacade,
-    private tagsFacade: TagsFacadeService,
+    private tagsFacade: TagsFacade,
     private geolocationService: GeolocationService,
     private matDialog: MatDialog,
     private elementRef: ElementRef,

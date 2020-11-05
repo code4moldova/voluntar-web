@@ -16,7 +16,7 @@ import { TagsService } from './tags.service';
 @Injectable({
   providedIn: 'root',
 })
-export class TagsFacadeService {
+export class TagsFacade {
   private statusOptions = [
     {
       label: 'New',
