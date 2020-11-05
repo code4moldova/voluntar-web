@@ -11,11 +11,11 @@ import {
   HttpClient,
   HttpClientModule,
 } from '@angular/common/http';
-import { AuthInterceptor } from '@services/interceptors/auth.interceptor';
+import { AuthInterceptor } from '@shared/interceptors/auth.interceptor';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
-import { ErrorInterceptor } from '@services/interceptors/error.interceptor';
-import { NotificationInterceptor } from '@services/interceptors/notification.interceptor';
+import { ErrorInterceptor } from '@shared/interceptors/error.interceptor';
+import { NotificationInterceptor } from '@shared/interceptors/notification.interceptor';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 

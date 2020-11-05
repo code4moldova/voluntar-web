@@ -18,7 +18,7 @@ export class RoleService {
       roles: ['admin', 'fixer'],
     },
   };
-  constructor() { }
+  constructor() {}
 
   static GET_FROM_CONFIG(
     item: keyof typeof RoleService.ACCESS_CONFIG

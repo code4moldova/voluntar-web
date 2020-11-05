@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { AdminComponent } from './admin.component';
-import { RoleService } from '@services/roles/role.service';
+import { RoleService } from '@shared/services/roles/role.service';
 import { RolesGuard } from '@shared/guards';
 
 export const adminRoutes: Routes = [

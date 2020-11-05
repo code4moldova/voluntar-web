@@ -44,9 +44,9 @@ import {
   ISectorTag,
 } from '@shared/models';
 import { RequestsFacade } from '../requests.facade';
-import { TagsFacadeService } from '@services/tags/tags-facade.service';
+import { TagsFacadeService } from '@shared/services/tags/tags-facade.service';
 import { UsersFacade } from '../../users/users.facade';
-import { GeolocationService } from '@services/geolocation/geolocation.service';
+import { GeolocationService } from '@shared/services/geolocation/geolocation.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { VolunteerModalInfoComponent } from '../../volunteers/volunteer-modal-info/volunteer-modal-info.component';

@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Observable, of } from 'rxjs';
 import { catchError, switchMap, map } from 'rxjs/operators';
 import { Action } from '@ngrx/store';
-import { TagsService } from '@services/tags/tags.service';
+import { TagsService } from '@shared/services/tags/tags.service';
 import {
   getActivityTypesTagsAction,
   getActivityTypesTagsSuccessAction,

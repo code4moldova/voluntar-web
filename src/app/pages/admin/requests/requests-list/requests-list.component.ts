@@ -13,7 +13,7 @@ import { map, take, takeUntil } from 'rxjs/operators';
 
 import { RequestPageParams, RequestsFacade } from '../requests.facade';
 import { UsersFacade } from '../../users/users.facade';
-import { GeolocationService } from '@services/geolocation/geolocation.service';
+import { GeolocationService } from '@shared/services/geolocation/geolocation.service';
 
 import {
   FilterInputColumns,
@@ -23,7 +23,7 @@ import {
   IUser,
   ZoneI,
 } from '@shared/models';
-import { TagsFacadeService } from '@services/tags/tags-facade.service';
+import { TagsFacadeService } from '@shared/services/tags/tags-facade.service';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';

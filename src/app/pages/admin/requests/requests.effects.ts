@@ -30,7 +30,7 @@ import {
   getZonesFailureAction,
   getBeneficiariesByFilterAction,
 } from './requests.actions';
-import { GeolocationService } from '@services/geolocation/geolocation.service';
+import { GeolocationService } from '@shared/services/geolocation/geolocation.service';
 
 @Injectable()
 export class RequestsEffects {
