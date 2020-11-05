@@ -12,7 +12,7 @@ import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
 import { map, take, takeUntil } from 'rxjs/operators';
 
 import { RequestPageParams, RequestsFacade } from '../requests.facade';
-import { UsersFacade } from '../../users/users.facade';
+import { UsersFacade } from '@users/users.facade';
 import { GeolocationService } from '@shared/services/geolocation/geolocation.service';
 
 import {

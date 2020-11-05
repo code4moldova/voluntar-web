@@ -17,7 +17,8 @@
       "@shared/*": ["src/app/shared/*"],
       "@auth/*": ["src/app/auth/*"],
       "@beneficiaries/*": ["src/app/admin/beneficiaries/*"],
-      "@requests/*": ["src/app/admin/requests/*"]
+      "@requests/*": ["src/app/admin/requests/*"],
+      "@users/*": ["src/app/admin/users/*"]
     },
     "lib": ["es2018", "dom"]
   }
