@@ -27,7 +27,7 @@
   <div class="user-nav">
     <button
       mat-icon-button
-      [disabled]="!(newRequest$ | async)"
+      [disabled]="(newRequest$ | async) === false"
       (click)="fetchRequests()"
       [matTooltip]="(newRequest$ | async) ? 'New Request' : null"
       aria-label="Notifications"

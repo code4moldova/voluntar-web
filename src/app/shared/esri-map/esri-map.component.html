@@ -4,7 +4,7 @@
   (click)="submitCoors()"
   type="button"
   color="primary"
-  [disabled]="!(mapIsLoaded$ | async)"
+  [disabled]="(mapIsLoaded$ | async) === false"
 >
   Add current address
 </button>

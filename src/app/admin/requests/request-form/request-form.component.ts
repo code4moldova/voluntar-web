@@ -233,7 +233,7 @@ export class RequestFormComponent implements OnInit, OnDestroy, OnChanges {
     if (volunteer.accepted_offer) {
       return 'Offer Accepted';
     } else if (!volunteer.telegram_chat_id) {
-      return "Doesn't have Telegram";
+      return `Doesn't have Telegram`;
     }
     return 'Volunteer Info';
   }

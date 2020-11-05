@@ -62,7 +62,7 @@ export class RequestsListComponent implements OnInit {
   public observableSelectColumns: FilterObservableSelectColumns<
     IUser | ZoneI
   >[];
-  public selectedIndex: number = 0;
+  public selectedIndex = 0;
 
   lastFilter = {};
   page: RequestPageParams = { pageSize: 20, pageIndex: 1 };
@@ -79,10 +79,10 @@ export class RequestsListComponent implements OnInit {
   ];
 
   @ViewChild('empty', { static: true }) empty: ElementRef;
-  selectedTab: string = 'all';
+  selectedTab = 'all';
   selectedTabIndex$ = this.activeRoute.queryParams.pipe(
     map((params) => {
-      const status = params['status'];
+      const status = params.status;
 
       if (status) {
         this.selectedTab = status;
@@ -118,7 +118,7 @@ export class RequestsListComponent implements OnInit {
 
   getAllStatusesCount() {
     const requests = [{}, ...this.allStatuses].map((status) =>
-      this.helperGetCountByStatus(status['_id'])
+      this.helperGetCountByStatus(status._id)
     );
     forkJoin(requests)
       .pipe(take(1))
@@ -179,7 +179,7 @@ export class RequestsListComponent implements OnInit {
     let status = null;
 
     if (typeof event.tab.textLabel !== 'string') {
-      status = event.tab.textLabel['_id'];
+      status = event.tab.textLabel._id;
       this.selectedTab = status;
     }
 
@@ -236,7 +236,7 @@ export class RequestsListComponent implements OnInit {
   }
 
   openNewRequestDialog() {
-    let dialogRef = this.matDialog.open(RequestDetailsComponent, {
+    const dialogRef = this.matDialog.open(RequestDetailsComponent, {
       data: {},
       maxWidth: '100%',
       maxHeight: '90vh',

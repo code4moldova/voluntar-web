@@ -71,7 +71,7 @@ export class VolunteersListComponent implements OnInit {
   selectedTab = null;
   selectedTabIndex$ = this.activeRoute.queryParams.pipe(
     map((params) => {
-      const status = params['status'];
+      const status = params.status;
 
       if (status) {
         this.selectedTab = status;
@@ -141,7 +141,7 @@ export class VolunteersListComponent implements OnInit {
 
   getAllStatusesCount() {
     const requests = this.statuses.map((status) =>
-      this.helperGetCountByStatus(status['_id'])
+      this.helperGetCountByStatus(status._id)
     );
     forkJoin(requests)
       .pipe(take(1))
@@ -168,7 +168,7 @@ export class VolunteersListComponent implements OnInit {
   }
 
   openNewVolunteerDialog() {
-    let dialogRef = this.matDialog.open(VolunteersDetailsComponent, {
+    const dialogRef = this.matDialog.open(VolunteersDetailsComponent, {
       data: {},
       maxWidth: '100%',
       maxHeight: '90vh',
@@ -205,7 +205,7 @@ export class VolunteersListComponent implements OnInit {
       }
     });
     if (this.currentTab) {
-      query['status'] = this.currentTab;
+      query.status = this.currentTab;
     }
     this.router.navigate([], {
       relativeTo: this.activeRoute,
