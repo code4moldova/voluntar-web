@@ -1,8 +1,7 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes } from '@angular/router';
 import { PublicAreaComponent } from './public-area.component';
 
-const routes: Routes = [
+export const publicAreaRoutes: Routes = [
   {
     path: '',
     component: PublicAreaComponent,
@@ -22,9 +21,3 @@ const routes: Routes = [
     ],
   },
 ];
-
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
-})
-export class PublicAreaRoutingModule {}

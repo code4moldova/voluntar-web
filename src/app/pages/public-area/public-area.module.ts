@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PublicAreaComponent } from './public-area.component';
-import { PublicAreaRoutingModule } from './public-area-routing.module';
+import { RouterModule } from '@angular/router';
+import { publicAreaRoutes } from './public-area.routes';
 
 @NgModule({
   declarations: [PublicAreaComponent],
-  imports: [CommonModule, PublicAreaRoutingModule],
+  imports: [CommonModule, RouterModule.forChild(publicAreaRoutes)],
 })
 export class PublicAreaModule {}
