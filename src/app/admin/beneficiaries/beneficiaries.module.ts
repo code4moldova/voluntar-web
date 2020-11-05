@@ -14,10 +14,10 @@ import {
   SpecialConditionTitlePipe,
 } from '@shared/pipes';
 import { BeneficiaryEditComponent } from './beneficiary-edit/beneficiary-edit.component';
-import { DisabilityComponent } from '@shared/disability/disability.component';
-import { RequestStatusComponent } from '@shared/request-status/request-status.component';
-import { RequestTypeComponent } from '@shared/request-type/request-type.component';
-import { BeneficiaryListComponent } from '@shared/beneficiary-list/beneficiary-list.component';
+import { DisabilityComponent } from './shared/disability/disability.component';
+import { RequestStatusComponent } from './shared/request-status/request-status.component';
+import { RequestTypeComponent } from './shared/request-type/request-type.component';
+import { BeneficiaryListComponent } from './shared/beneficiary-list/beneficiary-list.component';
 import { RouterModule } from '@angular/router';
 import { beneficiariesRoutes } from './beneficiaries.routes';
 
