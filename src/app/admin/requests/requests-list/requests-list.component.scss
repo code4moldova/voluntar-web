@@ -1,0 +1,316 @@
+@import "~@angular/material/theming";
+@import "../../../../styles/colors";
+
+.mat-flat-button {
+  .mat-icon {
+    width: 16px;
+    height: 16px;
+    font-size: 16px;
+  }
+}
+
+mat-card {
+  min-height: 400px;
+  position: relative;
+  padding: 0 0 56px;
+
+  .mat-card-footer {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+  }
+
+  tr.mat-row {
+    td.mat-cell {
+      position: relative;
+      height: 64px;
+      vertical-align: middle;
+      border-bottom-color: $color-border-divider;
+
+      &[class*="mat-column"]:first-child {
+        padding-left: 24px;
+      }
+
+      &[class*="mat-column"]:last-child {
+        padding-right: 24px;
+      }
+
+      &[class*="mat-column"]:not(:first-child) {
+        padding-left: 20px;
+      }
+
+      &.mat-column-icons {
+        white-space: nowrap;
+        width: 80px;
+        padding: 0 10px 0 0;
+        text-align: center;
+
+        * {
+          &:first-child {
+            margin-left: 0;
+          }
+          margin-left: 5px;
+        }
+      }
+
+      &:not(.mat-column-icons) {
+        .mat-icon {
+          height: 14px;
+          width: 14px;
+
+          margin-right: 4px;
+
+          font-size: 14px;
+          color: $color-type-disabled;
+        }
+      }
+
+      &.mat-column-name {
+        font-weight: 500;
+      }
+
+      &:not(.mat-column-name) {
+        color: $color-type-secondary;
+      }
+
+      &.mat-column-status {
+        &.new {
+          .mat-chip {
+            color: $color-functional-info;
+            background-color: $color-functional-info-bg;
+          }
+        }
+
+        &.done {
+          .mat-chip {
+            color: $color-functional-success;
+            background-color: $color-functional-success-bg;
+          }
+        }
+
+        &.onprogress {
+          .mat-chip {
+            background-color: lighten($color-functional-warning, 35%);
+            color: darken($color-functional-warning, 8%);
+          }
+        }
+
+        &.cancelled {
+          .mat-chip {
+            color: $color-functional-error;
+            background-color: $color-functional-error-bg;
+          }
+        }
+
+        .mat-chip {
+          font-size: 13px;
+          padding: 2px 8px;
+          min-height: 20px;
+          height: auto;
+        }
+      }
+
+      .mat-chip-list {
+        margin: 0;
+
+        .mat-chip {
+          padding: 0px 6px;
+          min-height: 24px;
+
+          &:not(:first-child) {
+            margin-left: -12px;
+          }
+
+          .mat-icon {
+            width: 14px;
+            height: 14px;
+
+            margin: 0;
+
+            font-size: 14px;
+          }
+
+          &.money {
+            color: $color-functional-success;
+            background-color: $color-functional-success-bg;
+          }
+
+          &.disabilities {
+            color: $color-functional-info;
+            background-color: $color-functional-info-bg;
+          }
+
+          &.symptoms {
+            color: $color-functional-error;
+            background-color: $color-functional-error-bg;
+          }
+        }
+      }
+    }
+  }
+}
+
+.mat-expansion-panel-header-description {
+  justify-content: flex-end;
+  align-items: center;
+}
+
+mat-accordion {
+  display: block;
+  margin-bottom: 25px;
+}
+
+mat-icon {
+  vertical-align: middle;
+}
+
+tr {
+  &.cancelled {
+    background-color: transparentize($color-functional-error-bg, 0.7);
+    border-left: 3px solid $color-functional-error;
+
+    td {
+      font-weight: bold;
+    }
+  }
+
+  &.blacklist {
+    background-color: $color-grays-gray-10;
+    border-left: 3px solid $color-type-primary;
+
+    td {
+      color: $color-type-disabled !important;
+
+      .mat-chip {
+        background-color: $color-grays-gray-30 !important;
+        color: $color-grays-gray-90 !important;
+      }
+    }
+  }
+}
+
+::ng-deep.mat-tab-group {
+  margin-top: 56px;
+
+  .mat-tab-body {
+    padding-top: 32px;
+  }
+
+  &.mat-primary {
+    &.selected-tab-all {
+      .mat-tab-label-active {
+        .mat-badge {
+          color: $color-type-primary !important;
+
+          .mat-badge-content {
+            background-color: $color-grays-gray-30;
+            color: $color-type-disabled;
+          }
+        }
+      }
+
+      .mat-ink-bar {
+        background-color: $color-type-primary;
+      }
+    }
+
+    &.selected-tab-cancelled {
+      .mat-tab-label-active {
+        .mat-badge {
+          color: $color-functional-error !important;
+
+          .mat-badge-content {
+            background-color: $color-functional-error-bg;
+            color: $color-functional-error;
+          }
+        }
+      }
+
+      .mat-ink-bar {
+        background-color: $color-functional-error;
+      }
+    }
+
+    &.selected-tab-new {
+      .mat-tab-label-active {
+        .mat-badge {
+          color: $color-functional-info !important;
+
+          .mat-badge-content {
+            background-color: $color-functional-info-bg;
+            color: $color-functional-info;
+          }
+        }
+      }
+
+      .mat-ink-bar {
+        background-color: $color-functional-info;
+      }
+    }
+
+    &.selected-tab-onprogress {
+      .mat-tab-label-active {
+        .mat-badge {
+          color: darken($color-functional-warning, 5%) !important;
+
+          .mat-badge-content {
+            background-color: lighten($color-functional-warning, 35%);
+            color: darken($color-functional-warning, 8%);
+          }
+        }
+      }
+
+      .mat-ink-bar {
+        background-color: $color-functional-warning;
+      }
+    }
+
+    &.selected-tab-done {
+      .mat-tab-label-active {
+        .mat-badge {
+          color: $color-functional-success !important;
+
+          .mat-badge-content {
+            background-color: $color-functional-success-bg;
+            color: $color-functional-success;
+          }
+        }
+      }
+
+      .mat-ink-bar {
+        background-color: $color-functional-success;
+      }
+    }
+
+    .mat-tab-label {
+      color: $color-type-secondary;
+      opacity: 1;
+
+      .mat-badge-content {
+        width: auto;
+        height: auto;
+        position: static;
+
+        padding: 4px 8px;
+        margin: 0 0 -4px 8px;
+
+        font-size: 10px;
+        line-height: 100%;
+        text-overflow: unset;
+
+        background-color: $color-grays-gray-30;
+        color: $color-grays-gray-90;
+
+        border-radius: 12px;
+      }
+    }
+  }
+}
+
+// fill full size of container
+::ng-deep.map-expansion-panel {
+  .mat-expansion-panel-body {
+    padding: 0;
+  }
+}

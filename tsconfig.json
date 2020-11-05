@@ -13,10 +13,13 @@
     "target": "es2015",
     "module": "es2020",
     "paths": {
-      "@services/*": ["src/app/services/*"],
-      "@store/*": ["src/app/root-store/*"],
-      "@models/*": ["src/app/models/*"],
-      "@shared/*": ["src/app/shared/*"]
+      "@app/*": ["src/app/*"],
+      "@shared/*": ["src/app/shared/*"],
+      "@auth/*": ["src/app/auth/*"],
+      "@beneficiaries/*": ["src/app/admin/beneficiaries/*"],
+      "@requests/*": ["src/app/admin/requests/*"],
+      "@users/*": ["src/app/admin/users/*"],
+      "@volunteers/*": ["src/app/admin/volunteers/*"]
     },
     "lib": ["es2018", "dom"]
   }

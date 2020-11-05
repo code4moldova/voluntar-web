@@ -2,18 +2,26 @@ import { Component } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
-import { getZonesAction } from '@store/requests-store/actions';
+import { getZonesAction } from '@requests/requests.actions';
 import {
   getActivityTypesTagsAction,
   getAgesTagsAction,
   getAvailabilitiesTagsAction,
   getTeamsTagsAction,
   getOffersTagsAction,
-} from '@store/tags-store/actions';
-import { AuthService } from '@services/auth/auth.service';
-import { getUsersAction } from '@store/users-store/actions';
+} from '@shared/tags/tags.actions';
+import { AuthService } from '@auth/auth.service';
+import { getUsersAction } from '@users/users.actions';
 
-const ICONS = ['medicine', 'deafmute', 'archived', 'export', 'import', 'plus', 'map'];
+const ICONS = [
+  'medicine',
+  'deafmute',
+  'archived',
+  'export',
+  'import',
+  'plus',
+  'map',
+];
 
 @Component({
   selector: 'app-root',
@@ -28,7 +36,7 @@ export class AppComponent {
     private domSanitizer: DomSanitizer,
     private authService: AuthService
   ) {
-    for (let icon of ICONS) {
+    for (const icon of ICONS) {
       this.matIconRegistry.addSvgIcon(
         icon,
         this.domSanitizer.bypassSecurityTrustResourceUrl(

@@ -1,0 +1,53 @@
+<mat-toolbar class="mat-elevation-z0 app-navbar">
+  <div class="header-logo">
+    <span class="logo"></span>
+  </div>
+
+  <mat-nav-list>
+    <a routerLink="/admin/requests" routerLinkActive="active" mat-list-item>
+      Requests
+    </a>
+    <a
+      routerLink="/admin/beneficiaries"
+      routerLinkActive="active"
+      mat-list-item
+    >
+      Beneficiaries
+    </a>
+    <a routerLink="/admin/volunteers" routerLinkActive="active" mat-list-item>
+      Volunteers
+    </a>
+    <a routerLink="/admin/users" routerLinkActive="active" mat-list-item>
+      Users
+    </a>
+  </mat-nav-list>
+
+  <div class="toolbar-spacer"></div>
+
+  <div class="user-nav">
+    <button
+      mat-icon-button
+      [disabled]="(newRequest$ | async) === false"
+      (click)="fetchRequests()"
+      [matTooltip]="(newRequest$ | async) ? 'New Request' : null"
+      aria-label="Notifications"
+    >
+      <mat-icon
+        [matBadge]="(newRequest$ | async) ? '!' : null"
+        matBadgeColor="primary"
+      >
+        notifications_none
+      </mat-icon>
+    </button>
+
+    <button mat-button [matMenuTriggerFor]="menu">
+      <mat-icon>supervised_user_circle</mat-icon>
+      <span class="user-name">{{ userName$ | async }}</span>
+      <mat-icon>arrow_drop_down</mat-icon>
+    </button>
+
+    <mat-menu #menu>
+      <button mat-menu-item (click)="onLogout()">Logout</button>
+    </mat-menu>
+  </div>
+</mat-toolbar>
