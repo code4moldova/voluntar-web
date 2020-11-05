@@ -22,7 +22,7 @@ import { map, take, takeUntil } from 'rxjs/operators';
 import { saveVolunteerSuccessAction } from '../volunteers.actions';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
-import { KIV_ZONES, VOLUNTEER_ROLES } from 'src/app/constants';
+import { KIV_ZONES, VOLUNTEER_ROLES } from '@app/constants';
 
 @Component({
   selector: 'app-volunteers-list',

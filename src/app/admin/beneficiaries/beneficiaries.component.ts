@@ -3,12 +3,10 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-beneficiaries',
   templateUrl: './beneficiaries.component.html',
-  styleUrls: ['./beneficiaries.component.scss']
+  styleUrls: ['./beneficiaries.component.scss'],
 })
 export class BeneficiariesComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 }

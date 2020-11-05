@@ -11,7 +11,7 @@ import { Beneficiary } from '@shared/models';
 import { BeneficiariesFacade } from '../beneficiaries.facade';
 import { BeneficiaryNewComponent } from '../beneficiary-new/beneficiary-new.component';
 import { saveBeneficiarySuccessAction } from '../beneficiaries.actions';
-import { KIV_ZONES } from '../../../../constants';
+import { KIV_ZONES } from '../../../constants';
 
 @Component({
   selector: 'app-beneficiaries-list',

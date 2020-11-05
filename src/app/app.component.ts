@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
-import { getZonesAction } from './pages/admin/requests/requests.actions';
+import { getZonesAction } from './admin/requests/requests.actions';
 import {
   getActivityTypesTagsAction,
   getAgesTagsAction,
@@ -10,8 +10,8 @@ import {
   getTeamsTagsAction,
   getOffersTagsAction,
 } from '@shared/tags/tags.actions';
-import { AuthService } from './pages/auth/auth.service';
-import { getUsersAction } from './pages/admin/users/users.actions';
+import { AuthService } from './auth/auth.service';
+import { getUsersAction } from './admin/users/users.actions';
 
 const ICONS = [
   'medicine',

@@ -5,7 +5,7 @@ export const appRoutes: Routes = [
   {
     path: '',
     loadChildren: () =>
-      import('./pages/public-area/public-area.module').then(
+      import('./public-area/public-area.module').then(
         (m) => m.PublicAreaModule
       ),
   },
@@ -13,13 +13,12 @@ export const appRoutes: Routes = [
     path: 'admin',
     canActivate: [ProtectedGuard],
     loadChildren: () =>
-      import('./pages/admin/admin.module').then((m) => m.AdminModule),
+      import('./admin/admin.module').then((m) => m.AdminModule),
   },
   {
     path: 'login',
     canActivate: [PublicGuard],
-    loadChildren: () =>
-      import('./pages/auth/auth.module').then((m) => m.AuthModule),
+    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
   },
   {
     path: '**',

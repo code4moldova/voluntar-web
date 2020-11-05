@@ -8,9 +8,8 @@ describe('BeneficiaryDetailsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BeneficiaryDetailsComponent ]
-    })
-    .compileComponents();
+      declarations: [BeneficiaryDetailsComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

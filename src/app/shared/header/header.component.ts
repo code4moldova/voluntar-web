@@ -1,7 +1,7 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { AuthFacade } from '../../pages/auth/auth.facade';
+import { AuthFacade } from '../../auth/auth.facade';
 import { map } from 'rxjs/operators';
-import { RequestsFacade } from '../../pages/admin/requests/requests.facade';
+import { RequestsFacade } from '../../admin/requests/requests.facade';
 
 @Component({
   selector: 'app-header',

@@ -7,7 +7,7 @@ import {
   Router,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AuthFacade } from '../../pages/auth/auth.facade';
+import { AuthFacade } from '../../auth/auth.facade';
 import { map } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 // import { Route } from '@angular/compiler/src/core';

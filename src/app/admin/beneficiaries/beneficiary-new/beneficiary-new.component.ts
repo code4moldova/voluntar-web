@@ -5,7 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { combineLatest } from 'rxjs';
 import { filter, first } from 'rxjs/operators';
 
-import { KIV_ZONES, SPECIAL_CONDITIONS } from '../../../../constants';
+import { KIV_ZONES, SPECIAL_CONDITIONS } from '../../../constants';
 import { BeneficiariesFacade } from '../beneficiaries.facade';
 
 export const COMMON_FIELDS = {
