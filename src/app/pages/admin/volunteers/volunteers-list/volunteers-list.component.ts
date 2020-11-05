@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
 
 import { VolunteerPageParams, VolunteersFacade } from '../volunteers.facade';
-import { TagsFacade } from '@shared/services/tags/tags.facade';
+import { TagsFacade } from '@shared/tags/tags.facade';
 import { GeolocationService } from '@shared/services/geolocation/geolocation.service';
 
 import {

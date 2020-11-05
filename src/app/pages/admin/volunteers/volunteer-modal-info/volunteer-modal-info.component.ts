@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { IVolunteer } from '@shared/models';
-import { TagsFacade } from '@shared/services/tags/tags.facade';
+import { TagsFacade } from '@shared/tags/tags.facade';
 import { map } from 'rxjs/operators';
 
 @Component({

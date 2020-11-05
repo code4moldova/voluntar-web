@@ -7,7 +7,7 @@ import { IRequestDetails } from '@shared/models';
 import { RequestsFacade } from '../requests.facade';
 import { Location } from '@angular/common';
 import { Clipboard } from '@angular/cdk/clipboard';
-import { TagsFacade } from '@shared/services/tags/tags.facade';
+import { TagsFacade } from '@shared/tags/tags.facade';
 
 @Component({
   selector: 'app-request-details',

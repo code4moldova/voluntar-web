@@ -1,5 +1,5 @@
 import { createReducer, on, Action } from '@ngrx/store';
-import { initialState, TagsState } from './state';
+import { initialState, TagsState } from './tags.state';
 import {
   getActivityTypesTagsAction,
   getTagsFailureAction,
@@ -12,9 +12,9 @@ import {
   getAvailabilitiesTagsAction,
   getTeamsTagsAction,
   getOffersTagsAction,
-} from './actions';
+} from './tags.actions';
 
-const tagsReducer = createReducer(
+export const tagsReducer = createReducer<TagsState, Action>(
   initialState,
   on(getTagsFailureAction, (state, { error }) => ({
     ...state,
@@ -82,7 +82,3 @@ const tagsReducer = createReducer(
     offers: payload,
   }))
 );
-
-export function reducer(state: TagsState | undefined, action: Action) {
-  return tagsReducer(state, action);
-}

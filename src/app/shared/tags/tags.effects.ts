@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Observable, of } from 'rxjs';
 import { catchError, switchMap, map } from 'rxjs/operators';
 import { Action } from '@ngrx/store';
-import { TagsService } from '@shared/services/tags/tags.service';
+import { TagsService } from './tags.service';
 import {
   getActivityTypesTagsAction,
   getActivityTypesTagsSuccessAction,
@@ -16,7 +16,7 @@ import {
   getTeamsTagsSuccessAction,
   getOffersTagsAction,
   getOffersTagsSuccessAction,
-} from './actions';
+} from './tags.actions';
 
 @Injectable()
 export class TagsEffects {

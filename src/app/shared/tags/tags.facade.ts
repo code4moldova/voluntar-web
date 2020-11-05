@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { TagsState } from '@store/tags-store/state';
+import { TagsState } from './tags.state';
 import {
   selectTagsIsLoading,
   selectTagsError,
@@ -9,7 +9,7 @@ import {
   selectAvailabilitiesTags,
   selectTeamsTags,
   selectOffersTags,
-} from '@store/tags-store/selectors';
+} from './tags.selectors';
 import { map } from 'rxjs/operators';
 import { TagsService } from './tags.service';
 

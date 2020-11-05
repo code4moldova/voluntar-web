@@ -10,7 +10,7 @@ import { BeneficiariesStoreModule } from '../pages/admin/beneficiaries/beneficia
 import { VolunteersStoreModule } from '../pages/admin/volunteers/volunteers-store.module';
 import { RequestsStoreModule } from '../pages/admin/requests/requests-store.module';
 import { UsersStoreModule } from '../pages/admin/users/users-store.module';
-import { TagsStoreModule } from './tags-store/tags-store.module';
+import { TagsStoreModule } from '@shared/tags/tags-store.module';
 
 @NgModule({
   imports: [

@@ -9,7 +9,7 @@ import {
   getAvailabilitiesTagsAction,
   getTeamsTagsAction,
   getOffersTagsAction,
-} from '@store/tags-store/actions';
+} from '@shared/tags/tags.actions';
 import { AuthService } from './pages/auth/auth.service';
 import { getUsersAction } from './pages/admin/users/users.actions';
 

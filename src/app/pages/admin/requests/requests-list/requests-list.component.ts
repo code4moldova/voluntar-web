@@ -23,7 +23,7 @@ import {
   IUser,
   ZoneI,
 } from '@shared/models';
-import { TagsFacade } from '@shared/services/tags/tags.facade';
+import { TagsFacade } from '@shared/tags/tags.facade';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';

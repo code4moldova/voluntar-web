@@ -44,7 +44,7 @@ import {
   ISectorTag,
 } from '@shared/models';
 import { RequestsFacade } from '../requests.facade';
-import { TagsFacade } from '@shared/services/tags/tags.facade';
+import { TagsFacade } from '@shared/tags/tags.facade';
 import { UsersFacade } from '../../users/users.facade';
 import { GeolocationService } from '@shared/services/geolocation/geolocation.service';
 import { MatDialog } from '@angular/material/dialog';

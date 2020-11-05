@@ -1,6 +1,5 @@
 import {
   IActivityTypeTag,
-  ISectorTag,
   IAgeTag,
   IAvailabilityTag,
   ITeamTag,

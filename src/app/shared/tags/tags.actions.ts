@@ -1,7 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import {
   IActivityTypeTag,
-  ISectorTag,
   IAgeTag,
   IAvailabilityTag,
   ITeamTag,

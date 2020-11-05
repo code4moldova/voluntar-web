@@ -1,5 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { TagsState } from './state';
+import { TagsState } from './tags.state';
 
 export const selectTags = createFeatureSelector<any, TagsState>('tags');
 
