@@ -12,6 +12,5 @@ import { beneficiariesReducer } from './beneficiaries.reducer';
     StoreModule.forFeature('beneficiaries', beneficiariesReducer),
     EffectsModule.forFeature([BeneficiariesEffects]),
   ],
-  providers: [BeneficiariesEffects],
 })
 export class BeneficiariesStoreModule {}

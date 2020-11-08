@@ -14,7 +14,6 @@ import { saveBeneficiarySuccessAction } from '../beneficiaries.actions';
 import { KIV_ZONES } from '@shared/constants';
 
 @Component({
-  selector: 'app-beneficiaries-list',
   templateUrl: './beneficiaries-list.component.html',
   styleUrls: ['./beneficiaries-list.component.scss'],
 })

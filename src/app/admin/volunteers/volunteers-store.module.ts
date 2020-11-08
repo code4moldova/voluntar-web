@@ -11,6 +11,5 @@ import { volunteersReducer } from './volunteers.reducer';
     StoreModule.forFeature('volunteers', volunteersReducer),
     EffectsModule.forFeature([VolunteersEffects]),
   ],
-  providers: [VolunteersEffects],
 })
 export class VolunteersStoreModule {}

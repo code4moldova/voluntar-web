@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-requests',
-  templateUrl: './requests.component.html',
-  styleUrls: ['./requests.component.scss'],
+  template: '<router-outlet></router-outlet>',
 })
 export class RequestsComponent {}

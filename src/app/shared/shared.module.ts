@@ -6,7 +6,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EsriMapComponent } from './esri-map/esri-map.component';
 import { FilterComponent } from './filter/filter.component';
 import { GoBackDirective } from './directives/go-back.directive';
-import { ContainerComponent } from './container/container.component';
 
 @NgModule({
   imports: [
@@ -25,13 +24,7 @@ import { ContainerComponent } from './container/container.component';
     EsriMapComponent,
     FilterComponent,
     GoBackDirective,
-    ContainerComponent,
   ],
-  declarations: [
-    EsriMapComponent,
-    FilterComponent,
-    GoBackDirective,
-    ContainerComponent,
-  ],
+  declarations: [EsriMapComponent, FilterComponent, GoBackDirective],
 })
 export class SharedModule {}

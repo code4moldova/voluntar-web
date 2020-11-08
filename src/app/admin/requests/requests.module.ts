@@ -5,10 +5,9 @@ import { RequestDetailsComponent } from './request-details/request-details.compo
 import { RequestsListComponent } from './requests-list/requests-list.component';
 import { MaterialComponentsModule } from '@shared/material.module';
 import { SharedModule } from '@shared/shared.module';
-import { RequestModalInfoComponent } from './request-modal-info/request-modal-info.component';
-import { RequestFormComponent } from './request-form/request-form.component';
+import { RequestFormComponent } from './shared/request-form/request-form.component';
 import { NgxMaskModule } from 'ngx-mask';
-import { RequestsMapComponent } from './requests-map/requests-map.component';
+import { RequestsMapComponent } from './shared/requests-map/requests-map.component';
 import { RouterModule } from '@angular/router';
 import { requestsRoutes } from './requests.routes';
 
@@ -17,7 +16,6 @@ import { requestsRoutes } from './requests.routes';
     RequestsComponent,
     RequestDetailsComponent,
     RequestsListComponent,
-    RequestModalInfoComponent,
     RequestFormComponent,
     RequestsMapComponent,
   ],
@@ -28,6 +26,5 @@ import { requestsRoutes } from './requests.routes';
     SharedModule,
     NgxMaskModule.forChild(),
   ],
-  providers: [],
 })
 export class RequestsModule {}

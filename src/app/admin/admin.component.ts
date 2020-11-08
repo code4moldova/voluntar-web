@@ -15,7 +15,6 @@ import { Router, NavigationEnd } from '@angular/router';
 import { RequestsFacade } from '@requests/requests.facade';
 
 @Component({
-  selector: 'app-admin',
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.scss'],
   animations: [

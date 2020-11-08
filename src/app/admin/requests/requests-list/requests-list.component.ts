@@ -31,7 +31,6 @@ import {
 } from '@shared/filter/filter.types';
 
 @Component({
-  selector: 'app-requests-list',
   templateUrl: './requests-list.component.html',
   styleUrls: ['./requests-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -102,7 +101,7 @@ export class RequestsListComponent implements OnInit {
 
   constructor(
     private requestsFacade: RequestsFacade,
-    private usersFacadeService: UsersFacade,
+    private usersFacade: UsersFacade,
     private geolocationService: GeolocationService,
     private tagsFacade: TagsFacade,
     private renderer: Renderer2,
@@ -138,14 +137,14 @@ export class RequestsListComponent implements OnInit {
   }
 
   operatorById$(fixer: string) {
-    return this.usersFacadeService.users$.pipe(
+    return this.usersFacade.users$.pipe(
       map((users) => users.find((u) => u._id === fixer))
     );
   }
 
   ngOnInit() {
     this.fetchRequests();
-    this.usersFacadeService.getUsers();
+    this.usersFacade.getUsers();
     this.dataSource$ = this.requestsFacade.requests$;
 
     this.inputColumns = [
@@ -155,7 +154,7 @@ export class RequestsListComponent implements OnInit {
     ];
 
     this.observableSelectColumns = [
-      { name: 'Fixer', value: 'fixer', array: this.usersFacadeService.users$ },
+      { name: 'Fixer', value: 'fixer', array: this.usersFacade.users$ },
       {
         name: 'Zone address',
         value: 'zone_address',

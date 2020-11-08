@@ -10,9 +10,7 @@ import { Clipboard } from '@angular/cdk/clipboard';
 import { TagsFacade } from '@shared/tags/tags.facade';
 
 @Component({
-  selector: 'app-request-details',
   templateUrl: './request-details.component.html',
-  styleUrls: ['./request-details.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RequestDetailsComponent implements OnDestroy {

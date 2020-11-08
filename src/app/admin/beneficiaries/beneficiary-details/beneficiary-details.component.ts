@@ -8,7 +8,6 @@ import { Beneficiary } from '@shared/models';
 import { PageEvent } from '@angular/material/paginator';
 
 @Component({
-  selector: 'app-beneficiary-details',
   templateUrl: './beneficiary-details.component.html',
   styleUrls: ['./beneficiary-details.component.scss'],
 })
