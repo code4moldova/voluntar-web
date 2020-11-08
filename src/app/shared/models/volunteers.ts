@@ -21,21 +21,3 @@ export interface IVolunteer {
   telegram_chat_id?: string;
   count?: number;
 }
-
-export interface V2 {
-  email: string;
-  password: string;
-  first_name: string;
-  last_name: string;
-  phone: number;
-  is_active: boolean;
-  address: string;
-  zone_address: string;
-  facebook_profile: string;
-  age: number;
-  availability: number;
-  telegram_id: string;
-  latitude: number;
-  longitude: number;
-  activity_types: string;
-}

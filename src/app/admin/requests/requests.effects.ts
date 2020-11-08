@@ -1,14 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Observable, of } from 'rxjs';
-import {
-  catchError,
-  switchMap,
-  tap,
-  flatMap,
-  map,
-  exhaustMap,
-} from 'rxjs/operators';
+import { catchError, switchMap, map, exhaustMap } from 'rxjs/operators';
 import { Action } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { RequestsService } from './requests.service';
@@ -28,7 +21,6 @@ import {
   getZonesAction,
   getZonesSuccessAction,
   getZonesFailureAction,
-  getBeneficiariesByFilterAction,
 } from './requests.actions';
 import { GeolocationService } from '@shared/services/geolocation/geolocation.service';
 

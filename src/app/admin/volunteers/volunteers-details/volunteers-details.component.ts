@@ -102,7 +102,6 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
   availabilities$ = this.tagsFacade.availabilitiesTags$;
   teams$ = this.tagsFacade.teamsTags$;
   offers$ = this.tagsFacade.offersTags$;
-  activityTypes$ = this.tagsFacade.activityTypesTags$;
 
   hasTelegramChatId$ = this.volunteerFacade.volunteerDetails$.pipe(
     map((volunteer) => !!volunteer?.telegram_chat_id)
@@ -174,7 +173,6 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
           });
       }
     } else {
-      console.log('invalid form', this.form);
       this.snackBar.open('Update required fields', '', {
         duration: 5000,
         panelClass: 'info',

@@ -7,14 +7,7 @@ import { VolunteerPageParams, VolunteersFacade } from '../volunteers.facade';
 import { TagsFacade } from '@shared/tags/tags.facade';
 import { GeolocationService } from '@shared/services/geolocation/geolocation.service';
 
-import {
-  FilterInputColumns,
-  FilterObservableSelectColumns,
-  FilterSelectColumns,
-  IOfferTag,
-  IVolunteer,
-  ZoneI,
-} from '@shared/models';
+import { IOfferTag, IVolunteer, ZoneI } from '@shared/models';
 import { ActionsSubject } from '@ngrx/store';
 import { ofType } from '@ngrx/effects';
 import { VolunteersDetailsComponent } from '../volunteers-details/volunteers-details.component';
@@ -23,6 +16,11 @@ import { saveVolunteerSuccessAction } from '../volunteers.actions';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 import { KIV_ZONES, VOLUNTEER_ROLES } from '@shared/constants';
+import {
+  FilterInputColumns,
+  FilterObservableSelectColumns,
+  FilterSelectColumns,
+} from '@shared/filter/filter.types';
 
 @Component({
   selector: 'app-volunteers-list',

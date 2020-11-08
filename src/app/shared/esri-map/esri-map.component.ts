@@ -118,7 +118,6 @@ export class EsriMapComponent implements OnDestroy, AfterViewInit {
               location: evt.mapPoint,
             }
           );
-          // console.log(resp);
 
           // resp.attributes = {
           //   Match_addr: "Strada Constitutiei, 2051, Chisinau"

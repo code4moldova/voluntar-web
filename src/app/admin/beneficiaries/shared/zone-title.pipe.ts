@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { KIV_ZONES_MAP } from '../constants';
+import { KIV_ZONES_MAP } from '@shared/constants';
 
 @Pipe({ name: 'zoneTitle' })
 export class ZoneTitlePipe implements PipeTransform {

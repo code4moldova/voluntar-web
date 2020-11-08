@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Observable, of } from 'rxjs';
-import { catchError, switchMap, tap, flatMap, map } from 'rxjs/operators';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { Action } from '@ngrx/store';
 import {
   loginAction,
@@ -27,9 +27,7 @@ export class AuthEffects {
       ofType(loginAction),
       switchMap(({ login, password }) =>
         this.authService.login({ login, password }).pipe(
-          tap(() => {
-            this.router.navigate(['/admin']);
-          }),
+          tap(() => this.router.navigate(['/admin'])),
           map((res) => {
             this.tokenStorage.setAccessToken(res.token);
             return loginSuccessAction({
@@ -47,7 +45,6 @@ export class AuthEffects {
       return this.actions$.pipe(
         ofType(logoutAction),
         tap(() => {
-          console.log('logged out');
           this.tokenStorage.clear();
           this.router.navigate(['/login']);
         })

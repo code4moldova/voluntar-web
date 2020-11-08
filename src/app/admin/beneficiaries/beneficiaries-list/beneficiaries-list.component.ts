@@ -103,8 +103,6 @@ export class BeneficiariesListComponent implements OnInit {
   }
 
   onSearchSubmit() {
-    console.log('Search', this.filterStr, this.filterSector);
-
     if (this.filterStr === '' && this.filterSector === '') {
       // TODO allow user to reset filters and display full list again
       // if (this.tabIndex === 0) {
