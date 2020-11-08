@@ -8,11 +8,6 @@ import { BeneficiariesComponent } from './beneficiaries.component';
 import { BeneficiariesListComponent } from './beneficiaries-list/beneficiaries-list.component';
 import { BeneficiaryDetailsComponent } from './beneficiary-details/beneficiary-details.component';
 import { BeneficiaryNewComponent } from './beneficiary-new/beneficiary-new.component';
-import {
-  ZoneTitlePipe,
-  PrettyDatePipe,
-  SpecialConditionTitlePipe,
-} from '@shared/pipes';
 import { BeneficiaryEditComponent } from './beneficiary-edit/beneficiary-edit.component';
 import { DisabilityComponent } from './shared/disability/disability.component';
 import { RequestStatusComponent } from './shared/request-status/request-status.component';
@@ -20,6 +15,9 @@ import { RequestTypeComponent } from './shared/request-type/request-type.compone
 import { BeneficiaryListComponent } from './shared/beneficiary-list/beneficiary-list.component';
 import { RouterModule } from '@angular/router';
 import { beneficiariesRoutes } from './beneficiaries.routes';
+import { SpecialConditionTitlePipe } from './shared/special-condition-title.pipe';
+import { ZoneTitlePipe } from './shared/zone-title.pipe';
+import { PrettyDatePipe } from '@shared/pretty-date.pipe';
 
 @NgModule({
   declarations: [

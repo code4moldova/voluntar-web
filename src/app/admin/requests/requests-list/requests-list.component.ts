@@ -15,14 +15,7 @@ import { RequestPageParams, RequestsFacade } from '../requests.facade';
 import { UsersFacade } from '@users/users.facade';
 import { GeolocationService } from '@shared/services/geolocation/geolocation.service';
 
-import {
-  FilterInputColumns,
-  FilterObservableSelectColumns,
-  FilterSelectColumns,
-  IRequest,
-  IUser,
-  ZoneI,
-} from '@shared/models';
+import { IRequest, IUser, ZoneI } from '@shared/models';
 import { TagsFacade } from '@shared/tags/tags.facade';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { MatDialog } from '@angular/material/dialog';
@@ -31,6 +24,11 @@ import { ActionsSubject } from '@ngrx/store';
 import { ofType } from '@ngrx/effects';
 import { saveRequestSuccessAction } from '../requests.actions';
 import { RequestDetailsComponent } from '../request-details/request-details.component';
+import {
+  FilterInputColumns,
+  FilterObservableSelectColumns,
+  FilterSelectColumns,
+} from '@shared/filter/filter.types';
 
 @Component({
   selector: 'app-requests-list',
@@ -219,7 +217,6 @@ export class RequestsListComponent implements OnInit {
 
   onExport() {
     this.requestsFacade.getExportRequests().subscribe((res) => {
-      console.log(res);
       this.downloadCsv(res);
     });
   }

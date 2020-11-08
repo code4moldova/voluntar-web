@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { RequestsFacade } from '@requests/requests.facade';
 import { environment } from 'src/environments/environment';
 import { AuthFacade } from '../auth.facade';
@@ -10,19 +10,17 @@ import { AuthFacade } from '../auth.facade';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  form: FormGroup;
-  isLoading$ = this.userFacade.isLoading$;
+  form = this.fb.group({
+    login: [null, Validators.required],
+    password: [null, Validators.required],
+  });
+  isLoading$ = this.authFacade.isLoading$;
   isTestEnvironment = !environment.production;
   constructor(
     private fb: FormBuilder,
-    private userFacade: AuthFacade,
+    private authFacade: AuthFacade,
     private requestsFacade: RequestsFacade
-  ) {
-    this.form = this.fb.group({
-      login: [null, Validators.required],
-      password: [null, Validators.required],
-    });
-  }
+  ) {}
 
   ngOnInit() {
     this.requestsFacade.toggleNewRequestsPolling(false);
@@ -30,7 +28,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     if (this.form.valid) {
-      this.userFacade.loginUser(this.form.value);
+      this.authFacade.loginUser(this.form.value);
     }
   }
 }

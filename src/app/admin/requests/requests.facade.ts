@@ -44,7 +44,7 @@ export class RequestsFacade {
 
   private hasNewRequests$ = new BehaviorSubject(false);
   private newRequests$ = new BehaviorSubject(false);
-  private DELAY_TIME = 1000 * 60 * 1; // milliseconds * seconds * minutes
+  private DELAY_TIME = 1000 * 60; // 1 minute
   private audio = new Audio('/assets/Glass.wav');
 
   constructor(
@@ -56,7 +56,6 @@ export class RequestsFacade {
       .pipe(
         tap(([value, countFromState]) => {
           if (!value) {
-            console.log('stop polling');
             stopPolling$.next(true);
           }
         }),
@@ -75,7 +74,6 @@ export class RequestsFacade {
         })
       )
       .subscribe(([count, countFromState, prev]) => {
-        console.log('start polling', prev);
         if (countFromState === null) {
           return;
         }

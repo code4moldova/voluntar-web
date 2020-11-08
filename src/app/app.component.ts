@@ -12,6 +12,7 @@ import {
 } from '@shared/tags/tags.actions';
 import { AuthService } from '@auth/auth.service';
 import { getUsersAction } from '@users/users.actions';
+import { AppState } from '@app/app.state';
 
 const ICONS = [
   'medicine',
@@ -21,7 +22,7 @@ const ICONS = [
   'import',
   'plus',
   'map',
-];
+] as const;
 
 @Component({
   selector: 'app-root',
@@ -31,7 +32,7 @@ const ICONS = [
 export class AppComponent {
   title = 'client';
   constructor(
-    private store: Store<any>,
+    private store: Store<AppState>,
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer,
     private authService: AuthService
@@ -45,8 +46,8 @@ export class AppComponent {
       );
     }
 
-    this.authService.isAuthorized().subscribe((isAutorized) => {
-      if (isAutorized) {
+    this.authService.isAuthorized().subscribe((isAuthorized) => {
+      if (isAuthorized) {
         this.store.dispatch(getZonesAction());
         this.store.dispatch(getActivityTypesTagsAction());
         this.store.dispatch(getAgesTagsAction());

@@ -21,6 +21,11 @@ export const KIV_ZONES = [
   },
 ];
 
+export const KIV_ZONES_MAP = KIV_ZONES.reduce((acc, zone) => {
+  acc[zone.value] = zone.label;
+  return acc;
+}, {});
+
 export enum VOLUNTEER_ROLES {
   delivery = 'delivery',
   copilot = 'copilot',
@@ -28,11 +33,6 @@ export enum VOLUNTEER_ROLES {
   supply = 'supply',
   operator = 'operator',
 }
-
-export const KIV_ZONES_MAP = KIV_ZONES.reduce((acc, zone) => {
-  acc[zone.value] = zone.label;
-  return acc;
-}, {});
 
 export const SPECIAL_CONDITIONS = [
   {

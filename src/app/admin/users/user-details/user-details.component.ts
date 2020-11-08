@@ -86,8 +86,6 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
     if (this.form.valid) {
       this.form.get('repeatPassword').disable();
       this.usersFacade.saveUser(this.form.value);
-    } else {
-      console.log('invalid form', this.form);
     }
   }
 

@@ -57,7 +57,6 @@ export class BeneficiaryNewComponent implements OnInit {
     if (this.form.valid) {
       const payload = this.form.getRawValue();
       payload.landline = `22${payload.landline}`;
-      console.log('Form is valid', payload);
 
       this.serviceFacade.saveBeneficiary(payload);
       combineLatest([this.serviceFacade.isLoading$, this.serviceFacade.error$])
@@ -74,7 +73,6 @@ export class BeneficiaryNewComponent implements OnInit {
           this.closeDialog();
         });
     } else {
-      console.log('Form is invalid');
       this.snackBar.open('Introduceți cîmpurile obligatorii', '', {
         duration: 5000,
         panelClass: 'info',

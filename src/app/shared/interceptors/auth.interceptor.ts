@@ -17,7 +17,7 @@ export class AuthInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     // This has to be ignored
-    // Headers injected in coresponding services
+    // Headers injected in corresponding services
     if (
       request.url.includes('assets/') ||
       request.url.endsWith('/token') ||
@@ -27,9 +27,6 @@ export class AuthInterceptor implements HttpInterceptor {
     } else {
       const token: string = localStorage.getItem('accessToken');
       if (!token) {
-        console.log('accessToken doesnt exist');
-        console.log('URL: ', request.url);
-        console.log('Canceled by Interceptor.');
         this.snackBar.open('Token doesnt exist or expired, please Login', '', {
           duration: 3000,
           panelClass: 'danger',

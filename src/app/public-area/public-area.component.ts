@@ -49,7 +49,6 @@ export class PublicAreaComponent implements OnDestroy {
           auditTime(0, animationFrameScheduler)
         )
         .subscribe((fragment) => {
-          console.log(history.state);
           scroller.scrollToAnchor(fragment);
         })
     );

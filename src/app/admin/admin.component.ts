@@ -49,15 +49,11 @@ export class AdminComponent implements OnInit, OnDestroy {
     private router: Router,
     private requestsFacade: RequestsFacade
   ) {
-    this.router.events
-      .pipe(
-        filter((event) => event instanceof NavigationEnd),
-        filter((e: NavigationEnd) => e.urlAfterRedirects !== '/login'),
-        takeUntil(this.destroyComponent$)
-      )
-      .subscribe((event) => {
-        console.log(event);
-      });
+    this.router.events.pipe(
+      filter((event) => event instanceof NavigationEnd),
+      filter((e: NavigationEnd) => e.urlAfterRedirects !== '/login'),
+      takeUntil(this.destroyComponent$)
+    );
   }
 
   ngOnInit() {

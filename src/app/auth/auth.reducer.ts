@@ -1,9 +1,9 @@
-import { createReducer, on, Action } from '@ngrx/store';
-import { initialState, AuthState } from './auth.state';
+import { Action, createReducer, on } from '@ngrx/store';
+import { AuthState, initialState } from './auth.state';
 import {
   loginAction,
-  loginSuccessAction,
   loginFailureAction,
+  loginSuccessAction,
 } from './auth.actions';
 
 const customerReducer = createReducer(

@@ -381,7 +381,6 @@ export class RequestFormComponent implements OnInit, OnDestroy, OnChanges {
       //   this.router.navigateByUrl('/admin/requests/list');
       // });
     } else {
-      this.getInvalidControls();
       this.snackBar.open('Update required fields', '', {
         duration: 5000,
         panelClass: 'info',
@@ -395,16 +394,6 @@ export class RequestFormComponent implements OnInit, OnDestroy, OnChanges {
         element.scrollIntoView({ behavior: 'smooth' });
       }
     }
-  }
-
-  getInvalidControls() {
-    const controls = this.form.controls;
-    Object.keys(controls).forEach((key) => {
-      const control = controls[key];
-      if (control.invalid) {
-        console.log(key, control);
-      }
-    });
   }
 
   get addressIsInvalid() {

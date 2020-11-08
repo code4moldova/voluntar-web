@@ -14,6 +14,7 @@ export interface FilterSelectColumns<T> {
   placeholder?: string;
   array: Array<T>;
 }
+
 export interface FilterObservableSelectColumns<T> {
   name: string;
   value: string;
