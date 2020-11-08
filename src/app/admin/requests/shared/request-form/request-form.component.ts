@@ -43,13 +43,13 @@ import {
   IVolunteer,
   ISectorTag,
 } from '@shared/models';
-import { RequestsFacade } from '../requests.facade';
+import { RequestsFacade } from '../../requests.facade';
 import { TagsFacade } from '@shared/tags/tags.facade';
 import { UsersFacade } from '@users/users.facade';
 import { GeolocationService } from '@shared/services/geolocation/geolocation.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { VolunteerModalInfoComponent } from '@volunteers/volunteer-modal-info/volunteer-modal-info.component';
+import { VolunteerModalInfoComponent } from '@volunteers/shared/volunteer-modal-info/volunteer-modal-info.component';
 import { EsriMapComponent } from '@shared/esri-map/esri-map.component';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { VolunteersService } from '@volunteers/volunteers.service';

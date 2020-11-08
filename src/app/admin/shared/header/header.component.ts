@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { AuthFacade } from '@auth/auth.facade';
 import { map } from 'rxjs/operators';
 import { RequestsFacade } from '@requests/requests.facade';
@@ -8,7 +8,7 @@ import { RequestsFacade } from '@requests/requests.facade';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
   newRequest$ = this.requestsFacade.newRequests;
   user$ = this.userFacade.userData$;
   userName$ = this.user$.pipe(
@@ -20,12 +20,6 @@ export class HeaderComponent implements OnInit {
     private userFacade: AuthFacade,
     private requestsFacade: RequestsFacade
   ) {}
-
-  ngOnInit(): void {}
-
-  onDrawerClick() {
-    this.toggle.emit();
-  }
 
   onLogout() {
     this.userFacade.logout();

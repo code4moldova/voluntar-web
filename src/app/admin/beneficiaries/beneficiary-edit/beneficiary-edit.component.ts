@@ -11,7 +11,6 @@ import { KIV_ZONES, SPECIAL_CONDITIONS } from '@shared/constants';
 import { COMMON_FIELDS } from '../beneficiary-new/beneficiary-new.component';
 
 @Component({
-  selector: 'app-beneficiary-edit',
   templateUrl: './beneficiary-edit.component.html',
   styleUrls: ['./beneficiary-edit.component.scss'],
 })

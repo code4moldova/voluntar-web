@@ -15,9 +15,7 @@ import { Subject } from 'rxjs';
 import { ErrorStateMatcher } from '@angular/material/core';
 
 @Component({
-  selector: 'app-user-details',
   templateUrl: './user-details.component.html',
-  styleUrls: ['./user-details.component.scss'],
 })
 export class UserDetailsComponent implements OnInit, OnDestroy {
   componentDestroyed$ = new Subject();

@@ -11,6 +11,5 @@ import { requestsReducer } from './requests.reducer';
     StoreModule.forFeature('requests', requestsReducer),
     EffectsModule.forFeature([RequestsEffects]),
   ],
-  providers: [RequestsEffects],
 })
 export class RequestsStoreModule {}

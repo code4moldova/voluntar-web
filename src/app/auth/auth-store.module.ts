@@ -11,6 +11,5 @@ import { authReducer } from './auth.reducer';
     StoreModule.forFeature('auth', authReducer),
     EffectsModule.forFeature([AuthEffects]),
   ],
-  providers: [AuthEffects],
 })
 export class AuthStoreModule {}

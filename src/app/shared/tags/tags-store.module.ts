@@ -11,6 +11,5 @@ import { tagsReducer } from './tags.reducer';
     StoreModule.forFeature('tags', tagsReducer),
     EffectsModule.forFeature([TagsEffects]),
   ],
-  providers: [TagsEffects],
 })
 export class TagsStoreModule {}

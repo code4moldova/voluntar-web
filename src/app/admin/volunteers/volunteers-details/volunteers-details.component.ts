@@ -27,7 +27,6 @@ const minTemp = 36;
 const maxTemp = 41;
 
 @Component({
-  selector: 'app-volunteers-details',
   templateUrl: './volunteers-details.component.html',
   styleUrls: ['./volunteers-details.component.scss'],
 })

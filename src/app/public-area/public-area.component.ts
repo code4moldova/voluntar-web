@@ -8,9 +8,7 @@ import { auditTime, filter } from 'rxjs/operators';
 const KEY_STORAGE_LANG = 'lang';
 
 @Component({
-  selector: 'app-public-area',
-  templateUrl: './public-area.component.html',
-  styleUrls: ['./public-area.component.scss'],
+  template: '<router-outlet></router-outlet>',
   encapsulation: ViewEncapsulation.None,
 })
 export class PublicAreaComponent implements OnDestroy {

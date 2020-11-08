@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -30,11 +30,10 @@ export const COMMON_FIELDS = {
 };
 
 @Component({
-  selector: 'app-beneficiary-new',
   templateUrl: './beneficiary-new.component.html',
   styleUrls: ['./beneficiary-new.component.scss'],
 })
-export class BeneficiaryNewComponent implements OnInit {
+export class BeneficiaryNewComponent {
   zones = KIV_ZONES;
   specialConditions = SPECIAL_CONDITIONS;
   form = this.fb.group(COMMON_FIELDS);
@@ -46,8 +45,6 @@ export class BeneficiaryNewComponent implements OnInit {
     private elementRef: ElementRef,
     public dialogRef: MatDialogRef<BeneficiaryNewComponent>
   ) {}
-
-  ngOnInit(): void {}
 
   closeDialog() {
     this.dialogRef.close();

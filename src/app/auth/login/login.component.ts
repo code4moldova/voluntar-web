@@ -5,7 +5,6 @@ import { environment } from 'src/environments/environment';
 import { AuthFacade } from '../auth.facade';
 
 @Component({
-  selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })

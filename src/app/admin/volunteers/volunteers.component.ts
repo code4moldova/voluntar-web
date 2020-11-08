@@ -1,12 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-volunteers',
-  templateUrl: './volunteers.component.html',
-  styleUrls: ['./volunteers.component.scss'],
+  template: '<router-outlet></router-outlet>',
 })
-export class VolunteersComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit(): void {}
-}
+export class VolunteersComponent {}

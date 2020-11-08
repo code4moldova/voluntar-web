@@ -11,6 +11,5 @@ import { usersReducer } from './users.reducer';
     StoreModule.forFeature('users', usersReducer),
     EffectsModule.forFeature([UsersEffects]),
   ],
-  providers: [UsersEffects],
 })
 export class UsersStoreModule {}

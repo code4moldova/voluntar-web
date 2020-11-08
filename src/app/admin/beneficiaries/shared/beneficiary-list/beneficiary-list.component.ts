@@ -1,7 +1,6 @@
 import {
   Component,
   Input,
-  OnInit,
   Output,
   ViewChild,
   EventEmitter,
@@ -15,7 +14,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
   templateUrl: './beneficiary-list.component.html',
   styleUrls: ['./beneficiary-list.component.scss'],
 })
-export class BeneficiaryListComponent implements OnInit {
+export class BeneficiaryListComponent {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   @Input()
@@ -36,10 +35,6 @@ export class BeneficiaryListComponent implements OnInit {
     'date',
     'links',
   ];
-
-  constructor() {}
-
-  ngOnInit(): void {}
 
   onPageChange(event: PageEvent) {
     this.pageChangeEvent.emit(event);
