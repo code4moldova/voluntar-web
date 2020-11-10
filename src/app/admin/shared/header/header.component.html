@@ -1,30 +1,21 @@
-<mat-toolbar class="mat-elevation-z0 app-navbar">
-  <div class="header-logo">
-    <span class="logo"></span>
-  </div>
+<mat-toolbar>
+  <div class="container">
+    <a routerLink="/admin" class="logo">
+      <img src="/assets/images/landing/header-logo.svg" alt="Logo" />
+    </a>
 
-  <mat-nav-list>
-    <a routerLink="/admin/requests" routerLinkActive="active" mat-list-item>
-      Requests
-    </a>
-    <a
-      routerLink="/admin/beneficiaries"
-      routerLinkActive="active"
-      mat-list-item
-    >
-      Beneficiaries
-    </a>
-    <a routerLink="/admin/volunteers" routerLinkActive="active" mat-list-item>
-      Volunteers
-    </a>
-    <a routerLink="/admin/users" routerLinkActive="active" mat-list-item>
-      Users
-    </a>
-  </mat-nav-list>
+    <nav mat-tab-nav-bar mat-align-tabs="start">
+      <a
+        mat-tab-link
+        *ngFor="let link of links"
+        [routerLink]="link.link"
+        (click)="activeLink = link"
+        [active]="activeLink == link"
+      >
+        {{ link.label }}
+      </a>
+    </nav>
 
-  <div class="toolbar-spacer"></div>
-
-  <div class="user-nav">
     <button
       mat-icon-button
       [disabled]="(newRequest$ | async) === false"
