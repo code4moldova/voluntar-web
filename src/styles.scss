@@ -12,7 +12,9 @@ body {
 }
 body {
   margin: 0;
+  overflow-y: scroll;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: #eeeeee;
 }
 
 .mat-table {

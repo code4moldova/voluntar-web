@@ -1,22 +1,18 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { BreakpointObserver } from '@angular/cdk/layout';
-import { MatSidenav, MatSidenavContent } from '@angular/material/sidenav';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
-  trigger,
+  animate,
   state,
   style,
   transition,
-  animate,
+  trigger,
 } from '@angular/animations';
-import { Observable, Subject } from 'rxjs';
-import { map, filter, takeUntil } from 'rxjs/operators';
-import { Store } from '@ngrx/store';
-import { Router, NavigationEnd } from '@angular/router';
+import { Subject } from 'rxjs';
+import { filter, takeUntil } from 'rxjs/operators';
+import { NavigationEnd, Router } from '@angular/router';
 import { RequestsFacade } from '@requests/requests.facade';
 
 @Component({
   templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.scss'],
   animations: [
     trigger('show', [
       state(
@@ -35,19 +31,9 @@ import { RequestsFacade } from '@requests/requests.facade';
   ],
 })
 export class AdminComponent implements OnInit, OnDestroy {
-  @ViewChild(MatSidenav) drawer: MatSidenav;
-
   destroyComponent$ = new Subject<any>();
-  isHandset$: Observable<boolean> = this.breakpointObserver
-    .observe('(max-width: 1200px)')
-    .pipe(map((result) => result.matches));
 
-  constructor(
-    private breakpointObserver: BreakpointObserver,
-    private store: Store<any>,
-    private router: Router,
-    private requestsFacade: RequestsFacade
-  ) {
+  constructor(private router: Router, private requestsFacade: RequestsFacade) {
     this.router.events.pipe(
       filter((event) => event instanceof NavigationEnd),
       filter((e: NavigationEnd) => e.urlAfterRedirects !== '/login'),
@@ -61,13 +47,5 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.destroyComponent$.next();
-  }
-
-  close(reson: string) {
-    this.drawer.close();
-  }
-
-  onToggle() {
-    this.drawer.toggle();
   }
 }

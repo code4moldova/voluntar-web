@@ -1,12 +1,5 @@
-<app-header (toggle)="onToggle()"></app-header>
-<mat-sidenav-container
-  [hasBackdrop]="false"
-  class="sidenav-container"
-  (backdropClick)="close('backdrop')"
->
-  <mat-sidenav-content>
-    <div class="container">
-      <router-outlet></router-outlet>
-    </div>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+<app-header></app-header>
+
+<div class="container" style="padding-top: 72px">
+  <router-outlet></router-outlet>
+</div>

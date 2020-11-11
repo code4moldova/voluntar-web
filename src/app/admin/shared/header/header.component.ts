@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { AuthFacade } from '@auth/auth.facade';
 import { map } from 'rxjs/operators';
 import { RequestsFacade } from '@requests/requests.facade';
@@ -10,11 +10,29 @@ import { RequestsFacade } from '@requests/requests.facade';
 })
 export class HeaderComponent {
   newRequest$ = this.requestsFacade.newRequests;
-  user$ = this.userFacade.userData$;
-  userName$ = this.user$.pipe(
+  userName$ = this.userFacade.userData$.pipe(
     map((user) => (user ? user.first_name : 'User Name'))
   );
-  @Output() toggle = new EventEmitter();
+
+  links = [
+    {
+      label: 'Requests',
+      link: './requests',
+    },
+    {
+      label: 'Beneficiaries',
+      link: './beneficiaries',
+    },
+    {
+      label: 'Volunteers',
+      link: './volunteers',
+    },
+    {
+      label: 'Users',
+      link: './users',
+    },
+  ];
+  activeLink = this.links[0];
 
   constructor(
     private userFacade: AuthFacade,
