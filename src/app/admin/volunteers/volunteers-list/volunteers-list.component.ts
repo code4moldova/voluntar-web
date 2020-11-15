@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
-import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
+import { BehaviorSubject, forkJoin, Observable, of } from 'rxjs';
 
 import { VolunteerPageParams, VolunteersFacade } from '../volunteers.facade';
 import { TagsFacade } from '@shared/tags/tags.facade';
@@ -40,9 +40,7 @@ export class VolunteersListComponent implements OnInit {
   count$ = this.volunteersFacade.count$;
   isLoading$ = this.volunteersFacade.isLoading$;
   public inputColumns: FilterInputColumns[];
-  public observableSelectColumns: FilterObservableSelectColumns<
-    IOfferTag | ZoneI
-  >[];
+  public observableSelectColumns: FilterObservableSelectColumns[];
   public selectColumns: FilterSelectColumns<{
     label: string;
     _id: boolean | string;
@@ -127,7 +125,7 @@ export class VolunteersListComponent implements OnInit {
       {
         name: 'Sector',
         value: 'zone_address',
-        array: this.geolocationService.getZonesFromFilter(),
+        array: of(KIV_ZONES),
       },
     ];
 

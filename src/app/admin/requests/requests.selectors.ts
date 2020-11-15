@@ -34,10 +34,3 @@ export const selectRequestsDetails = createSelector(
   selectRequests,
   (state: RequestsState) => state.details
 );
-
-export const selectZones = createSelector(
-  selectRequests,
-  (state: RequestsState): any => {
-    return state.zones;
-  }
-);

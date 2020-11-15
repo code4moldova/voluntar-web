@@ -15,8 +15,6 @@ import { BeneficiaryListComponent } from './shared/beneficiary-list/beneficiary-
 import { RouterModule } from '@angular/router';
 import { beneficiariesRoutes } from './beneficiaries.routes';
 import { SpecialConditionTitlePipe } from './shared/special-condition-title.pipe';
-import { ZoneTitlePipe } from './shared/zone-title.pipe';
-import { PrettyDatePipe } from '@shared/pretty-date.pipe';
 
 @NgModule({
   declarations: [
@@ -24,9 +22,7 @@ import { PrettyDatePipe } from '@shared/pretty-date.pipe';
     BeneficiariesListComponent,
     BeneficiaryDetailsComponent,
     BeneficiaryNewComponent,
-    ZoneTitlePipe,
     SpecialConditionTitlePipe,
-    PrettyDatePipe,
     BeneficiaryEditComponent,
     DisabilityComponent,
     RequestStatusComponent,

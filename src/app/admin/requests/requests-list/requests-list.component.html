@@ -139,7 +139,7 @@
       <th mat-header-cell *matHeaderCellDef>Sector</th>
       <td mat-cell *matCellDef="let element">
         <mat-icon>location_on</mat-icon>
-        {{ (zoneById$(element.zone_address) | async)?.ro }}
+        {{ element.zone_address | zoneTitle }}
       </td>
     </ng-container>
 

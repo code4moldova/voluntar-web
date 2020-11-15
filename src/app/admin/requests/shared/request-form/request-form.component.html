@@ -167,23 +167,17 @@
               <mat-icon>map</mat-icon>
             </button>
           </div>
-          <mat-form-field fxFlex="200px" class="full-width-input">
-            <input
-              matInput
+          <mat-form-field fxFlex="200px">
+            <mat-select
               placeholder="Raion"
-              aria-label="Raion"
-              [matAutocomplete]="zoneAuto"
               formControlName="zone_address"
               required
-            />
-            <mat-autocomplete
-              #zoneAuto="matAutocomplete"
-              [displayWith]="showZoneLabel.bind(this)"
             >
-              <mat-option *ngFor="let zone of zones$ | async" [value]="zone">
-                <span>{{ zone.ro }}</span>
+              <mat-option *ngFor="let zone of zones" [value]="zone.value">
+                {{ zone.label }}
               </mat-option>
-            </mat-autocomplete>
+            </mat-select>
+            <mat-error>Please provide a valid zone</mat-error>
           </mat-form-field>
         </div>
 

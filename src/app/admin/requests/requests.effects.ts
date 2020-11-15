@@ -18,9 +18,6 @@ import {
   updateRequestAction,
   updateRequestSuccessAction,
   updateRequestFailureAction,
-  getZonesAction,
-  getZonesSuccessAction,
-  getZonesFailureAction,
 } from './requests.actions';
 import { GeolocationService } from '@shared/services/geolocation/geolocation.service';
 
@@ -29,8 +26,7 @@ export class RequestsEffects {
   constructor(
     private actions$: Actions,
     private router: Router,
-    private requestService: RequestsService,
-    private geoService: GeolocationService
+    private requestService: RequestsService
   ) {}
 
   getRequestsEffect$: Observable<Action> = createEffect(() => {
@@ -86,18 +82,6 @@ export class RequestsEffects {
           catchError((error) => of(updateRequestFailureAction({ error })))
         );
       })
-    );
-  });
-
-  getZonesEffect: Observable<Action> = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(getZonesAction),
-      switchMap(() =>
-        this.geoService.getZones().pipe(
-          map((res) => getZonesSuccessAction({ zones: res.list })),
-          catchError((error) => of(getZonesFailureAction({ error })))
-        )
-      )
     );
   });
 

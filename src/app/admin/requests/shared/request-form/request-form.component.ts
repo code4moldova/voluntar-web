@@ -1,48 +1,43 @@
 import {
-  Component,
-  OnInit,
-  ElementRef,
-  OnDestroy,
   ChangeDetectionStrategy,
+  Component,
+  ElementRef,
   Input,
   OnChanges,
+  OnDestroy,
+  OnInit,
   SimpleChanges,
 } from '@angular/core';
 import {
-  Validators,
-  FormBuilder,
   AbstractControl,
   FormArray,
+  FormBuilder,
+  Validators,
 } from '@angular/forms';
 import {
-  map,
-  finalize,
+  catchError,
   debounceTime,
   distinctUntilChanged,
+  exhaustMap,
   filter,
+  finalize,
+  first,
+  map,
   switchMap,
   takeUntil,
-  first,
-  catchError,
-  exhaustMap,
   tap,
 } from 'rxjs/operators';
 import {
-  Subject,
-  Observable,
-  EMPTY,
-  of,
+  BehaviorSubject,
   combineLatest,
   concat,
-  BehaviorSubject,
+  EMPTY,
   merge,
+  Observable,
+  of,
+  Subject,
 } from 'rxjs';
-import {
-  IRequest,
-  IRequestDetails,
-  IVolunteer,
-  ISectorTag,
-} from '@shared/models';
+import { IRequest, IRequestDetails, IVolunteer } from '@shared/models';
 import { RequestsFacade } from '../../requests.facade';
 import { TagsFacade } from '@shared/tags/tags.facade';
 import { UsersFacade } from '@users/users.facade';
@@ -53,6 +48,7 @@ import { VolunteerModalInfoComponent } from '@volunteers/shared/volunteer-modal-
 import { EsriMapComponent } from '@shared/esri-map/esri-map.component';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { VolunteersService } from '@volunteers/volunteers.service';
+import { KIV_ZONES } from '@shared/constants';
 
 @Component({
   selector: 'app-request-form',
@@ -149,8 +145,7 @@ export class RequestFormComponent implements OnInit, OnDestroy, OnChanges {
     })
   );
 
-  zones$ = this.requestsFacade.zones$;
-  private zones: ISectorTag[];
+  zones = KIV_ZONES;
 
   componentDestroyed$ = new Subject();
   beneficiar$: Observable<IRequest[]>;
@@ -197,10 +192,6 @@ export class RequestFormComponent implements OnInit, OnDestroy, OnChanges {
     private elementRef: ElementRef,
     private snackBar: MatSnackBar
   ) {
-    this.zones$.pipe(takeUntil(this.componentDestroyed$)).subscribe((z) => {
-      this.zones = z;
-    });
-
     this.additionalInfoForm.valueChanges.subscribe((infoValues) => {
       const additionalInfoArray = this.form.get('additional_info') as FormArray;
       additionalInfoArray.clear();
@@ -437,27 +428,6 @@ export class RequestFormComponent implements OnInit, OnDestroy, OnChanges {
     });
     if (requestData.address) {
       this.fakeAddressControl.patchValue({ address: requestData.address });
-    }
-  }
-
-  showZoneLabel(value: any) {
-    if (value) {
-      // Hacky way to get Sector name
-      if (typeof value === 'string') {
-        const zone = this.zones
-          ? this.zones.find((z) => z._id === value)
-          : null;
-        return zone ? zone.ro : value;
-      }
-      return typeof value === 'string' ? value : value.ro;
-    }
-    return '';
-  }
-
-  patchZoneControl(event: MatAutocompleteSelectedEvent) {
-    const value = event.option.value;
-    if (value) {
-      this.form.get('zone_address').patchValue(value._id);
     }
   }
 

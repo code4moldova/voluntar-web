@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
-import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
+import { BehaviorSubject, forkJoin, Observable, of } from 'rxjs';
 import { map, take, takeUntil } from 'rxjs/operators';
 
 import { RequestPageParams, RequestsFacade } from '../requests.facade';
@@ -29,6 +29,7 @@ import {
   FilterObservableSelectColumns,
   FilterSelectColumns,
 } from '@shared/filter/filter.types';
+import { KIV_ZONES } from '@shared/constants';
 
 @Component({
   templateUrl: './requests-list.component.html',
@@ -48,7 +49,6 @@ export class RequestsListComponent implements OnInit {
   ];
   dataSource$: Observable<IRequest[]>;
   isLoading$ = this.requestsFacade.isLoading$;
-  newRequest$ = this.requestsFacade.newRequests;
   count$ = this.requestsFacade.requestsCount$;
 
   public inputColumns: FilterInputColumns[];
@@ -56,10 +56,7 @@ export class RequestsListComponent implements OnInit {
     label: string;
     _id: string | boolean;
   }>[];
-  public observableSelectColumns: FilterObservableSelectColumns<
-    IUser | ZoneI
-  >[];
-  public selectedIndex = 0;
+  public observableSelectColumns: FilterObservableSelectColumns[];
 
   lastFilter = {};
   page: RequestPageParams = { pageSize: 20, pageIndex: 1 };
@@ -130,12 +127,6 @@ export class RequestsListComponent implements OnInit {
       .pipe(map((res) => res.count));
   }
 
-  zoneById$(zoneId: string) {
-    return this.requestsFacade.zones$.pipe(
-      map((zones) => zones.find((z) => z._id === zoneId))
-    );
-  }
-
   operatorById$(fixer: string) {
     return this.usersFacade.users$.pipe(
       map((users) => users.find((u) => u._id === fixer))
@@ -158,7 +149,7 @@ export class RequestsListComponent implements OnInit {
       {
         name: 'Zone address',
         value: 'zone_address',
-        array: this.geolocationService.getZonesFromFilter(),
+        array: of(KIV_ZONES),
       },
     ];
 

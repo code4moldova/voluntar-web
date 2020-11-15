@@ -32,7 +32,7 @@
             <mat-select [formControlName]="col.value">
               <mat-option
                 *ngFor="let item of col.array | async"
-                [value]="item._id"
+                [value]="item._id || item.value"
               >
                 {{ item.first_name || item.ro || item.label }}
               </mat-option>

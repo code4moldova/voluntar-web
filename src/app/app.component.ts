@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
-import { getZonesAction } from '@requests/requests.actions';
 import {
   getActivityTypesTagsAction,
   getAgesTagsAction,
@@ -47,7 +46,6 @@ export class AppComponent {
 
     this.authService.isAuthorized().subscribe((isAuthorized) => {
       if (isAuthorized) {
-        this.store.dispatch(getZonesAction());
         this.store.dispatch(getActivityTypesTagsAction());
         this.store.dispatch(getAgesTagsAction());
         this.store.dispatch(getAvailabilitiesTagsAction());

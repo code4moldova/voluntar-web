@@ -13,7 +13,6 @@ import {
   updateRequestAction,
   updateRequestSuccessAction,
   updateRequestFailureAction,
-  getZonesSuccessAction,
   getBeneficiariesByFilterSuccesAction,
   getBeneficiariesByFilterFailureAction,
   getBeneficiariesByFilterAction,
@@ -88,10 +87,6 @@ const requestReducer = createReducer(
     error,
   })),
 
-  on(getZonesSuccessAction, (state, { zones }) => ({
-    ...state,
-    zones,
-  })),
   on(getBeneficiariesByFilterAction, (state) => ({
     ...state,
     error: null,

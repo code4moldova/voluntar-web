@@ -22,17 +22,4 @@ export class GeolocationService {
 
     return this.http.get<IAddresses>(this.url, { params });
   }
-
-  getZones(): Observable<{ list: ZoneI[] }> {
-    return this.http.get<{ list: ZoneI[] }>(`${environment.url}/tag/sector`);
-  }
-  getZonesFromFilter(): Observable<ZoneI[]> {
-    return this.http
-      .get<{ list: ZoneI[] }>(`${environment.url}/tag/sector`)
-      .pipe(
-        map((zone) => {
-          return zone.list.filter((_) => _.is_active);
-        })
-      );
-  }
 }

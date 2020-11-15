@@ -15,7 +15,7 @@ export interface FilterSelectColumns<T> {
   array: Array<T>;
 }
 
-export interface FilterObservableSelectColumns<T> {
+export interface FilterObservableSelectColumns<T = any> {
   name: string;
   value: string;
   icon?: string;

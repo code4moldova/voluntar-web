@@ -13,7 +13,6 @@ import {
   selectRequestsData,
   selectRequestsError,
   selectRequestsDetails,
-  selectZones,
   selectRequestsCount,
 } from './requests.selectors';
 import { IRequest, IRequestDetails } from '@shared/models';
@@ -39,7 +38,6 @@ export class RequestsFacade {
   isLoading$ = this.store.pipe(select(selectIsLoading));
   error$ = this.store.pipe(select(selectRequestsError));
   requestDetails$ = this.store.pipe(select(selectRequestsDetails));
-  zones$ = this.store.pipe(select(selectZones));
   requestsCount$ = this.store.pipe(select(selectRequestsCount));
 
   private hasNewRequests$ = new BehaviorSubject(false);
