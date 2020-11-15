@@ -1,18 +1,8 @@
-<div class="mb-25">
-  <div fxLayout="row" fxLayoutAlign="space-between center">
-    <div fxFlex>
-      <h1 class="mb-10 mt-0">
-        {{ id ? "User Details" : "Create User" }}
-      </h1>
-      <a routerLink="/admin/users/list" class="go-back" *ngIf="id">
-        <div fxFlex fxLayoutAlign="start center">
-          <mat-icon>arrow_back</mat-icon>
-          <span>Back to List</span>
-        </div>
-      </a>
-    </div>
-  </div>
+<div class="mt-4">
+  <a href="#" appGoBack>&lt;- Înapoi</a>
 </div>
+
+<h2 class="mb-2">{{ id ? "Detalii Utilizator" : "Creare Utilizator" }}</h2>
 
 <form
   [formGroup]="form"

@@ -1,12 +1,8 @@
-<div class="top-navigation">
-  <a
-    [routerLink]="['/admin/beneficiaries/details', recordId]"
-    class="back-link"
-  >
-    &lt;- Înapoi
-  </a>
+<div class="mt-4">
+  <a href="#" appGoBack>&lt;- Înapoi</a>
 </div>
-<h1>Editează Beneficiar</h1>
+
+<h2 class="mb-2">Editeaza Beneficiar</h2>
 
 <mat-card style="width: 1040px">
   <form [formGroup]="form" (ngSubmit)="onSubmit()">

@@ -92,7 +92,7 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
     received_contract: [false],
     city: ['chisinau'],
   });
-  currentVolunteeerId: string;
+  currentVolunteerId: string;
   componentDestroyed$ = new Subject();
   isLoading$ = this.volunteerFacade.isLoading$;
   error$ = this.volunteerFacade.error$;
@@ -120,11 +120,11 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
     this.route.paramMap
       .pipe(
         map((params) => params.get('id')),
-        tap((id) => (this.currentVolunteeerId = id)),
+        tap((id) => (this.currentVolunteerId = id)),
         takeUntil(this.componentDestroyed$)
       )
       .subscribe((id) => {
-        this.currentVolunteeerId = id;
+        this.currentVolunteerId = id;
         if (id) {
           this.volunteerFacade.getVolunteerById(id);
         }
@@ -137,7 +137,7 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
         filter((volunteer) => !!volunteer),
         // Fix issue switching between 'new' and 'details' page
         map((volunteer) =>
-          this.currentVolunteeerId ? volunteer : ({} as IVolunteer)
+          this.currentVolunteerId ? volunteer : ({} as IVolunteer)
         ),
         takeUntil(this.componentDestroyed$)
       )
@@ -158,7 +158,7 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
     this.formSubmitted = true;
     if (this.form.valid) {
       this.volunteerFacade.saveVolunteer(this.form.getRawValue());
-      if (this.currentVolunteeerId) {
+      if (this.currentVolunteerId) {
         combineLatest([
           this.volunteerFacade.isLoading$,
           this.volunteerFacade.error$,

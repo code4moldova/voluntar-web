@@ -1,26 +1,16 @@
-<div class="top-navigation">
-  <a routerLink="/admin/beneficiaries/list" class="back-link">&lt;- Înapoi</a>
+<div class="mt-4">
+  <a href="#" appGoBack>&lt;- Înapoi</a>
+</div>
+
+<div fxLayoutAlign="space-between center" class="mb-2">
+  <h2>Detalii Beneficiar</h2>
+  <a mat-stroked-button [routerLink]="['./edit', user._id]" class="edit-link">
+    <mat-icon>edit</mat-icon>
+    Editează
+  </a>
 </div>
 
 <div *ngIf="user">
-  <div class="mb-25">
-    <div fxLayout="row" fxLayoutAlign="space">
-      <div>
-        <h1 class="mb-0 mt-0">Vezi Beneficiar</h1>
-      </div>
-      <div fxFlex fxLayoutAlign="end">
-        <a
-          mat-stroked-button
-          [routerLink]="['/admin/beneficiaries/edit', user._id]"
-          class="edit-link"
-        >
-          <mat-icon>edit</mat-icon>
-          Editează
-        </a>
-      </div>
-    </div>
-  </div>
-
   <mat-card>
     <div class="fieldset">Date personale</div>
 

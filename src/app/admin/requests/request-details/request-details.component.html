@@ -1,32 +1,19 @@
-<div class="mb-25">
-  <div fxLayout="row" fxLayoutAlign="space-between center">
-    <div fxFlex>
-      <h1 class="mb-10 mt-0">
-        {{
-          (currentRequestId$ | async)
-            ? "Beneficiar Details"
-            : "Create Beneficiar"
-        }}
-      </h1>
-      <a href="#" appGoBack class="go-back" *ngIf="currentRequestId$ | async">
-        <div fxFlex fxLayoutAlign="start center">
-          <mat-icon>arrow_back</mat-icon>
-          <span>Back to List</span>
-        </div>
-      </a>
-    </div>
-    <div *ngIf="currentRequestId$ | async">
-      <button
-        type="button"
-        mat-raised-button
-        color="primary"
-        (click)="onCopy()"
-      >
-        <mat-icon>file_copy</mat-icon>
-        Copy
-      </button>
-    </div>
-  </div>
+<div class="mt-4">
+  <a href="#" appGoBack>&lt;- Înapoi</a>
+</div>
+
+<div fxLayoutAlign="space-between center" class="mb-2">
+  <h2>Detalii cerere</h2>
+  <button
+    *ngIf="currentRequestId$ | async"
+    type="button"
+    mat-raised-button
+    color="primary"
+    (click)="onCopy()"
+  >
+    <mat-icon>file_copy</mat-icon>
+    Copy
+  </button>
 </div>
 
 <app-request-form
