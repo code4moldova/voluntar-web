@@ -3,7 +3,6 @@ import {
   IActivityTypeTag,
   IAgeTag,
   IAvailabilityTag,
-  ITeamTag,
   IOfferTag,
 } from '@shared/models';
 
@@ -18,9 +17,6 @@ export enum ActionTypes {
 
   GET_AVAILABILITIES_TAGS = '[Tags] Get availability tags',
   GET_AVAILABILITIES_TAGS_SUCCESS = '[Tags] Get availability tags Success',
-
-  GET_TEAMS_TAGS = '[Tags] Get team tags',
-  GET_TEAMS_TAGS_SUCCESS = '[Tags] Get team tags Success',
 
   GET_OFFERS_TAGS = '[Tags] Get offer tags',
   GET_OFFERS_TAGS_SUCCESS = '[Tags] Get offer tags Success',
@@ -51,12 +47,6 @@ export const getAvailabilitiesTagsAction = createAction(
 export const getAvailabilitiesTagsSuccessAction = createAction(
   ActionTypes.GET_AVAILABILITIES_TAGS_SUCCESS,
   props<{ payload: IAvailabilityTag[] }>()
-);
-
-export const getTeamsTagsAction = createAction(ActionTypes.GET_TEAMS_TAGS);
-export const getTeamsTagsSuccessAction = createAction(
-  ActionTypes.GET_TEAMS_TAGS_SUCCESS,
-  props<{ payload: ITeamTag[] }>()
 );
 
 export const getOffersTagsAction = createAction(ActionTypes.GET_OFFERS_TAGS);

@@ -1,19 +1,19 @@
-import { Component, OnInit, OnDestroy, ElementRef } from '@angular/core';
-import { FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { Component, ElementRef, OnDestroy, OnInit } from '@angular/core';
+import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { VolunteersFacade } from '../volunteers.facade';
 import {
-  map,
-  takeUntil,
-  filter,
-  tap,
-  switchMap,
   debounceTime,
   distinctUntilChanged,
+  filter,
   finalize,
   first,
+  map,
+  switchMap,
+  takeUntil,
+  tap,
 } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subject, combineLatest } from 'rxjs';
+import { combineLatest, Subject } from 'rxjs';
 import { IVolunteer } from '@shared/models';
 import { TagsFacade } from '@shared/tags/tags.facade';
 import { GeolocationService } from '@shared/services/geolocation/geolocation.service';
@@ -79,7 +79,6 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
     suburbia: [null],
     password: [{ value: 'random', disabled: true }, Validators.required],
     created_by: [null, [Validators.maxLength(500)]],
-    // team: [null, [Validators.maxLength(500)]],
     profession: [null, [Validators.maxLength(500)]],
     comments: [null, [Validators.maxLength(500)]],
     last_temperature: [minTemp, [Validators.required, ValidateTemperature]],
@@ -99,7 +98,6 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
 
   ages$ = this.tagsFacade.agesTags$;
   availabilities$ = this.tagsFacade.availabilitiesTags$;
-  teams$ = this.tagsFacade.teamsTags$;
   offers$ = this.tagsFacade.offersTags$;
 
   hasTelegramChatId$ = this.volunteerFacade.volunteerDetails$.pipe(
@@ -249,39 +247,47 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
   get created_by() {
     return this.form.get('created_by');
   }
-  get team() {
-    return this.form.get('team');
-  }
+
   get profesia() {
     return this.form.get('profesia');
   }
+
   get profession() {
     return this.form.get('profession');
   }
+
   get comments() {
     return this.form.get('comments');
   }
+
   get last_temperature() {
     return this.form.get('last_temperature');
   }
+
   get need_sim_unite() {
     return this.form.get('need_sim_unite');
   }
+
   get new_volunteer() {
     return this.form.get('new_volunteer');
   }
+
   get black_list() {
     return this.form.get('black_list');
   }
+
   get received_cards() {
     return this.form.get('received_cards');
   }
+
   get sent_photo() {
     return this.form.get('sent_photo');
   }
+
   get received_contract() {
     return this.form.get('received_contract');
   }
+
   get zone_address() {
     return this.form.get('zone_address');
   }

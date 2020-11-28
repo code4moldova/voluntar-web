@@ -24,10 +24,6 @@ export const selectAvailabilitiesTags = createSelector(
   selectTags,
   (state: TagsState) => state.availabilities
 );
-export const selectTeamsTags = createSelector(
-  selectTags,
-  (state: TagsState) => state.teams
-);
 export const selectOffersTags = createSelector(
   selectTags,
   (state: TagsState) => state.offers

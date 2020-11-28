@@ -5,7 +5,6 @@ import {
   IActivityTypeTag,
   IAgeTag,
   IAvailabilityTag,
-  ITeamTag,
   IOfferTag,
 } from '@shared/models';
 import { Observable } from 'rxjs';
@@ -30,10 +29,6 @@ export class TagsService {
     return this.http.get<{ list: IAvailabilityTag[] }>(
       `${environment.url}/tag/availability`
     );
-  }
-
-  getTeams(): Observable<{ list: ITeamTag[] }> {
-    return this.http.get<{ list: ITeamTag[] }>(`${environment.url}/tag/team`);
   }
 
   getOffers(): Observable<{ list: IOfferTag[] }> {
