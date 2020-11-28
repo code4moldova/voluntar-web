@@ -26,8 +26,6 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.form.valid) {
-      this.authFacade.loginUser(this.form.value);
-    }
+    this.authFacade.loginUser(this.form.value);
   }
 }

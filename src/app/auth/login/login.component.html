@@ -31,7 +31,13 @@
           <mat-error>Please provide a valid password</mat-error>
         </mat-form-field>
         <div class="login-action">
-          <button mat-raised-button color="primary">Login</button>
+          <button
+            mat-raised-button
+            color="primary"
+            [disabled]="this.form.invalid"
+          >
+            Login
+          </button>
         </div>
       </form>
     </mat-card-content>
