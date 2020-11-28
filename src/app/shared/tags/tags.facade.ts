@@ -55,10 +55,6 @@ export class TagsFacade {
     private tagsService: TagsService
   ) {}
 
-  getRandomWord() {
-    return this.tagsService.getRandomWord().pipe(map(({ secret }) => secret));
-  }
-
   getStatusOptions() {
     return this.statusOptions;
   }
