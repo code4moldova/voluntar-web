@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Store, select } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { TagsState } from './tags.state';
 import {
-  selectTagsIsLoading,
-  selectTagsError,
   selectActivityTypesTags,
   selectAgesTags,
   selectAvailabilitiesTags,
-  selectTeamsTags,
   selectOffersTags,
+  selectTagsError,
+  selectTagsIsLoading,
 } from './tags.selectors';
 import { map } from 'rxjs/operators';
 import { TagsService } from './tags.service';
@@ -42,7 +41,6 @@ export class TagsFacade {
   activityTypesTags$ = this.store.pipe(select(selectActivityTypesTags));
   agesTags$ = this.store.pipe(select(selectAgesTags));
   availabilitiesTags$ = this.store.pipe(select(selectAvailabilitiesTags));
-  teamsTags$ = this.store.pipe(select(selectTeamsTags));
   offersTags$ = this.store.pipe(select(selectOffersTags));
 
   availabilitiesById$ = (id: any) =>

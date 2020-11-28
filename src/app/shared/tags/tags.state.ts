@@ -2,7 +2,6 @@ import {
   IActivityTypeTag,
   IAgeTag,
   IAvailabilityTag,
-  ITeamTag,
   IOfferTag,
 } from '@shared/models';
 
@@ -10,7 +9,6 @@ export interface TagsState {
   activityTypes: IActivityTypeTag[];
   ages: IAgeTag[];
   availabilities: IAvailabilityTag[];
-  teams: ITeamTag[];
   offers: IOfferTag[];
   // sectors: ISectorTag[];
   isLoading: boolean;
@@ -21,7 +19,6 @@ export const initialState: TagsState = {
   activityTypes: [],
   ages: [],
   availabilities: [],
-  teams: [],
   offers: [],
   // sectors: [],
   isLoading: false,

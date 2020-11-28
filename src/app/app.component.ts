@@ -6,7 +6,6 @@ import {
   getActivityTypesTagsAction,
   getAgesTagsAction,
   getAvailabilitiesTagsAction,
-  getTeamsTagsAction,
   getOffersTagsAction,
 } from '@shared/tags/tags.actions';
 import { AuthService } from '@auth/auth.service';
@@ -29,6 +28,7 @@ const ICONS = [
 })
 export class AppComponent {
   title = 'client';
+
   constructor(
     private store: Store<AppState>,
     private matIconRegistry: MatIconRegistry,
@@ -49,7 +49,6 @@ export class AppComponent {
         this.store.dispatch(getActivityTypesTagsAction());
         this.store.dispatch(getAgesTagsAction());
         this.store.dispatch(getAvailabilitiesTagsAction());
-        this.store.dispatch(getTeamsTagsAction());
         this.store.dispatch(getOffersTagsAction());
         this.store.dispatch(getUsersAction());
       }

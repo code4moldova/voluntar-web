@@ -44,12 +44,3 @@ export interface IAvailabilityTag {
   ru: string;
   select: string;
 }
-
-export interface ITeamTag {
-  _id: string;
-  en: string;
-  is_active: boolean;
-  ro: string;
-  ru: string;
-  select: string;
-}
