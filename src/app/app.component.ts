@@ -4,7 +4,6 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
 import {
   getActivityTypesTagsAction,
-  getAgesTagsAction,
   getAvailabilitiesTagsAction,
   getOffersTagsAction,
 } from '@shared/tags/tags.actions';
@@ -47,7 +46,6 @@ export class AppComponent {
     this.authService.isAuthorized().subscribe((isAuthorized) => {
       if (isAuthorized) {
         this.store.dispatch(getActivityTypesTagsAction());
-        this.store.dispatch(getAgesTagsAction());
         this.store.dispatch(getAvailabilitiesTagsAction());
         this.store.dispatch(getOffersTagsAction());
         this.store.dispatch(getUsersAction());

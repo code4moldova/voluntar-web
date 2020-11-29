@@ -1,12 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import {
-  IActivityTypeTag,
-  IAgeTag,
-  IAvailabilityTag,
-  IOfferTag,
-} from '@shared/models';
+import { IActivityTypeTag, IAvailabilityTag, IOfferTag } from '@shared/models';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -19,10 +14,6 @@ export class TagsService {
     return this.http.get<{ list: IActivityTypeTag[] }>(
       `${environment.url}/tag/activity_types`
     );
-  }
-
-  getAges(): Observable<{ list: IAgeTag[] }> {
-    return this.http.get<{ list: IAgeTag[] }>(`${environment.url}/tag/age`);
   }
 
   getAvailabilities(): Observable<{ list: IAvailabilityTag[] }> {

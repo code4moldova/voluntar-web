@@ -7,8 +7,6 @@ import { TagsService } from './tags.service';
 import {
   getActivityTypesTagsAction,
   getActivityTypesTagsSuccessAction,
-  getAgesTagsAction,
-  getAgesTagsSuccessAction,
   getAvailabilitiesTagsAction,
   getAvailabilitiesTagsSuccessAction,
   getOffersTagsAction,
@@ -28,18 +26,6 @@ export class TagsEffects {
           map((res) =>
             getActivityTypesTagsSuccessAction({ payload: res.list })
           ),
-          catchError((error) => of(getTagsFailureAction({ error })))
-        )
-      )
-    );
-  });
-
-  getAgesEffect$: Observable<Action> = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(getAgesTagsAction),
-      switchMap(() =>
-        this.tagsService.getAges().pipe(
-          map((res) => getAgesTagsSuccessAction({ payload: res.list })),
           catchError((error) => of(getTagsFailureAction({ error })))
         )
       )
