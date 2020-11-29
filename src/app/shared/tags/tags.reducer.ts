@@ -3,8 +3,6 @@ import { initialState, TagsState } from './tags.state';
 import {
   getActivityTypesTagsAction,
   getActivityTypesTagsSuccessAction,
-  getAgesTagsAction,
-  getAgesTagsSuccessAction,
   getAvailabilitiesTagsAction,
   getAvailabilitiesTagsSuccessAction,
   getOffersTagsAction,
@@ -30,18 +28,6 @@ export const tagsReducer = createReducer<TagsState, Action>(
     ...state,
     isLoading: false,
     activityTypes: payload,
-  })),
-
-  // Ages
-  on(getAgesTagsAction, (state) => ({
-    ...state,
-    error: null,
-    isLoading: true,
-  })),
-  on(getAgesTagsSuccessAction, (state, { payload }) => ({
-    ...state,
-    isLoading: false,
-    ages: payload,
   })),
 
   // Availabilities

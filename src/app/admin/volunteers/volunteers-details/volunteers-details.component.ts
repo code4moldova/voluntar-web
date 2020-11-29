@@ -96,7 +96,6 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
   isLoading$ = this.volunteerFacade.isLoading$;
   error$ = this.volunteerFacade.error$;
 
-  ages$ = this.tagsFacade.agesTags$;
   availabilities$ = this.tagsFacade.availabilitiesTags$;
   offers$ = this.tagsFacade.offersTags$;
 

@@ -3,7 +3,6 @@ import { select, Store } from '@ngrx/store';
 import { TagsState } from './tags.state';
 import {
   selectActivityTypesTags,
-  selectAgesTags,
   selectAvailabilitiesTags,
   selectOffersTags,
   selectTagsError,
@@ -39,7 +38,6 @@ export class TagsFacade {
   error$ = this.store.pipe(select(selectTagsError));
 
   activityTypesTags$ = this.store.pipe(select(selectActivityTypesTags));
-  agesTags$ = this.store.pipe(select(selectAgesTags));
   availabilitiesTags$ = this.store.pipe(select(selectAvailabilitiesTags));
   offersTags$ = this.store.pipe(select(selectOffersTags));
 
