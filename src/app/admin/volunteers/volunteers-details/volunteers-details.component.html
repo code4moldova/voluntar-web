@@ -208,13 +208,9 @@
       </mat-form-field>
 
       <div fxLayoutGap="15px">
-        <mat-form-field fxFlex class="full-width-input">
-          <mat-select placeholder="Age" formControlName="age">
-            <mat-option *ngFor="let age of ages$ | async" [value]="age._id">
-              {{ age.ro }}
-            </mat-option>
-          </mat-select>
-          <mat-error>Please provide Volunteer age</mat-error>
+        <mat-form-field>
+          <mat-label>Age</mat-label>
+          <input matInput formControlName="age" placeholder="Age" />
         </mat-form-field>
         <mat-form-field fxFlex class="full-width-input">
           <mat-select
@@ -243,16 +239,6 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-        <!-- <mat-form-field fxFlex class="full-width-input">
-            <mat-select placeholder="Team" formControlName="team">
-              <mat-option *ngFor="let team of teams$ | async" [value]="team._id">
-                {{ team.ro }}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="team.errors?.maxlength">
-              Team can be max {{team.errors?.maxlength.requiredLength}} characters long.
-            </mat-error>
-          </mat-form-field> -->
       </div>
 
       <div [hidden]="true">

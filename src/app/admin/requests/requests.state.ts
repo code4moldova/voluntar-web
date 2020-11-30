@@ -1,4 +1,4 @@
-import { IRequestDetails, ISectorTag } from '@shared/models';
+import { IRequestDetails } from '@shared/models';
 
 export interface RequestsState {
   data: IRequestDetails[];
@@ -6,7 +6,6 @@ export interface RequestsState {
   details: IRequestDetails;
   isLoading: boolean;
   error: string;
-  zones: ISectorTag[];
 }
 
 export const initialState: RequestsState = {
@@ -15,5 +14,4 @@ export const initialState: RequestsState = {
   details: null,
   isLoading: false,
   error: null,
-  zones: [],
 };

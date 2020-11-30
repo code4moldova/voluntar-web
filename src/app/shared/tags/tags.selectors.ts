@@ -16,17 +16,9 @@ export const selectActivityTypesTags = createSelector(
   selectTags,
   (state: TagsState) => state.activityTypes
 );
-export const selectAgesTags = createSelector(
-  selectTags,
-  (state: TagsState) => state.ages
-);
 export const selectAvailabilitiesTags = createSelector(
   selectTags,
   (state: TagsState) => state.availabilities
-);
-export const selectTeamsTags = createSelector(
-  selectTags,
-  (state: TagsState) => state.teams
 );
 export const selectOffersTags = createSelector(
   selectTags,

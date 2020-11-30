@@ -8,16 +8,6 @@ export interface IActivityTypeTag {
   select: string;
 }
 
-export interface ISectorTag {
-  _id: string;
-  created_by: string;
-  en: string;
-  is_active: boolean;
-  ro: string;
-  ru: string;
-  select: string;
-}
-
 export interface IOfferTag {
   _id: string;
   en: string;
@@ -27,25 +17,7 @@ export interface IOfferTag {
   select: string;
 }
 
-export interface IAgeTag {
-  _id: string;
-  en: string;
-  is_active: boolean;
-  ro: string;
-  ru: string;
-  select: string;
-}
-
 export interface IAvailabilityTag {
-  _id: string;
-  en: string;
-  is_active: boolean;
-  ro: string;
-  ru: string;
-  select: string;
-}
-
-export interface ITeamTag {
   _id: string;
   en: string;
   is_active: boolean;

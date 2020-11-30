@@ -299,7 +299,7 @@ export class RequestFormComponent implements OnInit, OnDestroy, OnChanges {
       switchMap((phone) =>
         this.requestsFacade
           .getRequestByPhone(phone.value, phone.key)
-          .pipe(catchError((e) => of({ list: [] })))
+          .pipe(catchError(() => of({ list: [] })))
       ),
       tap(() => {
         this.isSearchingByPhone$.next(false);
@@ -331,12 +331,7 @@ export class RequestFormComponent implements OnInit, OnDestroy, OnChanges {
       // this.form.reset();
       this.form.markAsUntouched();
       if (this.mode === 'new') {
-        this.tagsFacade
-          .getRandomWord()
-          .pipe(first())
-          .subscribe((secret) => {
-            this.form.get('secret').setValue(secret);
-          });
+        this.form.get('secret').setValue(getSecret());
       }
     }
   }
@@ -443,8 +438,12 @@ export class RequestFormComponent implements OnInit, OnDestroy, OnChanges {
       this.form.get('longitude').patchValue(value.location.x);
     }
   }
+}
 
-  queryResult(criteria: { [keys: string]: string }) {
-    this.requestsFacade.getRequests({ pageSize: 1000, pageIndex: 1 }, criteria);
-  }
+function getSecret() {
+  const randomNumber = (max: number) => Math.floor(Math.random() * max);
+  const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const alpha = alphabet[randomNumber(alphabet.length)];
+  const digits = Array.from({ length: 3 }, () => randomNumber(10));
+  return `${alpha}${digits.join('')}`;
 }

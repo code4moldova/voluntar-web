@@ -1,17 +1,13 @@
-import { createReducer, on, Action } from '@ngrx/store';
+import { Action, createReducer, on } from '@ngrx/store';
 import { initialState, TagsState } from './tags.state';
 import {
   getActivityTypesTagsAction,
-  getTagsFailureAction,
   getActivityTypesTagsSuccessAction,
-  getAgesTagsSuccessAction,
-  getAvailabilitiesTagsSuccessAction,
-  getTeamsTagsSuccessAction,
-  getOffersTagsSuccessAction,
-  getAgesTagsAction,
   getAvailabilitiesTagsAction,
-  getTeamsTagsAction,
+  getAvailabilitiesTagsSuccessAction,
   getOffersTagsAction,
+  getOffersTagsSuccessAction,
+  getTagsFailureAction,
 } from './tags.actions';
 
 export const tagsReducer = createReducer<TagsState, Action>(
@@ -34,18 +30,6 @@ export const tagsReducer = createReducer<TagsState, Action>(
     activityTypes: payload,
   })),
 
-  // Ages
-  on(getAgesTagsAction, (state) => ({
-    ...state,
-    error: null,
-    isLoading: true,
-  })),
-  on(getAgesTagsSuccessAction, (state, { payload }) => ({
-    ...state,
-    isLoading: false,
-    ages: payload,
-  })),
-
   // Availabilities
   on(getAvailabilitiesTagsAction, (state) => ({
     ...state,
@@ -56,18 +40,6 @@ export const tagsReducer = createReducer<TagsState, Action>(
     ...state,
     isLoading: false,
     availabilities: payload,
-  })),
-
-  // Teams
-  on(getTeamsTagsAction, (state) => ({
-    ...state,
-    error: null,
-    isLoading: true,
-  })),
-  on(getTeamsTagsSuccessAction, (state, { payload }) => ({
-    ...state,
-    isLoading: false,
-    teams: payload,
   })),
 
   // Tags
