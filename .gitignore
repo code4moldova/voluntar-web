@@ -46,3 +46,4 @@ testem.log
 Thumbs.db
 
 /src/_redirects
+test_login.txt
