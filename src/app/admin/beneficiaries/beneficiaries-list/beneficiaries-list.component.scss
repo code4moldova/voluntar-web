@@ -82,3 +82,17 @@ h1 {
     }
   }
 }
+
+mat-select {
+  ::ng-deep {
+    .mat-select-trigger {
+      height: 100%;
+    }
+    .mat-select-value {
+      padding-bottom: 0;
+      height: 100%;
+      vertical-align: middle;
+      padding-left: 10px;
+    }
+  }
+}

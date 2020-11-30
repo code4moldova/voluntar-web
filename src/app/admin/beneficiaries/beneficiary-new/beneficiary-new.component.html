@@ -91,8 +91,21 @@
     <div class="fields_row">
       <div class="field" fxFlex fxLayout="column">
         <div class="title">Adresă</div>
-        <div class="value">
-          <input matInput formControlName="address" style="width: 230px" />
+        <div class="value with-suffix">
+          <input
+            matInput
+            formControlName="address"
+            (click)="showMapDialog()"
+            style="width: 190px"
+          />
+          <button
+            type="button"
+            mat-icon-button
+            class="suffix"
+            (click)="showMapDialog()"
+          >
+            <mat-icon>map</mat-icon>
+          </button>
         </div>
       </div>
 

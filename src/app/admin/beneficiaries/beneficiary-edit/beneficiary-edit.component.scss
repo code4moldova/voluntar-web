@@ -6,6 +6,23 @@ h1 {
   margin-bottom: 29px;
 }
 
+mat-select {
+  border: 0.5px solid rgba(0, 0, 0, 0.4);
+  width: 230px;
+  height: 40px;
+  ::ng-deep {
+    .mat-select-trigger {
+      height: 100%;
+    }
+    .mat-select-value {
+      padding-bottom: 0;
+      height: 100%;
+      vertical-align: middle;
+      padding-left: 10px;
+    }
+  }
+}
+
 input,
 select {
   height: 40px;

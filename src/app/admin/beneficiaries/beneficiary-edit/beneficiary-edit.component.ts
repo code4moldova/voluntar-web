@@ -9,6 +9,8 @@ import { BeneficiariesFacade } from '../beneficiaries.facade';
 import { Beneficiary } from '@shared/models';
 import { KIV_ZONES, SPECIAL_CONDITIONS } from '@shared/constants';
 import { COMMON_FIELDS } from '../beneficiary-new/beneficiary-new.component';
+import { MatDialog } from '@angular/material/dialog';
+import { EsriMapComponent } from '@app/shared/esri-map/esri-map.component';
 
 @Component({
   templateUrl: './beneficiary-edit.component.html',
@@ -35,7 +37,8 @@ export class BeneficiaryEditComponent implements OnInit, OnDestroy {
     private router: Router,
     private snackBar: MatSnackBar,
     private elementRef: ElementRef,
-    private serviceFacade: BeneficiariesFacade
+    private serviceFacade: BeneficiariesFacade,
+    private matDialog: MatDialog
   ) {
     this.route.paramMap
       .pipe(
@@ -106,5 +109,36 @@ export class BeneficiaryEditComponent implements OnInit, OnDestroy {
 
   goBack() {
     this.router.navigateByUrl(`/admin/beneficiaries/details/${this.recordId}`);
+  }
+
+  showMapDialog() {
+    this.matDialog
+      .open<
+        EsriMapComponent,
+        { coors: number[]; address: string },
+        { latitude: number; longitude: number; address: string }
+      >(EsriMapComponent, {
+        data: {
+          coors: [
+            this.form.get('latitude').value,
+            this.form.get('longitude').value,
+          ],
+          address: this.form.get('address').value,
+        },
+        panelClass: 'esri-map',
+        width: '80%',
+        height: '80%',
+        maxWidth: '100%',
+        maxHeight: '100%',
+      })
+      .afterClosed()
+      .pipe(first())
+      .subscribe((coors) => {
+        if (coors) {
+          this.form.get('latitude').patchValue(coors.latitude);
+          this.form.get('longitude').patchValue(coors.longitude);
+          this.form.get('address').patchValue(coors.address);
+        }
+      });
   }
 }

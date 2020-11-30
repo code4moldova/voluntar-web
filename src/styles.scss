@@ -112,3 +112,22 @@ body {
     color: inherit;
   }
 }
+
+input {
+  background: none;
+}
+.with-suffix {
+  position: relative;
+  border: 0.5px solid rgba(0, 0, 0, 0.4);
+  padding-right: 40px;
+  input {
+    border: none !important;
+  }
+  .suffix {
+    position: absolute;
+    opacity: 0.5;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}

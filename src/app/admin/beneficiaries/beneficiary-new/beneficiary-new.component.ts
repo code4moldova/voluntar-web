@@ -1,5 +1,5 @@
 import { Component, ElementRef } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { combineLatest } from 'rxjs';
@@ -7,12 +7,15 @@ import { filter, first } from 'rxjs/operators';
 
 import { KIV_ZONES, SPECIAL_CONDITIONS } from '@shared/constants';
 import { BeneficiariesFacade } from '../beneficiaries.facade';
+import { EsriMapComponent } from '@app/shared/esri-map/esri-map.component';
 
 export const COMMON_FIELDS = {
   first_name: [null, Validators.required],
   last_name: [null, Validators.required],
   age: [null],
   zone: [null, Validators.required],
+  latitude: [null, Validators.required],
+  longitude: [null, Validators.required],
   address: [null, Validators.required],
   apartment: [null],
   entrance: [null],
@@ -40,6 +43,7 @@ export class BeneficiaryNewComponent {
 
   constructor(
     private fb: FormBuilder,
+    private matDialog: MatDialog,
     private serviceFacade: BeneficiariesFacade,
     private snackBar: MatSnackBar,
     private elementRef: ElementRef,
@@ -85,5 +89,36 @@ export class BeneficiaryNewComponent {
         element.scrollIntoView({ behavior: 'smooth' });
       }
     }
+  }
+
+  showMapDialog() {
+    this.matDialog
+      .open<
+        EsriMapComponent,
+        { coors: number[]; address: string },
+        { latitude: number; longitude: number; address: string }
+      >(EsriMapComponent, {
+        data: {
+          coors: [
+            this.form.get('latitude').value,
+            this.form.get('longitude').value,
+          ],
+          address: this.form.get('address').value,
+        },
+        panelClass: 'esri-map',
+        width: '80%',
+        height: '80%',
+        maxWidth: '100%',
+        maxHeight: '100%',
+      })
+      .afterClosed()
+      .pipe(first())
+      .subscribe((coors) => {
+        if (coors) {
+          this.form.get('latitude').patchValue(coors.latitude);
+          this.form.get('longitude').patchValue(coors.longitude);
+          this.form.get('address').patchValue(coors.address);
+        }
+      });
   }
 }

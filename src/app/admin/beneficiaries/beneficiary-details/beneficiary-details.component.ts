@@ -14,7 +14,13 @@ import { PageEvent } from '@angular/material/paginator';
 export class BeneficiaryDetailsComponent implements OnInit, OnDestroy {
   recordId: string;
   componentDestroyed$ = new Subject();
-  user: Beneficiary;
+  // user: Beneficiary;
+
+  user$ = this.serviceFacade.beneficiaryDetails$.pipe(
+    filter((record) => !!record),
+    map((record) => (this.recordId ? record : ({} as Beneficiary))),
+    takeUntil(this.componentDestroyed$)
+  );
 
   error$ = this.serviceFacade.error$;
   requestsError$ = this.serviceFacade.requestsError$;
@@ -57,7 +63,7 @@ export class BeneficiaryDetailsComponent implements OnInit, OnDestroy {
         takeUntil(this.componentDestroyed$)
       )
       .subscribe((record) => {
-        this.user = record;
+        // this.user = record;
       });
   }
 
@@ -72,23 +78,23 @@ export class BeneficiaryDetailsComponent implements OnInit, OnDestroy {
     this.loadRequests(this.recordId);
   }
 
-  userAddress(): string {
-    if (!this.user) {
+  userAddress(user: Beneficiary): string {
+    if (!user) {
       return '';
     }
 
-    const result = [this.user.address];
+    const result = [user.address];
 
-    if (this.user.entrance) {
-      result.push(`Sc. ${this.user.entrance}`);
+    if (user.entrance) {
+      result.push(`Sc. ${user.entrance}`);
     }
 
-    if (this.user.floor) {
-      result.push(`Et. ${this.user.floor}`);
+    if (user.floor) {
+      result.push(`Et. ${user.floor}`);
     }
 
-    if (this.user.apartment) {
-      result.push(`Ap. ${this.user.apartment}`);
+    if (user.apartment) {
+      result.push(`Ap. ${user.apartment}`);
     }
 
     return result.join(', ');

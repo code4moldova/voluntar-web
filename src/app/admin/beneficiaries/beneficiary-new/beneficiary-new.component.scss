@@ -1,3 +1,6 @@
+button {
+  outline: none;
+}
 .header {
   padding: 13px 0;
   color: #282828;
@@ -55,11 +58,6 @@
     border: 0.5px solid red;
   }
 
-  mat-select {
-    height: 40px;
-    border: 0.5px solid rgba(0, 0, 0, 0.4);
-  }
-
   .fieldset {
     font-size: 16px;
     font-weight: 700;
@@ -83,9 +81,6 @@
     margin-bottom: 10px;
   }
 
-  .value {
-  }
-
   .phone_prefix {
     width: 70px;
     border-right: none;
@@ -100,4 +95,20 @@
   padding: 25px;
   display: flex;
   justify-content: center;
+}
+
+mat-select {
+  height: 40px;
+  border: 0.5px solid rgba(0, 0, 0, 0.4);
+  ::ng-deep {
+    .mat-select-trigger {
+      height: 100%;
+    }
+    .mat-select-value {
+      padding-bottom: 0;
+      height: 100%;
+      vertical-align: middle;
+      padding-left: 10px;
+    }
+  }
 }
