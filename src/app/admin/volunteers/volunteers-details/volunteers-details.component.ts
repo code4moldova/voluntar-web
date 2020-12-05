@@ -149,6 +149,8 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.componentDestroyed$.next();
     this.componentDestroyed$.complete();
+    //$.complete should finalize the stream but let unsubscribe too ...
+    this.componentDestroyed$.unsubscribe();
   }
 
   onSubmit() {

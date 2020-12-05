@@ -134,6 +134,10 @@ export class VolunteersListComponent implements OnInit {
     ];
   }
 
+  onVolunteersImport(): void {}
+
+  onVolunteersExport(): void {}
+
   getAllStatusesCount() {
     const requests = this.statuses.map((status) =>
       this.helperGetCountByStatus(status._id)
