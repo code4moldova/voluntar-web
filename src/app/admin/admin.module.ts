@@ -6,6 +6,7 @@ import { adminRoutes } from './admin.routes';
 import { MaterialComponentsModule } from '@shared/material.module';
 import { HeaderComponent } from './shared/header/header.component';
 import { RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AdminComponent, HeaderComponent],
@@ -13,6 +14,8 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     RouterModule.forChild(adminRoutes),
     MaterialComponentsModule,
+    FormsModule,
+    ReactiveFormsModule,
     SharedModule,
   ],
 })

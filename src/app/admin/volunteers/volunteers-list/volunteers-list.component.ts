@@ -21,6 +21,7 @@ import {
   FilterObservableSelectColumns,
   FilterSelectColumns,
 } from '@shared/filter/filter.types';
+import { NewVolunteerRegisterFormComponent } from '../shared/newvolunteer-register-form/newvolunteer-register-form.component';
 
 @Component({
   templateUrl: './volunteers-list.component.html',
@@ -167,11 +168,15 @@ export class VolunteersListComponent implements OnInit {
   }
 
   openNewVolunteerDialog() {
-    const dialogRef = this.matDialog.open(VolunteersDetailsComponent, {
-      data: {},
-      maxWidth: '100%',
-      maxHeight: '90vh',
-    });
+    const dialogRef = this.matDialog.open(
+      // VolunteersDetailsComponent,
+      NewVolunteerRegisterFormComponent,
+      {
+        data: {},
+        maxWidth: '100%',
+        maxHeight: '90vh',
+      }
+    );
 
     this.actions$
       .pipe(

@@ -1,0 +1,71 @@
+<div class="new_voluntar_modal_window">
+  <div class="modal_header_line">
+    <a>Crează Voluntar</a>
+  </div>
+  <mat-divider></mat-divider>
+  <div class="date_personale_div">
+    <div class="date_personale_line">
+      <a>Date personale</a>
+    </div>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <mat-grid-list cols="2" rowHeight="65px" gutterSize="10px">
+        <div *ngFor="let f of formFields">
+          <mat-grid-tile *ngIf="f.header !== 'Sector'">
+            <div>
+              <mat-grid-tile-header>
+                <a>{{ f.header }}</a>
+              </mat-grid-tile-header>
+              <input
+                [type]="f?.type || 'text'"
+                formControlName="{{ f.controlName }}"
+              />
+              <mat-error
+                *ngIf="
+                  form.get(f.controlName).invalid &&
+                  form.get(f.controlName).touched
+                "
+              >
+                <!-- <pre>  {{form.get(f.controlName).errors | json}} </pre> -->
+                {{ f.errorMessage || "atenție, eroare - cîmp obligatoriu!" }}
+              </mat-error>
+            </div>
+            <mat-icon
+              *ngIf="form.get(f.controlName).invalid"
+              class="error-icon"
+            >
+              error
+            </mat-icon>
+          </mat-grid-tile>
+
+          <mat-grid-tile *ngIf="f.header === 'Sector'">
+            <mat-grid-tile-header>
+              <a>{{ f.header }}</a>
+            </mat-grid-tile-header>
+            <mat-select>
+              <mat-option *ngFor="let sec of sectors" value="option">
+                {{ sec }}
+              </mat-option>
+            </mat-select>
+          </mat-grid-tile>
+        </div>
+      </mat-grid-list>
+      <mat-divider
+        style="color: red; margin-top: 10px; margin-left: -30px"
+      ></mat-divider>
+      <div class="date_personale_line" style="margin-top: 28px">
+        <a>Rolul Voluntarului</a>
+      </div>
+      <mat-form-field>
+        <mat-icon>drive_eta</mat-icon>
+        <mat-select>
+          <mat-option *ngFor="let role of roles | keyvalue" value="option">
+            {{ role.value }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div class="date_personale_line" style="margin-top: 43px">
+        <a>Disponibilitate</a>
+      </div>
+    </form>
+  </div>
+</div>
