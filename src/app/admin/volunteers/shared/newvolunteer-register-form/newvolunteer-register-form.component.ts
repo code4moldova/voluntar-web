@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { KIV_ZONES, VOLUNTEER_ROLES } from '@app/shared/constants';
 import { of } from 'rxjs';
+import { VolunteersService } from '../../volunteers.service';
 
 export interface NewRegistrationFormFields {
   header: string;
@@ -51,7 +52,7 @@ export class NewVolunteerRegisterFormComponent implements OnInit {
   roles = VOLUNTEER_ROLES;
   sectors = KIV_ZONES;
 
-  constructor() {}
+  constructor(private volunteersService: VolunteersService) {}
   onSubmit() {}
 
   ngOnInit(): void {
@@ -72,6 +73,8 @@ export class NewVolunteerRegisterFormComponent implements OnInit {
       soc_media: new FormControl('', [Validators.required]),
       role: new FormControl(null, [Validators.required]),
       status: new FormControl(null, [Validators.required]),
+      availability_days: new FormControl(null, [Validators.required]),
+      availability_hours: new FormControl(null, [Validators.required]),
     });
   }
 
