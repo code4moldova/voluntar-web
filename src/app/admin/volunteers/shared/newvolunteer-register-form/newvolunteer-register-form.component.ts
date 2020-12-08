@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { KIV_ZONES, VOLUNTEER_ROLES } from '@app/shared/constants';
+import {
+  KIV_ZONES,
+  VOLUNTEER_ROLES,
+  VOLUNTEER_ROLES_ICONS,
+} from '@app/shared/constants';
 import { of } from 'rxjs';
 import { VolunteersService } from '../../volunteers.service';
 
@@ -50,6 +54,7 @@ export class NewVolunteerRegisterFormComponent implements OnInit {
   ];
 
   roles = VOLUNTEER_ROLES;
+  volunteerRolesIncons = VOLUNTEER_ROLES_ICONS;
   sectors = KIV_ZONES;
 
   constructor(private volunteersService: VolunteersService) {}
