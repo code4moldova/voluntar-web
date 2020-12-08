@@ -23,7 +23,8 @@ mat-grid-tile-header {
   }
 }
 
-mat-grid-tile {
+mat-grid-tile,
+mat-form-field {
   width: 231px;
   height: 65px;
   margin: 0 !important;
