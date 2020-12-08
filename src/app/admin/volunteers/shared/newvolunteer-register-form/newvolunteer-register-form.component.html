@@ -58,7 +58,11 @@
       <mat-form-field>
         <mat-select>
           <mat-option *ngFor="let role of roles | keyvalue" value="option">
-            <mat-icon>{{ volunteerRolesIncons[role.value] }}</mat-icon>
+            <img
+              src="/assets/icons/volunteers/{{
+                volunteerRolesIncons[role.value]
+              }}.svg"
+            />
             {{ role.value }}
           </mat-option>
         </mat-select>

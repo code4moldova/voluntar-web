@@ -35,11 +35,11 @@ export enum VOLUNTEER_ROLES {
 }
 
 export enum VOLUNTEER_ROLES_ICONS {
-  delivery = 'drive_eta',
-  copilot = 'addchart',
-  packing = 'api',
-  supply = 'alarm',
-  operator = 'error',
+  delivery = 'transport',
+  copilot = 'copilot',
+  packing = 'impachetare',
+  supply = 'aprovizionare',
+  operator = 'operator',
 }
 
 export const SPECIAL_CONDITIONS = [
