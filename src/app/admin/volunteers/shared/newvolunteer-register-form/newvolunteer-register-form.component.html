@@ -56,9 +56,9 @@
         <a>Rolul Voluntarului</a>
       </div>
       <mat-form-field>
-        <mat-icon>drive_eta</mat-icon>
         <mat-select>
           <mat-option *ngFor="let role of roles | keyvalue" value="option">
+            <mat-icon>drive_eta</mat-icon>
             {{ role.value }}
           </mat-option>
         </mat-select>
