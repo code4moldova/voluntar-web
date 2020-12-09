@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
-import { KIV_ZONES, VOLUNTEER_ROLES, VOLUNTEER_ROLES_ICONS } from '@app/shared/constants'
+import { DAYS_OF_WEEK, KIV_ZONES, VOLUNTEER_ROLES, VOLUNTEER_ROLES_ICONS } from '@app/shared/constants'
 import { of } from 'rxjs'
 import { VolunteersService } from '../../volunteers.service'
 
@@ -10,6 +10,11 @@ export interface NewRegistrationFormFields {
   type?: string
   pattern?: string
   errorMessage?: string
+}
+
+export interface AvailabilityHours {
+  start: number
+  end: number
 }
 
 @Component({
@@ -52,10 +57,12 @@ export class NewVolunteerRegisterFormComponent implements OnInit {
   roles = VOLUNTEER_ROLES
   volunteerRolesIncons = VOLUNTEER_ROLES_ICONS
   sectors = KIV_ZONES
+  daysOfWeek = DAYS_OF_WEEK
 
   constructor(private volunteersService: VolunteersService) {}
   onSubmit() {
     console.log('onSubmit pressed', this.form.get('role').value)
+    console.log('onSubmit pressed', this.form.get('availability_days').value)
   }
 
   ngOnInit(): void {
@@ -69,12 +76,14 @@ export class NewVolunteerRegisterFormComponent implements OnInit {
       age: new FormControl('', [Validators.required, Validators.pattern(/^([0-9]){2}$/)]),
       soc_media: new FormControl('', [Validators.required]),
       //TODO - check -  maybe it take sense to provide TYPE of role form as VOLUNTEER_ROLES ???
-      role: new FormControl(null, [Validators.required]),
+      role: new FormControl([], [Validators.required]),
       status: new FormControl(null, [Validators.required]),
-      availability_days: new FormControl(null, [Validators.required]),
+      availability_days: new FormControl([], [Validators.required]),
       availability_hours: new FormControl(null, [Validators.required])
     })
   }
 
   closeDialog() {}
+
+  enumUnsorted() {}
 }

@@ -1,37 +1,37 @@
 export const KIV_ZONES = [
   {
     label: 'Centru',
-    value: 'centru',
+    value: 'centru'
   },
   {
     label: 'Botanica',
-    value: 'botanica',
+    value: 'botanica'
   },
   {
     label: 'Buiucani',
-    value: 'buiucani',
+    value: 'buiucani'
   },
   {
     label: 'Ciocana',
-    value: 'ciocana',
+    value: 'ciocana'
   },
   {
     label: 'Rîșcani',
-    value: 'riscani',
-  },
-];
+    value: 'riscani'
+  }
+]
 
 export const KIV_ZONES_MAP = KIV_ZONES.reduce((acc, zone) => {
-  acc[zone.value] = zone.label;
-  return acc;
-}, {});
+  acc[zone.value] = zone.label
+  return acc
+}, {})
 
 export enum VOLUNTEER_ROLES {
   delivery = 'delivery',
   copilot = 'copilot',
   packing = 'packing',
   supply = 'supply',
-  operator = 'operator',
+  operator = 'operator'
 }
 
 export enum VOLUNTEER_ROLES_ICONS {
@@ -39,25 +39,35 @@ export enum VOLUNTEER_ROLES_ICONS {
   copilot = 'copilot',
   packing = 'impachetare',
   supply = 'aprovizionare',
-  operator = 'operator',
+  operator = 'operator'
+}
+
+export enum DAYS_OF_WEEK {
+  monday = 'Luni',
+  tuesday = 'Marți',
+  wednesday = 'Miercuri',
+  thursday = 'Joi',
+  friday = 'Vineri',
+  saturday = 'Sambata',
+  sunday = 'Duminica'
 }
 
 export const SPECIAL_CONDITIONS = [
   {
     label: 'Disability',
-    value: 'disability',
+    value: 'disability'
   },
   {
     label: 'Deaf-mute',
-    value: 'deaf_mute',
+    value: 'deaf_mute'
   },
   {
     label: 'Blind/Weak-seer',
-    value: 'blind_weak_seer',
-  },
-];
+    value: 'blind_weak_seer'
+  }
+]
 
 export const SPECIAL_CONDITIONS_MAP = SPECIAL_CONDITIONS.reduce((acc, item) => {
-  acc[item.value] = item.label;
-  return acc;
-}, {});
+  acc[item.value] = item.label
+  return acc
+}, {})
