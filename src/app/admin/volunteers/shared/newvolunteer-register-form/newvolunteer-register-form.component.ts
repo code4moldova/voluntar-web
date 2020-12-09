@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
-import { DAYS_OF_WEEK, KIV_ZONES, VOLUNTEER_ROLES, VOLUNTEER_ROLES_ICONS } from '@app/shared/constants'
-import { of } from 'rxjs'
+import { DAYS_OF_WEEK, VOLUNTEER_ROLES, VOLUNTEER_ROLES_ICONS, ZONES } from '@app/shared/constants'
+import { IVolunteer } from '@app/shared/models'
 import { VolunteersService } from '../../volunteers.service'
 
 export interface NewRegistrationFormFields {
@@ -26,10 +26,10 @@ export class NewVolunteerRegisterFormComponent implements OnInit {
   formFields: Array<NewRegistrationFormFields> = [
     {
       header: 'Nume (Familie)',
-      controlName: 'family',
+      controlName: 'first_name',
       errorMessage: 'atenție, eroare!'
     },
-    { header: 'Prenume', controlName: 'name' },
+    { header: 'Prenume', controlName: 'last_name' },
     {
       header: 'Număr Telefon',
       controlName: 'phone',
@@ -49,37 +49,39 @@ export class NewVolunteerRegisterFormComponent implements OnInit {
     },
     {
       header: 'Profil Rețea Socializare',
-      controlName: 'soc_media',
+      controlName: 'facebook_profile',
       errorMessage: 'atenție, eroare!'
     }
   ]
 
   roles = VOLUNTEER_ROLES
   volunteerRolesIncons = VOLUNTEER_ROLES_ICONS
-  sectors = KIV_ZONES
+  zones: Array<string> = Object.keys(ZONES).filter((key) => isNaN(+key))
   daysOfWeek = DAYS_OF_WEEK
 
   constructor(private volunteersService: VolunteersService) {}
   onSubmit() {
-    console.log('onSubmit pressed', this.form.get('role').value)
-    console.log('onSubmit pressed', this.form.get('availability_days').value)
+    let newVolunteer: IVolunteer = this.form.value
+    newVolunteer = Object.assign({ availability_hours_start: 10, availability_hours_end: 18, ...newVolunteer })
+    delete newVolunteer['availability_hours']
+    console.log('onSubmit pressed', newVolunteer)
   }
 
   ngOnInit(): void {
     this.form = new FormGroup({
-      family: new FormControl('', [Validators.required]),
-      name: new FormControl('', [Validators.required]),
-      phone: new FormControl('', [Validators.required, Validators.pattern(/^([0-9]){8}$/)]),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      zone: new FormControl('', [Validators.required]),
-      address: new FormControl('', [Validators.required]),
-      age: new FormControl('', [Validators.required, Validators.pattern(/^([0-9]){2}$/)]),
-      soc_media: new FormControl('', [Validators.required]),
+      first_name: new FormControl('Test', [Validators.required]),
+      last_name: new FormControl('Testter', [Validators.required]),
+      phone: new FormControl('12345678', [Validators.required, Validators.pattern(/^([0-9]){8}$/)]),
+      email: new FormControl('a@test.xyz', [Validators.required, Validators.email]),
+      zone: new FormControl('Centru', [Validators.required]),
+      address: new FormControl('Test addr casa 4 ap43 ', [Validators.required]),
+      age: new FormControl('33', [Validators.required, Validators.pattern(/^([0-9]){2}$/)]),
+      facebook_profile: new FormControl('no'),
       //TODO - check -  maybe it take sense to provide TYPE of role form as VOLUNTEER_ROLES ???
-      role: new FormControl([], [Validators.required]),
+      role: new FormControl([VOLUNTEER_ROLES.delivery], [Validators.required]),
       status: new FormControl(null, [Validators.required]),
       availability_days: new FormControl([], [Validators.required]),
-      availability_hours: new FormControl(null, [Validators.required])
+      availability_hours: new FormControl({}, [Validators.required])
     })
   }
 

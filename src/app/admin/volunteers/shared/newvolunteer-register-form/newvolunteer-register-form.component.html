@@ -17,7 +17,6 @@
               </mat-grid-tile-header>
               <input [type]="f?.type || 'text'" formControlName="{{ f.controlName }}" />
               <mat-error *ngIf="form.get(f.controlName).invalid && form.get(f.controlName).touched">
-                <!-- <pre>  {{form.get(f.controlName).errors | json}} </pre> -->
                 {{ f.errorMessage || 'atenție, eroare - cîmp obligatoriu!' }}
               </mat-error>
             </div>
@@ -28,9 +27,9 @@
             <mat-grid-tile-header>
               <a>{{ f.header }}</a>
             </mat-grid-tile-header>
-            <mat-select>
-              <mat-option *ngFor="let sec of sectors" value="option">
-                {{ sec }}
+            <mat-select formControlName="{{ f.controlName }}">
+              <mat-option *ngFor="let sec of zones" value="{{ sec }}">
+                {{ sec.charAt(0).toUpperCase() + sec.slice(1) }}
               </mat-option>
             </mat-select>
           </mat-grid-tile>
@@ -40,56 +39,54 @@
       <div class="date_personale_line" style="margin-top: 28px">
         <a>Rolul Voluntarului</a>
       </div>
+
       <mat-form-field>
         <mat-select formControlName="role" required multiple>
-          <mat-option *ngFor="let role of roles | keyvalue: enumUnsorted" [value]="role">
-            <img src="/assets/icons/volunteers/{{ volunteerRolesIncons[role.value] }}.svg" />
+          <mat-option *ngFor="let role of roles | keyvalue: enumUnsorted" [value]="role.key">
+            <img src="/assets/icons/volunteers/{{ volunteerRolesIncons[role.key] }}.svg" width="24" height="24" />
             {{ role.value }}
           </mat-option>
         </mat-select>
       </mat-form-field>
+
       <div class="date_personale_line" style="margin-top: 43px">
         <a>Disponibilitate</a>
       </div>
-      <mat-grid-list cols="2" rowHeight="65px" gutterSize="10px">
+
+      <mat-grid-list cols="2" rowHeight="76px" gutterSize="10px">
         <mat-grid-tile>
           <div>
             <mat-grid-tile-header>
-              <a>Zile</a>
+              <a> Zile </a>
             </mat-grid-tile-header>
-            <!-- <input type="'text'" formControlName="availability_days" /> -->
-
             <mat-form-field>
-              <mat-select formControlName="availability_days" required multiple>
+              <mat-select style="margin-top: 0 !important" formControlName="availability_days" required multiple>
                 <mat-option *ngFor="let day of daysOfWeek | keyvalue: enumUnsorted" [value]="day">
                   {{ day.value }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
-
             <mat-error *ngIf="form.get('availability_days').invalid && form.get('availability_days').touched">
-              <!-- <pre>  {{form.get(f.controlName).errors | json}} </pre> -->
               "atenție, eroare - cîmp obligatoriu!"
             </mat-error>
           </div>
           <mat-icon *ngIf="form.get('availability_days').invalid" class="error-icon"> error </mat-icon>
         </mat-grid-tile>
-        <mat-grid-tile>
+
+        <mat-grid-tile> TEMP </mat-grid-tile>
+        <!-- <mat-grid-tile>
           <div>
             <mat-grid-tile-header>
               <a>Ore</a>
             </mat-grid-tile-header>
-
-            <!-- <input type="'text'" formControlName="availability_hours" /> -->
-
             <mat-error *ngIf="form.get('availability_days').invalid && form.get('availability_days').touched">
-              <!-- <pre>  {{form.get(f.controlName).errors | json}} </pre> -->
               "atenție, eroare - cîmp obligatoriu!"
             </mat-error>
           </div>
           <mat-icon *ngIf="form.get('availability_days').invalid" class="error-icon"> error </mat-icon>
-        </mat-grid-tile>
+        </mat-grid-tile> -->
       </mat-grid-list>
+
       <div class="form-action-container">
         <button mat-raised-button color="primary" type="submit">Save</button>
         <!-- add later for button [disabled]="form.invalid" -->
