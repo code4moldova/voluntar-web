@@ -42,7 +42,7 @@
       </div>
       <mat-form-field>
         <mat-select formControlName="role" required multiple>
-          <mat-option *ngFor="let role of roles | keyvalue" [value]="role">
+          <mat-option *ngFor="let role of roles | keyvalue: enumUnsorted" [value]="role">
             <img src="/assets/icons/volunteers/{{ volunteerRolesIncons[role.value] }}.svg" />
             {{ role.value }}
           </mat-option>
@@ -57,7 +57,16 @@
             <mat-grid-tile-header>
               <a>Zile</a>
             </mat-grid-tile-header>
-            <input type="'text'" formControlName="availability_days" />
+            <!-- <input type="'text'" formControlName="availability_days" /> -->
+
+            <mat-form-field>
+              <mat-select formControlName="availability_days" required multiple>
+                <mat-option *ngFor="let day of daysOfWeek | keyvalue: enumUnsorted" [value]="day">
+                  {{ day.value }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
             <mat-error *ngIf="form.get('availability_days').invalid && form.get('availability_days').touched">
               <!-- <pre>  {{form.get(f.controlName).errors | json}} </pre> -->
               "atenție, eroare - cîmp obligatoriu!"
@@ -70,7 +79,9 @@
             <mat-grid-tile-header>
               <a>Ore</a>
             </mat-grid-tile-header>
-            <input type="'text'" formControlName="availability_hours" />
+
+            <!-- <input type="'text'" formControlName="availability_hours" /> -->
+
             <mat-error *ngIf="form.get('availability_days').invalid && form.get('availability_days').touched">
               <!-- <pre>  {{form.get(f.controlName).errors | json}} </pre> -->
               "atenție, eroare - cîmp obligatoriu!"
