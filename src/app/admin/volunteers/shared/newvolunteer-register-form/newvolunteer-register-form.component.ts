@@ -59,6 +59,23 @@ export class NewVolunteerRegisterFormComponent implements OnInit {
   volunteerRolesIncons = VOLUNTEER_ROLES_ICONS
   zones: Array<string> = Object.keys(ZONES).filter((key) => isNaN(+key))
   daysOfWeek = DAYS_OF_WEEK
+  hours = [
+    '08:00',
+    '09:00',
+    '10:00',
+    '11:00',
+    '12:00',
+    '13:00',
+    '14:00',
+    '15:00',
+    '16:00',
+    '17:00',
+    '18:00',
+    '19:00',
+    '20:00',
+    '21:00',
+    '22:00'
+  ]
 
   sub$: Subscription
 
@@ -99,10 +116,12 @@ export class NewVolunteerRegisterFormComponent implements OnInit {
       role: new FormControl([VOLUNTEER_ROLES.delivery], [Validators.required]),
       status: new FormControl(null, [Validators.required]),
       availability_days: new FormControl([], [Validators.required, Validators.minLength(1)]),
-      availability_hours: new FormControl(
-        {}
-        // [Validators.required]
-      )
+      // availability_hours: new FormControl(
+      //   {}
+      //   // [Validators.required]
+      // )
+      availability_hours_start: new FormControl(null, Validators.required),
+      availability_hours_end: new FormControl(null, Validators.required)
     })
   }
 
