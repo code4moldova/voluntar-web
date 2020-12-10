@@ -72,29 +72,14 @@
           </div>
           <mat-icon *ngIf="form.get('availability_days').invalid" class="error-icon"> error </mat-icon>
         </mat-grid-tile>
-
-        <!-- <mat-grid-tile> TEMP </mat-grid-tile> -->
-
         <mat-grid-tile>
           <div>
             <mat-grid-tile-header>
               <a>Ore</a>
             </mat-grid-tile-header>
 
-            <mat-form-field style="width: 30% !important">
-              <mat-select formControlName="availability_hours_start">
-                <mat-option *ngFor="let hour of hours">
-                  {{ hour }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-
-            <mat-form-field style="width: 30% !important">
-              <mat-select formControlName="availability_hours_start">
-                <mat-option *ngFor="let hour of hours">
-                  {{ hour }}
-                </mat-option>
-              </mat-select>
+            <mat-form-field>
+              <form-hours-selector></form-hours-selector>
             </mat-form-field>
 
             <mat-error *ngIf="form.get('availability_days').invalid && form.get('availability_days').touched">
