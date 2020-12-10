@@ -61,7 +61,7 @@
             </mat-grid-tile-header>
             <mat-form-field>
               <mat-select style="margin-top: 0 !important" formControlName="availability_days" required multiple>
-                <mat-option *ngFor="let day of daysOfWeek | keyvalue: enumUnsorted" [value]="day">
+                <mat-option *ngFor="let day of daysOfWeek | keyvalue: enumUnsorted" [value]="day.value">
                   {{ day.value }}
                 </mat-option>
               </mat-select>

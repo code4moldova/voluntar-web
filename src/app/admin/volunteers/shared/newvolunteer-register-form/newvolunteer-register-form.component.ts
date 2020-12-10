@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { DAYS_OF_WEEK, VOLUNTEER_ROLES, VOLUNTEER_ROLES_ICONS, ZONES } from '@app/shared/constants'
 import { IVolunteer } from '@app/shared/models'
+import { Subscription } from 'rxjs'
 import { VolunteersService } from '../../volunteers.service'
 
 export interface NewRegistrationFormFields {
@@ -59,12 +60,24 @@ export class NewVolunteerRegisterFormComponent implements OnInit {
   zones: Array<string> = Object.keys(ZONES).filter((key) => isNaN(+key))
   daysOfWeek = DAYS_OF_WEEK
 
+  sub$: Subscription
+
   constructor(private volunteersService: VolunteersService) {}
   onSubmit() {
     let newVolunteer: IVolunteer = this.form.value
     newVolunteer = Object.assign({ availability_hours_start: 10, availability_hours_end: 18, ...newVolunteer })
     delete newVolunteer['availability_hours']
-    console.log('onSubmit pressed', newVolunteer)
+    console.log(
+      '🚀 ~ file: newvolunteer-register-form.component.ts ~ line 80 ~ NewVolunteerRegisterFormComponent ~ onSubmit ~ newVolunteer',
+      this.form
+    )
+
+    //to avoid memory leaks - must unsubscribe at destroy!
+    // this.sub$=this.volunteersService.saveVolunteer(newVolunteer).subscribe
+    // (res=>{
+    // console.log("🚀 ~ file: newvolunteer-register-form.component.ts ~ line 69 ~ NewVolunteerRegisterFormComponent ~ onSubmit ~ res", res)
+    // console.log('onSubmit pressed', newVolunteer)
+    // })
   }
 
   ngOnInit(): void {
@@ -75,17 +88,29 @@ export class NewVolunteerRegisterFormComponent implements OnInit {
       email: new FormControl('a@test.xyz', [Validators.required, Validators.email]),
       zone: new FormControl('Centru', [Validators.required]),
       address: new FormControl('Test addr casa 4 ap43 ', [Validators.required]),
-      age: new FormControl('33', [Validators.required, Validators.pattern(/^([0-9]){2}$/)]),
+      age: new FormControl('33', [
+        Validators.required,
+        Validators.min(16),
+        Validators.max(50),
+        Validators.pattern(/^([0-9]){2}$/)
+      ]),
       facebook_profile: new FormControl('no'),
       //TODO - check -  maybe it take sense to provide TYPE of role form as VOLUNTEER_ROLES ???
       role: new FormControl([VOLUNTEER_ROLES.delivery], [Validators.required]),
       status: new FormControl(null, [Validators.required]),
-      availability_days: new FormControl([], [Validators.required]),
-      availability_hours: new FormControl({}, [Validators.required])
+      availability_days: new FormControl([], [Validators.required, Validators.minLength(1)]),
+      availability_hours: new FormControl(
+        {}
+        // [Validators.required]
+      )
     })
   }
 
   closeDialog() {}
 
   enumUnsorted() {}
+
+  ngOnDestroy() {
+    this.sub$.unsubscribe()
+  }
 }
