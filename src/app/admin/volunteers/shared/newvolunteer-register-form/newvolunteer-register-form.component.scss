@@ -1,4 +1,4 @@
-$gapBetweenFieldAndHint: "25px";
+$gapBetweenFieldAndHint: '25px';
 $fontFamily: Roboto, sans-serif;
 
 $modalWindowWidth: 555px;
@@ -46,6 +46,10 @@ mat-form-field {
   display: none;
 }
 
+::ng-deep mat-form-field .mat-form-field-infix {
+  border-top: none;
+}
+
 mat-select {
   border: 0.5px solid darkblue;
   background-color: white;
@@ -54,6 +58,7 @@ mat-select {
   height: 40px;
   width: 230px;
   vertical-align: middle;
+  line-height: 40px;
   text-align: left;
 }
 
