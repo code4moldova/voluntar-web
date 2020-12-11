@@ -84,9 +84,11 @@
           <mat-icon *ngIf="form.get('availability_days').invalid" class="error-icon"> error </mat-icon>
         </mat-grid-tile>
 
-        <!-- <mat-grid-tile> TEMP </mat-grid-tile> -->
+        <mat-grid-tile>
+          <app-form-hours-selector [fn]="formAll" (onStartChange)="updateStartHours($event)"></app-form-hours-selector>
+        </mat-grid-tile>
 
-        <mat-grid-tile style="border: 1px solid red">
+        <!-- <mat-grid-tile style="border: 1px solid red">
           <mat-grid-tile-header>
             <a>Ore</a>
           </mat-grid-tile-header>
@@ -120,11 +122,11 @@
               error
             </mat-icon>
           </div>
-        </mat-grid-tile>
+        </mat-grid-tile> -->
       </mat-grid-list>
-      <div>
+      <!-- <div>
         <app-form-hours-selector [fn]="formAll" (onStartChange)="updateStartHours($event)"></app-form-hours-selector>
-      </div>
+      </div> -->
       <div class="form-action-container">
         <button mat-raised-button color="primary" type="submit">Save</button>
         <!-- [disabled]="form.invalid" -->
