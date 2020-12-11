@@ -4,9 +4,9 @@ import { MatDialogRef } from '@angular/material/dialog'
 import { MatFormFieldControl } from '@angular/material/form-field'
 
 @Component({
-  selector: 'form-hours-selector',
-  template: './form-hours-selector.component.html',
-  styles: ['./form-hours-selector.component.scss'],
+  selector: 'app-form-hours-selector',
+  templateUrl: './form-hours-selector.component.html',
+  styleUrls: ['./form-hours-selector.component.scss'],
   providers: [{ provide: MatFormFieldControl, useExisting: FormHoursSelectorComponent }]
 })
 export class FormHoursSelectorComponent implements OnInit {
