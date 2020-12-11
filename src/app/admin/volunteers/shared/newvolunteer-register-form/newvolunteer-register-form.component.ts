@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
-import { MatDialogRef } from '@angular/material/dialog'
+import { MatDialog, MatDialogRef } from '@angular/material/dialog'
 import { DAYS_OF_WEEK, VOLUNTEER_ROLES, VOLUNTEER_ROLES_ICONS, ZONES } from '@app/shared/constants'
 import { IVolunteer } from '@app/shared/models'
 import { Subscription } from 'rxjs'
 import { VolunteersService } from '../../volunteers.service'
+import { FormHoursSelectorComponent } from '../form-hours-selector/form-hours-selector.component'
 
 export interface NewRegistrationFormFields {
   header: string
@@ -25,6 +26,7 @@ export interface AvailabilityHours {
 })
 export class NewVolunteerRegisterFormComponent implements OnInit {
   form: FormGroup
+  private matDialog: MatDialog
   formFields: Array<NewRegistrationFormFields> = [
     {
       header: 'Nume (Familie)',
@@ -61,23 +63,6 @@ export class NewVolunteerRegisterFormComponent implements OnInit {
   volunteerRolesIncons = VOLUNTEER_ROLES_ICONS
   zones: Array<string> = Object.keys(ZONES).filter((key) => isNaN(+key))
   daysOfWeek = DAYS_OF_WEEK
-  hours = [
-    '08:00',
-    '09:00',
-    '10:00',
-    '11:00',
-    '12:00',
-    '13:00',
-    '14:00',
-    '15:00',
-    '16:00',
-    '17:00',
-    '18:00',
-    '19:00',
-    '20:00',
-    '21:00',
-    '22:00'
-  ]
 
   sub$: Subscription
 
@@ -136,6 +121,18 @@ export class NewVolunteerRegisterFormComponent implements OnInit {
   }
 
   enumUnsorted() {}
+
+  openHoursSelectDialog() {
+    const dialogRef = this.matDialog.open(
+      // FormHoursSelectorComponent,
+      FormHoursSelectorComponent,
+      {
+        data: {},
+        maxWidth: '100%',
+        maxHeight: '90vh'
+      }
+    )
+  }
 
   ngOnDestroy() {
     this.sub$.unsubscribe()
