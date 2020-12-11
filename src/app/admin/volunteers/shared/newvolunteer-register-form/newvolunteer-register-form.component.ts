@@ -83,8 +83,14 @@ export class NewVolunteerRegisterFormComponent implements OnInit {
 
   constructor(private volunteersService: VolunteersService, private dialogRef: MatDialogRef<any>) {}
 
-  onSubmit() {
+  updateStartHours(el) {
+    console.log(' ~ updateStartHours ~ event', el)
+  }
+
+  onSubmit(ev) {
     let newVolunteer: IVolunteer = this.form.value
+    console.log(' ~ onSubmit', this.form)
+
     let endH = this.form.get('availability_hours_end').value.split(':', 1)[0]
     let startH = this.form.get('availability_hours_start').value.split(':', 1)[0]
 
@@ -92,15 +98,15 @@ export class NewVolunteerRegisterFormComponent implements OnInit {
     delete newVolunteer['availability_hours']
 
     // to avoid memory leaks - must unsubscribe at destroy!
-    this.sub$ = this.volunteersService.saveVolunteer(newVolunteer).subscribe(
-      (res) => {
-        console.log('🚀 Server SUCCESS response at new Volunteer registration = ', res)
-        this.closeDialog()
-      },
-      (err) => {
-        console.log('Error returned from server at new Volunteer registration!')
-      }
-    )
+    // this.sub$ = this.volunteersService.saveVolunteer(newVolunteer).subscribe(
+    //   (res) => {
+    //     console.log('🚀 Server SUCCESS response at new Volunteer registration = ', res)
+    //     this.closeDialog()
+    //   },
+    //   (err) => {
+    //     console.log('Error returned from server at new Volunteer registration!')
+    //   }
+    // )
   }
 
   ngOnInit(): void {
@@ -133,5 +139,9 @@ export class NewVolunteerRegisterFormComponent implements OnInit {
 
   ngOnDestroy() {
     this.sub$.unsubscribe()
+  }
+
+  get formAll() {
+    return this.form
   }
 }

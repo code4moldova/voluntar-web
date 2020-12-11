@@ -7,7 +7,7 @@
     <div class="date_personale_line">
       <a>Date personale</a>
     </div>
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <form [formGroup]="form" (ngSubmit)="onSubmit($event)">
       <mat-grid-list cols="2" rowHeight="65px" gutterSize="10px">
         <div *ngFor="let f of formFields">
           <mat-grid-tile *ngIf="f.header !== 'Sector'">
@@ -122,9 +122,12 @@
           </div>
         </mat-grid-tile>
       </mat-grid-list>
-
+      <div>
+        <app-form-hours-selector [fn]="formAll" (onStartChange)="updateStartHours($event)"></app-form-hours-selector>
+      </div>
       <div class="form-action-container">
-        <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Save</button>
+        <button mat-raised-button color="primary" type="submit">Save</button>
+        <!-- [disabled]="form.invalid" -->
       </div>
     </form>
   </div>
