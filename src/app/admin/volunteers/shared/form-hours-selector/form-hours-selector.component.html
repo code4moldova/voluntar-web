@@ -1,12 +1,14 @@
 <div
-  role="group"
-  [formGroup]="parts"
-  [attr.aria-describedby]="describedBy"
-  [attr.aria-labelledby]="parentFormField?.getLabelId()"
+  fxLayout="row"
+  class="flex-container"
+  fxLayoutAlign="space-between center"
+  style="width: 220px; height: 40px; border: 1px solid rgb(112, 119, 101); line-height: 40px; vertical-align: middle"
+  (click)="mouseWasCLK()"
 >
-  <input class="area" formControlName="area" maxlength="3" />
-  <span>&ndash;</span>
-  <input class="exchange" formControlName="exchange" maxlength="3" />
-  <span>&ndash;</span>
-  <input class="subscriber" formControlName="subscriber" maxlength="4" />
+  <div style="margin-left: 18px">
+    <a>{{ start || '08:00' }} - {{ end || '20:00' }}</a>
+  </div>
+  <div class="child-2">
+    <mat-icon width="16" height="16" style="margin-right: 14px">alarm</mat-icon>
+  </div>
 </div>

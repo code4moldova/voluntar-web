@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
-import { MatDialog } from '@angular/material/dialog'
+import { MatDialog, MatDialogRef } from '@angular/material/dialog'
 import { DAYS_OF_WEEK, VOLUNTEER_ROLES, VOLUNTEER_ROLES_ICONS, ZONES } from '@app/shared/constants'
 import { IVolunteer } from '@app/shared/models'
 import { Subscription } from 'rxjs'
@@ -49,7 +49,7 @@ export class NewVolunteerRegisterFormComponent implements OnInit {
     {
       header: 'Vîrsta',
       controlName: 'age',
-      errorMessage: ' Doar cifrele cu valorile > 18 sunt acceptate'
+      errorMessage: ' Doar vîrsta cu valorile intre  16 și 50 este acceptata'
     },
     {
       header: 'Profil Rețea Socializare',
@@ -58,6 +58,7 @@ export class NewVolunteerRegisterFormComponent implements OnInit {
     }
   ]
 
+  stdErrMessage = 'atenție, eroare - cîmp obligatoriu!'
   roles = VOLUNTEER_ROLES
   volunteerRolesIncons = VOLUNTEER_ROLES_ICONS
   zones: Array<string> = Object.keys(ZONES).filter((key) => isNaN(+key))
@@ -65,53 +66,59 @@ export class NewVolunteerRegisterFormComponent implements OnInit {
 
   sub$: Subscription
 
-  constructor(private volunteersService: VolunteersService) {}
-  onSubmit() {
-    let newVolunteer: IVolunteer = this.form.value
-    newVolunteer = Object.assign({ availability_hours_start: 10, availability_hours_end: 18, ...newVolunteer })
-    delete newVolunteer['availability_hours']
-    console.log(
-      '🚀 ~ file: newvolunteer-register-form.component.ts ~ line 80 ~ NewVolunteerRegisterFormComponent ~ onSubmit ~ newVolunteer',
-      this.form
-    )
+  constructor(private volunteersService: VolunteersService, private dialogRef: MatDialogRef<any>) {}
 
-    //to avoid memory leaks - must unsubscribe at destroy!
-    // this.sub$=this.volunteersService.saveVolunteer(newVolunteer).subscribe
-    // (res=>{
-    // console.log("🚀 ~ file: newvolunteer-register-form.component.ts ~ line 69 ~ NewVolunteerRegisterFormComponent ~ onSubmit ~ res", res)
-    // console.log('onSubmit pressed', newVolunteer)
-    // })
+  updateStartHours(el) {
+    console.log(' ~ updateStartHours ~ event', el)
+  }
+
+  onSubmit(ev) {
+    let newVolunteer: IVolunteer = this.form.value
+    console.log(' ~ onSubmit', this.form)
+
+    let endH = this.form.get('availability_hours_end').value.split(':', 1)[0]
+    let startH = this.form.get('availability_hours_start').value.split(':', 1)[0]
+
+    newVolunteer = Object.assign({ ...newVolunteer, availability_hours_start: startH, availability_hours_end: endH })
+    delete newVolunteer['availability_hours']
+
+    // to avoid memory leaks - must unsubscribe at destroy!
+    // this.sub$ = this.volunteersService.saveVolunteer(newVolunteer).subscribe(
+    //   (res) => {
+    //     console.log('🚀 Server SUCCESS response at new Volunteer registration = ', res)
+    //     this.closeDialog()
+    //   },
+    //   (err) => {
+    //     console.log('Error returned from server at new Volunteer registration!')
+    //   }
+    // )
   }
 
   ngOnInit(): void {
     this.form = new FormGroup({
-      first_name: new FormControl('Test', [Validators.required]),
-      last_name: new FormControl('Testter', [Validators.required]),
-      phone: new FormControl('12345678', [Validators.required, Validators.pattern(/^([0-9]){8}$/)]),
-      email: new FormControl('a@test.xyz', [Validators.required, Validators.email]),
-      zone: new FormControl('Centru', [Validators.required]),
-      address: new FormControl('Test addr casa 4 ap43 ', [Validators.required]),
-      age: new FormControl('33', [
+      first_name: new FormControl('', [Validators.required]),
+      last_name: new FormControl('', [Validators.required]),
+      phone: new FormControl('', [Validators.required, Validators.pattern(/^([0-9]){8}$/)]),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      zone: new FormControl(null, [Validators.required, Validators.minLength(3)]),
+      address: new FormControl('', [Validators.required]),
+      age: new FormControl('', [
         Validators.required,
         Validators.min(16),
         Validators.max(50),
         Validators.pattern(/^([0-9]){2}$/)
       ]),
-      facebook_profile: new FormControl('no'),
-      //TODO - check -  maybe it take sense to provide TYPE of role form as VOLUNTEER_ROLES ???
-      role: new FormControl([VOLUNTEER_ROLES.delivery], [Validators.required]),
-      status: new FormControl(null, [Validators.required]),
+      facebook_profile: new FormControl(''),
+      role: new FormControl([], [Validators.required, Validators.minLength(1)]),
       availability_days: new FormControl([], [Validators.required, Validators.minLength(1)]),
-      // availability_hours: new FormControl(
-      //   {}
-      //   // [Validators.required]
-      // )
       availability_hours_start: new FormControl(null, Validators.required),
       availability_hours_end: new FormControl(null, Validators.required)
     })
   }
 
-  closeDialog() {}
+  closeDialog() {
+    this.dialogRef.close()
+  }
 
   enumUnsorted() {}
 
@@ -129,5 +136,9 @@ export class NewVolunteerRegisterFormComponent implements OnInit {
 
   ngOnDestroy() {
     this.sub$.unsubscribe()
+  }
+
+  get formAll() {
+    return this.form
   }
 }

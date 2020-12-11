@@ -7,7 +7,7 @@
     <div class="date_personale_line">
       <a>Date personale</a>
     </div>
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <form [formGroup]="form" (ngSubmit)="onSubmit($event)">
       <mat-grid-list cols="2" rowHeight="65px" gutterSize="10px">
         <div *ngFor="let f of formFields">
           <mat-grid-tile *ngIf="f.header !== 'Sector'">
@@ -24,17 +24,24 @@
           </mat-grid-tile>
 
           <mat-grid-tile *ngIf="f.header === 'Sector'">
-            <mat-grid-tile-header>
-              <a>{{ f.header }}</a>
-            </mat-grid-tile-header>
-            <mat-select formControlName="{{ f.controlName }}">
-              <mat-option *ngFor="let sec of zones" value="{{ sec }}">
-                {{ sec.charAt(0).toUpperCase() + sec.slice(1) }}
-              </mat-option>
-            </mat-select>
+            <div>
+              <mat-grid-tile-header>
+                <a>{{ f.header }}</a>
+              </mat-grid-tile-header>
+              <mat-select formControlName="{{ f.controlName }}">
+                <mat-option *ngFor="let sec of zones" [value]="sec">
+                  {{ sec.charAt(0).toUpperCase() + sec.slice(1) }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="form.get(f.controlName).invalid">
+                {{ f.errorMessage || 'atenție, eroare - cîmp obligatoriu!' }}
+              </mat-error>
+            </div>
+            <mat-icon *ngIf="form.get(f.controlName).invalid" class="error-icon"> error </mat-icon>
           </mat-grid-tile>
         </div>
       </mat-grid-list>
+
       <mat-divider style="color: red; margin-top: 10px; margin-left: -30px"></mat-divider>
       <div class="date_personale_line" style="margin-top: 28px">
         <a>Rolul Voluntarului</a>
@@ -47,6 +54,10 @@
             {{ role.value }}
           </mat-option>
         </mat-select>
+        <mat-error *ngIf="form.get('role').invalid">
+          {{ stdErrMessage }}
+        </mat-error>
+        <mat-icon *ngIf="form.get('role').invalid" class="error-icon"> error </mat-icon>
       </mat-form-field>
 
       <div class="date_personale_line" style="margin-top: 43px">
@@ -72,27 +83,51 @@
           </div>
           <mat-icon *ngIf="form.get('availability_days').invalid" class="error-icon"> error </mat-icon>
         </mat-grid-tile>
-        <mat-grid-tile>
-          <div>
-            <mat-grid-tile-header>
-              <a>Ore</a>
-            </mat-grid-tile-header>
 
-            <mat-form-field>
-              <form-hours-selector></form-hours-selector>
+        <!-- <mat-grid-tile> TEMP </mat-grid-tile> -->
+
+        <mat-grid-tile style="border: 1px solid red">
+          <mat-grid-tile-header>
+            <a>Ore</a>
+          </mat-grid-tile-header>
+          <div>
+            <mat-form-field id="ore_start" style="width: 47% !important">
+              <mat-select formControlName="availability_hours_start">
+                <mat-option *ngFor="let hour of hours" [value]="hour">
+                  {{ hour }}
+                </mat-option>
+              </mat-select>
             </mat-form-field>
 
-            <mat-error *ngIf="form.get('availability_days').invalid && form.get('availability_days').touched">
+            <mat-form-field id="ore_end" style="width: 47% !important">
+              <mat-select formControlName="availability_hours_end">
+                <mat-option *ngFor="let hour of hours" [value]="hour">
+                  {{ hour }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-error
+              *ngIf="form.get('availability_hours_start').invalid || form.get('availability_hours_end').invalid"
+            >
               "atenție, eroare - cîmp obligatoriu!"
             </mat-error>
+            <mat-icon
+              *ngIf="form.get('availability_hours_end').invalid || form.get('availability_hours_start').invalid"
+              class="error-icon"
+            >
+              error
+            </mat-icon>
           </div>
-          <mat-icon *ngIf="form.get('availability_days').invalid" class="error-icon"> error </mat-icon>
         </mat-grid-tile>
       </mat-grid-list>
-
+      <div>
+        <app-form-hours-selector [fn]="formAll" (onStartChange)="updateStartHours($event)"></app-form-hours-selector>
+      </div>
       <div class="form-action-container">
         <button mat-raised-button color="primary" type="submit">Save</button>
-        <!-- add later for button [disabled]="form.invalid" -->
+        <!-- [disabled]="form.invalid" -->
       </div>
     </form>
   </div>
