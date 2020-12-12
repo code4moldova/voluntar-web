@@ -10,11 +10,11 @@ import { MatFormFieldControl } from '@angular/material/form-field'
   providers: [{ provide: MatFormFieldControl, useExisting: FormHoursSelectorComponent }]
 })
 export class FormHoursSelectorComponent implements OnInit {
-  @Input('fn') fn: any
+  @Input('parentForm') parentForm: FormGroup
   @Output('onStartChange') onStartChange: EventEmitter<string> = new EventEmitter<string>()
   // @Output() onEndChange:EventEmitter<string>=new EventEmitter<string>()
-  start = '18-00'
-  end = '20-00'
+  start = ''
+  end = ''
   selectHours = false
   form: FormGroup
   hours = [
@@ -45,15 +45,15 @@ export class FormHoursSelectorComponent implements OnInit {
       availability_hours_end: new FormControl(null)
     })
 
-    // this.start= fn.get('availability_hours_start').value
-    // this.start= fn.get('availability_hours_end').value
+    // this.start= parentForm.get('availability_hours_start').value
+    // this.start= parentForm.get('availability_hours_end').value
   }
 
   mouseWasCLK() {
-    this.start = this.fn.get('availability_hours_start').value
+    this.start = this.parentForm.get('availability_hours_start').value
 
-    // this.fn.get('availability_hours_end').setValue('23:59')
-    this.end = this.fn.get('availability_hours_end').value
+    // this.parentForm.get('availability_hours_end').setValue('23:59')
+    this.end = this.parentForm.get('availability_hours_end').value
     console.log('Emitted from modal')
     this.onStartChange.emit('++-++')
     // this.activeModal.close('Notify click');
@@ -63,11 +63,15 @@ export class FormHoursSelectorComponent implements OnInit {
     this.selectHours = !this.selectHours
   }
 
-  onChangeStartHour(hour) {
+  onChangeStartHour(hour: string) {
     this.start = hour
+    if (this.end != '' && this.hours.indexOf(hour) > this.hours.indexOf(this.end)) this.end = ''
+    this.onStartChange.emit(this.start.concat('-', this.end))
   }
 
-  onChangeEndHour(hour) {
+  onChangeEndHour(hour: string) {
     this.end = hour
+    if (this.start != '' && this.hours.indexOf(hour) < this.hours.indexOf(this.start)) this.start = ''
+    this.onStartChange.emit(this.start.concat('-', this.end))
   }
 }

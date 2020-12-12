@@ -68,8 +68,16 @@ export class NewVolunteerRegisterFormComponent implements OnInit {
 
   constructor(private volunteersService: VolunteersService, private dialogRef: MatDialogRef<any>) {}
 
-  updateStartHours(el) {
+  updateStartHours(el: string) {
     console.log(' ~ updateStartHours ~ event', el)
+    if (el.length === 1 || el.length === 6) {
+      console.log('Invalid hours!')
+      return
+    }
+    this.form.value.availability_hours_start = el.substring(0, 5)
+    this.form.value.availability_hours_end = el.substring(6, el.length)
+    console.log(this.form.value.availability_hours_start)
+    console.log(this.form.value.availability_hours_end)
   }
 
   onSubmit(ev) {

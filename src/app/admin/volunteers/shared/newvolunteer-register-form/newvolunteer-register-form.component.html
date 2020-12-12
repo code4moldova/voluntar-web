@@ -85,7 +85,21 @@
         </mat-grid-tile>
 
         <mat-grid-tile>
-          <app-form-hours-selector [fn]="formAll" (onStartChange)="updateStartHours($event)"></app-form-hours-selector>
+          <div>
+            <mat-grid-tile-header>
+              <a> Ore </a>
+            </mat-grid-tile-header>
+            <mat-form-field>
+              <app-form-hours-selector
+                [parentForm]="formAll"
+                (onStartChange)="updateStartHours($event)"
+              ></app-form-hours-selector>
+            </mat-form-field>
+            <mat-error *ngIf="form.get('availability_days').invalid && form.get('availability_days').touched">
+              "atenție, eroare - cîmp obligatoriu!"
+            </mat-error>
+          </div>
+          <mat-icon *ngIf="form.get('availability_days').invalid" class="error-icon"> error </mat-icon>
         </mat-grid-tile>
 
         <!-- <mat-grid-tile style="border: 1px solid red">
