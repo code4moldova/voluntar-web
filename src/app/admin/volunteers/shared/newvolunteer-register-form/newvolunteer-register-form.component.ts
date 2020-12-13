@@ -4,7 +4,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog'
 import { DAYS_OF_WEEK, VOLUNTEER_ROLES, VOLUNTEER_ROLES_ICONS, ZONES } from '@app/shared/constants'
 import { IVolunteer } from '@app/shared/models'
 import { Subscription } from 'rxjs'
-import { VolunteersService } from '../../volunteers.service'
+import { VolunteersFacade } from '../../volunteers.facade'
 import { FormHoursSelectorComponent } from '../form-hours-selector/form-hours-selector.component'
 
 export interface NewRegistrationFormFields {
@@ -37,7 +37,7 @@ export class NewVolunteerRegisterFormComponent implements OnInit {
     {
       header: 'Număr Telefon',
       controlName: 'phone',
-      errorMessage: '8 cifre vă rugăm'
+      errorMessage: '8 cifre vă rugăm, fără 0 la început.'
     },
     {
       header: 'Email',
@@ -67,9 +67,7 @@ export class NewVolunteerRegisterFormComponent implements OnInit {
   zones: Array<string> = Object.keys(ZONES).filter((key) => isNaN(+key))
   daysOfWeek = DAYS_OF_WEEK
 
-  sub$: Subscription
-
-  constructor(private volunteersService: VolunteersService, private dialogRef: MatDialogRef<any>) {}
+  constructor(private volunteersService: VolunteersFacade, private dialogRef: MatDialogRef<any>) {}
 
   checkHoursForError(el: string) {
     console.log(' ~ updateStartHours ~ event', el)
@@ -86,29 +84,18 @@ export class NewVolunteerRegisterFormComponent implements OnInit {
     let startH = this.form.get('availability_hours_start').value.split(':', 1)[0]
 
     newVolunteer = Object.assign({ ...newVolunteer, availability_hours_start: startH, availability_hours_end: endH })
-    delete newVolunteer['availability_hours']
-
-    // to avoid memory leaks - must unsubscribe at destroy!
-    // this.sub$ = this.volunteersService.saveVolunteer(newVolunteer).subscribe(
-    //   (res) => {
-    //     console.log('🚀 Server SUCCESS response at new Volunteer registration = ', res)
-    //     this.closeDialog()
-    //   },
-    //   (err) => {
-    //     console.log('Error returned from server at new Volunteer registration!')
-    //   }
-    // )
+    this.volunteersService.saveVolunteer(newVolunteer)
   }
 
   ngOnInit(): void {
     this.form = new FormGroup({
-      first_name: new FormControl('', [Validators.required]),
-      last_name: new FormControl('', [Validators.required]),
-      phone: new FormControl('', [Validators.required, Validators.pattern(/^([0-9]){8}$/)]),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      zone: new FormControl(null, [Validators.required, Validators.minLength(3)]),
-      address: new FormControl('', [Validators.required]),
-      age: new FormControl('', [
+      first_name: new FormControl('Test', [Validators.required]),
+      last_name: new FormControl('Testerer', [Validators.required]),
+      phone: new FormControl('1234567', [Validators.required, Validators.pattern(/^[^0]([0-9]){7}$/)]),
+      email: new FormControl('a@gmail.com', [Validators.required, Validators.email]),
+      zone: new FormControl('botanica', [Validators.required, Validators.minLength(3)]),
+      address: new FormControl('ssssss', [Validators.required]),
+      age: new FormControl('40', [
         Validators.required,
         Validators.min(16),
         Validators.max(50),
@@ -116,9 +103,9 @@ export class NewVolunteerRegisterFormComponent implements OnInit {
       ]),
       facebook_profile: new FormControl(''),
       role: new FormControl([], [Validators.required, Validators.minLength(1)]),
-      availability_days: new FormControl([], [Validators.required, Validators.minLength(1)]),
-      availability_hours_start: new FormControl(null, [Validators.required, Validators.minLength(5)]),
-      availability_hours_end: new FormControl(null, [Validators.required, Validators.minLength(5)])
+      availability_days: new FormControl(['monday'], [Validators.required, Validators.minLength(1)]),
+      availability_hours_start: new FormControl('08:00', [Validators.required, Validators.minLength(5)]),
+      availability_hours_end: new FormControl('12:00', [Validators.required, Validators.minLength(5)])
     })
   }
 
@@ -138,10 +125,6 @@ export class NewVolunteerRegisterFormComponent implements OnInit {
         maxHeight: '90vh'
       }
     )
-  }
-
-  ngOnDestroy() {
-    this.sub$.unsubscribe()
   }
 
   get formAll() {

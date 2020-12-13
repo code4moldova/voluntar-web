@@ -71,7 +71,12 @@
               <a> Zile </a>
             </mat-grid-tile-header>
             <mat-form-field>
-              <mat-select style="margin-top: 0 !important" formControlName="availability_days" required multiple>
+              <mat-select
+                style="margin-top: 6px !important; margin-left: 1px !important"
+                formControlName="availability_days"
+                required
+                multiple
+              >
                 <mat-option *ngFor="let day of daysOfWeek | keyvalue: enumUnsorted" [value]="day.key">
                   {{ day.value }}
                 </mat-option>
@@ -96,7 +101,6 @@
                 (onEndChange)="checkHoursForError($event)"
               ></app-form-hours-selector> -->
               <div
-                formControlName="availability_days"
                 fxLayout="row"
                 class="flex-container"
                 fxLayoutAlign="space-between"
