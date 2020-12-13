@@ -90,16 +90,48 @@
               <a> Ore </a>
             </mat-grid-tile-header>
             <mat-form-field>
-              <app-form-hours-selector
+              <!-- <app-form-hours-selector
                 [parentForm]="formAll"
-                (onStartChange)="updateStartHours($event)"
-              ></app-form-hours-selector>
+                (onStartChange)="checkHoursForError($event)"
+                (onEndChange)="checkHoursForError($event)"
+              ></app-form-hours-selector> -->
+              <div
+                formControlName="availability_days"
+                fxLayout="row"
+                class="flex-container"
+                fxLayoutAlign="space-between"
+                style="
+                  width: 220px;
+                  height: 40px;
+                  border: 1px solid darkblue;
+                  line-height: 40px;
+                  vertical-align: middle;
+                  margin-top: 5px;
+                  margin-left: 3px;
+                "
+                (click)="openHoursSelectDialog()"
+              >
+                <div style="margin-left: 18px">
+                  <a>{{ startHour }} - {{ endHour }}</a>
+                </div>
+                <div class="child-2">
+                  <mat-icon width="16" height="16" style="margin-right: 14px; margin-bottom: 12px">alarm</mat-icon>
+                </div>
+              </div>
+              <mat-select style="visibility: hidden"></mat-select>
             </mat-form-field>
-            <mat-error *ngIf="form.get('availability_days').invalid && form.get('availability_days').touched">
+            <mat-error
+              *ngIf="form.get('availability_hours_start').invalid || form.get('availability_hours_end').invalid"
+            >
               "atenție, eroare - cîmp obligatoriu!"
             </mat-error>
           </div>
-          <mat-icon *ngIf="form.get('availability_days').invalid" class="error-icon"> error </mat-icon>
+          <mat-icon
+            *ngIf="form.get('availability_hours_start').invalid || form.get('availability_hours_end').invalid"
+            class="error-icon"
+          >
+            error
+          </mat-icon>
         </mat-grid-tile>
 
         <!-- <mat-grid-tile style="border: 1px solid red">

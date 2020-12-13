@@ -12,6 +12,7 @@ import { MatFormFieldControl } from '@angular/material/form-field'
 export class FormHoursSelectorComponent implements OnInit {
   @Input('parentForm') parentForm: FormGroup
   @Output('onStartChange') onStartChange: EventEmitter<string> = new EventEmitter<string>()
+  @Output('onEndChange') onEndChange: EventEmitter<string> = new EventEmitter<string>()
   // @Output() onEndChange:EventEmitter<string>=new EventEmitter<string>()
   start = ''
   end = ''
@@ -65,13 +66,19 @@ export class FormHoursSelectorComponent implements OnInit {
 
   onChangeStartHour(hour: string) {
     this.start = hour
-    if (this.end != '' && this.hours.indexOf(hour) > this.hours.indexOf(this.end)) this.end = ''
-    this.onStartChange.emit(this.start.concat('-', this.end))
+    this.parentForm.value.availability_hours_start = this.start
+    if (this.end != '' && this.hours.indexOf(hour) > this.hours.indexOf(this.end)) {
+      this.end = ''
+      this.onStartChange.emit('StartHoursSelectionError')
+    }
   }
 
   onChangeEndHour(hour: string) {
     this.end = hour
-    if (this.start != '' && this.hours.indexOf(hour) < this.hours.indexOf(this.start)) this.start = ''
-    this.onStartChange.emit(this.start.concat('-', this.end))
+    this.parentForm.value.availability_hours_end = this.end
+    if (this.start != '' && this.hours.indexOf(hour) < this.hours.indexOf(this.start)) {
+      this.start = ''
+      this.onEndChange.emit('EndHoursSelectionError')
+    }
   }
 }
