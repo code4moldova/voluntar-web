@@ -99,18 +99,10 @@
                 fxLayout="row"
                 class="flex-container"
                 fxLayoutAlign="space-between"
-                style="
-                  width: 220px;
-                  height: 40px;
-                  border: 0.5px solid darkblue;
-                  line-height: 40px;
-                  vertical-align: middle;
-                  margin-top: 5px;
-                  margin-left: 3px;
-                "
+                class="availability-hours-component"
               >
                 <div style="margin-left: 18px">
-                  <a
+                  <a #availabilityHoursLine
                     >{{ formAll.get('availability_hours_start').value }} -
                     {{ formAll.get('availability_hours_end').value }}</a
                   >
@@ -125,6 +117,9 @@
               *ngIf="form.get('availability_hours_start').invalid || form.get('availability_hours_end').invalid"
             >
               "atenție, eroare - cîmp obligatoriu!"
+            </mat-error>
+            <mat-error *ngIf="form.value.availability_hours_start >= form.value.availability_hours_end">
+              "atenție, ora de start e mai tirzie decit ora finala!"
             </mat-error>
           </div>
           <mat-icon

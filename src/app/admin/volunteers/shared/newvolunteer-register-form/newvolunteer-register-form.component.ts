@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
-import { MatDialog, MatDialogRef } from '@angular/material/dialog'
+import { MatDialog } from '@angular/material/dialog'
 import { DAYS_OF_WEEK, VOLUNTEER_ROLES, VOLUNTEER_ROLES_ICONS, ZONES } from '@app/shared/constants'
 import { IVolunteer } from '@app/shared/models'
-import { Subscription } from 'rxjs'
 import { VolunteersFacade } from '../../volunteers.facade'
 import { FormHoursSelectorComponent } from '../form-hours-selector/form-hours-selector.component'
 
@@ -15,16 +14,12 @@ export interface NewRegistrationFormFields {
   errorMessage?: string
 }
 
-export interface AvailabilityHours {
-  start: number
-  end: number
-}
-
 @Component({
   templateUrl: './newvolunteer-register-form.component.html',
   styleUrls: ['./newvolunteer-register-form.component.scss']
 })
 export class NewVolunteerRegisterFormComponent implements OnInit {
+  @ViewChild('availabilityHoursLine') availabilityHoursLine: ElementRef
   form: FormGroup
   formFields: Array<NewRegistrationFormFields> = [
     {
@@ -71,8 +66,6 @@ export class NewVolunteerRegisterFormComponent implements OnInit {
   checkHoursForError(el: string) {
     console.log(' ~ updateStartHours ~ event', el)
     this.hoursErrorMessage = el
-    console.log(this.form.value.availability_hours_start)
-    console.log(this.form.value.availability_hours_end)
   }
 
   onSubmit(ev) {
@@ -113,12 +106,13 @@ export class NewVolunteerRegisterFormComponent implements OnInit {
   openHoursSelectDialog() {
     const dialogRef = this.dialog.open(FormHoursSelectorComponent, {
       data: this.form,
-      width: '226px',
-      minHeight: '140px'
+      width: '260px',
+      minHeight: '240px'
     })
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed', result)
       dialogRef.close()
+      this.availabilityHoursLine.nativeElement.innerHTML =
+        this.form.value.availability_hours_start + ' - ' + this.form.value.availability_hours_end
     })
   }
 

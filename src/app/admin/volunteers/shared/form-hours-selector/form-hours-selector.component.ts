@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core'
+import { Component, EventEmitter, Inject, Input, OnInit, Output, ViewEncapsulation } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { MatFormFieldControl } from '@angular/material/form-field'
@@ -7,6 +7,7 @@ import { MatFormFieldControl } from '@angular/material/form-field'
   selector: 'app-form-hours-selector',
   templateUrl: './form-hours-selector.component.html',
   styleUrls: ['./form-hours-selector.component.scss'],
+  // encapsulation: ViewEncapsulation.None,
   providers: [{ provide: MatFormFieldControl, useExisting: FormHoursSelectorComponent }]
 })
 export class FormHoursSelectorComponent implements OnInit {
@@ -17,7 +18,6 @@ export class FormHoursSelectorComponent implements OnInit {
   start = ''
   end = ''
   selectHours = false
-  form: FormGroup
   parentForm: FormGroup
   hours = [
     '08:00',
@@ -42,15 +42,13 @@ export class FormHoursSelectorComponent implements OnInit {
   ) {}
 
   onSubmit(event: Event) {
-    console.log(
-      '🚀 ~ file: form-hours-selector.component.ts ~ line 43 ~ FormHoursSelectorComponent ~ onSubmit ~ onSubmit',
-      event
-    )
     this.activeModal.close()
   }
 
   ngOnInit(): void {
-    this.form = this.parentData
+    this.parentForm = this.parentData
+    this.start = this.parentForm.value.availability_hours_start
+    this.end = this.parentForm.value.availability_hours_end
   }
 
   openSelectHours() {
@@ -76,7 +74,7 @@ export class FormHoursSelectorComponent implements OnInit {
   }
 
   get componentForm() {
-    return this.form
+    return this.parentForm
   }
   onNoClick(): void {
     this.activeModal.close()

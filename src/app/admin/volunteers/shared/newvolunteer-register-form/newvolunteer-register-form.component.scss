@@ -50,13 +50,14 @@ mat-form-field {
   border-top: none;
 }
 
-mat-select {
+mat-select,
+.mat-select {
   border: 0.5px solid darkblue;
   background-color: white;
   margin-top: 10px;
   padding: 0;
   height: 40px;
-  width: 230px;
+  width: 229px;
   vertical-align: middle;
   line-height: 40px;
   text-align: left;
@@ -79,6 +80,16 @@ mat-error {
   font-size: 8px !important;
   margin-top: -2px;
   background-color: white !important;
+}
+
+.availability-hours-component {
+  width: 220px;
+  height: 40px;
+  border: 0.5px solid darkblue;
+  line-height: 40px;
+  vertical-align: middle;
+  margin-top: 5px;
+  margin-left: 3px;
 }
 
 .error-icon {

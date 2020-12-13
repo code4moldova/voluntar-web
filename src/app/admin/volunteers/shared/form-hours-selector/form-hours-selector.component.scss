@@ -5,3 +5,26 @@ span {
 :host.floating span {
   opacity: 1;
 }
+
+.mat-dialog-container {
+  padding: 0px !important;
+}
+
+.mat-select {
+  border: 0.5px solid darkblue;
+  background-color: white;
+  margin-top: 10px;
+  padding: 0;
+  height: 40px;
+  width: 229px;
+  vertical-align: middle;
+  line-height: 40px;
+  text-align: left;
+}
+
+.availability-hours-component {
+  border: 0.5px solid darkblue;
+  vertical-align: middle;
+  align-items: space-around;
+  background-color: aquamarine;
+}
