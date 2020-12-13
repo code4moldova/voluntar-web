@@ -89,17 +89,12 @@
           <mat-icon *ngIf="form.get('availability_days').invalid" class="error-icon"> error </mat-icon>
         </mat-grid-tile>
 
-        <mat-grid-tile>
+        <mat-grid-tile (click)="openHoursSelectDialog()">
           <div>
             <mat-grid-tile-header>
               <a> Ore </a>
             </mat-grid-tile-header>
             <mat-form-field>
-              <!-- <app-form-hours-selector
-                [parentForm]="formAll"
-                (onStartChange)="checkHoursForError($event)"
-                (onEndChange)="checkHoursForError($event)"
-              ></app-form-hours-selector> -->
               <div
                 fxLayout="row"
                 class="flex-container"
@@ -113,10 +108,12 @@
                   margin-top: 5px;
                   margin-left: 3px;
                 "
-                (click)="openHoursSelectDialog()"
               >
                 <div style="margin-left: 18px">
-                  <a>{{ startHour }} - {{ endHour }}</a>
+                  <a
+                    >{{ formAll.get('availability_hours_start').value }} -
+                    {{ formAll.get('availability_hours_end').value }}</a
+                  >
                 </div>
                 <div class="child-2">
                   <mat-icon width="16" height="16" style="margin-right: 14px; margin-bottom: 12px">alarm</mat-icon>
@@ -137,46 +134,8 @@
             error
           </mat-icon>
         </mat-grid-tile>
-
-        <!-- <mat-grid-tile style="border: 1px solid red">
-          <mat-grid-tile-header>
-            <a>Ore</a>
-          </mat-grid-tile-header>
-          <div>
-            <mat-form-field id="ore_start" style="width: 47% !important">
-              <mat-select formControlName="availability_hours_start">
-                <mat-option *ngFor="let hour of hours" [value]="hour">
-                  {{ hour }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-
-            <mat-form-field id="ore_end" style="width: 47% !important">
-              <mat-select formControlName="availability_hours_end">
-                <mat-option *ngFor="let hour of hours" [value]="hour">
-                  {{ hour }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-          <div>
-            <mat-error
-              *ngIf="form.get('availability_hours_start').invalid || form.get('availability_hours_end').invalid"
-            >
-              "atenție, eroare - cîmp obligatoriu!"
-            </mat-error>
-            <mat-icon
-              *ngIf="form.get('availability_hours_end').invalid || form.get('availability_hours_start').invalid"
-              class="error-icon"
-            >
-              error
-            </mat-icon>
-          </div>
-        </mat-grid-tile> -->
       </mat-grid-list>
-      <!-- <div>
-        <app-form-hours-selector [fn]="formAll" (onStartChange)="updateStartHours($event)"></app-form-hours-selector>
-      </div> -->
+
       <div class="form-action-container">
         <button mat-raised-button color="primary" type="submit">Save</button>
         <!-- [disabled]="form.invalid" -->

@@ -26,7 +26,6 @@ export interface AvailabilityHours {
 })
 export class NewVolunteerRegisterFormComponent implements OnInit {
   form: FormGroup
-  private matDialog: MatDialog
   formFields: Array<NewRegistrationFormFields> = [
     {
       header: 'Nume (Familie)',
@@ -59,7 +58,7 @@ export class NewVolunteerRegisterFormComponent implements OnInit {
   ]
 
   stdErrMessage = 'atenție, eroare - cîmp obligatoriu!'
-  hrsErrMessage = ''
+  hoursErrorMessage = ''
   startHour = ''
   endHour = ''
   roles = VOLUNTEER_ROLES
@@ -67,11 +66,11 @@ export class NewVolunteerRegisterFormComponent implements OnInit {
   zones: Array<string> = Object.keys(ZONES).filter((key) => isNaN(+key))
   daysOfWeek = DAYS_OF_WEEK
 
-  constructor(private volunteersService: VolunteersFacade, private dialogRef: MatDialogRef<any>) {}
+  constructor(private volunteersService: VolunteersFacade, public dialog: MatDialog) {}
 
   checkHoursForError(el: string) {
     console.log(' ~ updateStartHours ~ event', el)
-    this.hrsErrMessage = el
+    this.hoursErrorMessage = el
     console.log(this.form.value.availability_hours_start)
     console.log(this.form.value.availability_hours_end)
   }
@@ -109,22 +108,18 @@ export class NewVolunteerRegisterFormComponent implements OnInit {
     })
   }
 
-  closeDialog() {
-    this.dialogRef.close()
-  }
-
   enumUnsorted() {}
 
   openHoursSelectDialog() {
-    const dialogRef = this.matDialog.open(
-      // FormHoursSelectorComponent,
-      FormHoursSelectorComponent,
-      {
-        data: {},
-        maxWidth: '100%',
-        maxHeight: '90vh'
-      }
-    )
+    const dialogRef = this.dialog.open(FormHoursSelectorComponent, {
+      data: this.form,
+      width: '226px',
+      minHeight: '140px'
+    })
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed', result)
+      dialogRef.close()
+    })
   }
 
   get formAll() {

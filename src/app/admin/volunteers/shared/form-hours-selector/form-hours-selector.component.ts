@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
+import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
-import { MatDialogRef } from '@angular/material/dialog'
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { MatFormFieldControl } from '@angular/material/form-field'
 
 @Component({
@@ -10,7 +10,7 @@ import { MatFormFieldControl } from '@angular/material/form-field'
   providers: [{ provide: MatFormFieldControl, useExisting: FormHoursSelectorComponent }]
 })
 export class FormHoursSelectorComponent implements OnInit {
-  @Input('parentForm') parentForm: FormGroup
+  // @Input('parentForm') parentForm: FormGroup
   @Output('onStartChange') onStartChange: EventEmitter<string> = new EventEmitter<string>()
   @Output('onEndChange') onEndChange: EventEmitter<string> = new EventEmitter<string>()
   // @Output() onEndChange:EventEmitter<string>=new EventEmitter<string>()
@@ -18,6 +18,7 @@ export class FormHoursSelectorComponent implements OnInit {
   end = ''
   selectHours = false
   form: FormGroup
+  parentForm: FormGroup
   hours = [
     '08:00',
     '09:00',
@@ -35,29 +36,21 @@ export class FormHoursSelectorComponent implements OnInit {
     '21:00',
     '22:00'
   ]
-  constructor(private activeModal: MatDialogRef<any>) {
-    console.log()
+  constructor(
+    private activeModal: MatDialogRef<FormHoursSelectorComponent>,
+    @Inject(MAT_DIALOG_DATA) public parentData: FormGroup
+  ) {}
+
+  onSubmit(event: Event) {
+    console.log(
+      '🚀 ~ file: form-hours-selector.component.ts ~ line 43 ~ FormHoursSelectorComponent ~ onSubmit ~ onSubmit',
+      event
+    )
+    this.activeModal.close()
   }
 
   ngOnInit(): void {
-    console.log('modal init')
-    this.form = new FormGroup({
-      availability_hours_start: new FormControl(null),
-      availability_hours_end: new FormControl(null)
-    })
-
-    // this.start= parentForm.get('availability_hours_start').value
-    // this.start= parentForm.get('availability_hours_end').value
-  }
-
-  mouseWasCLK() {
-    this.start = this.parentForm.get('availability_hours_start').value
-
-    // this.parentForm.get('availability_hours_end').setValue('23:59')
-    this.end = this.parentForm.get('availability_hours_end').value
-    console.log('Emitted from modal')
-    this.onStartChange.emit('++-++')
-    // this.activeModal.close('Notify click');
+    this.form = this.parentData
   }
 
   openSelectHours() {
@@ -80,5 +73,12 @@ export class FormHoursSelectorComponent implements OnInit {
       this.start = ''
       this.onEndChange.emit('EndHoursSelectionError')
     }
+  }
+
+  get componentForm() {
+    return this.form
+  }
+  onNoClick(): void {
+    this.activeModal.close()
   }
 }

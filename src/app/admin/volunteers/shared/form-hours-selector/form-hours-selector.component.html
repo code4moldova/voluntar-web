@@ -1,5 +1,8 @@
+<div style="border: 1px solid blue; line-height: 18px; font-size: 12px">
+  {{ componentForm.get('availability_hours_start').value }} - {{ componentForm.get('availability_hours_end').value }}
+</div>
 <form [formGroup]="form">
-  <div style="border: 1px solid red">De la: Până la:</div>
+  <div style="border: 1px solid red; line-height: 18px; font-size: 12px">De la: Până la:</div>
   <mat-grid-list cols="2" rowHeight="60px" gutterSize="10px">
     <mat-grid-tile style="border: 1px solid red">
       <mat-grid-tile-header>
@@ -19,7 +22,7 @@
         <a>Până la</a>
       </mat-grid-tile-header>
       <mat-form-field id="ore_start" style="width: 47% !important">
-        <mat-select formControlName="availability_hours_start" (selectionChange)="onChangeEndHour($event.value)">
+        <mat-select formControlName="availability_hours_end" (selectionChange)="onChangeEndHour($event.value)">
           <mat-option *ngFor="let hour of hours" [value]="hour">
             {{ hour }}
           </mat-option>
@@ -27,4 +30,8 @@
       </mat-form-field>
     </mat-grid-tile>
   </mat-grid-list>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-button (click)="onSubmit($event)" cdkFocusInitial>Ok</button>
+  </div>
 </form>
