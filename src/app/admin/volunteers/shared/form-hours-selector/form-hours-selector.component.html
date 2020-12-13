@@ -1,46 +1,30 @@
-<div
-  fxLayout="row"
-  class="flex-container"
-  fxLayoutAlign="space-between center"
-  style="width: 220px; height: 40px; border: 1px solid rgb(112, 119, 101); line-height: 40px; vertical-align: middle"
-  (click)="openSelectHours()"
->
-  <div style="margin-left: 18px">
-    <a>{{ start || '08:00' }} - {{ end || '20:00' }}</a>
-  </div>
-  <div class="child-2">
-    <mat-icon width="16" height="16" style="margin-right: 14px">alarm</mat-icon>
-  </div>
-</div>
+<form [formGroup]="form">
+  <div style="border: 1px solid red">De la: Până la:</div>
+  <mat-grid-list cols="2" rowHeight="60px" gutterSize="10px">
+    <mat-grid-tile style="border: 1px solid red">
+      <mat-grid-tile-header>
+        <a>De la</a>
+      </mat-grid-tile-header>
+      <mat-form-field id="ore_start" style="width: 47% !important">
+        <mat-select formControlName="availability_hours_start" (selectionChange)="onChangeStartHour($event.value)">
+          <mat-option *ngFor="let hour of hours" [value]="hour">
+            {{ hour }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-grid-tile>
 
-<div *ngIf="selectHours">
-  <form [formGroup]="form">
-    <mat-grid-list cols="2" rowHeight="60px" gutterSize="10px">
-      <mat-grid-tile style="border: 1px solid red">
-        <mat-grid-tile-header>
-          <a>De la</a>
-        </mat-grid-tile-header>
-        <mat-form-field id="ore_start" style="width: 47% !important">
-          <mat-select formControlName="availability_hours_start" (selectionChange)="onChangeStartHour($event.value)">
-            <mat-option *ngFor="let hour of hours" [value]="hour">
-              {{ hour }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </mat-grid-tile>
-
-      <mat-grid-tile style="border: 1px solid red">
-        <mat-grid-tile-header>
-          <a>Până la</a>
-        </mat-grid-tile-header>
-        <mat-form-field id="ore_start" style="width: 47% !important">
-          <mat-select formControlName="availability_hours_start" (selectionChange)="onChangeEndHour($event.value)">
-            <mat-option *ngFor="let hour of hours" [value]="hour">
-              {{ hour }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </mat-grid-tile>
-    </mat-grid-list>
-  </form>
-</div>
+    <mat-grid-tile style="border: 1px solid red">
+      <mat-grid-tile-header>
+        <a>Până la</a>
+      </mat-grid-tile-header>
+      <mat-form-field id="ore_start" style="width: 47% !important">
+        <mat-select formControlName="availability_hours_start" (selectionChange)="onChangeEndHour($event.value)">
+          <mat-option *ngFor="let hour of hours" [value]="hour">
+            {{ hour }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-grid-tile>
+  </mat-grid-list>
+</form>

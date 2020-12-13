@@ -59,6 +59,9 @@ export class NewVolunteerRegisterFormComponent implements OnInit {
   ]
 
   stdErrMessage = 'atenție, eroare - cîmp obligatoriu!'
+  hrsErrMessage = ''
+  startHour = ''
+  endHour = ''
   roles = VOLUNTEER_ROLES
   volunteerRolesIncons = VOLUNTEER_ROLES_ICONS
   zones: Array<string> = Object.keys(ZONES).filter((key) => isNaN(+key))
@@ -68,8 +71,11 @@ export class NewVolunteerRegisterFormComponent implements OnInit {
 
   constructor(private volunteersService: VolunteersService, private dialogRef: MatDialogRef<any>) {}
 
-  updateStartHours(el) {
+  checkHoursForError(el: string) {
     console.log(' ~ updateStartHours ~ event', el)
+    this.hrsErrMessage = el
+    console.log(this.form.value.availability_hours_start)
+    console.log(this.form.value.availability_hours_end)
   }
 
   onSubmit(ev) {
@@ -111,8 +117,8 @@ export class NewVolunteerRegisterFormComponent implements OnInit {
       facebook_profile: new FormControl(''),
       role: new FormControl([], [Validators.required, Validators.minLength(1)]),
       availability_days: new FormControl([], [Validators.required, Validators.minLength(1)]),
-      availability_hours_start: new FormControl(null, Validators.required),
-      availability_hours_end: new FormControl(null, Validators.required)
+      availability_hours_start: new FormControl(null, [Validators.required, Validators.minLength(5)]),
+      availability_hours_end: new FormControl(null, [Validators.required, Validators.minLength(5)])
     })
   }
 
