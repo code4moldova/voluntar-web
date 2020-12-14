@@ -22,6 +22,7 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
     this.form = new FormGroup({
       first_name: new FormControl('', [Validators.required]),
       last_name: new FormControl('', [Validators.required]),
+      age: new FormControl('', [Validators.required]),
       ilness: new FormControl('', [Validators.required]),
       zone: new FormControl('', [Validators.required]),
       special_conditions: new FormControl('', [Validators.required]),

@@ -11,12 +11,12 @@
       <a>Telefon (Mobil)</a>
       <a fxFlexOffset="35">Telefon (Fix)</a>
     </div>
-    <div class="line-label" fxLayout="row" fxLayoutAlign="left center">
+    <div class="line-inputs" fxLayout="row" fxLayoutAlign="left center">
       <mat-form-field appearance="outline">
-        <input matInput />
+        <input matInput type="tel" formControlName="mobile" />
       </mat-form-field>
-      <mat-form-field fxFlexOffset="15" appearance="outline">
-        <input matInput />
+      <mat-form-field fxFlexOffset="15" appearance="outline" formControlName="landline">
+        <input matInput type="tel" />
       </mat-form-field>
     </div>
 
@@ -25,22 +25,22 @@
       <a fxFlexOffset="30">Prenume</a>
       <a fxFlexOffset="30">Virsta</a>
     </div>
-    <div class="line-label" fxLayout="row" fxLayoutAlign="left center">
+    <div class="line-inputs" fxLayout="row" fxLayoutAlign="left center">
       <mat-form-field appearance="outline">
-        <input matInput />
+        <input matInput formControlName="last_name" />
       </mat-form-field>
       <mat-form-field fxFlexOffset="15" appearance="outline">
-        <input matInput />
+        <input matInput formControlName="first_name" />
       </mat-form-field>
       <mat-form-field fxFlexOffset="15" appearance="outline">
-        <input matInput />
+        <input matInput formControlName="age" />
       </mat-form-field>
     </div>
 
     <div class="line-label" fxLayout="row" fxLayoutAlign="left center">
       <a>Sectorul</a>
     </div>
-    <div class="line-label" fxLayout="row" fxLayoutAlign="left center">
+    <div class="line-inputs" fxLayout="row" fxLayoutAlign="left center">
       <mat-form-field appearance="outline">
         <mat-select formControlName="zone">
           <mat-option *ngFor="let sec of zones" [value]="sec">
@@ -59,7 +59,7 @@
       <a fxFlexOffset="14">Etaj</a>
       <a fxFlexOffset="14">Apartament</a>
     </div>
-    <div class="line-label" fxLayout="row" fxLayoutAlign="left center">
+    <div class="line-inputs" fxLayout="row" fxLayoutAlign="left center">
       <mat-form-field appearance="outline">
         <input matInput />
       </mat-form-field>
@@ -77,7 +77,7 @@
     <div class="line-label" fxLayout="row" fxLayoutAlign="left center">
       <a>Conditii speciale</a>
     </div>
-    <div class="line-label" fxLayout="row" fxLayoutAlign="left center">
+    <div class="line-inputs" fxLayout="row" fxLayoutAlign="left center">
       <mat-form-field appearance="outline">
         <mat-select formControlName="special_conditions" placeholder="Alege">
           <mat-option *ngFor="let condition of specialConditions" [value]="condition">
@@ -102,7 +102,7 @@
       <a fxFlexOffset="14">Boala contagioasa</a>
     </div>
 
-    <div class="line-label" fxLayout="row" fxLayoutAlign="left center">
+    <div class="line-inputs" fxLayout="row" fxLayoutAlign="left center">
       <mat-form-field appearance="outline">
         <mat-select formControlName="need">
           <mat-option *ngFor="let need of needs" [value]="need">
@@ -132,7 +132,7 @@
       <a>Comentarii operator</a>
     </div>
 
-    <div class="line-label" fxLayout="row" fxLayoutAlign="left center">
+    <div class="line-inputs" fxLayout="row" fxLayoutAlign="left center">
       <mat-form-field appearance="outline">
         <input matInput />
       </mat-form-field>
@@ -142,7 +142,7 @@
       <a>Parola secreta</a>
     </div>
 
-    <div class="line-label" fxLayout="row" fxLayoutAlign="left center">
+    <div class="line-inputs" fxLayout="row" fxLayoutAlign="left center">
       <mat-form-field appearance="fill">
         <input matInput />
       </mat-form-field>

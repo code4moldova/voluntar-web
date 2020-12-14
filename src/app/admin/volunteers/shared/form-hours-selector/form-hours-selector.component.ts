@@ -46,8 +46,8 @@ export class FormHoursSelectorComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.parentForm = this.parentData
-    this.start = this.parentForm.value.availability_hours_start
-    this.end = this.parentForm.value.availability_hours_end
+    this.start = this.parentForm.get('availability_hours_start').value
+    this.end = this.parentForm.get('availability_hours_end').value
   }
 
   openSelectHours() {
@@ -56,7 +56,7 @@ export class FormHoursSelectorComponent implements OnInit, OnDestroy {
 
   onChangeStartHour(hour: string) {
     this.start = hour
-    this.parentForm.value.availability_hours_start = this.start
+    this.parentForm.get('availability_hours_start').setValue(this.start)
     if (this.end != '' && this.hours.indexOf(hour) > this.hours.indexOf(this.end)) {
       this.end = ''
       this.onStartChange.emit('StartHoursSelectionError')
@@ -65,7 +65,7 @@ export class FormHoursSelectorComponent implements OnInit, OnDestroy {
 
   onChangeEndHour(hour: string) {
     this.end = hour
-    this.parentForm.value.availability_hours_end = this.end
+    this.parentForm.get('availability_hours_end').setValue(this.end)
     if (this.start != '' && this.hours.indexOf(hour) < this.hours.indexOf(this.start)) {
       this.start = ''
       this.onEndChange.emit('EndHoursSelectionError')

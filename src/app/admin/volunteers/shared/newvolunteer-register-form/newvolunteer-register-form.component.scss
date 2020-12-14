@@ -83,6 +83,12 @@ mat-error {
   background-color: white !important;
 }
 
+::ng-deep .custom-modalbox {
+  .mat-dialog-container {
+    padding: 1px;
+  }
+}
+
 .availability-hours-component {
   width: 220px;
   height: 40px;
@@ -109,8 +115,9 @@ mat-error {
 .modal_header_line {
   height: 40px;
   width: 100%;
-  top: 23px;
+  margin-top: 23px;
   border-radius: 0px;
+  border-bottom: 1px solid #ccc;
   align-items: center;
   text-align: center;
 
@@ -151,4 +158,9 @@ mat-error {
 
 .mat-divider {
   width: $modalWindowWidth !important;
+}
+
+.footer {
+  border-top: 1px solid #ccc;
+  padding-top: 23px;
 }
