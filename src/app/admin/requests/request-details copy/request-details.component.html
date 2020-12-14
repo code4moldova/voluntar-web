@@ -1,0 +1,16 @@
+<div class="mt-4">
+  <a href="#" appGoBack>&lt;- Înapoi</a>
+</div>
+
+<div fxLayoutAlign="space-between center" class="mb-2">
+  <h2>Detalii cerere</h2>
+  <button *ngIf="currentRequestId$ | async" type="button" mat-raised-button color="primary" (click)="onCopy()">
+    <mat-icon>file_copy</mat-icon>
+    Copy
+  </button>
+</div>
+
+<app-request-form
+  [mode]="(currentRequestId$ | async) ? 'edit' : 'new'"
+  [request]="currentRequest$ | async"
+></app-request-form>

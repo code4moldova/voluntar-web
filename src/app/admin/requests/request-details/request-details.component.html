@@ -1,22 +1,48 @@
-<div class="mt-4">
-  <a href="#" appGoBack>&lt;- Înapoi</a>
+<div class="modal_header_line" fxLayout="row" fxLayoutAlign="center center">
+  <a>Crează Cerere Nouă</a>
 </div>
+<form [formGroup]="form" (ngSubmit)="onSubmit($event)">
+  <div class="detalii" fxLayout="row" fxLayoutAlign="left center">
+    <a>Detalii Beneficiar</a>
+  </div>
 
-<div fxLayoutAlign="space-between center" class="mb-2">
-  <h2>Detalii cerere</h2>
-  <button
-    *ngIf="currentRequestId$ | async"
-    type="button"
-    mat-raised-button
-    color="primary"
-    (click)="onCopy()"
-  >
-    <mat-icon>file_copy</mat-icon>
-    Copy
-  </button>
-</div>
+  <div style="border-bottom: 1px solid #ccc">
+    <div class="line-label" fxLayout="row" fxLayoutAlign="left center">
+      <a>Telefon (Mobil)</a>
+      <a fxFlexOffset="35">Telefon (Fix)</a>
+    </div>
+    <div class="line-label" fxLayout="row" fxLayoutAlign="left center">
+      <mat-form-field>
+        <input matInput />
+      </mat-form-field>
+      <mat-form-field fxFlexOffset="15">
+        <input matInput />
+      </mat-form-field>
+    </div>
 
-<app-request-form
-  [mode]="(currentRequestId$ | async) ? 'edit' : 'new'"
-  [request]="currentRequest$ | async"
-></app-request-form>
+    <div class="line-label" fxLayout="row" fxLayoutAlign="left center">
+      <a>Nume (Familie)</a>
+      <a fxFlexOffset="30">Prenume</a>
+      <a fxFlexOffset="30">Virsta</a>
+    </div>
+
+    <div class="line-label" fxLayout="row" fxLayoutAlign="left center">
+      <a>Sectorul</a>
+    </div>
+
+    <div class="line-label" fxLayout="row" fxLayoutAlign="left center">
+      <a fxFlexOffset="15">Adresa</a>
+      <a fxFlexOffset="21">Scara</a>
+      <a fxFlexOffset="21">Etaj</a>
+      <a fxFlexOffset="21">Apartament</a>
+    </div>
+  </div>
+
+  <div class="detalii" fxLayout="row" fxLayoutAlign="left center">
+    <a>Detalii Cerere</a>
+  </div>
+
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <button mat-flat-button color="primary" type="submit">Crează</button>
+  </div>
+</form>
