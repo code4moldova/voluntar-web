@@ -1,22 +1,25 @@
 <div class="mat-dialog-container-hours">
-  <div
-    fxLayout="row"
-    fxLayoutAlign="space-between"
-    class="flex-container availability-hours-component"
-    style="width: 230px; height: 40px"
-  >
+  <div fxLayout="row" fxLayoutAlign="space-between center" class="flex-container availability-hours-component">
     <div style="margin-left: 18px">
       <a> {{ start }} - {{ end }} </a>
     </div>
-    <div style="vertical-align: middle; background-color: red; margin-right: 13px">
+    <div style="vertical-align: middle; margin-right: 13px">
       <mat-icon width="16" height="16">alarm</mat-icon>
     </div>
   </div>
 
-  <mat-grid-list cols="2" rowHeight="60px" gutterSize="10px">
-    <mat-grid-tile style="border: 0.5px solid rgb(153, 144, 144)">
+  <div
+    class=""
+    style="width: 230px; height: 27px; align-items: center; font-size: 12px; line-height: 27px; text-align: center"
+  >
+    <a fxFlex="50" style="text-align: left; margin-left: 1px"> De la: </a>
+    <a fxFlex="50" style="text-align: left; margin-left: 5px"> Pînă la:</a>
+  </div>
+
+  <mat-grid-list cols="2" rowHeight="34px" gutterSize="8px">
+    <mat-grid-tile>
       <mat-form-field>
-        <mat-select (selectionChange)="onChangeStartHour($event.value)">
+        <mat-select (selectionChange)="onChangeStartHour($event.value)" [(ngModel)]="start">
           <mat-option *ngFor="let hour of hours" [value]="hour">
             {{ hour }}
           </mat-option>
@@ -24,9 +27,9 @@
       </mat-form-field>
     </mat-grid-tile>
 
-    <mat-grid-tile style="border: 0.5px solid rgb(153, 144, 144)">
+    <mat-grid-tile>
       <mat-form-field>
-        <mat-select (selectionChange)="onChangeEndHour($event.value)">
+        <mat-select (selectionChange)="onChangeEndHour($event.value)" [(ngModel)]="end">
           <mat-option *ngFor="let hour of hours" [value]="hour">
             {{ hour }}
           </mat-option>
@@ -34,8 +37,14 @@
       </mat-form-field>
     </mat-grid-tile>
   </mat-grid-list>
-  <div mat-dialog-actions>
-    <!-- <button mat-button (click)="onNoClick()">Cancel</button> -->
-    <button mat-button (click)="onSubmit($event)" cdkFocusInitial>Ok</button>
+  <div fxLayoutAlign="end" style="margin-right: 10px; margin-top: 10px">
+    <button
+      mat-raised-button
+      disabled
+      (click)="onSubmit($event)"
+      [disabled]="parentForm.value.availability_hours_start >= parentForm.value.availability_hours_end"
+    >
+      Ok
+    </button>
   </div>
 </div>

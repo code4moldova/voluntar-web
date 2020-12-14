@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Inject, Input, OnInit, Output, ViewEncapsulation } from '@angular/core'
-import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core'
+import { FormGroup } from '@angular/forms'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { MatFormFieldControl } from '@angular/material/form-field'
 
@@ -40,7 +40,6 @@ export class FormHoursSelectorComponent implements OnInit {
     private activeModal: MatDialogRef<FormHoursSelectorComponent>,
     @Inject(MAT_DIALOG_DATA) public parentData: FormGroup
   ) {}
-
   onSubmit(event: Event) {
     this.activeModal.close()
   }

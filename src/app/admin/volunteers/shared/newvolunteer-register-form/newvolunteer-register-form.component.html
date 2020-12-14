@@ -82,9 +82,7 @@
                 </mat-option>
               </mat-select>
             </mat-form-field>
-            <mat-error *ngIf="form.get('availability_days').invalid && form.get('availability_days').touched">
-              "atenție, eroare - cîmp obligatoriu!"
-            </mat-error>
+            <mat-error *ngIf="form.get('availability_days').invalid"> "atenție, eroare - cîmp obligatoriu!" </mat-error>
           </div>
           <mat-icon *ngIf="form.get('availability_days').invalid" class="error-icon"> error </mat-icon>
         </mat-grid-tile>
@@ -119,7 +117,7 @@
               "atenție, eroare - cîmp obligatoriu!"
             </mat-error>
             <mat-error *ngIf="form.value.availability_hours_start >= form.value.availability_hours_end">
-              "atenție, ora de start e mai tirzie decit ora finala!"
+              "atenție, ora de start e mai tîrzie sau egala cu ora finală!"
             </mat-error>
           </div>
           <mat-icon
@@ -131,9 +129,8 @@
         </mat-grid-tile>
       </mat-grid-list>
 
-      <div class="form-action-container">
-        <button mat-raised-button color="primary" type="submit">Save</button>
-        <!-- [disabled]="form.invalid" -->
+      <div fxLayout="row" fxLayoutAlign="center center">
+        <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Save</button>
       </div>
     </form>
   </div>
