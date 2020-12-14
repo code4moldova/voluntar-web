@@ -7,14 +7,11 @@ import { MatFormFieldControl } from '@angular/material/form-field'
   selector: 'app-form-hours-selector',
   templateUrl: './form-hours-selector.component.html',
   styleUrls: ['./form-hours-selector.component.scss'],
-  // encapsulation: ViewEncapsulation.None,
   providers: [{ provide: MatFormFieldControl, useExisting: FormHoursSelectorComponent }]
 })
 export class FormHoursSelectorComponent implements OnInit {
-  // @Input('parentForm') parentForm: FormGroup
   @Output('onStartChange') onStartChange: EventEmitter<string> = new EventEmitter<string>()
   @Output('onEndChange') onEndChange: EventEmitter<string> = new EventEmitter<string>()
-  // @Output() onEndChange:EventEmitter<string>=new EventEmitter<string>()
   start = ''
   end = ''
   selectHours = false

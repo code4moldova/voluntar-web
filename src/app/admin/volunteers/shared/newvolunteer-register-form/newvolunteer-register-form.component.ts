@@ -66,8 +66,6 @@ export class NewVolunteerRegisterFormComponent implements OnInit, OnDestroy {
 
   onSubmit(ev) {
     let newVolunteer: IVolunteer = this.form.value
-    console.log(' ~ onSubmit', this.form)
-
     let endH = this.form.get('availability_hours_end').value.split(':', 1)[0]
     let startH = this.form.get('availability_hours_start').value.split(':', 1)[0]
 

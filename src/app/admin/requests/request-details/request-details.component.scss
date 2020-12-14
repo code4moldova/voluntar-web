@@ -1,0 +1,62 @@
+$fontFamily: Roboto, sans-serif;
+
+$modalWindowWidth: 551px;
+$modalWindowHeight: 1053px;
+
+::ng-deep .newrequest-custom-modalbox {
+  .mat-dialog-container {
+    width: $modalWindowWidth;
+    height: $modalWindowHeight;
+    padding: 0;
+    background: #ffffff;
+  }
+}
+
+.modal_header_line {
+  height: 60px;
+  width: 100%;
+  border-radius: 0px;
+  border-bottom: 1px solid #ccc;
+
+  & a {
+    font-family: $fontFamily;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%;
+    letter-spacing: 0em;
+    text-align: center;
+  }
+}
+
+.detalii {
+  margin-top: 26px;
+  margin-left: 40px;
+
+  & a {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 100%;
+  }
+}
+
+.line-label {
+  margin-left: 41px;
+  margin-top: 30px;
+
+  & a {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 100%;
+    color: #a9a6a6;
+  }
+}
+
+.mat-form-field {
+  height: 60px;
+  background-color: aqua;
+}
