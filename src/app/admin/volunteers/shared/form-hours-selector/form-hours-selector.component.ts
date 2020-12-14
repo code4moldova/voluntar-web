@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core'
+import { Component, EventEmitter, Inject, OnDestroy, OnInit, Output } from '@angular/core'
 import { FormGroup } from '@angular/forms'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { MatFormFieldControl } from '@angular/material/form-field'
@@ -9,7 +9,7 @@ import { MatFormFieldControl } from '@angular/material/form-field'
   styleUrls: ['./form-hours-selector.component.scss'],
   providers: [{ provide: MatFormFieldControl, useExisting: FormHoursSelectorComponent }]
 })
-export class FormHoursSelectorComponent implements OnInit {
+export class FormHoursSelectorComponent implements OnInit, OnDestroy {
   @Output('onStartChange') onStartChange: EventEmitter<string> = new EventEmitter<string>()
   @Output('onEndChange') onEndChange: EventEmitter<string> = new EventEmitter<string>()
   start = ''
@@ -37,6 +37,9 @@ export class FormHoursSelectorComponent implements OnInit {
     private activeModal: MatDialogRef<FormHoursSelectorComponent>,
     @Inject(MAT_DIALOG_DATA) public parentData: FormGroup
   ) {}
+  ngOnDestroy(): void {
+    this.activeModal.close()
+  }
   onSubmit(event: Event) {
     this.activeModal.close()
   }
