@@ -1,6 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
+
 import { SPECIAL_CONDITIONS, ZONES } from '@app/shared/constants'
+=======
+import { ZONES } from '@app/shared/constants'
 import { RequestsFacade } from '../requests.facade'
 
 @Component({
@@ -11,6 +14,7 @@ import { RequestsFacade } from '../requests.facade'
 export class RequestDetailsComponent implements OnInit, OnDestroy {
   form: FormGroup
   zones: Array<string> = Object.keys(ZONES).filter((key) => isNaN(+key))
+
   ilnessOptions: any = [
     {
       label: 'None',
@@ -40,12 +44,18 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
     }
   ]
   specialConditions = SPECIAL_CONDITIONS
+
+  ilnessOptions: ['None', 'Simptoms']
+  specialConditions: ['None', 'Disability', 'Blind', 'Deaf']
+  needs: ['Food', 'Drugs', 'Transport', 'Payment']
+
   constructor(private requestsFacade: RequestsFacade) {}
 
   onSubmit(ev: Event) {}
 
   ngOnInit(): void {
     this.form = new FormGroup({
+
       first_name: new FormControl(null, [Validators.required]),
       last_name: new FormControl(null, [Validators.required]),
       age: new FormControl(null),
@@ -65,6 +75,14 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
       need: new FormControl('', [Validators.required]),
       comments: new FormControl(''),
       password: new FormControl(null, [Validators.required])
+
+      first_name: new FormControl('', [Validators.required]),
+      last_name: new FormControl('', [Validators.required]),
+      ilness: new FormControl('', [Validators.required]),
+      zone: new FormControl('', [Validators.required]),
+      special_conditions: new FormControl('', [Validators.required]),
+      need: new FormControl('', [Validators.required])
+
     })
   }
   ngOnDestroy() {}

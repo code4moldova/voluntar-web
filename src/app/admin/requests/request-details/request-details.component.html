@@ -22,7 +22,6 @@
         </div>
       </div>
     </div>
-
     <div class="fields_row">
       <div class="field" fxFlex fxLayout="column">
         <div class="title">Nume (Familie)</div>
@@ -44,6 +43,15 @@
           <input type="number" matInput style="width: 70px" formControlName="age" placeholder="65" />
         </div>
       </div>
+
+    <div class="line-label" fxLayout="row" fxLayoutAlign="left center">
+      <mat-form-field appearance="outline">
+        <input matInput />
+      </mat-form-field>
+      <mat-form-field fxFlexOffset="15" appearance="outline">
+        <input matInput />
+      </mat-form-field>
+
     </div>
 
     <div class="fields_row">
@@ -57,6 +65,17 @@
           </mat-select>
         </div>
       </div>
+    </div>
+    <div class="line-label" fxLayout="row" fxLayoutAlign="left center">
+      <mat-form-field appearance="outline">
+        <input matInput />
+      </mat-form-field>
+      <mat-form-field fxFlexOffset="15" appearance="outline">
+        <input matInput />
+      </mat-form-field>
+      <mat-form-field fxFlexOffset="15" appearance="outline">
+        <input matInput />
+      </mat-form-field>
     </div>
 
     <div class="fields_row">
@@ -88,6 +107,40 @@
         </div>
       </div>
     </div>
+    <div class="line-label" fxLayout="row" fxLayoutAlign="left center">
+      <mat-form-field appearance="outline">
+        <mat-select formControlName="zone">
+          <mat-option *ngFor="let sec of zones" [value]="sec">
+            {{ sec.charAt(0).toUpperCase() + sec.slice(1) }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.get('zone').invalid && form.get('zone').touched">
+          'atenție, eroare - cîmp obligatoriu!'
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="line-label" fxLayout="row" fxLayoutAlign="left center">
+      <a>Adresa</a>
+      <a fxFlexOffset="14">Scara</a>
+      <a fxFlexOffset="14">Etaj</a>
+      <a fxFlexOffset="14">Apartament</a>
+    </div>
+    <div class="line-label" fxLayout="row" fxLayoutAlign="left center">
+      <mat-form-field appearance="outline">
+        <input matInput />
+      </mat-form-field>
+      <mat-form-field fxFlexOffset="15" appearance="outline">
+        <input matInput />
+      </mat-form-field>
+      <mat-form-field fxFlexOffset="15" appearance="outline">
+        <input matInput />
+      </mat-form-field>
+      <mat-form-field fxFlexOffset="15" appearance="outline">
+        <input matInput />
+      </mat-form-field>
+    </div>
+
 
     <div class="fields_row">
       <div class="field" fxFlex fxLayout="column">
@@ -101,6 +154,23 @@
           </mat-select>
         </div>
       </div>
+
+    <div class="line-label" fxLayout="row" fxLayoutAlign="left center">
+      <a>Conditii speciale</a>
+    </div>
+    <div class="line-label" fxLayout="row" fxLayoutAlign="left center">
+      <mat-form-field appearance="outline">
+        <mat-select formControlName="special_conditions" placeholder="Alege">
+          <mat-option *ngFor="let condition of specialConditions" [value]="condition">
+            <!-- <img src="/assets/icons/volunteers/{{ volunteerRolesIncons[role.key] }}.svg" width="24" height="24" /> -->
+            {{ condition }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.get('special_conditions').invalid && form.get('special_conditions').touched">
+          'atenție, eroare - cîmp obligatoriu!'
+        </mat-error>
+      </mat-form-field>
+
     </div>
   </div>
 
@@ -160,7 +230,68 @@
     </div>
   </div>
 
+
   <div class="footer">
+
+  <div style="border-bottom: 1px solid #ccc">
+    <div class="line-label" fxLayout="row" fxLayoutAlign="left center">
+      <a>Are nevoie de</a>
+      <a fxFlexOffset="14">Boala contagioasa</a>
+    </div>
+
+    <div class="line-label" fxLayout="row" fxLayoutAlign="left center">
+      <mat-form-field appearance="outline">
+        <mat-select formControlName="need">
+          <mat-option *ngFor="let need of needs" [value]="need">
+            <!-- <img src="/assets/icons/volunteers/{{ volunteerRolesIncons[role.key] }}.svg" width="24" height="24" /> -->
+            {{ need }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.get('need').invalid && form.get('need').touched">
+          'atenție, eroare - cîmp obligatoriu!'
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-select formControlName="ilness">
+          <mat-option *ngFor="let option of ilnessOptions" [value]="option">
+            <!-- <img src="/assets/icons/volunteers/{{ volunteerRolesIncons[role.key] }}.svg" width="24" height="24" /> -->
+            {{ option }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.get('ilness').invalid && form.get('ilness').touched">
+          'atenție, eroare - cîmp obligatoriu!'
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="line-label" fxLayout="row" fxLayoutAlign="left center">
+      <a>Comentarii operator</a>
+    </div>
+
+    <div class="line-label" fxLayout="row" fxLayoutAlign="left center">
+      <mat-form-field appearance="outline">
+        <input matInput />
+      </mat-form-field>
+    </div>
+
+    <div class="line-label" fxLayout="row" fxLayoutAlign="left center">
+      <a>Parola secreta</a>
+    </div>
+
+    <div class="line-label" fxLayout="row" fxLayoutAlign="left center">
+      <mat-form-field appearance="fill">
+        <input matInput />
+      </mat-form-field>
+
+      <mat-slide-toggle>Urgent?</mat-slide-toggle>
+    </div>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div fxLayout="row" fxLayoutAlign="center center">
+
     <button mat-flat-button color="primary" type="submit">Crează</button>
   </div>
 </form>

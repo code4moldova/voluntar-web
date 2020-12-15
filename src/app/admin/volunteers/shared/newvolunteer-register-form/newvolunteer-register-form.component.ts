@@ -101,7 +101,7 @@ export class NewVolunteerRegisterFormComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(FormHoursSelectorComponent, {
       data: this.form,
       width: '235px',
-      height: '140px',
+      height: '125px',
       panelClass: 'custom-modalbox'
     })
     this.sub$ = dialogRef.afterClosed().subscribe((result) => {
