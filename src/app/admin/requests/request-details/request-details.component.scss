@@ -60,3 +60,81 @@ $modalWindowHeight: 1053px;
   height: 60px;
   // background-color: aqua;
 }
+
+.content {
+  border-bottom: 1px solid #dedede;
+  padding: 20px;
+
+  input,
+  select {
+    height: 40px;
+    border: 0.5px solid rgba(0, 0, 0, 0.4);
+    box-sizing: border-box;
+    padding: 15px;
+    color: #282828;
+    outline: none;
+  }
+
+  select {
+    padding: 0;
+  }
+
+  input.ng-invalid,
+  select.ng-invalid {
+    border: 0.5px solid red;
+  }
+
+  mat-select {
+    height: 40px;
+    border: 0.5px solid rgba(0, 0, 0, 0.4);
+  }
+
+  .fieldset {
+    font-size: 16px;
+    font-weight: 700;
+    color: #282828;
+    margin-bottom: 24px;
+  }
+
+  .fields_row {
+    margin-bottom: 14px;
+  }
+
+  .field:not(:last-child) {
+    margin-right: 10px;
+  }
+
+  .title {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 100%;
+    color: #a9a6a6;
+    margin-bottom: 10px;
+  }
+
+  .phone_prefix {
+    width: 70px;
+    border-right: none;
+  }
+
+  .phone_number {
+    width: 160px;
+  }
+
+  .slide-toggle {
+    margin-top: 21px;
+    margin-left: 55px;
+    padding-top: 8px;
+    padding-left: 16px;
+    padding-bottom: 8px;
+    width: 150px;
+    border: 0.5px solid rgba(0, 0, 0, 0.4);
+    color: red;
+  }
+}
+
+.footer {
+  padding: 25px;
+  display: flex;
+  justify-content: center;
+}
