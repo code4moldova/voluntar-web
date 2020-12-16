@@ -113,8 +113,8 @@
         <div class="value">
           <mat-select formControlName="need" style="width: 230px" placeholder="Alege">
             <!-- <img src="/assets/icons/volunteers/{{ volunteerRolesIncons[role.key] }}.svg" width="24" height="24" /> -->
-            <mat-option *ngFor="let item of needs" [value]="item.value">
-              {{ item.value }}
+            <mat-option *ngFor="let need of needs" [value]="need">
+              {{ need }}
             </mat-option>
           </mat-select>
           <!-- <mat-error *ngIf="form.get('need').invalid && form.get('need').touched">
@@ -127,8 +127,8 @@
         <div class="title">Boală contagioasă</div>
         <div class="value">
           <mat-select formControlName="ilness" style="width: 230px" placeholder="Alege">
-            <mat-option *ngFor="let item of ilnessOptions" [value]="item.value">
-              {{ item.value }}
+            <mat-option *ngFor="let item of ilnessOptions" [value]="item">
+              {{ item }}
             </mat-option>
           </mat-select>
         </div>
@@ -154,7 +154,7 @@
 
       <div class="field" fxFlex fxLayout="column">
         <div class="slide-toggle">
-          <mat-slide-toggle color="warn">Urgent?</mat-slide-toggle>
+          <mat-slide-toggle color="warn" formControlName="urgent">Urgent?</mat-slide-toggle>
         </div>
       </div>
     </div>
