@@ -32,7 +32,8 @@ export class NewVolunteerRegisterFormComponent implements OnInit, OnDestroy {
     {
       header: 'Număr Telefon',
       controlName: 'phone',
-      errorMessage: '8 cifre vă rugăm, fără 0 la început.'
+      errorMessage: '8 cifre vă rugăm, fără 0 la început.',
+      type: 'number'
     },
     {
       header: 'Email',
@@ -44,7 +45,8 @@ export class NewVolunteerRegisterFormComponent implements OnInit, OnDestroy {
     {
       header: 'Vîrsta',
       controlName: 'age',
-      errorMessage: ' Doar vîrsta cu valorile intre  16 și 50 este acceptata'
+      errorMessage: ' Doar vîrsta cu valorile intre  16 și 50 este acceptata',
+      type: 'number'
     },
     {
       header: 'Profil Rețea Socializare',
@@ -112,7 +114,7 @@ export class NewVolunteerRegisterFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // this.sub$.unsubscribe()
+    this.sub$.unsubscribe()
   }
 
   get formAll() {
