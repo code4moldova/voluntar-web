@@ -31,7 +31,6 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
   onSubmit(ev: Event) {
     this.form.get('need').setValue(this.getEnumKeyByEnumValue(CUSTOMER_NEEDS, this.form.get('need').value))
     this.form.get('ilness').setValue(this.getEnumKeyByEnumValue(ILNESS_OPTIONS, this.form.get('ilness').value))
-    console.log(this.form.get('urgent').value)
   }
 
   ngOnInit(): void {
