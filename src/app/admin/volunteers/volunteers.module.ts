@@ -9,6 +9,8 @@ import { VolunteerModalInfoComponent } from './shared/volunteer-modal-info/volun
 import { NgxMaskModule } from 'ngx-mask';
 import { RouterModule } from '@angular/router';
 import { volunteersRoutes } from './volunteers.routes';
+import { NewVolunteerRegisterFormComponent } from './shared/newvolunteer-register-form/newvolunteer-register-form.component';
+import { FormHoursSelectorComponent } from './shared/form-hours-selector/form-hours-selector.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +18,8 @@ import { volunteersRoutes } from './volunteers.routes';
     VolunteersListComponent,
     VolunteersDetailsComponent,
     VolunteerModalInfoComponent,
+    NewVolunteerRegisterFormComponent,
+    FormHoursSelectorComponent,
   ],
   imports: [
     CommonModule,

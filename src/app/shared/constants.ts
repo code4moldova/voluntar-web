@@ -26,12 +26,42 @@ export const KIV_ZONES_MAP = KIV_ZONES.reduce((acc, zone) => {
   return acc;
 }, {});
 
+export enum VOLUNTEER_STATUS {}
+
 export enum VOLUNTEER_ROLES {
-  delivery = 'delivery',
+  delivery = 'Livrare',
+  copilot = 'Copilot',
+  packing = 'Împachetare',
+  supply = 'Aprovizionare',
+  operator = 'Operator',
+}
+
+export enum VOLUNTEER_ROLES_ICONS {
+  delivery = 'transport',
   copilot = 'copilot',
-  packing = 'packing',
-  supply = 'supply',
+  packing = 'impachetare',
+  supply = 'aprovizionare',
   operator = 'operator',
+}
+
+export enum ZONES {
+  botanica = 'botanica',
+  buiucani = 'buiucani',
+  centru = 'centru',
+  ciocana = 'ciocana',
+  riscani = 'riscani',
+  telecentru = 'telecentru',
+  suburbii = 'suburbii',
+}
+
+export enum DAYS_OF_WEEK {
+  monday = 'Luni',
+  tuesday = 'Marți',
+  wednesday = 'Miercuri',
+  thursday = 'Joi',
+  friday = 'Vineri',
+  saturday = 'Sambata',
+  sunday = 'Duminica',
 }
 
 export const SPECIAL_CONDITIONS = [

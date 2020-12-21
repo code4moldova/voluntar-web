@@ -21,6 +21,7 @@ import {
   FilterObservableSelectColumns,
   FilterSelectColumns,
 } from '@shared/filter/filter.types';
+import { NewVolunteerRegisterFormComponent } from '../shared/newvolunteer-register-form/newvolunteer-register-form.component';
 
 @Component({
   templateUrl: './volunteers-list.component.html',
@@ -134,6 +135,14 @@ export class VolunteersListComponent implements OnInit {
     ];
   }
 
+  onVolunteersImport(): void {
+    //TODO
+  }
+
+  onVolunteersExport(): void {
+    //TODO
+  }
+
   getAllStatusesCount() {
     const requests = this.statuses.map((status) =>
       this.helperGetCountByStatus(status._id)
@@ -163,10 +172,11 @@ export class VolunteersListComponent implements OnInit {
   }
 
   openNewVolunteerDialog() {
-    const dialogRef = this.matDialog.open(VolunteersDetailsComponent, {
+    const dialogRef = this.matDialog.open(NewVolunteerRegisterFormComponent, {
       data: {},
-      maxWidth: '100%',
-      maxHeight: '90vh',
+      width: '555px',
+      height: '881px',
+      panelClass: 'custom-modalbox',
     });
 
     this.actions$
