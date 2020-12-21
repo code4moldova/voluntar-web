@@ -10,7 +10,6 @@ import { GeolocationService } from '@shared/services/geolocation/geolocation.ser
 import { IOfferTag, IVolunteer, ZoneI } from '@shared/models';
 import { ActionsSubject } from '@ngrx/store';
 import { ofType } from '@ngrx/effects';
-import { VolunteersDetailsComponent } from '../volunteers-details/volunteers-details.component';
 import { map, take, takeUntil } from 'rxjs/operators';
 import { saveVolunteerSuccessAction } from '../volunteers.actions';
 import { ActivatedRoute, Router } from '@angular/router';

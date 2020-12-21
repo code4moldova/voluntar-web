@@ -1,0 +1,166 @@
+$gapBetweenFieldAndHint: "25px";
+$fontFamily: Roboto, sans-serif;
+
+$modalWindowWidth: 555px;
+$modalWindowHeight: 881px;
+
+mat-grid-tile-header {
+  background: white !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  height: 12px !important;
+
+  & a {
+    padding: 0;
+    font-family: Roboto;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 12px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: rgb(177, 168, 168);
+  }
+}
+
+mat-grid-tile,
+mat-form-field {
+  width: 231px;
+  height: 65px;
+  margin: 0 !important;
+  margin-top: 21px;
+  padding: 0 !important;
+
+  & input {
+    border: 0.5px solid darkblue;
+    background-color: white;
+    margin-top: 10px;
+    padding: 0;
+    height: 40px;
+    width: 230px;
+    text-align: left;
+  }
+}
+
+::ng-deep mat-form-field .mat-form-field-underline {
+  display: none;
+}
+
+::ng-deep mat-form-field .mat-form-field-infix {
+  border-top: none;
+}
+
+mat-select,
+.mat-select {
+  border: 0.5px solid darkblue;
+  background-color: white;
+  margin-top: 10px;
+  padding: 0;
+  height: 40px;
+  width: 229px;
+  vertical-align: middle;
+  line-height: 40px;
+  text-align: left;
+}
+
+mat-grid-list {
+  background-color: rgb(255, 255, 255);
+}
+
+mat-icon {
+  color: #95b8ff;
+  height: 15px;
+  width: 16.5px;
+  left: 0.75px;
+  top: 1.5px;
+  border-radius: 0px;
+}
+
+mat-error {
+  font-size: 8px !important;
+  line-height: 10px !important;
+  margin-top: -2px;
+  background-color: white !important;
+}
+
+::ng-deep .custom-modalbox {
+  .mat-dialog-container {
+    padding: 1px;
+  }
+}
+
+.availability-hours-component {
+  width: 220px;
+  height: 40px;
+  border: 0.5px solid darkblue;
+  line-height: 40px;
+  vertical-align: middle;
+  margin-top: 5px;
+  margin-left: 3px;
+}
+
+.error-icon {
+  font-size: 16px;
+  color: red;
+  margin-left: -16px;
+}
+
+.new_voluntar_modal_window {
+  width: $modalWindowWidth;
+  height: $modalWindowHeight;
+  margin: 0;
+  padding: 0;
+}
+
+.modal_header_line {
+  height: 40px;
+  width: 100%;
+  margin-top: 23px;
+  border-radius: 0px;
+  border-bottom: 1px solid #ccc;
+  align-items: center;
+  text-align: center;
+
+  & a {
+    font-family: $fontFamily;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0em;
+    text-align: center;
+  }
+}
+
+.date_personale_div {
+  width: 471px;
+  height: 355px;
+  margin-left: 41px;
+  margin-top: 26px;
+}
+
+.date_personale_line {
+  height: 40px;
+  width: 100%;
+  border-radius: 0px;
+  text-align: left;
+
+  & a {
+    font-family: $fontFamily;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 14px;
+    letter-spacing: 0em;
+    text-align: left;
+  }
+}
+
+.mat-divider {
+  width: $modalWindowWidth !important;
+}
+
+.footer {
+  border-top: 1px solid #ccc;
+  padding-top: 23px;
+}

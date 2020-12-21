@@ -1,0 +1,168 @@
+<div class="modal_header_line">
+  <a>Crează Voluntar</a>
+</div>
+
+<div class="date_personale_div">
+  <div class="date_personale_line">
+    <a>Date personale</a>
+  </div>
+  <form [formGroup]="form" (ngSubmit)="onSubmit($event)">
+    <mat-grid-list cols="2" rowHeight="65px" gutterSize="10px">
+      <div *ngFor="let f of formFields">
+        <mat-grid-tile *ngIf="f.header !== 'Sector'">
+          <div>
+            <mat-grid-tile-header>
+              <a>{{ f.header }}</a>
+            </mat-grid-tile-header>
+            <input
+              [type]="f.type || 'text'"
+              formControlName="{{ f.controlName }}"
+            />
+            <mat-error *ngIf="form.get(f.controlName).invalid && form.touched">
+              {{ f.errorMessage || "atenție, eroare - cîmp obligatoriu!" }}
+            </mat-error>
+          </div>
+        </mat-grid-tile>
+
+        <mat-grid-tile *ngIf="f.header === 'Sector'">
+          <div>
+            <mat-grid-tile-header>
+              <a>{{ f.header }}</a>
+            </mat-grid-tile-header>
+            <mat-select formControlName="{{ f.controlName }}">
+              <mat-option *ngFor="let sec of zones" [value]="sec">
+                {{ sec.charAt(0).toUpperCase() + sec.slice(1) }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get(f.controlName).invalid && form.touched">
+              {{ f.errorMessage || "atenție, eroare - cîmp obligatoriu!" }}
+            </mat-error>
+          </div>
+        </mat-grid-tile>
+      </div>
+    </mat-grid-list>
+
+    <mat-divider
+      style="color: #ccc; margin-top: 10px; margin-left: -40px"
+    ></mat-divider>
+
+    <div class="date_personale_line" style="margin-top: 28px">
+      <a>Rolul Voluntarului</a>
+    </div>
+
+    <mat-form-field>
+      <mat-select formControlName="role" required multiple>
+        <mat-option
+          *ngFor="let role of roles | keyvalue: enumUnsorted"
+          [value]="role.key"
+        >
+          <img
+            src="/assets/icons/volunteers/{{
+              volunteerRolesIncons[role.key]
+            }}.svg"
+            width="24"
+            height="24"
+          />
+          {{ role.value }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('role').invalid && form.touched">
+        {{ stdErrMessage }}
+      </mat-error>
+    </mat-form-field>
+
+    <div class="date_personale_line" style="margin-top: 43px">
+      <a>Disponibilitate</a>
+    </div>
+
+    <mat-grid-list cols="2" rowHeight="76px" gutterSize="10px">
+      <mat-grid-tile>
+        <div>
+          <mat-grid-tile-header>
+            <a>Zile</a>
+          </mat-grid-tile-header>
+          <mat-form-field>
+            <mat-select
+              style="margin-top: 6px !important; margin-left: 1px !important"
+              formControlName="availability_days"
+              required
+              multiple
+            >
+              <mat-option
+                *ngFor="let day of daysOfWeek | keyvalue: enumUnsorted"
+                [value]="day.key"
+              >
+                {{ day.value }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-error
+            *ngIf="form.get('availability_days').invalid && form.touched"
+          >
+            "atenție, eroare - cîmp obligatoriu!"
+          </mat-error>
+        </div>
+      </mat-grid-tile>
+
+      <mat-grid-tile (click)="openHoursSelectDialog()">
+        <div>
+          <mat-grid-tile-header>
+            <a>Ore</a>
+          </mat-grid-tile-header>
+          <mat-form-field>
+            <div
+              fxLayout="row"
+              class="flex-container"
+              fxLayoutAlign="space-between"
+              class="availability-hours-component"
+            >
+              <div style="margin-left: 18px">
+                <a #availabilityHoursLine>
+                  {{ formAll.get("availability_hours_start").value }} -
+                  {{ formAll.get("availability_hours_end").value }}
+                </a>
+              </div>
+              <div class="child-2">
+                <mat-icon
+                  width="16"
+                  height="16"
+                  style="margin-right: 14px; margin-bottom: 12px"
+                >
+                  alarm
+                </mat-icon>
+              </div>
+            </div>
+            <mat-select style="visibility: hidden"></mat-select>
+          </mat-form-field>
+          <mat-error
+            *ngIf="
+              form.get('availability_hours_start').invalid ||
+              form.get('availability_hours_end').invalid
+            "
+          >
+            "atenție, eroare - cîmp obligatoriu!"
+          </mat-error>
+          <mat-error
+            *ngIf="
+              form.value.availability_hours_start >=
+              form.value.availability_hours_end
+            "
+          >
+            "atenție, ora de start e mai tîrzie sau egala cu ora finală!"
+          </mat-error>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+
+    <div fxLayout="row" fxLayoutAlign="center center" class="footer">
+      <button
+        mat-flat-button
+        color="primary"
+        type="submit"
+        [disabled]="form.invalid"
+      >
+        Crează
+      </button>
+    </div>
+  </form>
+</div>
