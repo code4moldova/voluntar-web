@@ -228,6 +228,7 @@ export class RequestsListComponent implements OnInit {
       data: {},
       maxWidth: '100%',
       maxHeight: '90vh',
+      panelClass: 'newrequest-custom-modalbox',
     });
 
     this.actions$

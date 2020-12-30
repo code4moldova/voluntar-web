@@ -6,6 +6,13 @@ export type RequestStatus =
   | 'solved'
   | 'archived';
 export type RequestType = 'warm_lunch' | 'grocery' | 'medicine';
+export enum RequestTypeUpdated {
+  warm_lunch = 'Prânz Cald',
+  grocery = 'Produse Alimentare',
+  medicine = 'Medicamente',
+  invoices = 'Achitare Facturi',
+  transport = 'Transport Persoana',
+}
 
 export interface IRequest {
   _id?: string;
@@ -16,6 +23,8 @@ export interface IRequest {
   is_active: true;
   address: string;
   zone_address: string;
+  //Beneficiary - city zones like centru, botanica .. etc...
+  zone: string;
   age: number;
   latitude: boolean;
   longitude: boolean;
@@ -39,6 +48,7 @@ export interface IRequest {
   fixer: string;
 
   paying_by_card: boolean;
+  type: RequestType;
   warm_lunch: boolean;
   grocery: boolean;
   medicine: boolean;

@@ -1,74 +1,90 @@
-import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { map, switchMap, takeUntil, withLatestFrom } from 'rxjs/operators';
-import { of, Subject } from 'rxjs';
-
-import { IRequestDetails } from '@shared/models';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { SPECIAL_CONDITIONS, ZONES } from '@app/shared/constants';
 import { RequestsFacade } from '../requests.facade';
-import { Location } from '@angular/common';
-import { Clipboard } from '@angular/cdk/clipboard';
-import { TagsFacade } from '@shared/tags/tags.facade';
+import { coordinates } from './request-address-field/request-address-field.component';
+import { RequestTypeUpdated } from '../../../shared/models/requests';
 
 @Component({
   templateUrl: './request-details.component.html',
+  styleUrls: ['./request-details.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RequestDetailsComponent implements OnDestroy {
-  private componentDestroyed$ = new Subject();
+export class RequestDetailsComponent implements OnInit, OnDestroy {
+  form: FormGroup;
+  zones: Array<string> = Object.keys(ZONES).filter((key) => isNaN(+key));
+  needs = RequestTypeUpdated;
+  specialConditions = SPECIAL_CONDITIONS;
+  existentBeneficiary = false;
+  validAddress = true;
 
-  currentRequestId$ = this.route.paramMap.pipe(
-    map((params) => params.get('id'))
-  );
-  currentRequest$ = this.currentRequestId$.pipe(
-    switchMap((id) =>
-      id ? this.requestsFacade.requestDetails$ : of(null as IRequestDetails)
-    ),
-    takeUntil(this.componentDestroyed$)
-  );
+  constructor(private requestsFacade: RequestsFacade) {}
 
-  offers$ = this.tagsFacade.offersTags$.pipe(
-    // Don't like this option, but it's good for now
-    map((offers) =>
-      offers.filter((offer) => ['Livrarea', 'Transport'].includes(offer.ro))
-    )
-  );
+  onSubmit(ev: Event) {}
 
-  constructor(
-    private requestsFacade: RequestsFacade,
-    private route: ActivatedRoute,
-    private location: Location,
-    private clipboard: Clipboard,
-    private tagsFacade: TagsFacade
-  ) {
-    this.currentRequestId$.subscribe((id) => {
-      if (id) {
-        this.requestsFacade.getRequestById(id);
-      }
+  ngOnInit(): void {
+    this.form = new FormGroup({
+      first_name: new FormControl(null, [Validators.required]),
+      last_name: new FormControl(null, [Validators.required]),
+      age: new FormControl(null),
+      zone: new FormControl(null, [Validators.required]),
+      address: new FormControl(null, [Validators.required]),
+      apartment: new FormControl(null),
+      entrance: new FormControl(null),
+      floor: new FormControl(null),
+      phone: new FormControl(null, [
+        Validators.required,
+        Validators.minLength(8),
+        Validators.maxLength(8),
+        Validators.pattern(/^([0-9]){8}$/),
+      ]),
+      landline: new FormControl(null, [
+        Validators.required,
+        Validators.minLength(6),
+        Validators.maxLength(6),
+        Validators.pattern(/^([0-9]){6}$/),
+      ]),
+      special_condition: new FormControl(null, [Validators.required]),
+      ilness: new FormControl('', [Validators.required]),
+      need: new FormControl('', [Validators.required]),
+      comments: new FormControl(''),
+      password: new FormControl(null, [
+        Validators.required,
+        Validators.minLength(5),
+        Validators.maxLength(5),
+      ]),
+      urgent: new FormControl(false),
     });
   }
+  ngOnDestroy() {}
 
-  ngOnDestroy() {
-    this.componentDestroyed$.next();
-    this.componentDestroyed$.complete();
+  getEnumKeyByEnumValue(myEnum, enumValue) {
+    let keys = Object.keys(myEnum).filter((x) => myEnum[x] == enumValue);
+    return keys.length > 0 ? keys[0] : null;
   }
 
-  back(e) {
-    e.preventDefault();
-    this.location.back();
+  enumUnsorted() {}
+
+  checkForExistentBeneficiary(phone: any) {
+    // this function should display the hidden div if the beneficiary is found
+    // check if the logic works
+    if (phone.length == 8) this.existentBeneficiary = true;
+    else this.existentBeneficiary = false;
   }
 
-  onCopy() {
-    this.currentRequest$
-      .pipe(withLatestFrom(this.offers$))
-      .subscribe(([request, offers]) => {
-        const requestText = `Nume: ${request.first_name} ${
-          request.last_name
-        }\nTel: ${request.phone}\nAge: ${request.age}\nAddress: ${
-          request.address
-        }\nOffer: ${offers.find((o) => request.offer === o._id).ro}\nComment: ${
-          request.fixer_comment
-        }`;
-        this.clipboard.copy(requestText);
-      });
+  getUrgentStyleObject() {
+    if (this.form.get('urgent').value === false) {
+      return { backgroundColor: 'white', color: '#ed5555' };
+    } else return { backgroundColor: '#ed5555', color: 'white' };
+  }
+
+  updateAdress(event: coordinates) {
+    this.form.get('address').patchValue(event.address);
+    this.validAddress = event.valid;
   }
 }
