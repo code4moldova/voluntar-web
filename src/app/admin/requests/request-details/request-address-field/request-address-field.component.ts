@@ -33,7 +33,7 @@ export class RequestAddressFieldComponent implements OnInit {
           coors: [47.02486150651041, 28.832740004203416],
           address: 'Arcul de Triumf',
         },
-        panelClass: 'esri-map',
+        panelClass: 'cdk-overlay-pane-no-padding',
         width: '80%',
         height: '80%',
         maxWidth: '100%',

@@ -134,13 +134,11 @@ export class VolunteersListComponent implements OnInit {
     ];
   }
 
-  onVolunteersImport(): void {
-    //TODO
-  }
+  // TODO
+  onVolunteersImport(): void {}
 
-  onVolunteersExport(): void {
-    //TODO
-  }
+  // TODO
+  onVolunteersExport(): void {}
 
   getAllStatusesCount() {
     const requests = this.statuses.map((status) =>
@@ -172,10 +170,9 @@ export class VolunteersListComponent implements OnInit {
 
   openNewVolunteerDialog() {
     const dialogRef = this.matDialog.open(NewVolunteerRegisterFormComponent, {
-      data: {},
       width: '555px',
       height: '881px',
-      panelClass: 'custom-modalbox',
+      panelClass: 'cdk-overlay-pane-no-padding',
     });
 
     this.actions$

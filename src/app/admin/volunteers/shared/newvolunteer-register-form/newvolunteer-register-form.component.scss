@@ -83,12 +83,6 @@ mat-error {
   background-color: white !important;
 }
 
-::ng-deep .custom-modalbox {
-  .mat-dialog-container {
-    padding: 1px;
-  }
-}
-
 .availability-hours-component {
   width: 220px;
   height: 40px;

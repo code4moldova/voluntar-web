@@ -78,10 +78,10 @@ export class NewVolunteerRegisterFormComponent implements OnInit, OnDestroy {
     public dialog: MatDialog
   ) {}
 
-  onSubmit(ev) {
+  onSubmit(_$event) {
     let newVolunteer: IVolunteer = this.form.value;
-    let endH = this.form.get('availability_hours_end').value.split(':', 1)[0];
-    let startH = this.form
+    const endH = this.form.get('availability_hours_end').value.split(':', 1)[0];
+    const startH = this.form
       .get('availability_hours_start')
       .value.split(':', 1)[0];
 
@@ -134,7 +134,7 @@ export class NewVolunteerRegisterFormComponent implements OnInit, OnDestroy {
       data: this.form,
       width: '235px',
       height: '125px',
-      panelClass: 'custom-modalbox',
+      panelClass: 'cdk-overlay-pane-no-padding',
     });
     dialogRef.afterClosed().subscribe((result) => {
       dialogRef.close();

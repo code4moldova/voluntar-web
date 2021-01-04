@@ -1,12 +1,6 @@
 $modalWidth: 226px;
 $modalHeight: 122px;
 
-::ng-deep .custom-modalbox {
-  .mat-dialog-container {
-    padding: 1px;
-  }
-}
-
 span {
   opacity: 0;
   transition: opacity 200ms;
