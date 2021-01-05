@@ -16,9 +16,8 @@ import { Subject } from 'rxjs';
   styleUrls: ['./esri-map.component.scss'],
 })
 export class EsriMapComponent implements OnDestroy, AfterViewInit {
-  @ViewChild('map', { static: true }) private mapViewEl: ElementRef<
-    HTMLMapElement
-  >;
+  @ViewChild('map', { static: true })
+  private mapViewEl: ElementRef<HTMLMapElement>;
   // @ViewChild('submitButton', { static: true }) private submitButton: ElementRef<
   //   HTMLButtonElement
   // >;

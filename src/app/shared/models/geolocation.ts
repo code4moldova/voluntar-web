@@ -7,7 +7,7 @@ interface Candidate {
   address: string;
   location: Location;
   score: number;
-  attributes: {};
+  attributes: Record<string, unknown>;
   extent: Extent;
 }
 
