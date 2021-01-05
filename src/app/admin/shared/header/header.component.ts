@@ -32,7 +32,6 @@ export class HeaderComponent {
       link: './users',
     },
   ];
-  activeLink = this.links[0];
 
   constructor(
     private userFacade: AuthFacade,
