@@ -15,7 +15,7 @@ import {
   updateUserFailureAction,
 } from './users.actions';
 
-const customerReducer = createReducer(
+export const usersReducer = createReducer<UsersState, Action>(
   initialState,
   on(getUsersAction, (state) => ({
     ...state,
@@ -81,7 +81,3 @@ const customerReducer = createReducer(
     error,
   }))
 );
-
-export function usersReducer(state: UsersState | undefined, action: Action) {
-  return customerReducer(state, action);
-}
