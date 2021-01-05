@@ -1,5 +1,5 @@
 import { createReducer, on, Action } from '@ngrx/store';
-import { initialState, UsersState } from './users.state';
+import { UsersState } from './shared/users.state';
 import {
   getUsersAction,
   getUsersSuccessAction,
@@ -16,7 +16,12 @@ import {
 } from './users.actions';
 
 export const usersReducer = createReducer<UsersState, Action>(
-  initialState,
+  {
+    data: [],
+    userDetails: null,
+    isLoading: false,
+    error: null,
+  },
   on(getUsersAction, (state) => ({
     ...state,
     error: null,
