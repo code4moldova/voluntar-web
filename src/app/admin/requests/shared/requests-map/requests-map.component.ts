@@ -10,7 +10,10 @@ import {
 } from '@angular/core';
 import { loadModules } from 'esri-loader';
 import { from } from 'rxjs';
-import esri = __esri; // Esri TypeScript Types
+import type Map from 'esri/Map';
+import type MapView from 'esri/views/MapView';
+import type Search from 'esri/widgets/Search';
+import type BasemapToggle from 'esri/widgets/BasemapToggle';
 
 @Component({
   selector: 'app-requests-map',
@@ -24,14 +27,14 @@ export class RequestsMapComponent implements OnDestroy, OnInit {
   @ViewChild('map', { static: true }) private mapViewEl: ElementRef;
 
   private loaded: boolean;
-  private search: esri.Search;
-  private view: esri.MapView = null;
+  private search: Search;
+  private view: MapView = null;
 
   constructor() {}
 
   ngOnInit() {
     // Initialize MapView and return an instance of MapView
-    from(this.initializeMap()).subscribe((mapView) => {
+    from(this.initializeMap()).subscribe(() => {
       // The map has been initialized
       this.loaded = this.view.ready;
       this.mapLoadedEvent.emit(true);
@@ -40,30 +43,41 @@ export class RequestsMapComponent implements OnDestroy, OnInit {
 
   async initializeMap() {
     try {
-      const [Map, MapView, Search, BasemapToggle]: [
-        esri.MapConstructor,
-        esri.MapViewConstructor,
-        esri.SearchConstructor,
-        esri.BasemapToggleConstructor
-      ] = await loadModules([
-        'esri/Map',
+      type Modules = [
+        typeof Map,
+        typeof MapView,
+        typeof Search,
+        typeof BasemapToggle
+      ];
 
+      const loadedModules = await loadModules<Modules>([
+        'esri/Map',
         'esri/views/MapView',
         'esri/widgets/Search',
         'esri/widgets/BasemapToggle',
       ]);
 
-      const map = new Map({ basemap: 'streets-navigation-vector' });
-      this.view = new MapView({
+      const [
+        MapConstructor,
+        MapViewConstructor,
+        SearchConstructor,
+        BasemapToggleConstructor,
+      ] = loadedModules;
+
+      const map = new MapConstructor({ basemap: 'streets-navigation-vector' });
+      this.view = new MapViewConstructor({
         container: this.mapViewEl.nativeElement,
         zoom: 12,
         map,
       });
 
-      this.search = new Search();
+      this.search = new SearchConstructor();
       this.view.ui.add([this.search], 'top-right');
       this.view.ui.add(
-        new BasemapToggle({ view: this.view, nextBasemap: 'hybrid' }),
+        new BasemapToggleConstructor({
+          view: this.view,
+          nextBasemap: 'hybrid',
+        }),
         'bottom-left'
       );
 

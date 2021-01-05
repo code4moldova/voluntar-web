@@ -79,7 +79,7 @@
       mat-tab-link
       *ngFor="let status of statuses; let i = index"
       (click)="onTabChange(status._id)"
-      [active]="(selectedTabIndex$ | async) == status._id"
+      [active]="(selectedTabIndex$ | async) === status._id"
     >
       <span
         [matBadge]="
