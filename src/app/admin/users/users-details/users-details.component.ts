@@ -15,9 +15,9 @@ import { Subject } from 'rxjs';
 import { ErrorStateMatcher } from '@angular/material/core';
 
 @Component({
-  templateUrl: './user-details.component.html',
+  templateUrl: './users-details.component.html',
 })
-export class UserDetailsComponent implements OnInit, OnDestroy {
+export class UsersDetailsComponent implements OnInit, OnDestroy {
   componentDestroyed$ = new Subject();
   isLoading$ = this.usersFacade.isLoading$;
   id: string;

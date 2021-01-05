@@ -14,7 +14,6 @@ import {
   getAvailabilitiesTagsAction,
   getOffersTagsAction,
 } from '@shared/tags/tags.actions';
-import { getUsersAction } from '@users/users.actions';
 import { Store } from '@ngrx/store';
 import { AppState } from '@app/app.state';
 

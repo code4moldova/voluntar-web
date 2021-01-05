@@ -6,7 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { map, takeUntil } from 'rxjs/operators';
 import { User } from '../shared/user';
 import { UsersFacade } from '../users.facade';
-import { UserDetailsComponent } from '../user-details/user-details.component';
+import { UsersDetailsComponent } from '../users-details/users-details.component';
 import { ActionsSubject } from '@ngrx/store';
 import { createUserSuccessAction } from '../users.actions';
 import { ofType } from '@ngrx/effects';
@@ -37,7 +37,7 @@ export class UsersListComponent implements OnInit {
   }
 
   openNewUserDialog() {
-    const dialogRef = this.matDialog.open(UserDetailsComponent, {
+    const dialogRef = this.matDialog.open(UsersDetailsComponent, {
       data: {},
       maxWidth: '100%',
     });
