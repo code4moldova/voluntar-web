@@ -6,14 +6,21 @@ import { MaterialComponentsModule } from '@shared/material.module';
 import { SharedModule } from '@shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { usersRoutes } from './users.routes';
+import { UsersCreateComponent } from './users-create/users-create.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
-  declarations: [UsersListComponent, UsersDetailsComponent],
+  declarations: [
+    UsersListComponent,
+    UsersDetailsComponent,
+    UsersCreateComponent,
+  ],
   imports: [
     CommonModule,
     RouterModule.forChild(usersRoutes),
     MaterialComponentsModule,
     SharedModule,
+    TranslateModule,
   ],
 })
 export class UsersModule {}
