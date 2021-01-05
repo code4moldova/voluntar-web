@@ -30,10 +30,6 @@ import { environment } from '../environments/environment';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { CommonModule } from '@angular/common';
 
-export function HttpLoaderFactory(httpClient: HttpClient) {
-  return new TranslateHttpLoader(httpClient);
-}
-
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -63,7 +59,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
+        useClass: TranslateHttpLoader,
         deps: [HttpClient],
       },
       defaultLanguage: 'ro',
