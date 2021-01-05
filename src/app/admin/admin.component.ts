@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   animate,
   state,
@@ -6,10 +6,17 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
-import { Subject } from 'rxjs';
-import { filter, takeUntil } from 'rxjs/operators';
-import { NavigationEnd, Router } from '@angular/router';
+import { filter } from 'rxjs/operators';
 import { RequestsFacade } from '@requests/requests.facade';
+import { AuthService } from '@auth/auth.service';
+import {
+  getActivityTypesTagsAction,
+  getAvailabilitiesTagsAction,
+  getOffersTagsAction,
+} from '@shared/tags/tags.actions';
+import { getUsersAction } from '@users/users.actions';
+import { Store } from '@ngrx/store';
+import { AppState } from '@app/app.state';
 
 @Component({
   templateUrl: './admin.component.html',
@@ -30,22 +37,23 @@ import { RequestsFacade } from '@requests/requests.facade';
     ]),
   ],
 })
-export class AdminComponent implements OnInit, OnDestroy {
-  destroyComponent$ = new Subject<any>();
-
-  constructor(private router: Router, private requestsFacade: RequestsFacade) {
-    this.router.events.pipe(
-      filter((event) => event instanceof NavigationEnd),
-      filter((e: NavigationEnd) => e.urlAfterRedirects !== '/login'),
-      takeUntil(this.destroyComponent$)
-    );
+export class AdminComponent implements OnInit {
+  constructor(
+    private requestsFacade: RequestsFacade,
+    authService: AuthService,
+    store: Store<AppState>
+  ) {
+    authService
+      .isAuthorized()
+      .pipe(filter(Boolean))
+      .subscribe(() => {
+        store.dispatch(getActivityTypesTagsAction());
+        store.dispatch(getAvailabilitiesTagsAction());
+        store.dispatch(getOffersTagsAction());
+      });
   }
 
   ngOnInit() {
     this.requestsFacade.toggleNewRequestsPolling(true);
-  }
-
-  ngOnDestroy() {
-    this.destroyComponent$.next();
   }
 }

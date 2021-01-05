@@ -2,7 +2,7 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { UsersState } from './shared/users.state';
 import { User } from './shared/user';
 
-export const selectUsers = createFeatureSelector<any, UsersState>('users');
+const selectUsers = createFeatureSelector<any, UsersState>('users');
 
 export const selectIsLoading = createSelector(
   selectUsers,

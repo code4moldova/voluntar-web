@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { map, switchMap, takeUntil, withLatestFrom } from 'rxjs/operators';
 import { of, Subject } from 'rxjs';
@@ -8,12 +13,13 @@ import { RequestsFacade } from '../requests.facade';
 import { Location } from '@angular/common';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { TagsFacade } from '@shared/tags/tags.facade';
+import { UsersFacade } from '@users/users.facade';
 
 @Component({
   templateUrl: './request-details.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RequestDetailsComponent implements OnDestroy {
+export class RequestDetailsComponent implements OnInit, OnDestroy {
   private componentDestroyed$ = new Subject();
 
   currentRequestId$ = this.route.paramMap.pipe(
@@ -34,6 +40,7 @@ export class RequestDetailsComponent implements OnDestroy {
   );
 
   constructor(
+    private usersFacade: UsersFacade,
     private requestsFacade: RequestsFacade,
     private route: ActivatedRoute,
     private location: Location,
@@ -45,6 +52,10 @@ export class RequestDetailsComponent implements OnDestroy {
         this.requestsFacade.getRequestById(id);
       }
     });
+  }
+
+  ngOnInit(): void {
+    this.usersFacade.getUsers();
   }
 
   ngOnDestroy() {
