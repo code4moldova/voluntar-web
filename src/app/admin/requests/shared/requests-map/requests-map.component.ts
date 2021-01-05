@@ -10,7 +10,6 @@ import {
 } from '@angular/core';
 import { loadModules } from 'esri-loader';
 import { from } from 'rxjs';
-import esri = __esri; // Esri TypeScript Types
 
 @Component({
   selector: 'app-requests-map',
@@ -24,14 +23,14 @@ export class RequestsMapComponent implements OnDestroy, OnInit {
   @ViewChild('map', { static: true }) private mapViewEl: ElementRef;
 
   private loaded: boolean;
-  private search: esri.Search;
-  private view: esri.MapView = null;
+  private search: import('esri/widgets/Search');
+  private view: import('esri/views/MapView') = null;
 
   constructor() {}
 
   ngOnInit() {
     // Initialize MapView and return an instance of MapView
-    from(this.initializeMap()).subscribe((mapView) => {
+    from(this.initializeMap()).subscribe(() => {
       // The map has been initialized
       this.loaded = this.view.ready;
       this.mapLoadedEvent.emit(true);
@@ -40,14 +39,15 @@ export class RequestsMapComponent implements OnDestroy, OnInit {
 
   async initializeMap() {
     try {
-      const [Map, MapView, Search, BasemapToggle]: [
-        esri.MapConstructor,
-        esri.MapViewConstructor,
-        esri.SearchConstructor,
-        esri.BasemapToggleConstructor
-      ] = await loadModules([
+      const [Map, MapView, Search, BasemapToggle] = await loadModules<
+        [
+          typeof import('esri/Map'),
+          typeof import('esri/views/MapView'),
+          typeof import('esri/widgets/Search'),
+          typeof import('esri/widgets/BasemapToggle')
+        ]
+      >([
         'esri/Map',
-
         'esri/views/MapView',
         'esri/widgets/Search',
         'esri/widgets/BasemapToggle',
