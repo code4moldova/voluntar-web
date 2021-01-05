@@ -1,8 +1,3 @@
-export interface AuthCredentials {
-  login: string;
-  password: string;
-}
-
 export interface IUser {
   _id?: string;
   created_at?: string;
