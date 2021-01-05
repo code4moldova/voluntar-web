@@ -1,8 +1,8 @@
-import { IUser } from '@shared/models';
+import { User } from './shared/user';
 
 export interface UsersState {
-  data: IUser[];
-  userDetails: IUser;
+  data: User[];
+  userDetails: User;
   isLoading: boolean;
   error: string;
 }

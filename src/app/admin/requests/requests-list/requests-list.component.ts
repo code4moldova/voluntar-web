@@ -15,7 +15,7 @@ import { RequestPageParams, RequestsFacade } from '../requests.facade';
 import { UsersFacade } from '@users/users.facade';
 import { GeolocationService } from '@shared/services/geolocation/geolocation.service';
 
-import { IRequest, IUser, ZoneI } from '@shared/models';
+import { IRequest } from '@shared/models';
 import { TagsFacade } from '@shared/tags/tags.facade';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { MatDialog } from '@angular/material/dialog';

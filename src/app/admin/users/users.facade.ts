@@ -12,7 +12,7 @@ import {
   updateUserAction,
   createUserAction,
 } from './users.actions';
-import { IUser } from '@shared/models';
+import { User } from './shared/user';
 
 @Injectable({
   providedIn: 'root',
@@ -23,7 +23,7 @@ export class UsersFacade {
   users$ = this.store.pipe(select(selectUsersList));
   constructor(private store: Store<AppState>) {}
 
-  saveUser(user: IUser) {
+  saveUser(user: User) {
     if (user._id) {
       this.store.dispatch(updateUserAction({ payload: user }));
     } else {

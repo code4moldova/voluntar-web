@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { IUser } from '@shared/models';
+import { User } from './shared/user';
 
 export enum ActionTypes {
   GET_USERS = '[USERS] Get Users',
@@ -26,7 +26,7 @@ export const getUsersFailureAction = createAction(
 );
 export const getUsersSuccessAction = createAction(
   ActionTypes.GET_USERS_SUCCESS,
-  props<{ payload: IUser[] }>()
+  props<{ payload: User[] }>()
 );
 
 export const getUserDetailsAction = createAction(
@@ -39,12 +39,12 @@ export const getUserDetailsFailureAction = createAction(
 );
 export const getUserDetailsSuccessAction = createAction(
   ActionTypes.GET_USER_DETAILS_SUCCESS,
-  props<{ payload: IUser }>()
+  props<{ payload: User }>()
 );
 
 export const createUserAction = createAction(
   ActionTypes.CREATE_USER,
-  props<{ payload: IUser }>()
+  props<{ payload: User }>()
 );
 export const createUserFailureAction = createAction(
   ActionTypes.CREATE_USER_FAILURE,
@@ -52,12 +52,12 @@ export const createUserFailureAction = createAction(
 );
 export const createUserSuccessAction = createAction(
   ActionTypes.CREATE_USER_SUCCESS,
-  props<{ payload: IUser }>()
+  props<{ payload: User }>()
 );
 
 export const updateUserAction = createAction(
   ActionTypes.UPDATE_USER,
-  props<{ payload: IUser }>()
+  props<{ payload: User }>()
 );
 export const updateUserFailureAction = createAction(
   ActionTypes.UPDATE_USER_FAILURE,
@@ -65,5 +65,5 @@ export const updateUserFailureAction = createAction(
 );
 export const updateUserSuccessAction = createAction(
   ActionTypes.UPDATE_USER_SUCCESS,
-  props<{ payload: IUser }>()
+  props<{ payload: User }>()
 );
