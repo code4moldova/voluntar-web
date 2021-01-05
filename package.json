@@ -33,7 +33,7 @@
     "@ngx-translate/core": "^13.0.0",
     "@ngx-translate/http-loader": "^6.0.0",
     "bootstrap": "^4.5.3",
-    "esri-loader": "^2.16.0",
+    "esri-loader": "^3.0.0",
     "ngx-mask": "^10.0.4",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
