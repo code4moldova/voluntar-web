@@ -170,9 +170,9 @@ export class VolunteersListComponent implements OnInit {
 
   openNewVolunteerDialog() {
     const dialogRef = this.matDialog.open(NewVolunteerRegisterFormComponent, {
-      width: '555px',
-      height: '881px',
-      panelClass: 'cdk-overlay-pane-no-padding',
+      maxWidth: '50%',
+      height: '90vh',
+      panelClass: 'newVolunteerModalWindow',
     });
 
     this.actions$

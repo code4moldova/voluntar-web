@@ -11,9 +11,8 @@ span {
 }
 
 .mat-dialog-container-hours {
-  // border: 1px solid grey;
-  width: $modalWidth + 2;
-  height: $modalHeight;
+  max-width: $modalWidth + 120;
+  max-height: $modalHeight + 120;
 }
 
 .mat-dialog-container {

@@ -9,7 +9,6 @@ import {
 import { FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatFormFieldControl } from '@angular/material/form-field';
-
 @Component({
   selector: 'app-form-hours-selector',
   templateUrl: './form-hours-selector.component.html',
@@ -19,10 +18,8 @@ import { MatFormFieldControl } from '@angular/material/form-field';
   ],
 })
 export class FormHoursSelectorComponent implements OnInit, OnDestroy {
-  @Output('onStartChange')
-  onStartChange: EventEmitter<string> = new EventEmitter<string>();
-  @Output('onEndChange')
-  onEndChange: EventEmitter<string> = new EventEmitter<string>();
+  @Output() startChange: EventEmitter<string> = new EventEmitter<string>();
+  @Output() endChange: EventEmitter<string> = new EventEmitter<string>();
   start = '';
   end = '';
   selectHours = false;
@@ -69,11 +66,11 @@ export class FormHoursSelectorComponent implements OnInit, OnDestroy {
     this.start = hour;
     this.parentForm.get('availability_hours_start').setValue(this.start);
     if (
-      this.end != '' &&
+      this.end !== '' &&
       this.hours.indexOf(hour) > this.hours.indexOf(this.end)
     ) {
       this.end = '';
-      this.onStartChange.emit('StartHoursSelectionError');
+      this.startChange.emit('StartHoursSelectionError');
     }
   }
 
@@ -81,17 +78,18 @@ export class FormHoursSelectorComponent implements OnInit, OnDestroy {
     this.end = hour;
     this.parentForm.get('availability_hours_end').setValue(this.end);
     if (
-      this.start != '' &&
+      this.start !== '' &&
       this.hours.indexOf(hour) < this.hours.indexOf(this.start)
     ) {
       this.start = '';
-      this.onEndChange.emit('EndHoursSelectionError');
+      this.endChange.emit('EndHoursSelectionError');
     }
   }
 
   get componentForm() {
     return this.parentForm;
   }
+
   onNoClick(): void {
     this.activeModal.close();
   }

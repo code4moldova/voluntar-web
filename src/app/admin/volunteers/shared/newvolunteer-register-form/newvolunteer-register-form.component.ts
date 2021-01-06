@@ -5,7 +5,12 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import {
   DAYS_OF_WEEK,
@@ -93,6 +98,15 @@ export class NewVolunteerRegisterFormComponent implements OnInit, OnDestroy {
     this.volunteersService.saveVolunteer(newVolunteer);
   }
 
+  RangeValidator: ValidatorFn = () => {
+    if (!this.form) return null;
+    const start = this.form.get('availability_hours_start').value;
+    const end = this.form.get('availability_hours_end').value;
+    return start !== null && end !== null && start < end
+      ? null
+      : { range: true };
+  };
+
   ngOnInit(): void {
     this.form = new FormGroup({
       first_name: new FormControl('', [Validators.required]),
@@ -123,6 +137,7 @@ export class NewVolunteerRegisterFormComponent implements OnInit, OnDestroy {
       availability_hours_end: new FormControl('08:00', [
         Validators.required,
         Validators.minLength(5),
+        this.RangeValidator,
       ]),
     });
   }
@@ -132,9 +147,8 @@ export class NewVolunteerRegisterFormComponent implements OnInit, OnDestroy {
   openHoursSelectDialog() {
     const dialogRef = this.dialog.open(FormHoursSelectorComponent, {
       data: this.form,
-      width: '235px',
-      height: '125px',
-      panelClass: 'cdk-overlay-pane-no-padding',
+      maxWidth: '40%',
+      maxHeight: '50%',
     });
     dialogRef.afterClosed().subscribe((result) => {
       dialogRef.close();

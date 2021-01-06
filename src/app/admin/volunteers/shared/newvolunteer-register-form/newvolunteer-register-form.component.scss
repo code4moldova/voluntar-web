@@ -1,8 +1,9 @@
-$gapBetweenFieldAndHint: "25px";
-$fontFamily: Roboto, sans-serif;
+//hardcoded values from figma design
 
-$modalWindowWidth: 555px;
-$modalWindowHeight: 881px;
+$modalWindow_maxWidth: 555px;
+$modalWindow_maxHeight: 881px;
+$gapBetweenFieldAndHint: "25px";
+$footerPaddingTopBottom: 23px;
 
 mat-grid-tile-header {
   background: white !important;
@@ -100,8 +101,8 @@ mat-error {
 }
 
 .new_voluntar_modal_window {
-  width: $modalWindowWidth;
-  height: $modalWindowHeight;
+  max-width: $modalWindow_maxWidth;
+  max-height: $modalWindow_maxHeight;
   margin: 0;
   padding: 0;
 }
@@ -116,7 +117,6 @@ mat-error {
   text-align: center;
 
   & a {
-    font-family: $fontFamily;
     font-size: 20px;
     font-style: normal;
     font-weight: 400;
@@ -140,7 +140,6 @@ mat-error {
   text-align: left;
 
   & a {
-    font-family: $fontFamily;
     font-size: 14px;
     font-style: normal;
     font-weight: 700;
@@ -151,10 +150,10 @@ mat-error {
 }
 
 .mat-divider {
-  width: $modalWindowWidth !important;
+  max-width: $modalWindow_maxWidth !important;
 }
 
 .footer {
   border-top: 1px solid #ccc;
-  padding-top: 23px;
+  padding-top: $footerPaddingTopBottom;
 }
