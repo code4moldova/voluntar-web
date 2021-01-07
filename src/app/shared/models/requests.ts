@@ -17,8 +17,8 @@ export interface IRequest {
   address: string;
   zone_address: string;
   age: number;
-  latitude: boolean;
-  longitude: boolean;
+  latitude: number;
+  longitude: number;
   activity_types: string;
   have_money: true;
   comments: string;
