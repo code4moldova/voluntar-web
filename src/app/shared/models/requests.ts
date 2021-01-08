@@ -26,8 +26,8 @@ export interface IRequest {
   //Beneficiary - city zones like centru, botanica .. etc...
   zone: string;
   age: number;
-  latitude: boolean;
-  longitude: boolean;
+  latitude: number;
+  longitude: number;
   activity_types: string;
   have_money: true;
   comments: string;

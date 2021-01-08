@@ -37,10 +37,10 @@ export enum VOLUNTEER_ROLES {
 }
 
 export enum VOLUNTEER_ROLES_ICONS {
-  delivery = 'transport',
+  delivery = 'delivery',
   copilot = 'copilot',
-  packing = 'impachetare',
-  supply = 'aprovizionare',
+  packing = 'packing',
+  supply = 'supply',
   operator = 'operator',
 }
 
@@ -71,7 +71,7 @@ export const SPECIAL_CONDITIONS = [
   },
   {
     label: 'Deaf-mute',
-    value: 'deaf_mute',
+    value: 'deafmute',
   },
   {
     label: 'Blind/Weak-seer',

@@ -12,13 +12,27 @@ import { getUsersAction } from '@users/users.actions';
 import { AppState } from '@app/app.state';
 
 const ICONS = [
-  'medicine',
-  'deafmute',
   'archived',
+  'blind_weak_seer',
+  'copilot',
+  'correct',
+  'deafmute',
+  'delivery',
+  'disability',
   'export',
+  'grocery',
   'import',
-  'plus',
+  'incorrect',
+  'invoices',
   'map',
+  'mask',
+  'medicine',
+  'operator',
+  'packing',
+  'plus',
+  'supply',
+  'transport',
+  'warm_lunch',
 ] as const;
 
 @Component({

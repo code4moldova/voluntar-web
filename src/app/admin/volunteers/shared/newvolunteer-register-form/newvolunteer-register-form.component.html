@@ -56,18 +56,12 @@
       </div>
 
       <mat-form-field>
-        <mat-select formControlName="role" required multiple>
+        <mat-select formControlName="role" multiple>
           <mat-option
             *ngFor="let role of roles | keyvalue: enumUnsorted"
             [value]="role.key"
           >
-            <img
-              src="/assets/icons/volunteers/{{
-                volunteerRolesIncons[role.key]
-              }}.svg"
-              width="24"
-              height="24"
-            />
+            <mat-icon [svgIcon]="role.key"></mat-icon>
             {{ role.value }}
           </mat-option>
         </mat-select>

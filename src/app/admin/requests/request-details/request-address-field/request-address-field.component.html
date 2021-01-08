@@ -4,18 +4,24 @@
     [(ngModel)]="selectedAddress"
     (change)="selectAddress($event)"
   />
-  <img
-    class="icon"
+  <mat-icon
     *ngIf="selectedAddress.length > 0; else incorrect"
-    src="/assets/icons/requests/address/correct.svg"
-  />
-  <ng-template #incorrect>
-    <img class="icon" src="/assets/icons/requests/address/incorrect.svg" />
-  </ng-template>
-  <img
-    type="button"
+    style="width: 17px"
+    [svgIcon]="'correct'"
     class="icon"
-    src="/assets/icons/requests/address/Map.svg"
+  ></mat-icon>
+  <ng-template #incorrect>
+    <mat-icon
+      class="icon"
+      [svgIcon]="'incorrect'"
+      style="width: 16px"
+    ></mat-icon>
+  </ng-template>
+  <button
+    class="icon"
     (click)="showMapDialog()"
-  />
+    style="background-color: white; border: 0px; width: 24px"
+  >
+    <mat-icon [svgIcon]="'map'"></mat-icon>
+  </button>
 </div>
