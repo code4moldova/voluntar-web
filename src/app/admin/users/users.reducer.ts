@@ -1,5 +1,5 @@
 import { createReducer, on, Action } from '@ngrx/store';
-import { initialState, UsersState } from './users.state';
+import { UsersState } from './shared/users.state';
 import {
   getUsersAction,
   getUsersSuccessAction,
@@ -15,8 +15,13 @@ import {
   updateUserFailureAction,
 } from './users.actions';
 
-const customerReducer = createReducer(
-  initialState,
+export const usersReducer = createReducer<UsersState, Action>(
+  {
+    data: [],
+    userDetails: null,
+    isLoading: false,
+    error: null,
+  },
   on(getUsersAction, (state) => ({
     ...state,
     error: null,
@@ -81,7 +86,3 @@ const customerReducer = createReducer(
     error,
   }))
 );
-
-export function usersReducer(state: UsersState | undefined, action: Action) {
-  return customerReducer(state, action);
-}

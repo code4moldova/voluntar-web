@@ -22,13 +22,14 @@ import { AuthStoreModule } from '@auth/auth-store.module';
 import { BeneficiariesStoreModule } from '@beneficiaries/beneficiaries-store.module';
 import { VolunteersStoreModule } from '@volunteers/volunteers-store.module';
 import { RequestsStoreModule } from '@requests/requests-store.module';
-import { UsersStoreModule } from '@users/users-store.module';
 import { TagsStoreModule } from '@shared/tags/tags-store.module';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { environment } from '../environments/environment';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { CommonModule } from '@angular/common';
+import { usersReducer } from '@users/users.reducer';
+import { UsersEffects } from '@users/users.effects';
 
 @NgModule({
   declarations: [AppComponent],
@@ -42,7 +43,8 @@ import { CommonModule } from '@angular/common';
     BeneficiariesStoreModule,
     VolunteersStoreModule,
     RequestsStoreModule,
-    UsersStoreModule,
+    StoreModule.forFeature('users', usersReducer),
+    EffectsModule.forFeature([UsersEffects]),
     TagsStoreModule,
     StoreModule.forRoot({}, {}),
     EffectsModule.forRoot([]),

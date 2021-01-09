@@ -4,9 +4,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { map, takeUntil } from 'rxjs/operators';
-import { IUser } from '@shared/models';
+import { User } from '../shared/user';
 import { UsersFacade } from '../users.facade';
-import { UserDetailsComponent } from '../user-details/user-details.component';
+import { UsersDetailsComponent } from '../users-details/users-details.component';
 import { ActionsSubject } from '@ngrx/store';
 import { createUserSuccessAction } from '../users.actions';
 import { ofType } from '@ngrx/effects';
@@ -16,7 +16,7 @@ import { ofType } from '@ngrx/effects';
 })
 export class UsersListComponent implements OnInit {
   displayedColumns: string[] = ['name', 'email', 'phone', 'status'];
-  dataSource$: Observable<MatTableDataSource<IUser>>;
+  dataSource$: Observable<MatTableDataSource<User>>;
   isLoading$ = this.usersFacade.isLoading$;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   constructor(
@@ -37,7 +37,7 @@ export class UsersListComponent implements OnInit {
   }
 
   openNewUserDialog() {
-    const dialogRef = this.matDialog.open(UserDetailsComponent, {
+    const dialogRef = this.matDialog.open(UsersDetailsComponent, {
       data: {},
       maxWidth: '100%',
     });

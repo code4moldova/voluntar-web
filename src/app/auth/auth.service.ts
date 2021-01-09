@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { AuthCredentials } from '@shared/models';
 import { environment } from 'src/environments/environment';
 import { TokenStorage } from '@shared/token-storage.service';
 import { map } from 'rxjs/operators';
+import { AuthCredentials } from './shared/auth-credentials';
 
 @Injectable({
   providedIn: 'root',

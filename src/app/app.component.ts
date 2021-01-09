@@ -1,17 +1,8 @@
 import { Component } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
-import { Store } from '@ngrx/store';
-import {
-  getActivityTypesTagsAction,
-  getAvailabilitiesTagsAction,
-  getOffersTagsAction,
-} from '@shared/tags/tags.actions';
-import { AuthService } from '@auth/auth.service';
-import { getUsersAction } from '@users/users.actions';
-import { AppState } from '@app/app.state';
 
-const ICONS = [
+const icons = [
   'archived',
   'blind_weak_seer',
   'copilot',
@@ -40,30 +31,11 @@ const ICONS = [
   template: '<router-outlet></router-outlet>',
 })
 export class AppComponent {
-  title = 'client';
-
-  constructor(
-    private store: Store<AppState>,
-    private matIconRegistry: MatIconRegistry,
-    private domSanitizer: DomSanitizer,
-    private authService: AuthService
-  ) {
-    for (const icon of ICONS) {
-      this.matIconRegistry.addSvgIcon(
-        icon,
-        this.domSanitizer.bypassSecurityTrustResourceUrl(
-          `../assets/icons/${icon}.svg`
-        )
-      );
-    }
-
-    this.authService.isAuthorized().subscribe((isAuthorized) => {
-      if (isAuthorized) {
-        this.store.dispatch(getActivityTypesTagsAction());
-        this.store.dispatch(getAvailabilitiesTagsAction());
-        this.store.dispatch(getOffersTagsAction());
-        this.store.dispatch(getUsersAction());
-      }
+  constructor(iconRegistry: MatIconRegistry, domSanitizer: DomSanitizer) {
+    icons.forEach((icon) => {
+      const url = `../assets/icons/${icon}.svg`;
+      const resourceUrl = domSanitizer.bypassSecurityTrustResourceUrl(url);
+      iconRegistry.addSvgIcon(icon, resourceUrl);
     });
   }
 }

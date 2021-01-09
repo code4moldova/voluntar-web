@@ -9,6 +9,7 @@ import { SPECIAL_CONDITIONS, ZONES } from '@app/shared/constants';
 import { RequestsFacade } from '../requests.facade';
 import { coordinates } from './request-address-field/request-address-field.component';
 import { RequestTypeUpdated } from '../../../shared/models/requests';
+import { UsersFacade } from '@users/users.facade';
 
 @Component({
   templateUrl: './request-details.component.html',
@@ -23,11 +24,15 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
   existentBeneficiary = false;
   validAddress = true;
 
-  constructor(private requestsFacade: RequestsFacade) {}
+  constructor(
+    private requestsFacade: RequestsFacade,
+    private usersFacade: UsersFacade
+  ) {}
 
   onSubmit(ev: Event) {}
 
   ngOnInit(): void {
+    this.usersFacade.getUsers();
     this.form = new FormGroup({
       first_name: new FormControl(null, [Validators.required]),
       last_name: new FormControl(null, [Validators.required]),

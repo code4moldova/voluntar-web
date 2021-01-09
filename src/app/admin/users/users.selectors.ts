@@ -1,8 +1,8 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { UsersState } from './users.state';
-import { IUser } from '@shared/models';
+import { UsersState } from './shared/users.state';
+import { User } from './shared/user';
 
-export const selectUsers = createFeatureSelector<any, UsersState>('users');
+const selectUsers = createFeatureSelector<any, UsersState>('users');
 
 export const selectIsLoading = createSelector(
   selectUsers,
@@ -13,14 +13,14 @@ export const selectIsLoading = createSelector(
 
 export const selectUserDetails = createSelector(
   selectUsers,
-  (state: UsersState): IUser => {
+  (state: UsersState): User => {
     return state.userDetails;
   }
 );
 
 export const selectUsersList = createSelector(
   selectUsers,
-  (state: UsersState): IUser[] => {
+  (state: UsersState): User[] => {
     return state.data;
   }
 );

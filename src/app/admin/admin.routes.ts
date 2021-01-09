@@ -9,11 +9,6 @@ export const adminRoutes: Routes = [
     component: AdminComponent,
     children: [
       {
-        path: '',
-        redirectTo: 'requests',
-        pathMatch: 'full',
-      },
-      {
         path: 'beneficiaries',
         data: {
           ...RoleService.GET_FROM_CONFIG('beneficiaries'),
@@ -53,11 +48,11 @@ export const adminRoutes: Routes = [
         loadChildren: () =>
           import('./users/users.module').then((m) => m.UsersModule),
       },
-      // {
-      //   path: '**',
-      //   redirectTo: 'volunteers',
-      //   pathMatch: 'full'
-      // }
+      {
+        path: '**',
+        redirectTo: 'requests',
+        pathMatch: 'full',
+      },
     ],
   },
 ];

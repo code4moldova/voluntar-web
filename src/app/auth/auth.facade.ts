@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { AppState } from '@app/app.state';
 import { loginAction, logoutAction } from './auth.actions';
-import { AuthCredentials } from '@shared/models';
 import { selectIsLoading } from './auth.selectors';
 import { filter, map } from 'rxjs/operators';
 import { TokenStorage } from '@shared/token-storage.service';
+import { AuthCredentials } from './shared/auth-credentials';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +19,7 @@ export class AuthFacade {
     })
   );
   isLoading$ = this.store.pipe(select(selectIsLoading));
+
   constructor(
     private store: Store<AppState>,
     private tokenStorage: TokenStorage

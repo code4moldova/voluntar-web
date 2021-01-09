@@ -1,11 +1,11 @@
-import { IUser } from '@shared/models';
+import { User } from '@users/shared/user';
 
 export interface AuthState {
   token: {
     accessToken: string;
     refreshToken?: string;
   };
-  userData: IUser;
+  userData: User;
   isLoading: boolean;
   error: string;
 }

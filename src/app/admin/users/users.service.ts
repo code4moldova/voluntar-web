@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { IUser } from '@shared/models';
+import { User } from './shared/user';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 
@@ -10,22 +10,22 @@ import { Observable } from 'rxjs';
 export class UsersService {
   constructor(private http: HttpClient) {}
 
-  save(user: IUser) {
-    return this.http.post<{ user: IUser }>(`${environment.url}/operator`, user);
+  save(user: User) {
+    return this.http.post<{ user: User }>(`${environment.url}/operator`, user);
   }
 
-  update(user: IUser) {
+  update(user: User) {
     return this.http.put<any>(
       `${environment.url}/operator?id=${user._id}`,
       user
     );
   }
 
-  getList(): Observable<{ list: IUser[] }> {
-    return this.http.get<{ list: IUser[] }>(`${environment.url}/operator`);
+  getList(): Observable<{ list: User[] }> {
+    return this.http.get<{ list: User[] }>(`${environment.url}/operator`);
   }
 
-  getById(id: string): Observable<IUser> {
-    return this.http.get<IUser>(`${environment.url}/operator?id=${id}`);
+  getById(id: string): Observable<User> {
+    return this.http.get<User>(`${environment.url}/operator?id=${id}`);
   }
 }
