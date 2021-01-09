@@ -5,7 +5,8 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { volunteerRoles, weekDays, zones } from '@shared/constants';
+import { weekDays } from '@shared/week-day';
+import { volunteerRoles, zones } from '@shared/constants';
 import { VolunteersFacade } from '../volunteers.facade';
 
 @Component({

@@ -52,18 +52,6 @@ export enum ZONES {
 
 export const zones = Object.values(ZONES);
 
-// TODO: rename to WeekDay
-export enum DAYS_OF_WEEK {
-  monday = 'monday',
-  tuesday = 'tuesday',
-  wednesday = 'wednesday',
-  thursday = 'thursday',
-  friday = 'friday',
-  saturday = 'saturday',
-  sunday = 'sunday',
-}
-export const weekDays = Object.values(DAYS_OF_WEEK);
-
 export const SPECIAL_CONDITIONS = [
   {
     label: 'Disability',
