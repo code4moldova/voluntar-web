@@ -64,7 +64,7 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
   ngOnDestroy() {}
 
   getEnumKeyByEnumValue(myEnum, enumValue) {
-    let keys = Object.keys(myEnum).filter((x) => myEnum[x] == enumValue);
+    const keys = Object.keys(myEnum).filter((x) => myEnum[x] === enumValue);
     return keys.length > 0 ? keys[0] : null;
   }
 
@@ -73,7 +73,7 @@ export class RequestDetailsComponent implements OnInit, OnDestroy {
   checkForExistentBeneficiary(phone: any) {
     // this function should display the hidden div if the beneficiary is found
     // check if the logic works
-    if (phone.length == 8) this.existentBeneficiary = true;
+    if (phone.length === 8) this.existentBeneficiary = true;
     else this.existentBeneficiary = false;
   }
 
