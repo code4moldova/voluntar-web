@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { AuthFacade } from '@auth/auth.facade';
 import { map } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { UserRole } from '@users/shared/user-role';
 // import { Route } from '@angular/compiler/src/core';
 
 @Injectable({
@@ -30,7 +31,7 @@ export class RolesGuard implements CanActivate {
     | boolean
     | UrlTree {
     return this.userFacade.userRoles$.pipe(
-      map((roles) => {
+      map((roles: UserRole[]) => {
         const routeConfig = next.data;
         const rolesIntersection = roles.some((role) =>
           routeConfig.roles.includes(role)

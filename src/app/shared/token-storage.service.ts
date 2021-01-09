@@ -22,10 +22,10 @@ export class TokenStorage {
     return this.parsedToken$.asObservable();
   }
 
-  public getRefreshToken(): Observable<string> {
-    const token: string = localStorage.getItem('refreshToken');
-    return of(token);
-  }
+  // public getRefreshToken(): Observable<string> {
+  //   const token: string = localStorage.getItem('refreshToken');
+  //   return of(token);
+  // }
 
   public setAccessToken(token: string): TokenStorage {
     localStorage.setItem('accessToken', token);
@@ -41,10 +41,11 @@ export class TokenStorage {
 
   private parseToken() {
     try {
-      const decodedToken = this.jwtHelper.decodeToken(
-        localStorage.getItem('accessToken')
-      );
-      this.parsedToken$.next(decodedToken);
+      const accessToken = localStorage.getItem('accessToken');
+      if (accessToken) {
+        const decodedToken = this.jwtHelper.decodeToken(accessToken);
+        this.parsedToken$.next(decodedToken);
+      }
     } catch (error) {
       this.clear();
     }
