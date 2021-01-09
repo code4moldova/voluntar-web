@@ -7,7 +7,7 @@ import { VolunteerPageParams, VolunteersFacade } from '../volunteers.facade';
 import { TagsFacade } from '@shared/tags/tags.facade';
 import { GeolocationService } from '@shared/services/geolocation/geolocation.service';
 
-import { IOfferTag, IVolunteer, ZoneI } from '@shared/models';
+import { IVolunteer } from '@shared/models';
 import { ActionsSubject } from '@ngrx/store';
 import { ofType } from '@ngrx/effects';
 import { map, take, takeUntil } from 'rxjs/operators';
@@ -20,7 +20,7 @@ import {
   FilterObservableSelectColumns,
   FilterSelectColumns,
 } from '@shared/filter/filter.types';
-import { NewVolunteerRegisterFormComponent } from '../shared/newvolunteer-register-form/newvolunteer-register-form.component';
+import { VolunteersCreateComponent } from '../volunteers-create/volunteers-create.component';
 
 @Component({
   templateUrl: './volunteers-list.component.html',
@@ -169,10 +169,8 @@ export class VolunteersListComponent implements OnInit {
   }
 
   openNewVolunteerDialog() {
-    const dialogRef = this.matDialog.open(NewVolunteerRegisterFormComponent, {
-      maxWidth: '50%',
-      height: '90vh',
-      panelClass: 'newVolunteerModalWindow',
+    const dialogRef = this.matDialog.open(VolunteersCreateComponent, {
+      width: '550px',
     });
 
     this.actions$

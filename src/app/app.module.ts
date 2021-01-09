@@ -20,7 +20,6 @@ import { NgxMaskModule } from 'ngx-mask';
 import { RouterModule } from '@angular/router';
 import { AuthStoreModule } from '@auth/auth-store.module';
 import { BeneficiariesStoreModule } from '@beneficiaries/beneficiaries-store.module';
-import { VolunteersStoreModule } from '@volunteers/volunteers-store.module';
 import { RequestsStoreModule } from '@requests/requests-store.module';
 import { TagsStoreModule } from '@shared/tags/tags-store.module';
 import { StoreModule } from '@ngrx/store';
@@ -30,6 +29,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { CommonModule } from '@angular/common';
 import { usersReducer } from '@users/users.reducer';
 import { UsersEffects } from '@users/users.effects';
+import { volunteersReducer } from '@volunteers/volunteers.reducer';
+import { VolunteersEffects } from '@volunteers/volunteers.effects';
 
 @NgModule({
   declarations: [AppComponent],
@@ -41,7 +42,8 @@ import { UsersEffects } from '@users/users.effects';
     FlexLayoutModule,
     AuthStoreModule,
     BeneficiariesStoreModule,
-    VolunteersStoreModule,
+    StoreModule.forFeature('volunteers', volunteersReducer),
+    EffectsModule.forFeature([VolunteersEffects]),
     RequestsStoreModule,
     StoreModule.forFeature('users', usersReducer),
     EffectsModule.forFeature([UsersEffects]),

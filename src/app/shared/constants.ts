@@ -28,15 +28,8 @@ export const KIV_ZONES_MAP = KIV_ZONES.reduce((acc, zone) => {
 
 export enum VOLUNTEER_STATUS {}
 
+// TODO: rename to VolunteerRole
 export enum VOLUNTEER_ROLES {
-  delivery = 'Livrare',
-  copilot = 'Copilot',
-  packing = 'Împachetare',
-  supply = 'Aprovizionare',
-  operator = 'Operator',
-}
-
-export enum VOLUNTEER_ROLES_ICONS {
   delivery = 'delivery',
   copilot = 'copilot',
   packing = 'packing',
@@ -44,6 +37,9 @@ export enum VOLUNTEER_ROLES_ICONS {
   operator = 'operator',
 }
 
+export const volunteerRoles = Object.values(VOLUNTEER_ROLES);
+
+// TODO: rename to Zone
 export enum ZONES {
   botanica = 'botanica',
   buiucani = 'buiucani',
@@ -54,15 +50,19 @@ export enum ZONES {
   suburbii = 'suburbii',
 }
 
+export const zones = Object.values(ZONES);
+
+// TODO: rename to WeekDay
 export enum DAYS_OF_WEEK {
-  monday = 'Luni',
-  tuesday = 'Marți',
-  wednesday = 'Miercuri',
-  thursday = 'Joi',
-  friday = 'Vineri',
-  saturday = 'Sambata',
-  sunday = 'Duminica',
+  monday = 'monday',
+  tuesday = 'tuesday',
+  wednesday = 'wednesday',
+  thursday = 'thursday',
+  friday = 'friday',
+  saturday = 'saturday',
+  sunday = 'sunday',
 }
+export const weekDays = Object.values(DAYS_OF_WEEK);
 
 export const SPECIAL_CONDITIONS = [
   {
