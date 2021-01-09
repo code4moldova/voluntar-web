@@ -1,0 +1,163 @@
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup)">
+  <h2 mat-dialog-title class="text-center" translate>create_volunteer</h2>
+
+  <mat-divider class="mx-n4"></mat-divider>
+
+  <mat-dialog-content class="mat-typography py-3">
+    <h4>
+      <strong translate>personal_data</strong>
+    </h4>
+
+    <div class="row">
+      <div class="col-sm-6">
+        <mat-form-field
+          floatLabel="always"
+          appearance="outline"
+          class="d-block"
+        >
+          <mat-label translate>family_name</mat-label>
+          <input matInput formControlName="first_name" title="" />
+          <mat-error translate>required_field</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-sm-6">
+        <mat-form-field
+          floatLabel="always"
+          appearance="outline"
+          class="d-block"
+        >
+          <mat-label translate>last_name</mat-label>
+          <input matInput formControlName="last_name" title="" />
+          <mat-error translate>required_field</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-sm-6">
+        <mat-form-field
+          floatLabel="always"
+          appearance="outline"
+          class="d-block"
+        >
+          <mat-label translate>phone</mat-label>
+          <input matInput formControlName="phone" type="tel" title="" />
+          <mat-error translate>eight_digits</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-sm-6">
+        <mat-form-field
+          floatLabel="always"
+          appearance="outline"
+          class="d-block"
+        >
+          <mat-label translate>email</mat-label>
+          <input matInput formControlName="email" title="" />
+          <mat-error translate>invalid_email</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-sm-6">
+        <mat-form-field
+          floatLabel="always"
+          appearance="outline"
+          class="d-block"
+        >
+          <mat-label translate>password</mat-label>
+          <input matInput formControlName="password" type="password" title="" />
+          <mat-error translate>min_length</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-sm-6">
+        <mat-form-field
+          floatLabel="always"
+          appearance="outline"
+          class="d-block"
+        >
+          <mat-label translate>repeat_password</mat-label>
+          <input
+            matInput
+            formControlName="repeatPassword"
+            type="password"
+            title=""
+          />
+          <mat-error translate>password_no_match</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <mat-divider class="mx-n4 my-3"></mat-divider>
+
+    <h4>
+      <strong translate>user_role</strong>
+    </h4>
+
+    <div class="row">
+      <div class="col-sm-6">
+        <mat-form-field appearance="outline" class="d-block">
+          <mat-label translate>user_role</mat-label>
+          <mat-select formControlName="role">
+            <mat-option *ngFor="let role of roles" [value]="role">
+              {{ role | translate }}
+            </mat-option>
+          </mat-select>
+          <mat-error translate>required_field</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <h4>
+      <strong translate>availability</strong>
+    </h4>
+
+    <div class="row">
+      <div class="col-sm-6">
+        <mat-form-field appearance="outline" class="d-block">
+          <mat-label translate>days</mat-label>
+          <mat-select formControlName="availability_days" multiple>
+            <mat-option *ngFor="let weekDay of weekDays" [value]="weekDay">
+              {{ weekDay | translate }}
+            </mat-option>
+          </mat-select>
+          <mat-error translate>required_field</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="row">
+          <div class="col-6">
+            <mat-form-field appearance="outline" class="d-block">
+              <mat-label translate>from</mat-label>
+              <mat-select formControlName="availability_hours_start">
+                <mat-option *ngFor="let hour of hours" [value]="hour.value">
+                  {{ hour.label }}
+                </mat-option>
+              </mat-select>
+              <mat-error translate>required_field</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-6">
+            <mat-form-field appearance="outline" class="d-block">
+              <mat-label translate>to</mat-label>
+              <mat-select formControlName="availability_hours_end">
+                <mat-option *ngFor="let hour of hours" [value]="hour.value">
+                  {{ hour.label }}
+                </mat-option>
+              </mat-select>
+              <mat-error translate>required_field</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+
+  <mat-divider class="mx-n4"></mat-divider>
+
+  <mat-dialog-actions class="justify-content-center py-3">
+    <button mat-flat-button color="primary" type="submit" translate>
+      confirm
+    </button>
+  </mat-dialog-actions>
+</form>
