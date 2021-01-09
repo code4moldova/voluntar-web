@@ -7,10 +7,9 @@ import { VolunteerPageParams, VolunteersFacade } from '../volunteers.facade';
 import { TagsFacade } from '@shared/tags/tags.facade';
 import { GeolocationService } from '@shared/services/geolocation/geolocation.service';
 
-import { IOfferTag, IVolunteer, ZoneI } from '@shared/models';
+import { IVolunteer } from '@shared/models';
 import { ActionsSubject } from '@ngrx/store';
 import { ofType } from '@ngrx/effects';
-import { VolunteersDetailsComponent } from '../volunteers-details/volunteers-details.component';
 import { map, take, takeUntil } from 'rxjs/operators';
 import { saveVolunteerSuccessAction } from '../volunteers.actions';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -21,6 +20,7 @@ import {
   FilterObservableSelectColumns,
   FilterSelectColumns,
 } from '@shared/filter/filter.types';
+import { VolunteersCreateComponent } from '../volunteers-create/volunteers-create.component';
 
 @Component({
   templateUrl: './volunteers-list.component.html',
@@ -134,6 +134,12 @@ export class VolunteersListComponent implements OnInit {
     ];
   }
 
+  // TODO
+  onVolunteersImport(): void {}
+
+  // TODO
+  onVolunteersExport(): void {}
+
   getAllStatusesCount() {
     const requests = this.statuses.map((status) =>
       this.helperGetCountByStatus(status._id)
@@ -163,10 +169,8 @@ export class VolunteersListComponent implements OnInit {
   }
 
   openNewVolunteerDialog() {
-    const dialogRef = this.matDialog.open(VolunteersDetailsComponent, {
-      data: {},
-      maxWidth: '100%',
-      maxHeight: '90vh',
+    const dialogRef = this.matDialog.open(VolunteersCreateComponent, {
+      width: '550px',
     });
 
     this.actions$

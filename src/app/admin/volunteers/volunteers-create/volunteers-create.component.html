@@ -1,0 +1,209 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit(form)">
+  <h2 mat-dialog-title class="text-center">
+    {{ "create_volunteer" | translate }}
+  </h2>
+
+  <mat-divider class="mx-n4"></mat-divider>
+
+  <mat-dialog-content class="mat-typography py-3">
+    <h4>
+      <strong>{{ "personal_data" | translate }}</strong>
+    </h4>
+
+    <div class="row">
+      <div class="col-sm-6">
+        <mat-form-field
+          floatLabel="always"
+          appearance="outline"
+          class="d-block"
+        >
+          <mat-label>{{ "first_name" | translate }}</mat-label>
+          <input matInput formControlName="first_name" title="" />
+          <mat-error *ngIf="form.get('first_name').invalid">
+            {{ "required_field" | translate }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-sm-6">
+        <mat-form-field
+          floatLabel="always"
+          appearance="outline"
+          class="d-block"
+        >
+          <mat-label>{{ "last_name" | translate }}</mat-label>
+          <input matInput formControlName="last_name" title="" />
+          <mat-error *ngIf="form.get('last_name').invalid">
+            {{ "required_field" | translate }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-sm-6">
+        <mat-form-field
+          floatLabel="always"
+          appearance="outline"
+          class="d-block"
+        >
+          <mat-label>{{ "phone" | translate }}</mat-label>
+          <input matInput formControlName="phone" type="tel" title="" />
+          <mat-error *ngIf="form.get('phone').invalid">
+            {{ "eight_digits" | translate }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-sm-6">
+        <mat-form-field
+          floatLabel="always"
+          appearance="outline"
+          class="d-block"
+        >
+          <mat-label>{{ "email" | translate }}</mat-label>
+          <input matInput formControlName="email" type="email" title="" />
+          <mat-error *ngIf="form.get('email').invalid">
+            {{ "invalid_email" | translate }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-sm-6">
+        <mat-form-field appearance="outline" class="d-block">
+          <mat-label>{{ "zone" | translate }}</mat-label>
+          <mat-select formControlName="zone">
+            <mat-option *ngFor="let zone of zones" [value]="zone">
+              {{ zone | translate }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.get('zone').invalid">
+            {{ "required_field" | translate }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-sm-6">
+        <mat-form-field
+          floatLabel="always"
+          appearance="outline"
+          class="d-block"
+        >
+          <mat-label>{{ "address" | translate }}</mat-label>
+          <input matInput formControlName="address" title="" />
+          <mat-error *ngIf="form.get('address').invalid">
+            {{ "required_field" | translate }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-sm-6">
+        <mat-form-field
+          floatLabel="always"
+          appearance="outline"
+          class="d-block"
+        >
+          <mat-label>{{ "age" | translate }}</mat-label>
+          <input matInput formControlName="age" type="number" title="" />
+          <mat-error *ngIf="form.get('age').invalid">
+            {{ "between16and50" | translate }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-sm-6">
+        <mat-form-field
+          floatLabel="always"
+          appearance="outline"
+          class="d-block"
+        >
+          <mat-label>{{ "facebook_profile" | translate }}</mat-label>
+          <input matInput formControlName="facebook_profile" title="" />
+          <mat-error *ngIf="form.get('facebook_profile').invalid">
+            {{ "required_field" | translate }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <mat-divider class="mx-n4 my-3"></mat-divider>
+
+    <h4>
+      <strong>{{ "volunteer_role" | translate }}</strong>
+    </h4>
+
+    <div class="row">
+      <div class="col-sm-6">
+        <mat-form-field appearance="outline" class="d-block">
+          <mat-label>{{ "volunteer_role" | translate }}</mat-label>
+          <mat-select formControlName="role" multiple>
+            <mat-option *ngFor="let role of volunteerRoles" [value]="role">
+              <mat-icon [svgIcon]="role"></mat-icon>
+              {{ role | translate }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.get('role').invalid">
+            {{ "required_field" | translate }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <h4>
+      <strong>{{ "availability" | translate }}</strong>
+    </h4>
+
+    <div class="row">
+      <div class="col-sm-6">
+        <mat-form-field appearance="outline" class="d-block">
+          <mat-label>{{ "days" | translate }}</mat-label>
+          <mat-select formControlName="availability_days" required multiple>
+            <mat-option *ngFor="let weekDay of weekDays" [value]="weekDay">
+              {{ weekDay | translate }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.get('availability_days').invalid">
+            {{ "required_field" | translate }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="row">
+          <div class="col-6">
+            <mat-form-field appearance="outline" class="d-block">
+              <mat-label>{{ "from" | translate }}</mat-label>
+              <mat-select formControlName="availability_hours_start">
+                <mat-option *ngFor="let hour of hours" [value]="hour.value">
+                  {{ hour.label }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="form.get('availability_hours_start').invalid">
+                {{ "required_field" | translate }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-6">
+            <mat-form-field appearance="outline" class="d-block">
+              <mat-label>{{ "to" | translate }}</mat-label>
+              <mat-select formControlName="availability_hours_end">
+                <mat-option *ngFor="let hour of hours" [value]="hour.value">
+                  {{ hour.label }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="form.get('availability_hours_end').invalid">
+                {{ "hour_to_small" | translate }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+
+  <mat-divider class="mx-n4"></mat-divider>
+
+  <mat-dialog-actions class="justify-content-center py-4">
+    <button mat-flat-button color="primary" type="submit">
+      {{ "confirm" | translate }}
+    </button>
+  </mat-dialog-actions>
+</form>

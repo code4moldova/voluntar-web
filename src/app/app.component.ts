@@ -3,13 +3,27 @@ import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 
 const icons = [
-  'medicine',
-  'deafmute',
   'archived',
+  'blind_weak_seer',
+  'copilot',
+  'correct',
+  'deafmute',
+  'delivery',
+  'disability',
   'export',
+  'grocery',
   'import',
-  'plus',
+  'incorrect',
+  'invoices',
   'map',
+  'mask',
+  'medicine',
+  'operator',
+  'packing',
+  'plus',
+  'supply',
+  'transport',
+  'warm_lunch',
 ] as const;
 
 @Component({

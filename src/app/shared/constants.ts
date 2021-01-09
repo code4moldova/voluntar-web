@@ -26,6 +26,9 @@ export const KIV_ZONES_MAP = KIV_ZONES.reduce((acc, zone) => {
   return acc;
 }, {});
 
+export enum VOLUNTEER_STATUS {}
+
+// TODO: rename to VolunteerRole
 export enum VOLUNTEER_ROLES {
   delivery = 'delivery',
   copilot = 'copilot',
@@ -34,6 +37,33 @@ export enum VOLUNTEER_ROLES {
   operator = 'operator',
 }
 
+export const volunteerRoles = Object.values(VOLUNTEER_ROLES);
+
+// TODO: rename to Zone
+export enum ZONES {
+  botanica = 'botanica',
+  buiucani = 'buiucani',
+  centru = 'centru',
+  ciocana = 'ciocana',
+  riscani = 'riscani',
+  telecentru = 'telecentru',
+  suburbii = 'suburbii',
+}
+
+export const zones = Object.values(ZONES);
+
+// TODO: rename to WeekDay
+export enum DAYS_OF_WEEK {
+  monday = 'monday',
+  tuesday = 'tuesday',
+  wednesday = 'wednesday',
+  thursday = 'thursday',
+  friday = 'friday',
+  saturday = 'saturday',
+  sunday = 'sunday',
+}
+export const weekDays = Object.values(DAYS_OF_WEEK);
+
 export const SPECIAL_CONDITIONS = [
   {
     label: 'Disability',
@@ -41,7 +71,7 @@ export const SPECIAL_CONDITIONS = [
   },
   {
     label: 'Deaf-mute',
-    value: 'deaf_mute',
+    value: 'deafmute',
   },
   {
     label: 'Blind/Weak-seer',

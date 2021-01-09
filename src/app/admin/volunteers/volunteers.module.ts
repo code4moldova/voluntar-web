@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { VolunteersComponent } from './volunteers.component';
 import { VolunteersListComponent } from './volunteers-list/volunteers-list.component';
 import { VolunteersDetailsComponent } from './volunteers-details/volunteers-details.component';
 import { MaterialComponentsModule } from '@shared/material.module';
@@ -9,13 +8,15 @@ import { VolunteerModalInfoComponent } from './shared/volunteer-modal-info/volun
 import { NgxMaskModule } from 'ngx-mask';
 import { RouterModule } from '@angular/router';
 import { volunteersRoutes } from './volunteers.routes';
+import { VolunteersCreateComponent } from './volunteers-create/volunteers-create.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
-    VolunteersComponent,
     VolunteersListComponent,
     VolunteersDetailsComponent,
     VolunteerModalInfoComponent,
+    VolunteersCreateComponent,
   ],
   imports: [
     CommonModule,
@@ -23,6 +24,7 @@ import { volunteersRoutes } from './volunteers.routes';
     MaterialComponentsModule,
     SharedModule,
     NgxMaskModule.forChild(),
+    TranslateModule,
   ],
 })
 export class VolunteersModule {}
