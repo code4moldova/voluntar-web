@@ -243,7 +243,7 @@ export class RequestFormComponent implements OnInit, OnDestroy, OnChanges {
           ],
           address: this.fakeAddressControl.value?.address,
         },
-        panelClass: 'cdk-overlay-pane-no-padding',
+        panelClass: 'esri-map',
         width: '80%',
         height: '80%',
         maxWidth: '100%',

@@ -10,7 +10,6 @@ import { NgxMaskModule } from 'ngx-mask';
 import { RequestsMapComponent } from './shared/requests-map/requests-map.component';
 import { RouterModule } from '@angular/router';
 import { requestsRoutes } from './requests.routes';
-import { RequestAddressFieldComponent } from './request-details/request-address-field/request-address-field.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +18,6 @@ import { RequestAddressFieldComponent } from './request-details/request-address-
     RequestsListComponent,
     RequestFormComponent,
     RequestsMapComponent,
-    RequestAddressFieldComponent,
   ],
   imports: [
     CommonModule,
