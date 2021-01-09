@@ -8,6 +8,7 @@ import {
 import { weekDays } from '@shared/week-day';
 import { volunteerRoles, zones } from '@shared/constants';
 import { VolunteersFacade } from '../volunteers.facade';
+import { generateHoursRange } from '@shared/generate-hours-range';
 
 @Component({
   templateUrl: './volunteers-create.component.html',
@@ -66,21 +67,4 @@ export class VolunteersCreateComponent {
       ...this.form.value,
     });
   }
-}
-
-function generateHoursRange(
-  from: number,
-  to: number
-): Array<{ label: string; value: number }> {
-  const hours = [];
-
-  for (let i = from; i <= to; i++) {
-    const hour = i.toString(10).padStart(2, '0');
-    hours.push({
-      label: `${hour}:00`,
-      value: i,
-    });
-  }
-
-  return hours;
 }
