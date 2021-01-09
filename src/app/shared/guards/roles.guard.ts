@@ -19,25 +19,21 @@ import { UserRole } from '@users/shared/user-role';
 export class RolesGuard implements CanActivate {
   constructor(
     private userFacade: AuthFacade,
-    private snakBar: MatSnackBar,
+    private snackBar: MatSnackBar,
     private route: Router
   ) {}
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ):
-    | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree>
-    | boolean
-    | UrlTree {
+  ): Observable<boolean | UrlTree> {
     return this.userFacade.userRoles$.pipe(
       map((roles: UserRole[]) => {
-        const routeConfig = next.data;
+        const routeRoles: UserRole[] = next.data.roles;
         const rolesIntersection = roles.some((role) =>
-          routeConfig.roles.includes(role)
+          routeRoles.includes(role)
         );
-        if ((routeConfig && !roles) || !rolesIntersection) {
-          this.snakBar.open('Not allowed', '', {
+        if ((routeRoles && !roles) || !rolesIntersection) {
+          this.snackBar.open('Not allowed', '', {
             duration: 2000,
           });
           this.route.navigate(['/requests']);
