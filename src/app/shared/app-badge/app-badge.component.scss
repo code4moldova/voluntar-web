@@ -1,0 +1,37 @@
+/* Just copied from figma, I think it's ok till it's a isolated component */
+:host {
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 10px;
+  line-height: 135%;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #a19f9d;
+  background: #edebe9;
+}
+
+:host(.small) {
+  padding: 2px 8px;
+}
+
+:host(.light-blue) {
+  background: #e6ebff;
+  color: #3f51b5;
+}
+
+:host(.red) {
+  color: #f0323c;
+  background: #fcd6d8;
+}
+
+:host(.green) {
+  color: #3cd278;
+  background: #d8f6e4;
+}
+
+:host(.blue) {
+  color: #0056fb;
+  background: #e6eeff;
+}

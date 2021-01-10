@@ -11,49 +11,113 @@
   </button>
 </div>
 
-<mat-card>
-  <table mat-table [dataSource]="dataSource$ | async">
-    <!-- Name Column -->
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef>Nume</th>
-      <td mat-cell *matCellDef="let element">
-        {{ element.first_name }} {{ element.last_name }}
-      </td>
-    </ng-container>
+<nav mat-tab-nav-bar class="bg-white">
+  <a
+    mat-tab-link
+    *ngFor="let tab of tabs"
+    (click)="onTabChange(tab)"
+    [active]="activeTab === tab"
+  >
+    {{ tab.label }}
+    <app-badge class="ml-2 small" [class.light-blue]="activeTab === tab">
+      {{ tab.count }}
+    </app-badge>
+  </a>
+</nav>
 
-    <!-- Weight Column -->
-    <ng-container matColumnDef="email">
-      <th mat-header-cell *matHeaderCellDef>Email</th>
-      <td mat-cell *matCellDef="let element">{{ element.email }}</td>
-    </ng-container>
+<div class="position-relative">
+  <div class="table-responsive">
+    <table
+      mat-table
+      [dataSource]="dataSource"
+      *ngIf="(isLoading$ | async) === false"
+    >
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Nume</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.first_name }} {{ element.last_name }}
+        </td>
+      </ng-container>
 
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="status">
-      <th mat-header-cell *matHeaderCellDef>Activ</th>
-      <td mat-cell *matCellDef="let element">
-        {{ element.status ? "Da" : "Nu" }}
-      </td>
-    </ng-container>
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="phone">
+        <th mat-header-cell *matHeaderCellDef>Phone</th>
+        <td mat-cell *matCellDef="let element">
+          <a
+            mat-button
+            *ngIf="element.phone"
+            class="pl-3 ml-n3"
+            href="tel:+373{{ element.phone }}"
+          >
+            +373{{ element.phone }}
+          </a>
+          <ng-container *ngIf="!element.phone">No phone number</ng-container>
+        </td>
+      </ng-container>
 
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="phone">
-      <th mat-header-cell *matHeaderCellDef>Phone</th>
-      <td mat-cell *matCellDef="let element">{{ element.phone }}</td>
-    </ng-container>
+      <!-- Weight Column -->
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef>Email</th>
+        <td mat-cell *matCellDef="let element">
+          <a
+            mat-button
+            class="pl-3 ml-n3"
+            href="mailto:{{ element.email }}"
+            *ngIf="element.email"
+          >
+            {{ element.email }}
+          </a>
+          <ng-container *ngIf="!element.email">No email</ng-container>
+        </td>
+      </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr
-      mat-row
-      *matRowDef="let row; columns: displayedColumns"
-      class="clickable-row"
-      [routerLink]="['/admin/users/details', row._id]"
-    ></tr>
-  </table>
+      <ng-container matColumnDef="role">
+        <th mat-header-cell *matHeaderCellDef>Role</th>
+        <td mat-cell *matCellDef="let element">
+          <app-badge
+            [class]="{
+              red: element.roles[0] === UserRole.administrator,
+              blue: element.roles[0] === UserRole.coordinator,
+              green: element.roles[0] === UserRole.operator
+            }"
+          >
+            {{ element.roles[0] }}
+          </app-badge>
+        </td>
+      </ng-container>
 
-  <div class="loading-shade" *ngIf="isLoading$ | async">
+      <ng-container matColumnDef="details">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+          <a
+            mat-stroked-button
+            class="float-right"
+            [routerLink]="['/admin/users/details', element._id]"
+          >
+            Details
+          </a>
+        </td>
+      </ng-container>
+
+      <tr *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+
+  <div
+    class="loading-shade"
+    style="min-height: 150px"
+    *ngIf="isLoading$ | async"
+  >
     <mat-spinner></mat-spinner>
   </div>
-  <mat-card-footer>
-    <mat-paginator [pageSizeOptions]="[20, 50, 100]"></mat-paginator>
-  </mat-card-footer>
-</mat-card>
+</div>
+
+<mat-paginator
+  [style]="{ 'margin-top': (isLoading$ | async) ? '150px' : 'initial' }"
+  [length]="page.length"
+  [pageSize]="perPage"
+  [pageSizeOptions]="perPageOptions"
+  (page)="onPageChange($event)"
+></mat-paginator>

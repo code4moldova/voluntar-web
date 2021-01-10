@@ -13,6 +13,10 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "es2020",
+    // Turn to true after, after started local dev server
+    // This way IDE will show strict errors
+    // And dev-server will not crash
+    "strict": false,
     "paths": {
       "@app/*": ["src/app/*"],
       "@shared/*": ["src/app/shared/*"],

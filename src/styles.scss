@@ -24,6 +24,14 @@ body {
   }
 }
 
+/* copied from bootstrap/table */
+.table-responsive {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
 .clickable-row {
   cursor: pointer;
   transition: background-color 0.2s ease-in-out;

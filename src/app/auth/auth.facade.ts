@@ -3,9 +3,11 @@ import { select, Store } from '@ngrx/store';
 import { AppState } from '@app/app.state';
 import { loginAction, logoutAction } from './auth.actions';
 import { selectIsLoading } from './auth.selectors';
-import { filter, map } from 'rxjs/operators';
+import { filter, map, pluck } from 'rxjs/operators';
 import { TokenStorage } from '@shared/token-storage.service';
 import { AuthCredentials } from './shared/auth-credentials';
+import { oldToNewRolesMap } from '@users/shared/old-to-new-roles-map';
+import { User } from '@users/shared/user';
 
 @Injectable({
   providedIn: 'root',
@@ -13,10 +15,9 @@ import { AuthCredentials } from './shared/auth-credentials';
 export class AuthFacade {
   userData$ = this.tokenStorage.getParsedToken();
   userRoles$ = this.tokenStorage.getParsedToken().pipe(
-    filter((user) => Boolean(user)),
-    map((user) => {
-      return user.roles;
-    })
+    filter((user: User) => Boolean(user)),
+    pluck('roles'),
+    map(oldToNewRolesMap)
   );
   isLoading$ = this.store.pipe(select(selectIsLoading));
 

@@ -10,5 +10,7 @@ export interface User {
   last_access: string;
   last_name: string;
   phone: number;
+  /** @deprecated */
   role: UserRole[];
+  roles: UserRole[];
 }
