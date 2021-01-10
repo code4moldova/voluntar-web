@@ -23,6 +23,7 @@ import {
   finalize,
   first,
   map,
+  pluck,
   switchMap,
   takeUntil,
   tap,
@@ -77,7 +78,7 @@ export class RequestFormComponent implements OnInit, OnDestroy, OnChanges {
     )
   );
 
-  operators$ = this.usersFacade.users$;
+  operators$ = this.usersFacade.users$.pipe(pluck('list'));
   isLoading$ = concat(
     this.requestsFacade.isLoading$,
     this.tagsFacade.isLoading$

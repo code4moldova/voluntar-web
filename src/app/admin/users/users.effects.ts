@@ -31,13 +31,13 @@ export class UsersEffects {
   getUsers$: Observable<Action> = createEffect(() => {
     return this.actions$.pipe(
       ofType(getUsersAction),
-      switchMap(() =>
-        this.usersService.getList().pipe(
-          map((res) => {
-            return getUsersSuccessAction({
-              payload: res.list,
-            });
-          }),
+      switchMap((props) =>
+        this.usersService.getList(props.payload).pipe(
+          map((res) =>
+            getUsersSuccessAction({
+              payload: res,
+            })
+          ),
           catchError(({ error }) => of(getUsersFailureAction({ error })))
         )
       )

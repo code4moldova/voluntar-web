@@ -1,5 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 import { User } from './shared/user';
+import { UsersListRequest } from '@users/shared/users-list-request';
+import { UsersListResponse } from '@users/shared/users-list-response';
 
 export enum ActionTypes {
   GET_USERS = '[USERS] Get Users',
@@ -19,14 +21,17 @@ export enum ActionTypes {
   UPDATE_USER_FAILURE = '[USERS] Update User Failure',
 }
 
-export const getUsersAction = createAction(ActionTypes.GET_USERS);
+export const getUsersAction = createAction(
+  ActionTypes.GET_USERS,
+  props<{ payload?: UsersListRequest }>()
+);
 export const getUsersFailureAction = createAction(
   ActionTypes.GET_USERS_FAILURE,
   props<{ error: any }>()
 );
 export const getUsersSuccessAction = createAction(
   ActionTypes.GET_USERS_SUCCESS,
-  props<{ payload: User[] }>()
+  props<{ payload: UsersListResponse }>()
 );
 
 export const getUserDetailsAction = createAction(

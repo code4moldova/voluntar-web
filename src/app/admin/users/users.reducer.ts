@@ -17,7 +17,7 @@ import {
 
 export const usersReducer = createReducer<UsersState, Action>(
   {
-    data: [],
+    data: { list: [], count: 0 },
     userDetails: null,
     isLoading: false,
     error: null,

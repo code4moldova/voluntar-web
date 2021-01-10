@@ -9,7 +9,7 @@ import {
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
 import { BehaviorSubject, forkJoin, Observable, of } from 'rxjs';
-import { map, take, takeUntil } from 'rxjs/operators';
+import { map, pluck, take, takeUntil } from 'rxjs/operators';
 
 import { RequestPageParams, RequestsFacade } from '../requests.facade';
 import { UsersFacade } from '@users/users.facade';
@@ -94,7 +94,7 @@ export class RequestsListComponent implements OnInit {
 
   allStatuses = this.tagsFacade.getStatusOptions();
 
-  allStatusesCounts$: BehaviorSubject<number[]> = new BehaviorSubject([]);
+  allStatusesCounts$ = new BehaviorSubject<number[]>([]);
 
   constructor(
     private requestsFacade: RequestsFacade,
@@ -129,6 +129,7 @@ export class RequestsListComponent implements OnInit {
 
   operatorById$(fixer: string) {
     return this.usersFacade.users$.pipe(
+      pluck('list'),
       map((users) => users.find((u) => u._id === fixer))
     );
   }
@@ -145,7 +146,11 @@ export class RequestsListComponent implements OnInit {
     ];
 
     this.observableSelectColumns = [
-      { name: 'Fixer', value: 'fixer', array: this.usersFacade.users$ },
+      {
+        name: 'Fixer',
+        value: 'fixer',
+        array: this.usersFacade.users$.pipe(pluck('list')),
+      },
       {
         name: 'Zone address',
         value: 'zone_address',

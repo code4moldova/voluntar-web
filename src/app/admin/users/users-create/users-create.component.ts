@@ -3,10 +3,11 @@ import {
   AbstractControl,
   FormBuilder,
   FormGroup,
+  ValidatorFn,
   Validators,
 } from '@angular/forms';
 import { weekDays } from '@shared/week-day';
-import { userRoles } from '@users/shared/user-role';
+import { UserRole, userRoles } from '@users/shared/user-role';
 import { generateHoursRange } from '@shared/generate-hours-range';
 import { UsersFacade } from '@users/users.facade';
 
@@ -21,11 +22,14 @@ import { UsersFacade } from '@users/users.facade';
   ],
 })
 export class UsersCreateComponent {
-  roles = userRoles;
+  roles = userRoles.filter(
+    // Filter deprecated roles
+    (role) => ![UserRole.fixer, UserRole.admin].includes(role)
+  );
   weekDays = weekDays;
   hours = generateHoursRange(8, 20);
 
-  samePasswordValidator = (control: AbstractControl) => {
+  samePasswordValidator: ValidatorFn = (control: AbstractControl) => {
     const password = this.formGroup?.get('password');
     const valueMatches = password?.value === control.value;
     const someFieldIsDisabled = password?.disabled || control.disabled;

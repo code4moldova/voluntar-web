@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { AdminComponent } from './admin.component';
-import { RoleService } from '@shared/services/roles/role.service';
 import { RolesGuard } from '@shared/guards';
+import { UserRole } from '@users/shared/user-role';
 
 export const adminRoutes: Routes = [
   {
@@ -11,7 +11,7 @@ export const adminRoutes: Routes = [
       {
         path: 'beneficiaries',
         data: {
-          roles: RoleService.getPageRoles('beneficiaries'),
+          roles: [UserRole.administrator, UserRole.coordinator],
         },
         canActivate: [RolesGuard],
         loadChildren: () =>
@@ -22,7 +22,7 @@ export const adminRoutes: Routes = [
       {
         path: 'volunteers',
         data: {
-          roles: RoleService.getPageRoles('volunteers'),
+          roles: [UserRole.administrator, UserRole.coordinator],
         },
         canActivate: [RolesGuard],
         loadChildren: () =>
@@ -33,7 +33,11 @@ export const adminRoutes: Routes = [
       {
         path: 'requests',
         data: {
-          roles: RoleService.getPageRoles('requests'),
+          roles: [
+            UserRole.administrator,
+            UserRole.operator,
+            UserRole.coordinator,
+          ],
         },
         canActivate: [RolesGuard],
         loadChildren: () =>
@@ -42,7 +46,7 @@ export const adminRoutes: Routes = [
       {
         path: 'users',
         data: {
-          roles: RoleService.getPageRoles('users'),
+          roles: [UserRole.administrator],
         },
         canActivate: [RolesGuard],
         loadChildren: () =>

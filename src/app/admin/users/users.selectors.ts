@@ -1,6 +1,7 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { UsersState } from './shared/users.state';
 import { User } from './shared/user';
+import { UsersListResponse } from '@users/shared/users-list-response';
 
 const selectUsers = createFeatureSelector<any, UsersState>('users');
 
@@ -20,7 +21,7 @@ export const selectUserDetails = createSelector(
 
 export const selectUsersList = createSelector(
   selectUsers,
-  (state: UsersState): User[] => {
+  (state: UsersState): UsersListResponse => {
     return state.data;
   }
 );

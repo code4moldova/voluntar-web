@@ -13,6 +13,7 @@ import {
   createUserAction,
 } from './users.actions';
 import { User } from './shared/user';
+import { UsersListRequest } from '@users/shared/users-list-request';
 
 @Injectable({
   providedIn: 'root',
@@ -31,8 +32,8 @@ export class UsersFacade {
     }
   }
 
-  getUsers() {
-    this.store.dispatch(getUsersAction());
+  getUsers(filter?: UsersListRequest) {
+    this.store.dispatch(getUsersAction({ payload: filter }));
   }
 
   getUserById(id: string) {
