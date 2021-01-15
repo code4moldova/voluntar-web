@@ -10,6 +10,8 @@ export interface Beneficiary {
   entrance: string;
   floor: string;
   apartment: string;
+  latitude: number;
+  longitude: number;
   special_condition: string;
   created_at: string | Date;
 }
