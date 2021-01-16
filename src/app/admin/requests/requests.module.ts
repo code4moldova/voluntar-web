@@ -4,7 +4,6 @@ import { RequestDetailsComponent } from './request-details/request-details.compo
 import { RequestsListComponent } from './requests-list/requests-list.component';
 import { MaterialComponentsModule } from '@shared/material.module';
 import { SharedModule } from '@shared/shared.module';
-import { RequestFormComponent } from './shared/request-form/request-form.component';
 import { NgxMaskModule } from 'ngx-mask';
 import { RequestsMapComponent } from './shared/requests-map/requests-map.component';
 import { RouterModule } from '@angular/router';
@@ -15,7 +14,6 @@ import { RequestAddressFieldComponent } from './request-details/request-address-
   declarations: [
     RequestDetailsComponent,
     RequestsListComponent,
-    RequestFormComponent,
     RequestsMapComponent,
     RequestAddressFieldComponent,
   ],

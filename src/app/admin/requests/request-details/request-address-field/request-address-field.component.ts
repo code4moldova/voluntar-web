@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { EsriMapComponent } from '@app/shared/esri-map/esri-map.component';
 import { first } from 'rxjs/operators';
@@ -17,11 +17,13 @@ export interface coordinates {
 })
 export class RequestAddressFieldComponent implements OnInit {
   @Output() gotCoordinates = new EventEmitter<coordinates>();
-  selectedAddress = '';
+  @Input() selectedAddress: string;
+
   constructor(private matDialog: MatDialog) {}
 
   ngOnInit(): void {}
 
+  // TODO: Map component not showing addresses
   showMapDialog() {
     this.matDialog
       .open<
@@ -33,7 +35,7 @@ export class RequestAddressFieldComponent implements OnInit {
           coors: [47.02486150651041, 28.832740004203416],
           address: 'Arcul de Triumf',
         },
-        panelClass: 'cdk-overlay-pane-no-padding',
+        panelClass: 'esri-map',
         width: '80%',
         height: '80%',
         maxWidth: '100%',
@@ -41,29 +43,27 @@ export class RequestAddressFieldComponent implements OnInit {
       })
       .afterClosed()
       .pipe(first())
-      .subscribe(
-        (coors) => {
-          if (coors !== undefined) {
-            if (coors.address.length > 1 || coors.address.length == 0)
-              coors.valid = true;
-            else coors.valid = false;
-            this.gotCoordinates.emit(coors);
-            this.selectedAddress = coors.address || '';
-          }
-        },
-        (err) => console.log('Coordonates missed!', err)
-      );
+      .subscribe((coors) => {
+        if (coors) {
+          if (coors.address.length > 1 || coors.address.length === 0)
+            coors.valid = true;
+          else coors.valid = false;
+          this.gotCoordinates.emit(coors);
+          this.selectedAddress = coors.address || '';
+        }
+      });
   }
 
-  selectAddress(ev) {
-    this.selectedAddress = ev.target.value;
-    let coors = {
+  // TODO: Check if the input address exists on map
+  selectAddress(ev: Event) {
+    this.selectedAddress = (ev.target as HTMLInputElement).value;
+    const coors = {
       latitude: null,
       longitude: null,
       address: this.selectedAddress,
       valid: false,
     };
-    if (this.selectedAddress.length > 1 || this.selectedAddress.length == 0)
+    if (this.selectedAddress.length > 1 || this.selectedAddress.length === 0)
       coors.valid = true;
     this.gotCoordinates.emit(coors);
   }
