@@ -1,10 +1,68 @@
 {
   "common": {
+    "formular": "Formular",
     "give_help": "Хочу помочь",
     "request_help": "Нужна помощь",
     "who_needs_help": "Кому помогаем?",
+    "who_can_help": "Cine poate ajuta?",
+    "make_donation": "Donează",
     "sign_in": "Вход в систему"
   },
+  "first_name": "Nume (de familie)",
+  "last_name": "Prenume",
+  "phone": "Număr Telefon",
+  "email": "Email",
+  "address": "Adresa",
+  "age": "Vârsta",
+  "close": "Închide",
+  "family_name": "Nume (de familie)",
+  "password": "Parola",
+  "repeat_password": "Repeta Parola",
+  "user_role": "Rolul utilizatorului",
+  "administrator": "Administrator",
+  "admin": "Administrator (deprecat)",
+  "fixer": "Fixer (deprecat)",
+  "coordinator": "Coordinator",
+  "monday": "Luni",
+  "tuesday": "Marți",
+  "wednesday": "Miercuri",
+  "thursday": "Joi",
+  "friday": "Vineri",
+  "saturday": "Sâmbătă",
+  "sunday": "Duminică",
+  "delivery": "Livrare",
+  "copilot": "Copilot",
+  "packing": "Împachetare",
+  "supply": "Aprovizionare",
+  "operator": "Operator",
+  "personal_data": "Date personale",
+  "create_volunteer": "Crează Voluntar",
+  "volunteer_role": "Rolul Voluntarului",
+  "availability": "Disponibilitate",
+  "confirm": "Confirmă",
+  "days": "Zile",
+  "from": "De la",
+  "to": "Până la",
+  "zone": "Sector",
+  "botanica": "Botanica",
+  "buiucani": "Buiucani",
+  "centru": "Centru",
+  "ciocana": "Ciocana",
+  "riscani": "Râșcani",
+  "telecentru": "Telecentru",
+  "suburbii": "Suburbii",
+  "required_field": "Câmp obligatoriu",
+  "eight_digits": "8 cifre, fără 0 la început",
+  "invalid_email": "Email invalid",
+  "between16and50": "Doar vîrsta cu valorile intre  16 și 50 este acceptata",
+  "hour_to_small": "Oră prea mică",
+  "min_length": "Lungimea minima e 6",
+  "password_no_match": "Parola nu coincide",
+  "user_id": "ID Utilizator",
+  "save": "Salvează",
+  "user_edit": "Editează utilizator",
+  "back": "Înapoi",
+  "active": "Activ",
   "hero": {
     "headline": "Инициатива <span>Вместе<br />против COVID-19</span>",
     "description": "Гражданский проект, который объединяет усилия и помогает людям в неблагоприятных ситуациях во время пандемии COVID-19"
@@ -14,7 +72,34 @@
       "1": "Люди, восприимчивые к вирусу старики, люди с двигательными нарушениями и хроническими заболеваниями",
       "2": "Родитель, который воспитывает своих детей сам.",
       "3": "Люди, находящиеся в изоляции или карантине, независимо от того, вернулись ли они из-за границы или были в контакте с человеком, инфицированным COVID-19",
-      "4": "Люди в критических финансовых ситуациях (оставленные на улице или неспособные удовлетворить их основные потребности)."
+      "4": "Люди в критических финансовых ситуациях (оставленные на улице или неспособные удовлетворить их основные потребности).",
+      "description": "Sună la <strong>Linia Verde</strong><br />pentru asistență socială."
+    },
+    "can_help": {
+      "1": "Orice persoană dornică de a ajuta persoanele din grupurile de risc.",
+      "2": "Persoana care vrea să facă o schimbare.",
+      "3": "Persoana care dispune de timp și motivație.",
+      "4": "Persoana care vrea să facă parte dintr-o echipă super faină și deschisă la minte.",
+      "description": "Devino voluntar, completează<br />formularul de înregistrare."
+    }
+  },
+  "make_donation": {
+    "description": "Dar din dar se face rai!",
+    "arguments": {
+      "1": "Asigurăm și <strong>facilităm aprovizionarea</strong> cu medicamente, produse alimentare și de igienă pentru persoanele care au nevoie.",
+      "2": "<strong>Asigurăm transparența</strong> deplină a cheltuielilor prin postări regulate și rapoarte financiare."
+    }
+  },
+  "footer": {
+    "created_by": "Creat de",
+    "description": "Organizație neguvernamentală independentă, neafiliată politic",
+    "copyright": "© 2020 Code for Moldova",
+    "terms": "Termeni și Condiții",
+    "find_us_on_social": "Ne găsești pe rețele:"
+  },
+  "pages": {
+    "terms": {
+      "headline": "Termeni și Condiții"
     }
   }
 }
