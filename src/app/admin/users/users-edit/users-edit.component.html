@@ -1,0 +1,171 @@
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup)" class="pb-4">
+  <div class="mt-4 mb-3">
+    <a href="#" appGoBack>
+      <-
+      <span translate>back</span>
+    </a>
+  </div>
+
+  <h2 class="mb-4" translate>user_edit</h2>
+
+  <div class="bg-white p-4 mat-typography">
+    <h4>
+      <strong translate>personal_data</strong>
+    </h4>
+
+    <div class="row">
+      <div class="col-sm-6 col-lg-4">
+        <mat-form-field
+          floatLabel="always"
+          appearance="outline"
+          class="d-block"
+        >
+          <mat-label translate>family_name</mat-label>
+          <input matInput formControlName="first_name" title="" />
+          <mat-error translate>required_field</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-sm-6 col-lg-4">
+        <mat-form-field
+          floatLabel="always"
+          appearance="outline"
+          class="d-block"
+        >
+          <mat-label translate>last_name</mat-label>
+          <input matInput formControlName="last_name" title="" />
+          <mat-error translate>required_field</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-sm-6 col-lg-4">
+        <mat-form-field
+          floatLabel="always"
+          appearance="outline"
+          class="d-block"
+        >
+          <mat-label translate>phone</mat-label>
+          <input matInput formControlName="phone" type="tel" title="" />
+          <mat-error translate>eight_digits</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-sm-6 col-lg-4">
+        <mat-form-field
+          floatLabel="always"
+          appearance="outline"
+          class="d-block"
+        >
+          <mat-label translate>email</mat-label>
+          <input matInput formControlName="email" title="" />
+          <mat-error translate>invalid_email</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-sm-6 col-lg-4">
+        <mat-form-field
+          floatLabel="always"
+          appearance="outline"
+          class="d-block"
+        >
+          <mat-label translate>password</mat-label>
+          <input matInput formControlName="password" type="password" title="" />
+          <mat-error translate>min_length</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-sm-6 col-lg-4">
+        <mat-form-field
+          floatLabel="always"
+          appearance="outline"
+          class="d-block"
+        >
+          <mat-label translate>user_id</mat-label>
+          <input matInput formControlName="_id" readonly title="" />
+        </mat-form-field>
+      </div>
+
+      <div class="col-12">
+        <mat-checkbox formControlName="is_active">
+          {{ "active" | translate }}
+        </mat-checkbox>
+      </div>
+    </div>
+
+    <mat-divider class="my-4"></mat-divider>
+
+    <div class="row">
+      <div class="col-lg-6">
+        <h4>
+          <strong translate>user_role</strong>
+        </h4>
+        <div class="row">
+          <div class="col-md-6">
+            <mat-form-field appearance="outline" class="d-block">
+              <mat-label translate>user_role</mat-label>
+              <mat-select formControlName="role">
+                <mat-option *ngFor="let role of roles" [value]="role">
+                  {{ role | translate }}
+                </mat-option>
+              </mat-select>
+              <mat-error translate>required_field</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <h4>
+          <strong translate>availability</strong>
+        </h4>
+        <div class="row">
+          <div class="col-sm-6">
+            <mat-form-field appearance="outline" class="d-block">
+              <mat-label translate>days</mat-label>
+              <mat-select formControlName="availability_days" multiple>
+                <mat-option *ngFor="let weekDay of weekDays" [value]="weekDay">
+                  {{ weekDay | translate }}
+                </mat-option>
+              </mat-select>
+              <mat-error translate>required_field</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-sm-6">
+            <div class="row">
+              <div class="col-6">
+                <mat-form-field appearance="outline" class="d-block">
+                  <mat-label translate>from</mat-label>
+                  <mat-select formControlName="availability_hours_start">
+                    <mat-option *ngFor="let hour of hours" [value]="hour.value">
+                      {{ hour.label }}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error translate>required_field</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-6">
+                <mat-form-field appearance="outline" class="d-block">
+                  <mat-label translate>to</mat-label>
+                  <mat-select formControlName="availability_hours_end">
+                    <mat-option *ngFor="let hour of hours" [value]="hour.value">
+                      {{ hour.label }}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error translate>required_field</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <mat-divider class="my-4"></mat-divider>
+
+    <div class="d-flex">
+      <button class="ml-auto" mat-flat-button color="primary">
+        {{ "save" | translate }}
+      </button>
+    </div>
+  </div>
+</form>
