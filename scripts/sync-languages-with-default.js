@@ -10,4 +10,4 @@ const ru = require(ruLocation);
 
 const ruWithAllKeys = merge({}, ro, ru);
 
-writeFileSync(ruLocation, JSON.stringify(ruWithAllKeys, null, 2));
+writeFileSync(ruLocation, `${JSON.stringify(ruWithAllKeys, null, 2)}\n`);

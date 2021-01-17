@@ -83,6 +83,10 @@
     }
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx,html,md,json,css,scss}": "prettier --write"
+    "*.{js,jsx,ts,tsx,html,md,json,css,scss}": "prettier --write",
+    "src/assets/i18n/ro.json": [
+      "npm run sync-l10n",
+      "git add ."
+    ]
   }
 }
