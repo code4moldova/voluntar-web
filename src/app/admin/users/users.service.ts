@@ -6,8 +6,7 @@ import { Observable } from 'rxjs';
 import { UsersListRequest } from '@users/shared/users-list-request';
 import { UsersListResponse } from '@users/shared/users-list-response';
 import { map } from 'rxjs/operators';
-import { UserRole, UserRolePriority } from '@users/shared/user-role';
-import { oldToNewRolesMap } from '@users/shared/old-to-new-roles-map';
+import { userRoleMergeMapSort } from '@users/shared/user-role-merge-map-sort';
 
 @Injectable({
   providedIn: 'root',
@@ -46,22 +45,4 @@ export class UsersService {
   getById(id: string): Observable<User> {
     return this.http.get<User>(`${environment.url}/operator?id=${id}`);
   }
-}
-
-/**
- * This function will merge deprecated `role` field
- * Will change deprecated roles with new ones
- * Will sort roles by priority
- */
-function userRoleMergeMapSort(user: User): User {
-  const mergedRoles = [...(user.role ?? []), ...(user.roles ?? [])];
-  const remappedUniqueRoles = [...new Set(oldToNewRolesMap(mergedRoles))];
-  const sortedRolesByPriority = remappedUniqueRoles.sort(
-    (a, b) => UserRolePriority.indexOf(a) - UserRolePriority.indexOf(b)
-  );
-  return {
-    ...user,
-    role: undefined,
-    roles: sortedRolesByPriority,
-  };
 }

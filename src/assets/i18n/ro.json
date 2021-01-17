@@ -58,6 +58,11 @@
   "hour_to_small": "Oră prea mică",
   "min_length": "Lungimea minima e 6",
   "password_no_match": "Parola nu coincide",
+  "user_id": "ID Utilizator",
+  "save": "Salvează",
+  "user_edit": "Editează utilizator",
+  "back": "Înapoi",
+  "active": "Activ",
   "hero": {
     "headline": "Inițiativa <span>împreună<br />împotriva COVID-19</span>",
     "description": "Rețea de voluntari și voluntare care oferă suport celor din zona de risc, în parteneriat cu Serviciile de Asistență Socială din Republica Moldova în contextul situației de criză creată de pandemia de COVID-19."
