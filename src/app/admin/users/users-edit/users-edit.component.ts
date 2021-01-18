@@ -74,6 +74,11 @@ export class UsersEditComponent implements OnDestroy {
         // Backend receives an array of roles
         role: undefined,
         roles: [formGroup.value.role],
+        // Remove password totally if is empty
+        // Otherwise it will try to change it
+        password: formGroup.value.password
+          ? formGroup.value.password
+          : undefined,
       })
       .pipe(takeUntil(this._destroy))
       .subscribe();
