@@ -1,5 +1,6 @@
 /* Just copied from figma, I think it's ok till it's a isolated component */
 :host {
+  display: inline-block;
   padding: 4px 12px;
   border-radius: 12px;
   font-style: normal;

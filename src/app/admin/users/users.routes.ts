@@ -12,6 +12,9 @@ export const usersRoutes: Routes = [
   {
     path: ':id',
     component: UsersDetailsComponent,
+    resolve: {
+      user: UserResolverService,
+    },
   },
   {
     path: ':id/edit',

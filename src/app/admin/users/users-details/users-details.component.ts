@@ -1,121 +1,86 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-  AbstractControl,
-  FormControl,
-  FormGroupDirective,
-  NgForm,
-} from '@angular/forms';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { map, takeUntil, tap, filter } from 'rxjs/operators';
-import { UsersFacade } from '../users.facade';
+import { map, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { ErrorStateMatcher } from '@angular/material/core';
-import { userRoles } from '@users/shared/user-role';
+import { User } from '@users/shared/user';
+import { UserRole } from '@users/shared/user-role';
+import { TranslateService } from '@ngx-translate/core';
+import { RequestsService as DemandsService } from '@requests/requests.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { IRequestDetails as Demand } from '@shared/models';
 
 @Component({
   templateUrl: './users-details.component.html',
 })
-export class UsersDetailsComponent implements OnInit, OnDestroy {
-  componentDestroyed$ = new Subject();
-  isLoading$ = this.usersFacade.isLoading$;
-  id: string;
-  form: FormGroup = this.fb.group(
-    {
-      _id: [null],
-      first_name: [null, Validators.required],
-      last_name: [null, Validators.required],
-      email: [null, [Validators.required, Validators.email]],
-      phone: [
-        null,
-        [Validators.required, Validators.maxLength(8), Validators.minLength(8)],
-      ],
-      is_active: [true, Validators.required],
-      password: [{ value: 'random', disabled: true }, Validators.required],
-      repeatPassword: [{ value: null, disabled: true }, Validators.required],
-      roles: [null],
-    },
-    {
-      validators: this.passwordMatch,
-    }
-  );
-  availableRoles = userRoles;
-  matcher = new MyErrorStateMatcher();
-  constructor(
-    private fb: FormBuilder,
-    private route: ActivatedRoute,
-    private usersFacade: UsersFacade
-  ) {
-    this.route.paramMap
-      .pipe(map((params) => params.get('id')))
-      .subscribe((id) => {
-        this.id = id;
-        if (id) {
-          this.usersFacade.getUserById(id);
-          this.form.get('password').disable();
-          this.form.get('repeatPassword').disable();
-        } else {
-          this.form.get('password').enable();
-          this.form.get('repeatPassword').enable();
-        }
-      });
-  }
+export class UsersDetailsComponent implements OnDestroy, OnInit {
+  private _destroy = new Subject<void>();
 
-  ngOnInit(): void {
-    this.usersFacade.userDetails$
-      .pipe(
-        filter((volunteer) => !!volunteer),
-        // Fix issue switching between 'new' and 'details' page
-        map((volunteer) => (this.id ? volunteer : {})),
-        takeUntil(this.componentDestroyed$)
-      )
-      .subscribe((volunteer) => {
-        this.form.patchValue(volunteer);
-      });
+  UserRole = UserRole;
+  user$ = this.route.data.pipe<User>(map((data) => data.user));
+
+  dataSource = new MatTableDataSource<Demand>([]);
+  @ViewChild(MatPaginator, { static: true })
+  paginator: MatPaginator;
+  perPageOptions = [5, 10, 20];
+  perPage = this.perPageOptions[0];
+  page: PageEvent = {
+    pageSize: this.perPage,
+    pageIndex: 0,
+    length: 0,
+  };
+
+  constructor(
+    private route: ActivatedRoute,
+    private translateService: TranslateService,
+    private demandsService: DemandsService
+  ) {}
+
+  ngOnInit() {
+    this.user$
+      .pipe(takeUntil(this._destroy))
+      .subscribe(() => this.getDemands());
   }
 
   ngOnDestroy() {
-    this.componentDestroyed$.next();
-    this.componentDestroyed$.complete();
+    this._destroy.next();
+    this._destroy.complete();
   }
 
-  onSubmit() {
-    if (this.form.valid) {
-      this.form.get('repeatPassword').disable();
-      this.usersFacade.saveUser(this.form.value);
+  getDemands = (
+    page: PageEvent = {
+      pageSize: this.perPage,
+      pageIndex: 0,
+      length: 0,
     }
+  ) => {
+    this.page = page;
+    return this.demandsService
+      .getRequests(
+        {
+          pageIndex: this.page.pageIndex,
+          pageSize: this.page.pageSize,
+        },
+        { u_id: this.route.snapshot.data.user._id }
+      )
+      .pipe(takeUntil(this._destroy))
+      .subscribe((demands) => {
+        this.page.length = demands.count;
+        this.dataSource.data = demands.list;
+      });
+  };
+
+  getTimeRange(user: User): string {
+    return user.availability_hours_start && user.availability_hours_end
+      ? `${user.availability_hours_start}:00 - ${user.availability_hours_end}:00`
+      : this.translateService.instant('not_set');
   }
 
-  passwordMatch(form: AbstractControl) {
-    const pass = form.get('password');
-    const repeatPass = form.get('repeatPassword');
-    if (pass.disabled || repeatPass.disabled) {
-      return null;
-    }
-    return pass.value === repeatPass.value
-      ? null
-      : {
-          notMatch: true,
-        };
-  }
-}
-
-export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(
-    control: FormControl | null,
-    form: FormGroupDirective | NgForm | null
-  ): boolean {
-    const passwordCtrl = control.parent && control.parent.get('password');
-    const invalidCtrl = !!(
-      control &&
-      (form.submitted || control.dirty) &&
-      passwordCtrl.dirty &&
-      passwordCtrl.value !== control.value
-    );
-    const invalidParent = !!(form && form.invalid && form.dirty);
-
-    return invalidCtrl && invalidParent;
+  getAvailabilityDays(user: User): string {
+    return user.availability_days.length === 0
+      ? this.translateService.instant('not_set')
+      : user.availability_days
+          .map((d) => this.translateService.instant(d))
+          .join(', ');
   }
 }

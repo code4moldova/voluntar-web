@@ -93,7 +93,7 @@
           <a
             mat-stroked-button
             class="float-right"
-            [routerLink]="['/admin/users', element._id, 'edit']"
+            [routerLink]="['/admin/users', element._id]"
           >
             Details
           </a>
@@ -103,11 +103,18 @@
       <tr *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
+    <div
+      *ngIf="dataSource.data.length === 0 && (isLoading$ | async) === false"
+      style="min-height: 144px"
+      class="bg-white p-5 d-flex align-items-center justify-content-center"
+    >
+      {{ "no_users" | translate }}
+    </div>
   </div>
 
   <div
     class="loading-shade"
-    style="min-height: 150px"
+    style="min-height: 144px"
     *ngIf="isLoading$ | async"
   >
     <mat-spinner></mat-spinner>
