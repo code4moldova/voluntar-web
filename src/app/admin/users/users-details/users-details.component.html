@@ -1,113 +1,244 @@
-<div class="mt-4">
-  <a href="#" appGoBack>&lt;- Înapoi</a>
+<div class="mt-4 mb-3">
+  <a href="#" appGoBack>
+    <-
+    <span translate>back</span>
+  </a>
 </div>
 
-<h2 class="mb-2">{{ id ? "Detalii Utilizator" : "Creare Utilizator" }}</h2>
+<div class="d-flex mb-4 align-items-center">
+  <h2 translate>view_user</h2>
+  <a
+    *ngIf="user$ | async as user"
+    [routerLink]="['/admin/users', user._id, 'edit']"
+    mat-stroked-button
+    color="primary"
+    class="ml-auto"
+  >
+    <mat-icon>border_color</mat-icon>
+    {{ "edit" | translate }}
+  </a>
+</div>
 
-<form
-  [formGroup]="form"
-  (ngSubmit)="onSubmit()"
-  fxLayout="row"
-  fxLayoutAlign="start start"
-  fxLayoutGap="25px"
->
-  <mat-card fxFlex="75">
-    <mat-card-content>
-      <mat-form-field class="full-width-input">
-        <input
-          matInput
-          placeholder="First Name"
-          formControlName="first_name"
-          required
-        />
-        <mat-error>Please provide First name</mat-error>
-      </mat-form-field>
-      <mat-form-field class="full-width-input">
-        <input
-          matInput
-          placeholder="Last Name"
-          formControlName="last_name"
-          required
-        />
-        <mat-error>Please provide the Last name</mat-error>
-      </mat-form-field>
-      <div fxLayout fxLayoutGap="15px">
-        <div fxFlex>
-          <mat-form-field class="full-width-input">
-            <input
-              matInput
-              placeholder="Email"
-              formControlName="email"
-              required
-            />
-            <mat-error>Please provide a valid email address</mat-error>
-          </mat-form-field>
-        </div>
+<div class="bg-white p-4 mat-typography">
+  <ng-container *ngIf="user$ | async as user">
+    <h4>
+      <strong translate>personal_data</strong>
+    </h4>
+
+    <div class="row">
+      <div class="col-sm-6 col-lg-4">
+        <mat-form-field
+          floatLabel="always"
+          appearance="standard"
+          class="d-block mat-form-field-no-underline"
+        >
+          <mat-label translate>family_name</mat-label>
+          <input
+            matInput
+            readonly
+            value="{{ user.first_name }} {{ user.last_name }}"
+            title=""
+          />
+        </mat-form-field>
       </div>
-      <div *ngIf="!id" fxLayout fxLayoutGap="15px">
-        <div fxFlex>
-          <mat-form-field class="full-width-input">
-            <input
-              matInput
-              type="password"
-              placeholder="Password"
-              formControlName="password"
-              required
-            />
-            <mat-error>Please provide a valid password</mat-error>
-          </mat-form-field>
-        </div>
-        <div fxFlex>
-          <mat-form-field class="full-width-input">
-            <input
-              matInput
-              type="password"
-              placeholder="Repeat password"
-              formControlName="repeatPassword"
-              [errorStateMatcher]="matcher"
-              required
-            />
-            <mat-error *ngIf="form.hasError('notMatch')">
-              Password doesn't match
-            </mat-error>
-          </mat-form-field>
-        </div>
+      <div class="col-sm-6 col-lg-4">
+        <mat-form-field
+          floatLabel="always"
+          appearance="standard"
+          class="d-block mat-form-field-no-underline"
+        >
+          <mat-label translate>phone</mat-label>
+          <input
+            matInput
+            readonly
+            value="{{ user.phone ? user.phone : 'No phone number' }}"
+            title=""
+          />
+        </mat-form-field>
       </div>
-      <div fxLayout fxLayoutGap="15px">
-        <div>
-          <mat-form-field class="full-width-input">
-            <input
-              matInput
-              type="number"
-              placeholder="Phone"
-              formControlName="phone"
-              required
-            />
-            <mat-error>Please provide a valid phone number</mat-error>
-          </mat-form-field>
-        </div>
+      <div class="col-sm-6 col-lg-4">
+        <mat-form-field
+          floatLabel="always"
+          appearance="standard"
+          class="d-block mat-form-field-no-underline"
+        >
+          <mat-label translate>created_at</mat-label>
+          <input matInput readonly value="{{ user.created_at }}" title="" />
+        </mat-form-field>
       </div>
-      <mat-form-field class="full-width-input">
-        <mat-label>Roles</mat-label>
-        <mat-select formControlName="roles" multiple>
-          <mat-option *ngFor="let role of availableRoles" [value]="role">
-            {{ role }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <div class="form-action-container">
-        <button mat-raised-button color="primary">Save</button>
+      <div class="col-sm-6 col-lg-4">
+        <mat-form-field
+          floatLabel="always"
+          appearance="standard"
+          class="d-block mat-form-field-no-underline"
+        >
+          <mat-label translate>email</mat-label>
+          <input matInput readonly value="{{ user.email }}" title="" />
+        </mat-form-field>
       </div>
-    </mat-card-content>
-    <div class="loading-shade" *ngIf="isLoading$ | async">
-      <mat-spinner></mat-spinner>
+      <div class="col-sm-6 col-lg-4">
+        <mat-form-field
+          floatLabel="always"
+          appearance="standard"
+          class="d-block mat-form-field-no-underline"
+        >
+          <mat-label translate>password</mat-label>
+          <input
+            matInput
+            readonly
+            value="***********"
+            type="password"
+            title=""
+          />
+        </mat-form-field>
+      </div>
+      <div class="col-sm-6 col-lg-4">
+        <mat-form-field
+          floatLabel="always"
+          appearance="standard"
+          class="d-block mat-form-field-no-underline"
+        >
+          <mat-label translate>user_id</mat-label>
+          <input matInput readonly value="{{ user._id }}" title="" />
+        </mat-form-field>
+      </div>
     </div>
-  </mat-card>
-  <mat-card fxFlex="25">
-    <mat-card-content>
-      <div>
-        <mat-slide-toggle formControlName="is_active">Active?</mat-slide-toggle>
+
+    <mat-divider class="my-4"></mat-divider>
+
+    <div class="row">
+      <div class="col-lg-6 mb-3">
+        <h4>
+          <strong translate>user_role</strong>
+        </h4>
+
+        <app-badge
+          *ngFor="let role of user.roles"
+          class="mr-2 mb-2"
+          [class]="{
+            red: role === UserRole.administrator,
+            blue: role === UserRole.coordinator,
+            green: role === UserRole.operator
+          }"
+        >
+          {{ role | translate }}
+        </app-badge>
       </div>
-    </mat-card-content>
-  </mat-card>
-</form>
+      <div class="col-lg-6 mb-3">
+        <h4>
+          <strong translate>availability</strong>
+        </h4>
+
+        <div class="row">
+          <div class="col-md-6">
+            <mat-form-field
+              floatLabel="always"
+              appearance="standard"
+              class="d-block mat-form-field-no-underline"
+            >
+              <mat-label translate>days</mat-label>
+              <input
+                matInput
+                readonly
+                value="{{ getAvailabilityDays(user) }}"
+                title="{{ getAvailabilityDays(user) }}"
+              />
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field
+              floatLabel="always"
+              appearance="standard"
+              class="d-block mat-form-field-no-underline"
+            >
+              <mat-label translate>hours</mat-label>
+              <input matInput readonly [value]="getTimeRange(user)" title="" />
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>
+
+<div class="mat-typography mt-4 pb-4">
+  <h3>
+    <strong translate>demands_history</strong>
+  </h3>
+
+  <!-- This accordion is parent for expansion panels from each row -->
+  <mat-accordion [multi]="false">
+    <div class="table-responsive">
+      <table mat-table [dataSource]="dataSource">
+        <ng-container matColumnDef="demand">
+          <th mat-header-cell *matHeaderCellDef>Demand</th>
+          <td mat-cell *matCellDef="let element" class="px-0">
+            <mat-expansion-panel class="shadow-none">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <div class="d-flex">
+                    <small
+                      class="text-truncate text-secondary mx-3"
+                      style="width: 60px"
+                      title="{{ element._id }}"
+                    >
+                      {{ element._id }}
+                    </small>
+                    <span class="mx-3 text-truncate" style="width: 125px">
+                      {{ element.beneficiary.first_name }}
+                      {{ element.beneficiary.last_name }}
+                    </span>
+                    <span class="mx-3">
+                      +373{{ element.beneficiary.phone }}
+                    </span>
+                    <span class="mx-3" style="width: 100px">
+                      {{ element.beneficiary.zone | translate }}
+                    </span>
+                    <span class="mx-3">
+                      {{ element.created_at | prettyDate }}
+                    </span>
+                    <span class="mx-3 text-truncate" style="width: 125px">
+                      {{ element.volunteer.first_name }}
+                      {{ element.volunteer.last_name }}
+                    </span>
+                  </div>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              {{ "age" | translate }}: {{ element.beneficiary.age }}
+              <mat-divider class="my-2"></mat-divider>
+              {{ "comment" | translate }}: {{ element.comments }}
+              <mat-divider class="my-2"></mat-divider>
+              {{ "type" | translate }}: {{ element.type | translate }}
+
+              <mat-divider class="my-2"></mat-divider>
+              {{ "status" | translate }}: {{ element.status | translate }}
+              <mat-divider class="my-2"></mat-divider>
+              {{ "has_symptoms" | translate }}:
+              {{ element.has_symptoms ? "yes" : ("no" | translate) }}
+              <mat-divider class="my-2"></mat-divider>
+              {{ "urgent" | translate }}:
+              {{ element.urgent ? "yes" : ("no" | translate) }}
+            </mat-expansion-panel>
+          </td>
+        </ng-container>
+
+        <tr *matHeaderRowDef="['demand']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['demand']"></tr>
+      </table>
+      <div
+        *ngIf="dataSource.data.length === 0"
+        style="min-height: 144px"
+        class="bg-white p-5 d-flex align-items-center justify-content-center"
+      >
+        {{ "no_demands" | translate }}
+      </div>
+    </div>
+  </mat-accordion>
+
+  <mat-paginator
+    [length]="page.length"
+    [pageSize]="perPage"
+    [pageSizeOptions]="perPageOptions"
+    (page)="getDemands($event)"
+  ></mat-paginator>
+</div>

@@ -11,14 +11,14 @@ export class RequestsService {
 
   getRequests(
     page: { pageIndex: number; pageSize: number } = {
-      pageIndex: 1,
+      pageIndex: 0,
       pageSize: 20,
     },
     filters: any = {}
   ) {
     const params = new HttpParams({ fromObject: filters });
     return this.http.get<{ count: number; list: IRequestDetails[] }>(
-      `${environment.url}/beneficiary/filters/${page.pageIndex || 1}/${
+      `${environment.url}/requests/filters/${page.pageIndex + 1}/${
         page.pageSize || 1000
       }`,
       { params }
