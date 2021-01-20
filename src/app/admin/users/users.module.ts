@@ -8,12 +8,14 @@ import { RouterModule } from '@angular/router';
 import { usersRoutes } from './users.routes';
 import { UsersCreateComponent } from './users-create/users-create.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { UsersEditComponent } from './users-edit/users-edit.component';
 
 @NgModule({
   declarations: [
     UsersListComponent,
     UsersDetailsComponent,
     UsersCreateComponent,
+    UsersEditComponent,
   ],
   imports: [
     CommonModule,

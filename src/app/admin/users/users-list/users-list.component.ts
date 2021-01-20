@@ -24,7 +24,7 @@ export class UsersListComponent implements OnInit, OnDestroy {
   isLoading$ = this.usersFacade.isLoading$;
   dataSource = new MatTableDataSource<User>([]);
   @ViewChild(MatPaginator, { static: true })
-  paginator: MatPaginator = (undefined as unknown) /* this mutes TS */ as MatPaginator;
+  paginator: MatPaginator;
   tabs: Tab[] = [
     {
       label: 'Activi',

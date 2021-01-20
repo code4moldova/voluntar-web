@@ -32,6 +32,10 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
+.mat-paginator {
+  background-color: transparent;
+}
+
 .clickable-row {
   cursor: pointer;
   transition: background-color 0.2s ease-in-out;
@@ -119,4 +123,8 @@ body {
     text-decoration: none;
     color: inherit;
   }
+}
+
+.mat-form-field-no-underline .mat-form-field-underline {
+  display: none;
 }

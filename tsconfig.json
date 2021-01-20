@@ -17,6 +17,9 @@
     // This way IDE will show strict errors
     // And dev-server will not crash
     "strict": false,
+    // Disable this, because in Angular some times
+    // properties are initialized in init, or after view init
+    "strictPropertyInitialization": false,
     "paths": {
       "@app/*": ["src/app/*"],
       "@shared/*": ["src/app/shared/*"],
