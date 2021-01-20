@@ -9,6 +9,7 @@ import { RequestsMapComponent } from './shared/requests-map/requests-map.compone
 import { RouterModule } from '@angular/router';
 import { requestsRoutes } from './requests.routes';
 import { RequestAddressFieldComponent } from './request-details/request-address-field/request-address-field.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { RequestAddressFieldComponent } from './request-details/request-address-
     MaterialComponentsModule,
     SharedModule,
     NgxMaskModule.forChild(),
+    TranslateModule,
   ],
 })
 export class RequestsModule {}

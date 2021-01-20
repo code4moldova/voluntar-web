@@ -9,6 +9,8 @@ export enum DemandType {
   transport = 'transport',
 }
 
+export const demandTypes = Object.values(DemandType);
+
 export enum DemandStatus {
   new = 'new',
   confirmed = 'confirmed',

@@ -14,7 +14,7 @@ import { Beneficiary } from '@app/shared/models';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { combineLatest } from 'rxjs';
 import { filter, first } from 'rxjs/operators';
-import { DemandType } from '@app/shared/models/demand';
+import { demandTypes } from '@app/shared/models/demand';
 import { BeneficiariesFacade } from '@app/admin/beneficiaries/beneficiaries.facade';
 
 @Component({
@@ -25,7 +25,7 @@ import { BeneficiariesFacade } from '@app/admin/beneficiaries/beneficiaries.faca
 export class RequestDetailsComponent implements OnInit {
   form: FormGroup;
   zones: Array<string> = Object.keys(ZONES).filter((key) => isNaN(+key));
-  needs = DemandType;
+  needs = demandTypes;
   specialConditions = SPECIAL_CONDITIONS;
   existentBeneficiary: Beneficiary = {} as Beneficiary;
   validAddress = true;
@@ -188,10 +188,7 @@ export class RequestDetailsComponent implements OnInit {
   }
 
   isEmpty(obj: Beneficiary) {
-    for (const key in obj) {
-      if (obj.hasOwnProperty(key)) return false;
-    }
-    return true;
+    return Object.keys(obj).length < 1;
   }
 
   getSecret() {

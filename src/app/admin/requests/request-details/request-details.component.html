@@ -217,12 +217,9 @@
             style="width: 230px"
             placeholder="Alege"
           >
-            <mat-option
-              *ngFor="let need of needs | keyvalue: enumUnsorted"
-              [value]="need.key"
-            >
-              <mat-icon [svgIcon]="need.key"></mat-icon>
-              {{ need.value }}
+            <mat-option *ngFor="let need of needs" [value]="need">
+              <mat-icon [svgIcon]="need"></mat-icon>
+              {{ need | translate }}
             </mat-option>
           </mat-select>
           <mat-error *ngIf="form.get('type').invalid && form.touched">
