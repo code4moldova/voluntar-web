@@ -1,4 +1,5 @@
 <h2 class="mt-5 mb-2" fxLayoutAlign="space-between center">Voluntari</h2>
+
 <div class="mb-2 d-flex flex-column flex-sm-row flex-wrap">
   <div>
     <button
@@ -33,21 +34,23 @@
     class="mb-1 ml-sm-auto"
   >
     <mat-icon>add</mat-icon>
-    Nou voluntar
+    Adaugă voluntar
   </button>
 </div>
 
-<mat-card class="mat-card-search-bar">
-  <form [formGroup]="filterForm" (ngSubmit)="onSearchSubmit()">
-    <div class="search-bar">
+<mat-card class="mb-4">
+  <form class="mat-form-field-flex flex-wrap flex-md-nowrap" [formGroup]="filterForm" (ngSubmit)="onSearchSubmit()">
+    <mat-form-field class="full-width-input pr-1">
+      <mat-label>Căutare</mat-label>
       <input
         type="text"
-        placeholder="Căutare (Telefon, Nume, Prenume)"
         matInput
         formControlName="query"
       />
+      <mat-hint>telefon, nume, prenume</mat-hint>
+    </mat-form-field>
+    <mat-form-field class="px-1">
       <mat-select
-        class="mat-select-zone"
         placeholder="Sector"
         formControlName="zone"
       >
@@ -56,9 +59,10 @@
           {{ zone.label }}
         </mat-option>
       </mat-select>
+    </mat-form-field>
+    <mat-form-field class="px-1">
       <mat-select
-        class="mat-select-zone"
-        placeholder="Sector"
+        placeholder="Oferta"
         formControlName="role"
       >
         <mat-option [value]="null">Oferta</mat-option>
@@ -66,99 +70,78 @@
           {{ role.key }}
         </mat-option>
       </mat-select>
-      <button mat-flat-button color="primary" type="submit">
-        <mat-icon>search</mat-icon>
-      </button>
-    </div>
+    </mat-form-field>
+    <button mat-flat-button color="primary" type="submit" class="px-1">
+      <mat-icon class="mr-0">search</mat-icon>
+    </button>
   </form>
 </mat-card>
 
-<mat-card class="table-container">
-  <nav mat-tab-nav-bar>
+<mat-card class="pt-0">
+  <nav mat-tab-nav-bar mat-align-tabs="center">
     <a
       mat-tab-link
-      *ngFor="let status of statuses; let i = index"
-      (click)="onTabChange(status._id)"
-      [active]="(selectedTabIndex$ | async) === status._id"
+      *ngFor="let tab of tabs; let i = index"
+      (click)="onTabChange(tab)"
+      [active]="(selectedTabStatus$ | async) === tab.status"
     >
-      <span
-        [matBadge]="
-          (selectedTabIndex$ | async) == status._id
-            ? (count$ | async)
-            : (allStatusesCounts$ | async)[i]
-        "
-        matBadgeOverlap="false"
-      >
-        {{ status.label }}
-      </span>
+      {{ tab.label }}
+      <app-badge class="ml-2 small" [class.light-blue]="(selectedTabStatus$ | async) === tab.status">
+        {{(allStatusesCounts$ | async)[i]}}
+      </app-badge>
     </a>
   </nav>
+
   <table mat-table [dataSource]="dataSource$ | async">
-    <!-- Icons Column -->
     <ng-container matColumnDef="icons">
-      <th mat-header-cell *matHeaderCellDef></th>
-      <td mat-cell *matCellDef="let element">
+      <td mat-cell *matCellDef="let volunteer">
         <span
-          *ngIf="element.black_list"
+          *ngIf="_(volunteer).black_list"
           matTooltip="Black List"
-          class="blacklist"
         ></span>
       </td>
     </ng-container>
 
-    <!-- Name Column -->
     <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef>Nume</th>
-      <td mat-cell *matCellDef="let element">
-        {{ element.first_name }} {{ element.last_name }}
+      <td mat-cell *matCellDef="let volunteer">
+        {{ _(volunteer).first_name }} {{ _(volunteer).last_name }}
       </td>
     </ng-container>
 
-    <!-- Weight Column -->
     <ng-container matColumnDef="phone">
-      <th mat-header-cell *matHeaderCellDef>Phone</th>
-      <td mat-cell *matCellDef="let element">
-        {{ element.phone | mask: "00 000 000" }}
+      <td mat-cell *matCellDef="let volunteer">
+        <mat-icon class="small">phone_in_talk</mat-icon>
+        <span>+ (373) {{ _(volunteer).phone | mask: "00 000 000" }}</span>
       </td>
     </ng-container>
 
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="status">
-      <th mat-header-cell *matHeaderCellDef>Activ</th>
-      <td mat-cell *matCellDef="let element">
-        {{ element.is_active ? "Da" : "Nu" }}
+    <ng-container matColumnDef="zone">
+      <td mat-cell *matCellDef="let volunteer">
+        <mat-icon class="small">place</mat-icon>
+        <span>{{ _(volunteer).zone }}</span>
       </td>
     </ng-container>
 
-    <ng-container matColumnDef="cases_solved">
-      <th mat-header-cell *matHeaderCellDef>Cases solved</th>
-      <td mat-cell *matCellDef="let element">{{ element.cases_solved }}</td>
-    </ng-container>
-
-    <!-- Symbol Column -->
     <ng-container matColumnDef="availableHours">
-      <th mat-header-cell *matHeaderCellDef>Ore pe zi</th>
-      <td mat-cell *matCellDef="let element">
-        {{ (tagById$(element.availability) | async)?.ro }}
+      <td mat-cell *matCellDef="let volunteer">
+        {{ (tagById$(_(volunteer).availability_days) | async)?.ro }}
       </td>
     </ng-container>
 
     <tr
       mat-row
-      *matRowDef="let row; columns: displayedColumns"
+      *matRowDef="let volunteer; columns: displayedColumns"
       class="clickable-row"
-      [routerLink]="['/admin/volunteers/details', row._id]"
+      [routerLink]="['/admin/volunteers/details', _(volunteer)._id]"
     ></tr>
   </table>
 
   <div class="loading-shade" *ngIf="isLoading$ | async">
     <mat-spinner></mat-spinner>
   </div>
-  <div>
-    <mat-paginator
-      (page)="onPageChange($event)"
-      [length]="count$ | async"
-      [pageSizeOptions]="[20, 50, 100]"
-    ></mat-paginator>
-  </div>
+  <mat-paginator
+    (page)="onPageChange($event)"
+    [length]="count$ | async"
+    [pageSizeOptions]="[20, 50, 100]"
+  ></mat-paginator>
 </mat-card>
