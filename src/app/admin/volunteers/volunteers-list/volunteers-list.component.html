@@ -95,10 +95,7 @@
   <table mat-table [dataSource]="dataSource$ | async">
     <ng-container matColumnDef="icons">
       <td mat-cell *matCellDef="let volunteer">
-        <span
-          *ngIf="_(volunteer).black_list"
-          matTooltip="Black List"
-        ></span>
+        <span>{{_(volunteer).role[0]}}</span>
       </td>
     </ng-container>
 
@@ -110,15 +107,15 @@
 
     <ng-container matColumnDef="phone">
       <td mat-cell *matCellDef="let volunteer">
-        <mat-icon class="small">phone_in_talk</mat-icon>
+        <mat-icon class="mat-icon-small">phone</mat-icon>
         <span>+ (373) {{ _(volunteer).phone | mask: "00 000 000" }}</span>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="zone">
       <td mat-cell *matCellDef="let volunteer">
-        <mat-icon class="small">place</mat-icon>
-        <span>{{ _(volunteer).zone }}</span>
+        <mat-icon class="mat-icon-small">place</mat-icon>
+        <span>{{ _(volunteer).zone | zoneTitle }}</span>
       </td>
     </ng-container>
 

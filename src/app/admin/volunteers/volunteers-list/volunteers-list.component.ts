@@ -24,10 +24,10 @@ import { VolunteersCreateComponent } from '../volunteers-create/volunteers-creat
 export class VolunteersListComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   displayedColumns: string[] = [
-    'icons',
     'name',
     'phone',
     'zone',
+    'icons',
     'availableHours',
   ];
   dataSource$: Observable<IVolunteer[]>;
@@ -81,7 +81,6 @@ export class VolunteersListComponent implements OnInit {
 
   ngOnInit() {
     this.getAllStatusesCount();
-    this.volunteersFacade.getVolunteers(this.page);
     this.dataSource$ = this.volunteersFacade.volunteers$;
     this.onTabChange(this.activeTab);
 
@@ -152,7 +151,7 @@ export class VolunteersListComponent implements OnInit {
   onTabChange(tab: Tab) {
     this.activeTab = tab;
     this.paginator.firstPage();
-    this.getUsers();
+    this.getVolunteers();
     this.router
       .navigate([], {
         relativeTo: this.activeRoute,
@@ -164,7 +163,7 @@ export class VolunteersListComponent implements OnInit {
       .then();
   }
 
-  getUsers() {
+  getVolunteers() {
     let filters = {};
     if (this.activeTab.status !== null) {
       filters = { status: this.activeTab.status };
@@ -194,8 +193,8 @@ export class VolunteersListComponent implements OnInit {
   }
 
   // for type hints
-  _(element): IVolunteer {
-    return element as IVolunteer;
+  _(object): IVolunteer {
+    return object as IVolunteer;
   }
 }
 
