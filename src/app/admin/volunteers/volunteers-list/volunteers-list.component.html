@@ -95,7 +95,11 @@
   <table mat-table [dataSource]="dataSource$ | async">
     <ng-container matColumnDef="icons">
       <td mat-cell *matCellDef="let volunteer">
-        <span>{{_(volunteer).role[0]}}</span>
+        <app-role
+          [role]="_(volunteer).role[0]"
+          [showLabel]="true"
+        >
+        </app-role>
       </td>
     </ng-container>
 

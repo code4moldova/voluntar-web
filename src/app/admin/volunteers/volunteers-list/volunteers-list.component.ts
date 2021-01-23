@@ -14,7 +14,7 @@ import { map, take, takeUntil } from 'rxjs/operators';
 import { saveVolunteerSuccessAction } from '../volunteers.actions';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
-import { KIV_ZONES, VOLUNTEER_ROLES } from '@shared/constants';
+import { KIV_ZONES, VolunteerRole } from '@shared/constants';
 import { FilterObservableSelectColumns } from '@shared/filter/filter.types';
 import { VolunteersCreateComponent } from '../volunteers-create/volunteers-create.component';
 
@@ -61,7 +61,7 @@ export class VolunteersListComponent implements OnInit {
     role: [null],
   });
   zones = KIV_ZONES;
-  roles = VOLUNTEER_ROLES;
+  roles = VolunteerRole;
   tagById$ = (id: any) => this.tagsFacadeService.availabilitiesById$(id);
 
   constructor(
