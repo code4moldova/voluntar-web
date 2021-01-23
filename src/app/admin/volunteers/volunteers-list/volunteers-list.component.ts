@@ -42,17 +42,6 @@ export class VolunteersListComponent implements OnInit {
     { label: 'Toti', status: null },
   ];
   activeTab = this.tabs[0];
-  selectedTabStatus$ = this.activeRoute.queryParams.pipe(
-    map((params) => {
-      const status = params.status;
-      if (status) {
-        this.activeTab = this.tabs.find((tab) => tab.status === status);
-        return status;
-      }
-      return null;
-    })
-  );
-
   page: VolunteerPageParams = { pageSize: 20, pageIndex: 1 };
   lastFilter = {};
   filterForm = this.fb.group({
@@ -151,24 +140,9 @@ export class VolunteersListComponent implements OnInit {
   onTabChange(tab: Tab) {
     this.activeTab = tab;
     this.paginator.firstPage();
-    this.getVolunteers();
-    this.router
-      .navigate([], {
-        relativeTo: this.activeRoute,
-        queryParams: {
-          status: tab.status,
-        },
-        queryParamsHandling: 'merge',
-      })
-      .then();
-  }
-
-  getVolunteers() {
-    let filters = {};
-    if (this.activeTab.status !== null) {
-      filters = { status: this.activeTab.status };
-    }
-    this.volunteersFacade.getVolunteers(this.page, filters);
+    return this.activeTab.status !== null
+      ? this.queryResult({ status: this.activeTab.status })
+      : this.queryResult({});
   }
 
   onSearchSubmit() {

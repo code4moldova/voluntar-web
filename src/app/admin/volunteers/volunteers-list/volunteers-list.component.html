@@ -83,10 +83,10 @@
       mat-tab-link
       *ngFor="let tab of tabs; let i = index"
       (click)="onTabChange(tab)"
-      [active]="(selectedTabStatus$ | async) === tab.status"
+      [active]="activeTab === tab"
     >
       {{ tab.label }}
-      <app-badge class="ml-2 small" [class.light-blue]="(selectedTabStatus$ | async) === tab.status">
+      <app-badge class="ml-2 small" [class.light-blue]="activeTab === tab">
         {{(allStatusesCounts$ | async)[i]}}
       </app-badge>
     </a>
