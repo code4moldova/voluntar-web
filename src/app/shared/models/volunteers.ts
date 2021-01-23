@@ -14,6 +14,8 @@ export interface IVolunteer {
   longitude: number;
   phone: number;
   zone_address: string;
+  //from Back-end https://github.com/code4moldova/voluntar-backend/blob/development/backend/models/volunteer_model.py
+  zone: string;
 
   distance?: number;
   accepted_offer?: boolean;
