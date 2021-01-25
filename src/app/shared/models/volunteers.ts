@@ -1,3 +1,5 @@
+import { Zone } from '@shared/constants';
+
 export interface IVolunteer {
   _id?: string;
   activity_types: string[];
@@ -14,7 +16,7 @@ export interface IVolunteer {
   longitude: number;
   phone: number;
   zone_address: string;
-
+  zone: Zone;
   distance?: number;
   accepted_offer?: boolean;
   availability_day?: string;
