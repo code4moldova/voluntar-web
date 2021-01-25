@@ -1,0 +1,8 @@
+<div class="d-flex align-items-center" *ngIf="role">
+  <span>
+    <mat-icon [svgIcon]="role"></mat-icon>
+  </span>
+  <span style="margin-left: 5px" *ngIf="showLabel">
+    {{ role | translate }}
+  </span>
+</div>

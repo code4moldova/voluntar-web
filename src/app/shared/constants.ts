@@ -108,9 +108,6 @@ export enum VolunteerRole {
 // TODO: Move in volunteers/shared
 export const volunteerRoles = Object.values(VolunteerRole);
 
-/** @deprecated use {@link VolunteerRole} instead */
-export const VOLUNTEER_ROLES = VolunteerRole;
-
 /**
  * TODO: Create enum for special conditions and use with l10n
  *

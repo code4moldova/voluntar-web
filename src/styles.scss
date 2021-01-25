@@ -128,3 +128,10 @@ body {
 .mat-form-field-no-underline .mat-form-field-underline {
   display: none;
 }
+
+// TODO: also use this in beneficiaries and users
+.mat-icon-small {
+  width: 14px;
+  height: 14px;
+  font-size: 14px;
+}

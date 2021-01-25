@@ -10,6 +10,7 @@ import { RouterModule } from '@angular/router';
 import { volunteersRoutes } from './volunteers.routes';
 import { VolunteersCreateComponent } from './volunteers-create/volunteers-create.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { VolunteerRoleComponent } from './shared/volunteer-role/volunteer-role.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { TranslateModule } from '@ngx-translate/core';
     VolunteersDetailsComponent,
     VolunteerModalInfoComponent,
     VolunteersCreateComponent,
+    VolunteerRoleComponent,
   ],
   imports: [
     CommonModule,
