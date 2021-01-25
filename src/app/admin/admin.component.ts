@@ -37,20 +37,7 @@ import { AppState } from '@app/app.state';
   ],
 })
 export class AdminComponent implements OnInit {
-  constructor(
-    private requestsFacade: RequestsFacade,
-    authService: AuthService,
-    store: Store<AppState>
-  ) {
-    authService
-      .isAuthorized()
-      .pipe(filter(Boolean))
-      .subscribe(() => {
-        store.dispatch(getActivityTypesTagsAction());
-        store.dispatch(getAvailabilitiesTagsAction());
-        store.dispatch(getOffersTagsAction());
-      });
-  }
+  constructor(private requestsFacade: RequestsFacade) {}
 
   ngOnInit() {
     this.requestsFacade.toggleNewRequestsPolling(true);

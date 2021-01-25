@@ -3,6 +3,9 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { IVolunteer } from '@shared/models';
 import { TagsFacade } from '@shared/tags/tags.facade';
 import { map } from 'rxjs/operators';
+import { getActivityTypesTagsAction } from '@shared/tags/tags.actions';
+import { Store } from '@ngrx/store';
+import { AppState } from '@app/app.state';
 
 @Component({
   templateUrl: './volunteer-modal-info.component.html',
@@ -18,8 +21,12 @@ export class VolunteerModalInfoComponent {
   constructor(
     private tagsFacade: TagsFacade,
     private dialogRef: MatDialogRef<VolunteerModalInfoComponent>,
-    @Inject(MAT_DIALOG_DATA) public volunteer: IVolunteer & { distance: number }
-  ) {}
+    @Inject(MAT_DIALOG_DATA)
+    public volunteer: IVolunteer & { distance: number },
+    store: Store<AppState>
+  ) {
+    store.dispatch(getActivityTypesTagsAction());
+  }
 
   closeDialog() {
     this.dialogRef.close();

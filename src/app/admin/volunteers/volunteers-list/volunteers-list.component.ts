@@ -8,7 +8,7 @@ import { TagsFacade } from '@shared/tags/tags.facade';
 import { GeolocationService } from '@shared/services/geolocation/geolocation.service';
 
 import { IVolunteer } from '@shared/models';
-import { ActionsSubject } from '@ngrx/store';
+import { ActionsSubject, Store } from '@ngrx/store';
 import { ofType } from '@ngrx/effects';
 import { map, take, takeUntil } from 'rxjs/operators';
 import { saveVolunteerSuccessAction } from '../volunteers.actions';
@@ -17,6 +17,8 @@ import { FormBuilder } from '@angular/forms';
 import { KIV_ZONES, VolunteerRole, zones } from '@shared/constants';
 import { FilterObservableSelectColumns } from '@shared/filter/filter.types';
 import { VolunteersCreateComponent } from '../volunteers-create/volunteers-create.component';
+import { getOffersTagsAction } from '@shared/tags/tags.actions';
+import { AppState } from '@app/app.state';
 
 @Component({
   templateUrl: './volunteers-list.component.html',
@@ -61,8 +63,11 @@ export class VolunteersListComponent implements OnInit {
     private actions$: ActionsSubject,
     private geolocationService: GeolocationService,
     private activeRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    store: Store<AppState>
   ) {
+    store.dispatch(getOffersTagsAction());
+
     this.activeRoute.queryParams.pipe(take(1)).subscribe((params) => {
       this.filterForm.patchValue(params);
     });
