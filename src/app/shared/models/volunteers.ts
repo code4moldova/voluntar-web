@@ -1,3 +1,5 @@
+import { Zone } from '@shared/constants';
+
 export interface IVolunteer {
   _id?: string;
   activity_types: string[];
@@ -14,9 +16,7 @@ export interface IVolunteer {
   longitude: number;
   phone: number;
   zone_address: string;
-  //from Back-end https://github.com/code4moldova/voluntar-backend/blob/development/backend/models/volunteer_model.py
-  zone: string;
-
+  zone: Zone;
   distance?: number;
   accepted_offer?: boolean;
   availability_day?: string;
