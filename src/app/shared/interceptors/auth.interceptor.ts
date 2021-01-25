@@ -21,7 +21,8 @@ export class AuthInterceptor implements HttpInterceptor {
     if (
       request.url.includes('assets/') ||
       request.url.endsWith('/token') ||
-      request.url.startsWith('https://info.iharta.md')
+      request.url.startsWith('https://info.iharta.md') ||
+      request.url.startsWith('/api/cluster/')
     ) {
       return next.handle(request);
     } else {

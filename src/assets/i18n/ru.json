@@ -103,6 +103,12 @@
   "disability": "Disability",
   "deaf_mute": "Deaf-mute",
   "blind_weak_seer": "Blind/Weak-seer",
+  "demands_list": "Listă cereri",
+  "see_route_on_map": "Vezi traseul pe hartă (WIP)",
+  "missing_phone": "Lipsă telefon",
+  "missing_secret": "Lipsă secret",
+  "demand_completed": "Cerere efectuată",
+  "demand_not_completed": "Nu a putut fi efectuată",
   "hero": {
     "headline": "Инициатива <span>Вместе<br />против COVID-19</span>",
     "description": "Гражданский проект, который объединяет усилия и помогает людям в неблагоприятных ситуациях во время пандемии COVID-19"

@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { ProtectedGuard, PublicGuard } from '@shared/guards';
+import { ClusterResolver } from '@app/cluster/cluster.resolver';
 
 export const appRoutes: Routes = [
   {
@@ -19,6 +20,14 @@ export const appRoutes: Routes = [
     path: 'login',
     canActivate: [PublicGuard],
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
+  },
+  {
+    path: 'cluster/:id',
+    loadChildren: () =>
+      import('./cluster/cluster.module').then((m) => m.ClusterModule),
+    resolve: {
+      cluster: ClusterResolver,
+    },
   },
   {
     path: '**',
