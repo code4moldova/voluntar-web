@@ -180,8 +180,8 @@
             formControlName="zone_address"
             required
           >
-            <mat-option *ngFor="let zone of zones" [value]="zone.value">
-              {{ zone.label }}
+            <mat-option *ngFor="let zone of zones" [value]="zone">
+              {{ zone | translate }}
             </mat-option>
           </mat-select>
           <mat-error>Please provide a valid zone</mat-error>

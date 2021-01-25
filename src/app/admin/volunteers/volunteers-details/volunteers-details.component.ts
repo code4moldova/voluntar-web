@@ -21,7 +21,7 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatDialog } from '@angular/material/dialog';
 import { EsriMapComponent } from '@shared/esri-map/esri-map.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { KIV_ZONES } from '@shared/constants';
+import { zones } from '@shared/constants';
 
 const minTemp = 36;
 const maxTemp = 41;
@@ -32,7 +32,7 @@ const maxTemp = 41;
 })
 export class VolunteersDetailsComponent implements OnInit, OnDestroy {
   public tempStep = '0.1';
-  zones = KIV_ZONES;
+  zones = zones;
 
   public cities = [
     { name: 'Chisinau', value: 'chisinau' },

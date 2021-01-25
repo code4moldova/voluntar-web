@@ -10,9 +10,6 @@ export enum Zone {
 
 export const zones = Object.values(Zone);
 
-/** @deprecated use {@link Zone} instead */
-export const ZONES = Zone;
-
 /**
  * TODO: refactor to use normal l10n
  *
@@ -85,16 +82,6 @@ export const KIV_ZONES = [
     },
   },
 ];
-
-/**
- * TODO: refactor to use normal l10n
- *
- * @deprecated use {@link Zone} instead
- */
-export const KIV_ZONES_MAP = KIV_ZONES.reduce((acc, zone) => {
-  acc[zone.value] = zone.label;
-  return acc;
-}, {});
 
 // TODO: Move in volunteers/shared
 export enum VolunteerRole {

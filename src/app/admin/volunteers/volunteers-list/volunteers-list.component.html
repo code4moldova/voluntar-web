@@ -52,8 +52,8 @@
     <mat-form-field class="px-1">
       <mat-select placeholder="Sector" formControlName="zone">
         <mat-option [value]="null">Sector</mat-option>
-        <mat-option *ngFor="let zone of zones" [value]="zone.value">
-          {{ zone.label }}
+        <mat-option *ngFor="let zone of zones" [value]="zone">
+          {{ zone | translate }}
         </mat-option>
       </mat-select>
     </mat-form-field>
@@ -117,7 +117,7 @@
       <ng-container matColumnDef="zone">
         <td mat-cell *matCellDef="let volunteer">
           <mat-icon class="mat-icon-small">place</mat-icon>
-          <span>{{ _(volunteer).zone | zoneTitle }}</span>
+          <span>{{ _(volunteer).zone | translate }}</span>
         </td>
       </ng-container>
 

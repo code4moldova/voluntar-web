@@ -33,8 +33,8 @@
         placeholder="Sector"
       >
         <mat-option value="">--Sector--</mat-option>
-        <mat-option *ngFor="let zone of zones" [value]="zone.value">
-          {{ zone.label }}
+        <mat-option *ngFor="let zone of zones" [value]="zone">
+          {{ zone | translate }}
         </mat-option>
       </mat-select>
       <button mat-flat-button color="primary" type="submit">

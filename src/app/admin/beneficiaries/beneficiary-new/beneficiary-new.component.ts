@@ -5,7 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { combineLatest } from 'rxjs';
 import { filter, first } from 'rxjs/operators';
 
-import { KIV_ZONES, specialConditions } from '@shared/constants';
+import { specialConditions, zones } from '@shared/constants';
 import { BeneficiariesFacade } from '../beneficiaries.facade';
 
 export const COMMON_FIELDS = {
@@ -34,7 +34,7 @@ export const COMMON_FIELDS = {
   styleUrls: ['./beneficiary-new.component.scss'],
 })
 export class BeneficiaryNewComponent {
-  zones = KIV_ZONES;
+  zones = zones;
   specialConditions = specialConditions;
   form = this.fb.group(COMMON_FIELDS);
 

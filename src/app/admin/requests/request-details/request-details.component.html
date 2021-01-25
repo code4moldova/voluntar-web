@@ -120,8 +120,8 @@
             style="width: 230px"
             placeholder="Alege"
           >
-            <mat-option *ngFor="let sec of zones" [value]="sec">
-              {{ sec.charAt(0).toUpperCase() + sec.slice(1) }}
+            <mat-option *ngFor="let zone of zones" [value]="zone">
+              {{ zone | translate }}
             </mat-option>
           </mat-select>
           <mat-error

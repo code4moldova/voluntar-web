@@ -5,7 +5,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { specialConditions, ZONES } from '@app/shared/constants';
+import { specialConditions, zones } from '@app/shared/constants';
 import { RequestsFacade } from '../requests.facade';
 import { BeneficiariesService } from '@beneficiaries/beneficiaries.service';
 import { coordinates } from './request-address-field/request-address-field.component';
@@ -24,7 +24,7 @@ import { BeneficiariesFacade } from '@app/admin/beneficiaries/beneficiaries.faca
 })
 export class RequestDetailsComponent implements OnInit {
   form: FormGroup;
-  zones: Array<string> = Object.keys(ZONES).filter((key) => isNaN(+key));
+  zones = zones;
   needs = demandTypes;
   specialConditions = specialConditions;
   existentBeneficiary: Beneficiary = {} as Beneficiary;

@@ -11,7 +11,7 @@ import { Beneficiary } from '@shared/models';
 import { BeneficiariesFacade } from '../beneficiaries.facade';
 import { BeneficiaryNewComponent } from '../beneficiary-new/beneficiary-new.component';
 import { saveBeneficiarySuccessAction } from '../beneficiaries.actions';
-import { KIV_ZONES } from '@shared/constants';
+import { zones } from '@shared/constants';
 
 @Component({
   templateUrl: './beneficiaries-list.component.html',
@@ -34,7 +34,7 @@ export class BeneficiariesListComponent implements OnInit {
   blockListFilters = {};
 
   // Search bar
-  zones = KIV_ZONES;
+  zones = zones;
   filterStr = '';
   filterSector = '';
   prevFilterStr = '';
