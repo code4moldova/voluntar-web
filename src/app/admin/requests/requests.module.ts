@@ -4,18 +4,17 @@ import { RequestDetailsComponent } from './request-details/request-details.compo
 import { RequestsListComponent } from './requests-list/requests-list.component';
 import { MaterialComponentsModule } from '@shared/material.module';
 import { SharedModule } from '@shared/shared.module';
-import { RequestFormComponent } from './shared/request-form/request-form.component';
 import { NgxMaskModule } from 'ngx-mask';
 import { RequestsMapComponent } from './shared/requests-map/requests-map.component';
 import { RouterModule } from '@angular/router';
 import { requestsRoutes } from './requests.routes';
 import { RequestAddressFieldComponent } from './request-details/request-address-field/request-address-field.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
     RequestDetailsComponent,
     RequestsListComponent,
-    RequestFormComponent,
     RequestsMapComponent,
     RequestAddressFieldComponent,
   ],
@@ -25,6 +24,7 @@ import { RequestAddressFieldComponent } from './request-details/request-address-
     MaterialComponentsModule,
     SharedModule,
     NgxMaskModule.forChild(),
+    TranslateModule,
   ],
 })
 export class RequestsModule {}
