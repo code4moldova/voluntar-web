@@ -39,21 +39,18 @@
 </div>
 
 <mat-card class="mb-4">
-  <form class="mat-form-field-flex flex-wrap flex-md-nowrap" [formGroup]="filterForm" (ngSubmit)="onSearchSubmit()">
+  <form
+    class="mat-form-field-flex flex-wrap flex-md-nowrap"
+    [formGroup]="filterForm"
+    (ngSubmit)="onSearchSubmit()"
+  >
     <mat-form-field class="full-width-input pr-1">
       <mat-label>Căutare</mat-label>
-      <input
-        type="text"
-        matInput
-        formControlName="query"
-      />
+      <input type="text" matInput formControlName="query" title="" />
       <mat-hint>telefon, nume, prenume</mat-hint>
     </mat-form-field>
     <mat-form-field class="px-1">
-      <mat-select
-        placeholder="Sector"
-        formControlName="zone"
-      >
+      <mat-select placeholder="Sector" formControlName="zone">
         <mat-option [value]="null">Sector</mat-option>
         <mat-option *ngFor="let zone of zones" [value]="zone.value">
           {{ zone.label }}
@@ -61,10 +58,7 @@
       </mat-select>
     </mat-form-field>
     <mat-form-field class="px-1">
-      <mat-select
-        placeholder="Oferta"
-        formControlName="role"
-      >
+      <mat-select placeholder="Oferta" formControlName="role">
         <mat-option [value]="null">Oferta</mat-option>
         <mat-option *ngFor="let role of roles | keyvalue" [value]="role.value">
           {{ role.key }}
@@ -77,72 +71,92 @@
   </form>
 </mat-card>
 
-<mat-card class="pt-0">
-  <nav mat-tab-nav-bar mat-align-tabs="center">
-    <a
-      mat-tab-link
-      *ngFor="let tab of tabs; let i = index"
-      (click)="onTabChange(tab)"
-      [active]="activeTab === tab"
+<nav mat-tab-nav-bar class="bg-white">
+  <a
+    mat-tab-link
+    *ngFor="let tab of tabs; let i = index"
+    (click)="onTabChange(tab)"
+    [active]="activeTab === tab"
+  >
+    {{ tab.label }}
+    <app-badge class="ml-2 small" [class.light-blue]="activeTab === tab">
+      {{ (allStatusesCounts$ | async)[i] }}
+    </app-badge>
+  </a>
+</nav>
+
+<div class="position-relative">
+  <div class="table-responsive">
+    <table
+      mat-table
+      [dataSource]="dataSource$ | async"
+      *ngIf="(isLoading$ | async) === false"
     >
-      {{ tab.label }}
-      <app-badge class="ml-2 small" [class.light-blue]="activeTab === tab">
-        {{(allStatusesCounts$ | async)[i]}}
-      </app-badge>
-    </a>
-  </nav>
+      <ng-container matColumnDef="icons">
+        <td mat-cell *matCellDef="let volunteer">
+          <app-volunteer-role
+            [role]="_(volunteer).role[0]"
+            [showLabel]="true"
+          ></app-volunteer-role>
+        </td>
+      </ng-container>
 
-  <table mat-table [dataSource]="dataSource$ | async">
-    <ng-container matColumnDef="icons">
-      <td mat-cell *matCellDef="let volunteer">
-        <app-role
-          [role]="_(volunteer).role[0]"
-          [showLabel]="true"
-        >
-        </app-role>
-      </td>
-    </ng-container>
+      <ng-container matColumnDef="name">
+        <td mat-cell *matCellDef="let volunteer">
+          {{ _(volunteer).first_name }} {{ _(volunteer).last_name }}
+        </td>
+      </ng-container>
 
-    <ng-container matColumnDef="name">
-      <td mat-cell *matCellDef="let volunteer">
-        {{ _(volunteer).first_name }} {{ _(volunteer).last_name }}
-      </td>
-    </ng-container>
+      <ng-container matColumnDef="phone">
+        <td mat-cell *matCellDef="let volunteer">
+          <mat-icon class="mat-icon-small">phone</mat-icon>
+          <span>+ (373) {{ _(volunteer).phone | mask: "00 000 000" }}</span>
+        </td>
+      </ng-container>
 
-    <ng-container matColumnDef="phone">
-      <td mat-cell *matCellDef="let volunteer">
-        <mat-icon class="mat-icon-small">phone</mat-icon>
-        <span>+ (373) {{ _(volunteer).phone | mask: "00 000 000" }}</span>
-      </td>
-    </ng-container>
+      <ng-container matColumnDef="zone">
+        <td mat-cell *matCellDef="let volunteer">
+          <mat-icon class="mat-icon-small">place</mat-icon>
+          <span>{{ _(volunteer).zone | zoneTitle }}</span>
+        </td>
+      </ng-container>
 
-    <ng-container matColumnDef="zone">
-      <td mat-cell *matCellDef="let volunteer">
-        <mat-icon class="mat-icon-small">place</mat-icon>
-        <span>{{ _(volunteer).zone | zoneTitle }}</span>
-      </td>
-    </ng-container>
+      <ng-container matColumnDef="availableHours">
+        <td mat-cell *matCellDef="let volunteer">
+          {{ (tagById$(_(volunteer).availability_days) | async)?.ro }}
+        </td>
+      </ng-container>
 
-    <ng-container matColumnDef="availableHours">
-      <td mat-cell *matCellDef="let volunteer">
-        {{ (tagById$(_(volunteer).availability_days) | async)?.ro }}
-      </td>
-    </ng-container>
+      <tr
+        mat-row
+        *matRowDef="let volunteer; columns: displayedColumns"
+        class="clickable-row"
+        [routerLink]="['/admin/volunteers/details', _(volunteer)._id]"
+      ></tr>
+    </table>
 
-    <tr
-      mat-row
-      *matRowDef="let volunteer; columns: displayedColumns"
-      class="clickable-row"
-      [routerLink]="['/admin/volunteers/details', _(volunteer)._id]"
-    ></tr>
-  </table>
+    <div
+      *ngIf="
+        (dataSource$ | async).length === 0 && (isLoading$ | async) === false
+      "
+      style="min-height: 144px"
+      class="bg-white p-5 d-flex align-items-center justify-content-center"
+    >
+      {{ "no_volunteers" | translate }}
+    </div>
+  </div>
 
-  <div class="loading-shade" *ngIf="isLoading$ | async">
+  <div
+    class="loading-shade"
+    style="min-height: 144px"
+    *ngIf="isLoading$ | async"
+  >
     <mat-spinner></mat-spinner>
   </div>
-  <mat-paginator
-    (page)="onPageChange($event)"
-    [length]="count$ | async"
-    [pageSizeOptions]="[20, 50, 100]"
-  ></mat-paginator>
-</mat-card>
+</div>
+
+<mat-paginator
+  (page)="onPageChange($event)"
+  [length]="count$ | async"
+  [pageSizeOptions]="[20, 50, 100]"
+></mat-paginator>

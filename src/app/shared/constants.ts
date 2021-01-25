@@ -108,34 +108,6 @@ export enum VolunteerRole {
 // TODO: Move in volunteers/shared
 export const volunteerRoles = Object.values(VolunteerRole);
 
-export const VOLUNTEER_ROLES = [
-  {
-    label: 'Livrare',
-    value: 'delivery',
-  },
-  {
-    label: 'Copilot',
-    value: 'copilot',
-  },
-  {
-    label: 'Împachetare',
-    value: 'packing',
-  },
-  {
-    label: 'Aprovizionare',
-    value: 'supply',
-  },
-  {
-    label: 'Operator',
-    value: 'operator',
-  },
-];
-
-export const VOLUNTEER_ROLES_MAP = VOLUNTEER_ROLES.reduce((acc, item) => {
-  acc[item.value] = item.label;
-  return acc;
-}, {});
-
 /**
  * TODO: Create enum for special conditions and use with l10n
  *

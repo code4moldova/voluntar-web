@@ -10,8 +10,7 @@ import { RouterModule } from '@angular/router';
 import { volunteersRoutes } from './volunteers.routes';
 import { VolunteersCreateComponent } from './volunteers-create/volunteers-create.component';
 import { TranslateModule } from '@ngx-translate/core';
-import { RoleComponent } from './shared/role/role.component';
-import { RoleTitlePipe } from './shared/role-title.pipe';
+import { VolunteerRoleComponent } from './shared/volunteer-role/volunteer-role.component';
 
 @NgModule({
   declarations: [
@@ -19,8 +18,7 @@ import { RoleTitlePipe } from './shared/role-title.pipe';
     VolunteersDetailsComponent,
     VolunteerModalInfoComponent,
     VolunteersCreateComponent,
-    RoleComponent,
-    RoleTitlePipe,
+    VolunteerRoleComponent,
   ],
   imports: [
     CommonModule,

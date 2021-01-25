@@ -1,4 +1,4 @@
-import { Zone } from '@shared/constants';
+import { VolunteerRole, Zone } from '@shared/constants';
 
 export interface IVolunteer {
   _id?: string;
@@ -16,7 +16,7 @@ export interface IVolunteer {
   longitude: number;
   phone: number;
   black_list: boolean;
-  role: string[];
+  role: VolunteerRole[];
   zone: Zone;
   distance?: number;
   accepted_offer?: boolean;
