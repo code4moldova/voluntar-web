@@ -7,7 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { BeneficiariesFacade } from '../beneficiaries.facade';
 import { Beneficiary } from '@shared/models';
-import { KIV_ZONES, SPECIAL_CONDITIONS } from '@shared/constants';
+import { KIV_ZONES, specialConditions } from '@shared/constants';
 import { COMMON_FIELDS } from '../beneficiary-new/beneficiary-new.component';
 
 @Component({
@@ -18,7 +18,7 @@ export class BeneficiaryEditComponent implements OnInit, OnDestroy {
   recordId: string;
   componentDestroyed$ = new Subject();
   zones = KIV_ZONES;
-  specialConditions = SPECIAL_CONDITIONS;
+  specialConditions = specialConditions;
   form = this.fb.group({
     ...COMMON_FIELDS,
     landline: [

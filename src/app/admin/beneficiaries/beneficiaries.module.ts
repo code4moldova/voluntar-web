@@ -14,7 +14,7 @@ import { RequestTypeComponent } from './shared/request-type/request-type.compone
 import { BeneficiaryListComponent } from './shared/beneficiary-list/beneficiary-list.component';
 import { RouterModule } from '@angular/router';
 import { beneficiariesRoutes } from './beneficiaries.routes';
-import { SpecialConditionTitlePipe } from './shared/special-condition-title.pipe';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -22,7 +22,6 @@ import { SpecialConditionTitlePipe } from './shared/special-condition-title.pipe
     BeneficiariesListComponent,
     BeneficiaryDetailsComponent,
     BeneficiaryNewComponent,
-    SpecialConditionTitlePipe,
     BeneficiaryEditComponent,
     DisabilityComponent,
     RequestStatusComponent,
@@ -35,6 +34,7 @@ import { SpecialConditionTitlePipe } from './shared/special-condition-title.pipe
     MaterialComponentsModule,
     SharedModule,
     NgxMaskModule.forChild(),
+    TranslateModule,
   ],
 })
 export class BeneficiariesModule {}

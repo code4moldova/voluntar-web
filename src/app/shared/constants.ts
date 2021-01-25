@@ -108,32 +108,10 @@ export enum VolunteerRole {
 // TODO: Move in volunteers/shared
 export const volunteerRoles = Object.values(VolunteerRole);
 
-/**
- * TODO: Create enum for special conditions and use with l10n
- *
- * @deprecated
- */
-export const SPECIAL_CONDITIONS = [
-  {
-    label: 'Disability',
-    value: 'disability',
-  },
-  {
-    label: 'Deaf-mute',
-    value: 'deafmute',
-  },
-  {
-    label: 'Blind/Weak-seer',
-    value: 'blind_weak_seer',
-  },
-];
+export enum SpecialCondition {
+  disability = 'disability',
+  deaf_mute = 'deaf_mute',
+  blind_weak_seer = 'blind_weak_seer',
+}
 
-/**
- * TODO: Create enum for special conditions and use with l10n
- *
- * @deprecated
- */
-export const SPECIAL_CONDITIONS_MAP = SPECIAL_CONDITIONS.reduce((acc, item) => {
-  acc[item.value] = item.label;
-  return acc;
-}, {});
+export const specialConditions = Object.values(SpecialCondition);

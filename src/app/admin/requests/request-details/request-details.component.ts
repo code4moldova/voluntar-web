@@ -5,9 +5,9 @@ import {
   OnInit,
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { SPECIAL_CONDITIONS, ZONES } from '@app/shared/constants';
+import { specialConditions, ZONES } from '@app/shared/constants';
 import { RequestsFacade } from '../requests.facade';
-import { BeneficiariesService } from '../../beneficiaries/beneficiaries.service';
+import { BeneficiariesService } from '@beneficiaries/beneficiaries.service';
 import { coordinates } from './request-address-field/request-address-field.component';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Beneficiary } from '@app/shared/models';
@@ -26,7 +26,7 @@ export class RequestDetailsComponent implements OnInit {
   form: FormGroup;
   zones: Array<string> = Object.keys(ZONES).filter((key) => isNaN(+key));
   needs = demandTypes;
-  specialConditions = SPECIAL_CONDITIONS;
+  specialConditions = specialConditions;
   existentBeneficiary: Beneficiary = {} as Beneficiary;
   validAddress = true;
   requestAddress = '';

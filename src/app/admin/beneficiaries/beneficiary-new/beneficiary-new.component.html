@@ -127,10 +127,10 @@
           >
             <mat-option>--</mat-option>
             <mat-option
-              *ngFor="let item of specialConditions"
-              [value]="item.value"
+              *ngFor="let condition of specialConditions"
+              [value]="condition"
             >
-              {{ item.label }}
+              {{ condition | translate }}
             </mat-option>
           </mat-select>
         </div>

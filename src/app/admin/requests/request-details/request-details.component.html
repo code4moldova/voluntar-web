@@ -186,11 +186,11 @@
               Nu are
             </mat-option>
             <mat-option
-              *ngFor="let item of specialConditions"
-              [value]="item.value"
+              *ngFor="let condition of specialConditions"
+              [value]="condition"
             >
-              <mat-icon [svgIcon]="item.value"></mat-icon>
-              {{ item.label }}
+              <mat-icon svgIcon="{{ condition }}"></mat-icon>
+              {{ condition | translate }}
             </mat-option>
           </mat-select>
           <mat-error
