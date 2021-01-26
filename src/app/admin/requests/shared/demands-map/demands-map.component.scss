@@ -1,0 +1,38 @@
+@import "https://js.arcgis.com/4.14/esri/themes/light/main.css";
+
+$borderColor: #ededed;
+
+:host,
+map {
+  height: 418px;
+  width: 100%;
+}
+
+.selectBeneficiary {
+  height: 36px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 100%;
+}
+
+.filtersZone {
+  height: 32px;
+  background: #fdfdfd;
+  border: 1px solid $borderColor;
+  box-sizing: border-box;
+  border-radius: 0px;
+}
+
+mat-icon {
+  font-size: 6px;
+  height: 7px;
+  width: 7px;
+}
+
+.selectionMapSection {
+  min-height: 290px;
+  min-width: 230px;
+  background-color: rgb(174, 190, 82);
+}

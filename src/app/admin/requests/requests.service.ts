@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { IRequest, IRequestDetails } from '@shared/models';
 import { environment } from 'src/environments/environment';
+import { Demand } from '@app/shared/models/demand';
 
 @Injectable({
   providedIn: 'root',
@@ -11,21 +12,37 @@ export class RequestsService {
 
   getRequests(
     page: { pageIndex: number; pageSize: number } = {
-      pageIndex: 0,
+      pageIndex: 1,
       pageSize: 20,
     },
     filters: any = {}
   ) {
     const params = new HttpParams({ fromObject: filters });
     return this.http.get<{ count: number; list: IRequestDetails[] }>(
-      `${environment.url}/requests/filters/${page.pageIndex + 1}/${
+      `${environment.url}/requests/filters/${page.pageIndex || 1}/${
         page.pageSize || 1000
       }`,
       { params }
     );
   }
 
-  getRequstById(id: string) {
+  getDemands(
+    page: { pageIndex: number; pageSize: number } = {
+      pageIndex: 1,
+      pageSize: 20,
+    },
+    filters: any = {}
+  ) {
+    const params = new HttpParams({ fromObject: filters });
+    return this.http.get<{ count: number; list: Demand[] }>(
+      `${environment.url}/requests/filters/${page.pageIndex || 1}/${
+        page.pageSize || 1000
+      }`,
+      { params }
+    );
+  }
+
+  getRequestById(id: string) {
     return this.http.get<IRequestDetails>(
       `${environment.url}/beneficiary?id=${id}`
     );

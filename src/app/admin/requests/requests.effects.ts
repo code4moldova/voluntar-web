@@ -47,7 +47,7 @@ export class RequestsEffects {
     return this.actions$.pipe(
       ofType(getRequestAction),
       switchMap(({ id }) =>
-        this.requestService.getRequstById(id).pipe(
+        this.requestService.getRequestById(id).pipe(
           map((res) => getRequestSuccessAction({ payload: res })),
           catchError((error) => of(getRequestFailureAction({ error })))
         )

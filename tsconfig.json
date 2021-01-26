@@ -29,6 +29,7 @@
       "@users/*": ["src/app/admin/users/*"],
       "@volunteers/*": ["src/app/admin/volunteers/*"]
     },
-    "lib": ["es2018", "dom"]
+    "lib": ["es2018", "dom"],
+    "skipLibCheck": true
   }
 }
