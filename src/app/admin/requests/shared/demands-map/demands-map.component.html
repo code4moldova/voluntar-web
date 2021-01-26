@@ -1,0 +1,131 @@
+<div>
+  <div fxFlex="75">
+    <map #map></map>
+  </div>
+
+  <div fxFlex="25" fxLayout="column" style="border: 1px solid rgb(73, 71, 189)">
+    <!-- TODO  -->
+    <form [formGroup]="form" (ngSubmit)="onSubmit($event)">
+      <div id="selection_div">
+        <div fxLayout="column">
+          <div
+            #headerSelectionZone
+            class="selectBeneficiary"
+            fxLayoutAlign="center center"
+          >
+            Selectare Beneficiari
+          </div>
+        </div>
+      </div>
+      <!-- -------STEP 1*3---------- -->
+      <div class="selectionMapSection">
+        <!-- --------- 1 ----------------- -->
+        <div *ngIf="stepOnSelectionZone === 1">
+          <div
+            class="filtersZone"
+            fxLayout="row"
+            fxLayoutAlign="space-around center"
+            style="border: 1px solid #ccc"
+          >
+            <div fxFlex="45" style="background-color: aquamarine">
+              <mat-select
+                formControlName="city_sector"
+                placeholder="Sector"
+                (selectionChange)="filterChanged()"
+              >
+                <mat-option *ngFor="let zone of zones" [value]="zone.value">
+                  {{ zone.label.charAt(0).toUpperCase() + zone.label.slice(1) }}
+                </mat-option>
+              </mat-select>
+            </div>
+            <div fxFlex="45" style="background-color: rgb(51, 185, 141)">
+              <mat-select
+                formControlName="needs"
+                placeholder="Necesitate"
+                (selectionChange)="filterChanged()"
+              >
+                <mat-option [value]="anyDemand">any</mat-option>
+                <mat-option *ngFor="let nec of demandTypesFilter" [value]="nec">
+                  {{ nec }}
+                </mat-option>
+              </mat-select>
+            </div>
+          </div>
+          <app-demand-selection
+            [selectedDemands]="selectedDemands"
+            [selectedCityZone]="selectedCityZone"
+            [selectionStep]="stepOnSelectionZone"
+          ></app-demand-selection>
+        </div>
+        <!-- --------- 2 ----------------- -->
+        <div *ngIf="stepOnSelectionZone === 2">
+          <app-volunteer-selection
+            (selectedVolunteer)="selectedVolunteerProvided($event)"
+          ></app-volunteer-selection>
+        </div>
+        <!-- --------- 3 ----------------- -->
+        <div *ngIf="stepOnSelectionZone === 3">
+          <div>
+            <p>Sarcina este În Proces.</p>
+            <p>Link-ul a fost trimis voluntarului pe email.</p>
+
+            <mat-card>
+              <mat-card-header>
+                <mat-card-title>
+                  <img
+                    src="/assets/icons/requests/mapSelectionDot.png"
+                    width="16"
+                    height="16"
+                  />
+                  {{ selectedVolunteer.first_name || "_???_" }}
+                </mat-card-title>
+                <mat-card-subtitle>
+                  <mat-icon style="font-size: 12px">place</mat-icon>
+                  {{ selectedVolunteer.zone }}
+                </mat-card-subtitle>
+                <mat-card-subtitle>
+                  <mat-icon style="font-size: 16px">mail</mat-icon>
+                  {{ selectedVolunteer.email || "nedeterminat" }}
+                </mat-card-subtitle>
+              </mat-card-header>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div
+      fxLayout="column"
+      fxLayoutAlign="center center"
+      style="margin: 5px; width: 100%"
+    >
+      <div
+        fxLayout="row"
+        fxLayoutAlign="center center"
+        style="
+          background-color: #ffffff !important;
+          border: 1px solid red;
+          height: 10px;
+          width: 100%;
+        "
+      >
+        <div *ngFor="let a of [].constructor(3); let i = index">
+          <div *ngIf="i + 1 !== stepOnSelectionZone; else filledpoint">
+            <mat-icon>gps_not_fixed</mat-icon>
+          </div>
+          <ng-template #filledpoint>
+            <mat-icon>gps_fixed</mat-icon>
+          </ng-template>
+        </div>
+      </div>
+
+      <button
+        mat-flat-button
+        color="primary"
+        style="width: 100px"
+        (click)="nextFormStep()"
+      >
+        {{ buttonSelectorTextOnMap }}
+      </button>
+    </div>
+  </div>
+</div>

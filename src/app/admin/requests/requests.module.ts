@@ -5,18 +5,24 @@ import { RequestsListComponent } from './requests-list/requests-list.component';
 import { MaterialComponentsModule } from '@shared/material.module';
 import { SharedModule } from '@shared/shared.module';
 import { NgxMaskModule } from 'ngx-mask';
-import { RequestsMapComponent } from './shared/requests-map/requests-map.component';
 import { RouterModule } from '@angular/router';
 import { requestsRoutes } from './requests.routes';
 import { RequestAddressFieldComponent } from './request-details/request-address-field/request-address-field.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { DemandsMapComponent } from './shared/demands-map/demands-map.component';
+import { DemandSelectionOnMapComponent } from './shared/demands-map/demand-selection/demand-selection.component';
+import { VolunteerSelectionOnMapComponent } from './shared/demands-map/volunteer-selection/volunteer-selection.component';
+import { FilterByNameOrFamilyPipe } from '@app/shared/pipes/filter-by-name-or-family.pipe';
 
 @NgModule({
   declarations: [
     RequestDetailsComponent,
     RequestsListComponent,
-    RequestsMapComponent,
     RequestAddressFieldComponent,
+    DemandsMapComponent,
+    DemandSelectionOnMapComponent,
+    VolunteerSelectionOnMapComponent,
+    FilterByNameOrFamilyPipe,
   ],
   imports: [
     CommonModule,

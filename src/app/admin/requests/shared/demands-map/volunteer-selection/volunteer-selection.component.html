@@ -1,0 +1,61 @@
+<!-- --------STEP 2------------------- -->
+<div style="background-color: rgb(44, 153, 117)">
+  <mat-form-field class="" appearance="fill">
+    <mat-label>Choose a date</mat-label>
+    <input
+      matInput
+      [matDatepicker]="picker"
+      placeholder="Choose a date"
+      (dateInput)="OnDateChange($event)"
+    />
+    <mat-datepicker-toggle matSuffix [for]="picker">
+      <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+    </mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field class="" appearance="fill">
+    <mat-label>Filter by Name or Family</mat-label>
+    <input
+      matInput
+      [(ngModel)]="filterVolunteerByNameOrFamily"
+      placeholder="filter by name or family"
+    />
+  </mat-form-field>
+</div>
+<cdk-virtual-scroll-viewport #virtualScroll itemSize="50" class="cdk-viewport">
+  <div
+    *cdkVirtualFor="
+      let vol of volunteers
+        | filterByNameOrFamily: filterVolunteerByNameOrFamily
+    "
+    (click)="volunteerClicked(vol._id)"
+  >
+    <div *ngIf="checkIfVolunteerAvailable(vol.availability_days)">
+      <mat-card style="width: auto; height: auto; padding: 9px 11px">
+        <mat-card-header
+          style="border: 1px solid rgb(131, 63, 63)"
+          [style.backgroundColor]="
+            !!selectedVol && selectedVol._id === vol._id ? 'red' : 'white'
+          "
+        >
+          <mat-card-title>
+            <img
+              src="/assets/icons/requests/mapSelectionDot.png"
+              width="16"
+              height="16"
+            />
+            {{ vol.first_name + " " + vol.last_name }}
+          </mat-card-title>
+          <mat-card-subtitle>
+            <mat-icon style="font-size: 16px">place</mat-icon>
+            {{ vol.address }}
+          </mat-card-subtitle>
+          <mat-card-subtitle>
+            <mat-icon style="font-size: 16px">mail</mat-icon>
+            <!-- {{ vol.type || "nedeterminat" }} -->
+          </mat-card-subtitle>
+        </mat-card-header>
+      </mat-card>
+    </div>
+  </div>
+</cdk-virtual-scroll-viewport>

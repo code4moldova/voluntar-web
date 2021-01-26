@@ -1,0 +1,26 @@
+<cdk-virtual-scroll-viewport itemSize="50" class="cdk-viewport">
+  <div *cdkVirtualFor="let req of selectedDemands" class="cdk-item">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>
+          <img
+            src="/assets/icons/requests/mapSelectionDot.png"
+            width="16"
+            height="16"
+          />
+          {{ req.beneficiary.first_name || "_???_" }}
+        </mat-card-title>
+        <mat-card-subtitle>
+          <mat-icon style="font-size: 12px">place</mat-icon>
+          {{ req.beneficiary.zone }}
+
+          <!-- {{ req.address }} -->
+        </mat-card-subtitle>
+        <mat-card-subtitle>
+          <mat-icon style="font-size: 16px">mail</mat-icon>
+          {{ req.type || "nedeterminat" }}
+        </mat-card-subtitle>
+      </mat-card-header>
+    </mat-card>
+  </div>
+</cdk-virtual-scroll-viewport>
