@@ -19,12 +19,21 @@ import MapView from '@arcgis/core/views/MapView';
 import GraphicsLayer from '@arcgis/core/layers/GraphicsLayer';
 import config from '@arcgis/core/config.js';
 
+// import type Map from 'esri/Map';
+// import type Graphic from 'esri/Graphic';
+// import type SimpleMarkerSymbol from 'esri/symbols/SimpleMarkerSymbol';
+// import type Color from 'esri/Color';
+// import type MapView from 'esri/views/MapView';
+// import type GraphicsLayer from '@arcgis/core/layers/GraphicsLayer';
+// import type Point from '@arcgis/core/geometry/Point';
+
 import { RequestsFacade } from '../../requests.facade';
-import { KIV_ZONES } from '@app/shared/constants';
 import { RequestsService } from '../../requests.service';
 import { Demand, DemandType } from '@app/shared/models/demand';
 import { DemandsMapService } from './demands-map.services';
 import { IVolunteer } from '@app/shared/models/volunteers';
+import { Zone } from '@app/shared/constants';
+import Geometry from 'esri/geometry/Geometry';
 
 export interface coordinates {
   latitude: number;
@@ -48,18 +57,75 @@ export class DemandsMapComponent implements OnDestroy, OnInit {
   @ViewChild('headerSelectionZone', { static: true })
   private headerSelection: ElementRef;
   private map: Map = null;
-  private mapView: MapView = null;
+  private mapView: MapView;
   private graphicsLayer: GraphicsLayer = null;
   public requests: Demand[] = [];
   private subRequests$: Subscription;
-  public zones = KIV_ZONES;
+  public zones = [
+    {
+      // Backend does not have such a zone, do not use it in REST communication
+      value: Zone.toate,
+      mapCoordinates: {
+        latitude: 47.024758255143986,
+        longitude: 28.83263462925968,
+      },
+    },
+    {
+      value: Zone.centru,
+      mapCoordinates: {
+        latitude: 47.01820503506154,
+        longitude: 28.812844986831664,
+      },
+    },
+    {
+      value: Zone.telecentru,
+      mapCoordinates: {
+        latitude: 47.01820503506,
+        longitude: 28.812844986831,
+      },
+    },
+    {
+      value: Zone.botanica,
+      mapCoordinates: {
+        latitude: 46.98634237915792,
+        longitude: 28.85737532521311,
+      },
+    },
+    {
+      value: Zone.buiucani,
+      mapCoordinates: {
+        latitude: 47.027011033109694,
+        longitude: 28.792694802549562,
+      },
+    },
+    {
+      value: Zone.ciocana,
+      mapCoordinates: {
+        latitude: 47.040753754886865,
+        longitude: 28.833281219747807,
+      },
+    },
+    {
+      value: Zone.riscani,
+      mapCoordinates: {
+        latitude: 47.04642715050063,
+        longitude: 28.89065903499436,
+      },
+    },
+    {
+      value: Zone.suburbii,
+      mapCoordinates: {
+        latitude: 47.024758255143986,
+        longitude: 28.83263462925968,
+      },
+    },
+  ];
   public demand: DemandType;
   demandTypesFilter = Object.entries(DemandType).map(([key, _]) => key);
   form: FormGroup;
   public stepOnSelectionZone = 1;
   buttonSelectorTextOnMap = 'Următor';
-  public dateDemandRequested: Date = null;
-
+  // public dateDemandRequested: Date = null;
   public selectedDemands: Demand[] = [];
   public selectedVolunteer: IVolunteer = null;
   public selectedCityZone = '';
@@ -101,6 +167,7 @@ export class DemandsMapComponent implements OnDestroy, OnInit {
 
     // Initialize MapView
     config.assetsPath = '/assets';
+    this.graphicsLayer = new GraphicsLayer();
     this.initializeMap().then(() => {
       // The map has been initialized and prefilled
     });
@@ -110,7 +177,6 @@ export class DemandsMapComponent implements OnDestroy, OnInit {
     try {
       //Geographic data stored temporarily in memory.
       //Displaying individual geographic features as graphics, visual aids or text on the map.
-      this.graphicsLayer = new GraphicsLayer();
       this.initializeRequestsOnTheMap('init');
 
       this.map = await new Map({
@@ -127,7 +193,10 @@ export class DemandsMapComponent implements OnDestroy, OnInit {
 
       this.mapView.on('click', (ev) => {
         this.mapView.hitTest(ev.screenPoint).then((res) => {
-          if (res.results[0].graphic.attributes?.requestId === undefined)
+          if (
+            res.results.length < 1 || // clicked to no object on the map
+            res.results[0].graphic.attributes?.requestId === undefined
+          )
             return;
 
           const gr: Graphic = res.results[0].graphic;
@@ -141,36 +210,27 @@ export class DemandsMapComponent implements OnDestroy, OnInit {
                 this.requests.find((r) => r._id === gr.attributes.requestId)
               );
               this.selectedDemands = [...this.selectedDemands];
-              gr.symbol.set('color', [60, 210, 120, 0.7]);
+              gr.symbol.set('color', this.changedMarkerSymbol.color);
             } else {
               //in case of exist - remove demand from selected and make it white on map
               this.selectedDemands = this.selectedDemands.filter(
                 (r) => r !== exist
               );
-              gr.symbol.set('color', [255, 255, 255, 0.3]);
+              gr.symbol.set('color', this.simpleMarkerSymbol.color);
             }
             this.graphicsLayer.add(gr.clone());
             this.graphicsLayer.remove(gr);
 
-            //next row needs to throw detectChanges by Angular
+            //next row needs to proceed detectChanges by Angular
             this.cdr.detectChanges();
           }
         });
         //center map view to selected point
         this.mapView.goTo({ center: ev.mapPoint });
       });
-
-      this.mapView.when(
-        () => {},
-        (error) => {
-          // Use the errback function to handle when the view doesn't load properly
-          console.log('The view~s resources failed to load: ', error);
-        }
-      );
     } catch (error) {
       console.error(error);
     } finally {
-      this.cdr.detectChanges();
     }
   }
 
@@ -181,8 +241,6 @@ export class DemandsMapComponent implements OnDestroy, OnInit {
     if (status === 'init') {
       this.selectedDemands = [];
     } else {
-      console.log('aici 248 rind');
-
       this.graphicsLayer.removeAll();
       this.selectedDemands.forEach((el) =>
         this.addDemandToMap(el, this.changedMarkerSymbol)
@@ -206,12 +264,13 @@ export class DemandsMapComponent implements OnDestroy, OnInit {
         this.requests.forEach((el) => {
           //TODO - testing purpose, set status to confirmed to have demands on the map
           // from(this.demandsMapService.tempSetStatusToConfirmed(el)).subscribe((res) =>
-          //   console.log('res', res)
+          // console.log('demands=', el);
           // );
           this.addDemandToMap(el, this.simpleMarkerSymbol);
         });
       },
-      (err) => console.log('Error getting requests from server! ', err)
+      (err) => console.log('Error getting requests from server! ', err),
+      () => console.log('finish read demands from DB, subscriptions ended')
     );
   }
 
@@ -235,7 +294,7 @@ export class DemandsMapComponent implements OnDestroy, OnInit {
   }
 
   filterChanged(): void {
-    let selectedZone;
+    let selectedZone = this.zones[0];
     let currentFilter = {};
 
     this.selectedCityZone = `${this.form.get('city_sector').value}`;
@@ -249,7 +308,7 @@ export class DemandsMapComponent implements OnDestroy, OnInit {
         (zone) =>
           zone.value.toLowerCase() === this.selectedCityZone.toLowerCase()
       );
-      this.mapView.center = new Point(selectedZone.mapCoordonates);
+      this.mapView.center = new Point(selectedZone.mapCoordinates);
       currentFilter = { ...currentFilter, zone: selectedZone.value };
     }
     if (
@@ -312,7 +371,7 @@ export class DemandsMapComponent implements OnDestroy, OnInit {
       )
     ).subscribe(
       (res) => {
-        console.log(' resp received', res);
+        // console.log(' resp received', res);
         this.stepOnSelectionZone = 3;
       },
       (err) => {

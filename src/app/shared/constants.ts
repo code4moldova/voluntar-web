@@ -1,4 +1,5 @@
 export enum Zone {
+  toate = 'toate',
   botanica = 'botanica',
   buiucani = 'buiucani',
   centru = 'centru',

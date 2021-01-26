@@ -37,7 +37,6 @@ export class VolunteerSelectionOnMapComponent implements OnInit, OnDestroy {
   volunteerClicked(id: string) {
     this.selectedVol = this.volunteers.find((v) => v._id === id);
     this.selectedVolunteer.emit(this.selectedVol);
-    console.log('volunteer clicked', this.selectedVol);
     return;
   }
 
@@ -46,6 +45,7 @@ export class VolunteerSelectionOnMapComponent implements OnInit, OnDestroy {
       .getVolunteers({ pageIndex: 1, pageSize: 20000 })
       .subscribe((vol) => {
         this.volunteers = [...vol.list];
+        //due to detect strategy where changed on parent level
         this.cdr.detectChanges();
       });
   }
@@ -55,16 +55,16 @@ export class VolunteerSelectionOnMapComponent implements OnInit, OnDestroy {
   }
   checkIfVolunteerAvailable(day: WeekDay[]): boolean {
     //luni - 0 - duminica - 6
-    let dt = '9';
+    let weekDayNumber = '9';
     if (this.dateDemandRequested) {
-      dt = this.getDayName(this.dateDemandRequested.getDay());
+      weekDayNumber = this.getDayName(this.dateDemandRequested.getDay());
     } else {
-      //if no date selected - we show all volunteers
+      //if no any date selected - we show all volunteers
       return true;
     }
 
     if (day !== []) {
-      if (day.find((d) => d === dt)) {
+      if (day.find((d) => d === weekDayNumber)) {
         return true;
       } else {
         return false;

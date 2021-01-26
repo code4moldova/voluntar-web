@@ -34,7 +34,7 @@
                 (selectionChange)="filterChanged()"
               >
                 <mat-option *ngFor="let zone of zones" [value]="zone.value">
-                  {{ zone.label.charAt(0).toUpperCase() + zone.label.slice(1) }}
+                  {{ zone.value.charAt(0).toUpperCase() + zone.value.slice(1) }}
                 </mat-option>
               </mat-select>
             </div>

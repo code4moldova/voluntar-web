@@ -1,38 +1,16 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
-} from '@angular/core';
-import { Demand, DemandType } from '@app/shared/models/demand';
-import { from } from 'rxjs';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { Demand } from '@app/shared/models/demand';
 
 @Component({
   selector: 'app-demand-selection',
   templateUrl: './demand-selection.component.html',
   styleUrls: ['./demand-selection.component.scss'],
 })
-export class DemandSelectionOnMapComponent implements OnInit, OnChanges {
+export class DemandSelectionOnMapComponent implements OnInit {
   @Input() selectedDemands: Demand[] = [];
   @Input() selectedCityZone = '';
   @Input() selectionStep = 1;
   constructor(private cdr: ChangeDetectorRef) {}
 
-  ngOnChanges(changes: SimpleChanges): void {
-    // console.log(
-    //   'changed',
-    //   this.selectedCityZone,
-    //   'step=',
-    //   this.selectionStep,
-    //   'selReq=',
-    //   this.selectedRequests
-    // );
-    // this.cdr.detectChanges();
-  }
-
-  public ngOnInit(): void {
-    console.log('demand-selection.ts', this.selectedDemands);
-  }
+  public ngOnInit(): void {}
 }
