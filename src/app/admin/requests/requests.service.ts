@@ -19,14 +19,14 @@ export class RequestsService {
   ) {
     const params = new HttpParams({ fromObject: filters });
     return this.http.get<{ count: number; list: IRequestDetails[] }>(
-      `${environment.url}/beneficiary/filters/${page.pageIndex || 1}/${
+      `${environment.url}/requests/filters/${page.pageIndex || 1}/${
         page.pageSize || 1000
       }`,
       { params }
     );
   }
 
-  getDemand(
+  getDemands(
     page: { pageIndex: number; pageSize: number } = {
       pageIndex: 1,
       pageSize: 20,
@@ -42,7 +42,7 @@ export class RequestsService {
     );
   }
 
-  getRequstById(id: string) {
+  getRequestById(id: string) {
     return this.http.get<IRequestDetails>(
       `${environment.url}/beneficiary?id=${id}`
     );

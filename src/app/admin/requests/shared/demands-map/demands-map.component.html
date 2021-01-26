@@ -34,7 +34,7 @@
                 (selectionChange)="filterChanged()"
               >
                 <mat-option *ngFor="let zone of zones" [value]="zone.value">
-                  {{ zone.value.charAt(0).toUpperCase() + zone.value.slice(1) }}
+                  {{ zone.value | translate }}
                 </mat-option>
               </mat-select>
             </div>
@@ -45,16 +45,14 @@
                 (selectionChange)="filterChanged()"
               >
                 <mat-option [value]="anyDemand">any</mat-option>
-                <mat-option *ngFor="let nec of demandTypesFilter" [value]="nec">
-                  {{ nec }}
+                <mat-option *ngFor="let demand of demandTypes" [value]="demand">
+                  {{ demand | translate }}
                 </mat-option>
               </mat-select>
             </div>
           </div>
           <app-demand-selection
             [selectedDemands]="selectedDemands"
-            [selectedCityZone]="selectedCityZone"
-            [selectionStep]="stepOnSelectionZone"
           ></app-demand-selection>
         </div>
         <!-- --------- 2 ----------------- -->
@@ -72,11 +70,7 @@
             <mat-card>
               <mat-card-header>
                 <mat-card-title>
-                  <img
-                    src="/assets/icons/requests/mapSelectionDot.png"
-                    width="16"
-                    height="16"
-                  />
+                  <mat-icon svgIcon="selection-dot"></mat-icon>
                   {{ selectedVolunteer.first_name || "_???_" }}
                 </mat-card-title>
                 <mat-card-subtitle>

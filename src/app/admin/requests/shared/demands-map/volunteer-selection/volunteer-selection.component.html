@@ -6,7 +6,8 @@
       matInput
       [matDatepicker]="picker"
       placeholder="Choose a date"
-      (dateInput)="OnDateChange($event)"
+      (dateInput)="onDateChange($event)"
+      title=""
     />
     <mat-datepicker-toggle matSuffix [for]="picker">
       <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
@@ -19,10 +20,11 @@
       matInput
       [(ngModel)]="filterVolunteerByNameOrFamily"
       placeholder="filter by name or family"
+      title=""
     />
   </mat-form-field>
 </div>
-<cdk-virtual-scroll-viewport #virtualScroll itemSize="50" class="cdk-viewport">
+<cdk-virtual-scroll-viewport itemSize="50" class="cdk-viewport">
   <div
     *cdkVirtualFor="
       let vol of volunteers
@@ -39,11 +41,7 @@
           "
         >
           <mat-card-title>
-            <img
-              src="/assets/icons/requests/mapSelectionDot.png"
-              width="16"
-              height="16"
-            />
+            <mat-icon svgIcon="selection-dot"></mat-icon>
             {{ vol.first_name + " " + vol.last_name }}
           </mat-card-title>
           <mat-card-subtitle>

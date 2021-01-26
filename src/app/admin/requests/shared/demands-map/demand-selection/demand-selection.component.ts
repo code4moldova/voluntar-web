@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Demand } from '@app/shared/models/demand';
 
 @Component({
@@ -6,11 +6,6 @@ import { Demand } from '@app/shared/models/demand';
   templateUrl: './demand-selection.component.html',
   styleUrls: ['./demand-selection.component.scss'],
 })
-export class DemandSelectionOnMapComponent implements OnInit {
+export class DemandSelectionOnMapComponent {
   @Input() selectedDemands: Demand[] = [];
-  @Input() selectedCityZone = '';
-  @Input() selectionStep = 1;
-  constructor(private cdr: ChangeDetectorRef) {}
-
-  public ngOnInit(): void {}
 }

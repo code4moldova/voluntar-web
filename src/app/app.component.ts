@@ -24,6 +24,7 @@ const icons = [
   'supply',
   'transport',
   'warm_lunch',
+  'selection-dot',
 ] as const;
 
 @Component({

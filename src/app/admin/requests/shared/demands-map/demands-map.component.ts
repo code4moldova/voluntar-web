@@ -2,11 +2,9 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
-  EventEmitter,
   Input,
   OnDestroy,
   OnInit,
-  Output,
   ViewChild,
 } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
@@ -19,27 +17,13 @@ import MapView from '@arcgis/core/views/MapView';
 import GraphicsLayer from '@arcgis/core/layers/GraphicsLayer';
 import config from '@arcgis/core/config.js';
 
-// import type Map from 'esri/Map';
-// import type Graphic from 'esri/Graphic';
-// import type SimpleMarkerSymbol from 'esri/symbols/SimpleMarkerSymbol';
-// import type Color from 'esri/Color';
-// import type MapView from 'esri/views/MapView';
-// import type GraphicsLayer from '@arcgis/core/layers/GraphicsLayer';
-// import type Point from '@arcgis/core/geometry/Point';
-
-import { RequestsFacade } from '../../requests.facade';
 import { RequestsService } from '../../requests.service';
-import { Demand, DemandType } from '@app/shared/models/demand';
+import { Demand, DemandType, demandTypes } from '@app/shared/models/demand';
 import { DemandsMapService } from './demands-map.services';
 import { IVolunteer } from '@app/shared/models/volunteers';
 import { Zone } from '@app/shared/constants';
-import Geometry from 'esri/geometry/Geometry';
 
-export interface coordinates {
-  latitude: number;
-  longitude: number;
-  _id: any;
-}
+config.assetsPath = '/assets';
 
 @Component({
   selector: 'app-demands-map',
@@ -51,8 +35,6 @@ export class DemandsMapComponent implements OnDestroy, OnInit {
     28.825140232956283,
     47.01266177894471,
   ];
-  @Output() mapLoadedEvent = new EventEmitter<boolean>();
-  @Output() mapClickedEvent = new EventEmitter<boolean>();
   @ViewChild('map', { static: true }) private mapViewEl: ElementRef;
   @ViewChild('headerSelectionZone', { static: true })
   private headerSelection: ElementRef;
@@ -121,11 +103,10 @@ export class DemandsMapComponent implements OnDestroy, OnInit {
     },
   ];
   public demand: DemandType;
-  demandTypesFilter = Object.entries(DemandType).map(([key, _]) => key);
+  demandTypes = demandTypes;
   form: FormGroup;
   public stepOnSelectionZone = 1;
   buttonSelectorTextOnMap = 'Următor';
-  // public dateDemandRequested: Date = null;
   public selectedDemands: Demand[] = [];
   public selectedVolunteer: IVolunteer = null;
   public selectedCityZone = '';
@@ -150,7 +131,6 @@ export class DemandsMapComponent implements OnDestroy, OnInit {
   };
 
   constructor(
-    public requestsFacade: RequestsFacade,
     public requestsService: RequestsService,
     private cdr: ChangeDetectorRef,
     private demandsMapService: DemandsMapService,
@@ -166,11 +146,8 @@ export class DemandsMapComponent implements OnDestroy, OnInit {
     });
 
     // Initialize MapView
-    config.assetsPath = '/assets';
     this.graphicsLayer = new GraphicsLayer();
-    this.initializeMap().then(() => {
-      // The map has been initialized and prefilled
-    });
+    void this.initializeMap();
   }
 
   async initializeMap() {
@@ -230,7 +207,6 @@ export class DemandsMapComponent implements OnDestroy, OnInit {
       });
     } catch (error) {
       console.error(error);
-    } finally {
     }
   }
 
@@ -247,13 +223,12 @@ export class DemandsMapComponent implements OnDestroy, OnInit {
       );
     }
     from(
-      this.requestsService.getDemand(
+      this.requestsService.getDemands(
         {
           pageIndex: 1,
           pageSize: 20000,
         },
         {
-          //TODO - temp for tests disabled
           status: 'confirmed',
           ...filters,
         }
@@ -261,13 +236,9 @@ export class DemandsMapComponent implements OnDestroy, OnInit {
     ).subscribe(
       (res) => {
         this.requests = res.list;
-        this.requests.forEach((el) => {
-          //TODO - testing purpose, set status to confirmed to have demands on the map
-          // from(this.demandsMapService.tempSetStatusToConfirmed(el)).subscribe((res) =>
-          // console.log('demands=', el);
-          // );
-          this.addDemandToMap(el, this.simpleMarkerSymbol);
-        });
+        this.requests.forEach((el) =>
+          this.addDemandToMap(el, this.simpleMarkerSymbol)
+        );
       },
       (err) => console.log('Error getting requests from server! ', err),
       () => console.log('finish read demands from DB, subscriptions ended')
@@ -287,7 +258,7 @@ export class DemandsMapComponent implements OnDestroy, OnInit {
         symbol: sym,
         attributes: {
           requestId: req._id,
-          zone: req.beneficiary.zone || 'toate',
+          zone: req.beneficiary.zone ?? 'toate',
         },
       })
     );
@@ -349,7 +320,7 @@ export class DemandsMapComponent implements OnDestroy, OnInit {
         this.headerSelection.nativeElement.innerHTML = 'Selectare Voluntari';
         break;
       case 3:
-        this.alocareaVoluntarului();
+        this.assignDemandsToVolunteer();
         this.buttonSelectorTextOnMap = 'Sarcină Nouă';
         this.headerSelection.nativeElement.innerHTML = 'FINISH!';
         break;
@@ -357,21 +328,19 @@ export class DemandsMapComponent implements OnDestroy, OnInit {
         this.buttonSelectorTextOnMap = 'ERROR !!!';
     }
   }
+
   onSubmit(ev): void {
     ev.preventDefault();
-    //for future possible actions
   }
 
-  alocareaVoluntarului() {
-    console.log('volunteerId=', this.selectedVolunteer);
+  assignDemandsToVolunteer() {
     from(
       this.demandsMapService.assignDemandsToVolunteer(
         this.selectedVolunteer._id,
         this.selectedDemands
       )
     ).subscribe(
-      (res) => {
-        // console.log(' resp received', res);
+      () => {
         this.stepOnSelectionZone = 3;
       },
       (err) => {
@@ -390,14 +359,8 @@ export class DemandsMapComponent implements OnDestroy, OnInit {
   }
 
   ngOnDestroy() {
-    console.log('🚀 RequestsMapComponent ~ ngOnDestroy ~ ngOnDestroy');
     this.subRequests$.unsubscribe();
-    this.mapView.on('click', null);
-    this.mapView.on('pointer-move', null);
-
-    if (this.mapView) {
-      this.mapView.destroy();
-    }
-    if (this.graphicsLayer) this.graphicsLayer = null;
+    this.mapView?.destroy();
+    this.graphicsLayer = null;
   }
 }

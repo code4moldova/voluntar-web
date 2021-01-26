@@ -10,36 +10,12 @@ import { Demand } from '@app/shared/models/demand';
   providedIn: 'root',
 })
 export class DemandsMapService {
-  constructor(private http: HttpClient, private snackBar: MatSnackBar) {}
-
-  tempSetStatusToConfirmed(el: Demand) {
-    return this.http.put<any>(`${environment.url}/requests`, {
-      _id: el._id,
-      status: 'confirmed',
-    });
-  }
+  constructor(private http: HttpClient) {}
 
   assignDemandsToVolunteer(volunteerId: string = '', demands: Demand[] = []) {
-    const bodyObj = {
+    return this.http.post<any>(`${environment.url}/clusters`, {
       volunteer: `${volunteerId}`,
       request_list: demands.map((demand) => demand._id),
-    };
-    return this.http.post<any>(`${environment.url}/clusters`, bodyObj);
-  }
-
-  getDemandsFromDB(
-    page: { pageIndex: number; pageSize: number } = {
-      pageIndex: 1,
-      pageSize: 20000,
-    },
-    filters: any = {}
-  ) {
-    const params = new HttpParams({ fromObject: filters });
-    return this.http.get<{ count: number; list: Demand[] }>(
-      `${environment.url}/requests/filters/${page.pageIndex || 1}/${
-        page.pageSize || 1000
-      }`,
-      { params }
-    );
+    });
   }
 }
