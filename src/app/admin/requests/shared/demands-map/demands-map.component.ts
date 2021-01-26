@@ -42,7 +42,6 @@ export class DemandsMapComponent implements OnDestroy, OnInit {
   private mapView: MapView;
   private graphicsLayer: GraphicsLayer = null;
   public requests: Demand[] = [];
-  private subRequests$: Subscription;
   public zones = [
     {
       // Backend does not have such a zone, do not use it in REST communication
@@ -359,7 +358,6 @@ export class DemandsMapComponent implements OnDestroy, OnInit {
   }
 
   ngOnDestroy() {
-    this.subRequests$.unsubscribe();
     this.mapView?.destroy();
     this.graphicsLayer = null;
   }
