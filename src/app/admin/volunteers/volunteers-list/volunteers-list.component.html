@@ -131,7 +131,7 @@
         mat-row
         *matRowDef="let volunteer; columns: displayedColumns"
         class="clickable-row"
-        [routerLink]="['/admin/volunteers/details', _(volunteer)._id]"
+        [routerLink]="['/admin/volunteers', _(volunteer)._id]"
       ></tr>
     </table>
 
