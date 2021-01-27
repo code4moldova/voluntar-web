@@ -9,7 +9,7 @@
   <h2 translate>view_volunteer</h2>
   <a
     *ngIf="volunteer$ | async as volunteer"
-    [routerLink]="['/admin/users', volunteer._id, 'edit']"
+    [routerLink]="['/admin/volunteers', volunteer._id, 'edit']"
     mat-stroked-button
     color="primary"
     class="ml-auto"
