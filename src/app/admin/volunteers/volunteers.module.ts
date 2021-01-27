@@ -9,7 +9,6 @@ import { NgxMaskModule } from 'ngx-mask';
 import { RouterModule } from '@angular/router';
 import { volunteersRoutes } from './volunteers.routes';
 import { VolunteersCreateComponent } from './volunteers-create/volunteers-create.component';
-import { TranslateModule } from '@ngx-translate/core';
 import { VolunteerRoleComponent } from './shared/volunteer-role/volunteer-role.component';
 
 @NgModule({
@@ -26,7 +25,6 @@ import { VolunteerRoleComponent } from './shared/volunteer-role/volunteer-role.c
     MaterialComponentsModule,
     SharedModule,
     NgxMaskModule.forChild(),
-    TranslateModule,
   ],
 })
 export class VolunteersModule {}
