@@ -147,7 +147,7 @@
       <th mat-header-cell *matHeaderCellDef>Adaugat</th>
       <td mat-cell *matCellDef="let element">
         <mat-icon>today</mat-icon>
-        {{ element.beneficiary.created_at | date: "d MMM" }}
+        {{ element.created_at | date: "d MMM" }}
       </td>
     </ng-container>
 
