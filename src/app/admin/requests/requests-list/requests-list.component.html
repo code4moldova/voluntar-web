@@ -123,7 +123,7 @@
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef>Nume</th>
       <td mat-cell *matCellDef="let element">
-        {{ element.first_name }} {{ element.last_name }}
+        {{ element.beneficiary.first_name }} {{ element.beneficiary.last_name }}
       </td>
     </ng-container>
 
@@ -131,7 +131,7 @@
       <th mat-header-cell *matHeaderCellDef>Telefon</th>
       <td mat-cell *matCellDef="let element">
         <mat-icon>phone_in_talk</mat-icon>
-        {{ element.phone | mask: "00 000 000" }}
+        {{ element.beneficiary.phone | mask: "00 000 000" }}
       </td>
     </ng-container>
 
@@ -139,7 +139,7 @@
       <th mat-header-cell *matHeaderCellDef>Sector</th>
       <td mat-cell *matCellDef="let element">
         <mat-icon>location_on</mat-icon>
-        {{ element.zone_address | translate }}
+        {{ element.beneficiary.zone | translate }}
       </td>
     </ng-container>
 
@@ -147,7 +147,7 @@
       <th mat-header-cell *matHeaderCellDef>Adaugat</th>
       <td mat-cell *matCellDef="let element">
         <mat-icon>today</mat-icon>
-        {{ element.created_at | date: "d MMM" }}
+        {{ element.beneficiary.created_at | date: "d MMM" }}
       </td>
     </ng-container>
 
