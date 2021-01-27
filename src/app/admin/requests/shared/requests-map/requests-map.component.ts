@@ -8,12 +8,11 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { loadModules } from 'esri-loader';
 import { from } from 'rxjs';
-import type Map from 'esri/Map';
-import type MapView from 'esri/views/MapView';
-import type Search from 'esri/widgets/Search';
-import type BasemapToggle from 'esri/widgets/BasemapToggle';
+import Map from '@arcgis/core/Map';
+import MapView from '@arcgis/core/views/MapView';
+import Search from '@arcgis/core/widgets/Search';
+import BasemapToggle from '@arcgis/core/widgets/BasemapToggle';
 
 @Component({
   selector: 'app-requests-map',
@@ -43,38 +42,17 @@ export class RequestsMapComponent implements OnDestroy, OnInit {
 
   async initializeMap() {
     try {
-      type Modules = [
-        typeof Map,
-        typeof MapView,
-        typeof Search,
-        typeof BasemapToggle
-      ];
-
-      const loadedModules = await loadModules<Modules>([
-        'esri/Map',
-        'esri/views/MapView',
-        'esri/widgets/Search',
-        'esri/widgets/BasemapToggle',
-      ]);
-
-      const [
-        MapConstructor,
-        MapViewConstructor,
-        SearchConstructor,
-        BasemapToggleConstructor,
-      ] = loadedModules;
-
-      const map = new MapConstructor({ basemap: 'streets-navigation-vector' });
-      this.view = new MapViewConstructor({
+      const map = new Map({ basemap: 'streets-navigation-vector' });
+      this.view = new MapView({
         container: this.mapViewEl.nativeElement,
         zoom: 12,
         map,
       });
 
-      this.search = new SearchConstructor();
+      this.search = new Search();
       this.view.ui.add([this.search], 'top-right');
       this.view.ui.add(
-        new BasemapToggleConstructor({
+        new BasemapToggle({
           view: this.view,
           nextBasemap: 'hybrid',
         }),
