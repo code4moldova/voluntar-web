@@ -60,8 +60,8 @@
     <mat-form-field class="px-1">
       <mat-select placeholder="Oferta" formControlName="role">
         <mat-option [value]="null">Oferta</mat-option>
-        <mat-option *ngFor="let role of roles | keyvalue" [value]="role.value">
-          {{ role.key }}
+        <mat-option *ngFor="let role of roles" [value]="role">
+          {{ role | translate }}
         </mat-option>
       </mat-select>
     </mat-form-field>
