@@ -10,6 +10,7 @@ import { RouterModule } from '@angular/router';
 import { volunteersRoutes } from './volunteers.routes';
 import { VolunteersCreateComponent } from './volunteers-create/volunteers-create.component';
 import { VolunteerRoleComponent } from './shared/volunteer-role/volunteer-role.component';
+import { VolunteersEditComponent } from './volunteers-edit/volunteers-edit.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { VolunteerRoleComponent } from './shared/volunteer-role/volunteer-role.c
     VolunteerModalInfoComponent,
     VolunteersCreateComponent,
     VolunteerRoleComponent,
+    VolunteersEditComponent,
   ],
   imports: [
     CommonModule,
