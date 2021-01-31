@@ -16,7 +16,7 @@ import {
   selectRequestsCount,
 } from './requests.selectors';
 import { IRequest, IRequestDetails } from '@shared/models';
-import { RequestsService } from './requests.service';
+import { DemandsService } from './demands.service';
 import {
   map,
   takeUntil,
@@ -47,7 +47,7 @@ export class RequestsFacade {
 
   constructor(
     private store: Store<AppState>,
-    private requestService: RequestsService
+    private requestService: DemandsService
   ) {
     const stopPolling$ = new Subject();
     combineLatest([this.newRequests$, this.requestsCount$])

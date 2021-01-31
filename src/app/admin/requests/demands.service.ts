@@ -7,7 +7,7 @@ import { Demand, DemandBackEnd } from '@app/shared/models/demand';
 @Injectable({
   providedIn: 'root',
 })
-export class RequestsService {
+export class DemandsService {
   constructor(private http: HttpClient) {}
 
   getRequests(

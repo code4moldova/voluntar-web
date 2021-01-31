@@ -21,7 +21,7 @@ import {
   demandTypes,
 } from '@app/shared/models/demand';
 import { BeneficiariesFacade } from '@app/admin/beneficiaries/beneficiaries.facade';
-import { RequestsService } from '../requests.service';
+import { DemandsService } from '../demands.service';
 
 export interface ReceivedData {
   element: Demand;
@@ -44,7 +44,7 @@ export class DemandDetailsComponent implements OnInit {
 
   constructor(
     private requestsFacade: RequestsFacade,
-    private requestsService: RequestsService,
+    private demandsService: DemandsService,
     private snackBar: MatSnackBar,
     private beneficiariesService: BeneficiariesService,
     private beneficiariesFacade: BeneficiariesFacade,
@@ -169,7 +169,7 @@ export class DemandDetailsComponent implements OnInit {
       has_symptoms: this.data.element.has_symptoms,
     };
 
-    this.requestsService.updateDemand(updateDemand).subscribe(
+    this.demandsService.updateDemand(updateDemand).subscribe(
       () => {},
       () => console.log('ERROR submitting demand status update!')
     );

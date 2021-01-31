@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, switchMap, map, exhaustMap } from 'rxjs/operators';
 import { Action } from '@ngrx/store';
 import { Router } from '@angular/router';
-import { RequestsService } from './requests.service';
+import { DemandsService } from './demands.service';
 import {
   getRequestsSuccessAction,
   getRequestsFailureAction,
@@ -26,14 +26,14 @@ export class RequestsEffects {
   constructor(
     private actions$: Actions,
     private router: Router,
-    private requestService: RequestsService
+    private demandsService: DemandsService
   ) {}
 
   getRequestsEffect$: Observable<Action> = createEffect(() => {
     return this.actions$.pipe(
       ofType(getRequestsAction),
       switchMap(({ page, filters }) =>
-        this.requestService.getRequests(page, filters).pipe(
+        this.demandsService.getRequests(page, filters).pipe(
           map((res) =>
             getRequestsSuccessAction({ payload: res.list, count: res.count })
           ),
@@ -47,7 +47,7 @@ export class RequestsEffects {
     return this.actions$.pipe(
       ofType(getRequestAction),
       switchMap(({ id }) =>
-        this.requestService.getRequestById(id).pipe(
+        this.demandsService.getRequestById(id).pipe(
           map((res) => getRequestSuccessAction({ payload: res })),
           catchError((error) => of(getRequestFailureAction({ error })))
         )
@@ -60,7 +60,7 @@ export class RequestsEffects {
       ofType(saveRequestAction),
       exhaustMap(({ payload }) => {
         const { _id, ...withoutId } = payload;
-        return this.requestService.saveRequest(withoutId).pipe(
+        return this.demandsService.saveRequest(withoutId).pipe(
           map((res) => {
             return saveRequestSuccessAction({ payload: res });
           }),
@@ -74,7 +74,7 @@ export class RequestsEffects {
     return this.actions$.pipe(
       ofType(updateRequestAction),
       exhaustMap(({ payload }) => {
-        return this.requestService.updateRequest(payload).pipe(
+        return this.demandsService.updateRequest(payload).pipe(
           map((res) => {
             // this.router.navigate(['/requests/list']);
             return updateRequestSuccessAction({ payload: res });

@@ -5,7 +5,7 @@ import { Subject } from 'rxjs';
 import { User } from '@users/shared/user';
 import { UserRole } from '@users/shared/user-role';
 import { TranslateService } from '@ngx-translate/core';
-import { RequestsService as DemandsService } from '@requests/requests.service';
+import { DemandsService } from '@requests/demands.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { IRequestDetails as Demand } from '@shared/models';

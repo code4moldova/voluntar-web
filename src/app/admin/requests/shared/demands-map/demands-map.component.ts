@@ -17,7 +17,7 @@ import MapView from '@arcgis/core/views/MapView';
 import GraphicsLayer from '@arcgis/core/layers/GraphicsLayer';
 import config from '@arcgis/core/config.js';
 
-import { RequestsService } from '../../requests.service';
+import { DemandsService } from '../../demands.service';
 import { Demand, DemandType, demandTypes } from '@app/shared/models/demand';
 import { DemandsMapService } from './demands-map.services';
 import { IVolunteer } from '@app/shared/models/volunteers';
@@ -130,7 +130,7 @@ export class DemandsMapComponent implements OnDestroy, OnInit {
   };
 
   constructor(
-    public requestsService: RequestsService,
+    public requestsService: DemandsService,
     private cdr: ChangeDetectorRef,
     private demandsMapService: DemandsMapService,
     private snackBar: MatSnackBar
