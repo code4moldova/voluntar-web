@@ -4,12 +4,7 @@
 
 <div fxLayoutAlign="space-between center" class="mb-2">
   <h2>Detalii Beneficiar</h2>
-  <a
-    mat-stroked-button
-    *ngIf="user"
-    [routerLink]="['./edit', user._id]"
-    class="edit-link"
-  >
+  <a mat-stroked-button *ngIf="user" routerLink="edit" class="edit-link">
     <mat-icon>edit</mat-icon>
     Editează
   </a>

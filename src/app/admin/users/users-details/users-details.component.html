@@ -7,13 +7,7 @@
 
 <div class="d-flex mb-4 align-items-center">
   <h2 translate>view_user</h2>
-  <a
-    *ngIf="user$ | async as user"
-    [routerLink]="['/admin/users', user._id, 'edit']"
-    mat-stroked-button
-    color="primary"
-    class="ml-auto"
-  >
+  <a routerLink="edit" mat-stroked-button color="primary" class="ml-auto">
     <mat-icon>border_color</mat-icon>
     {{ "edit" | translate }}
   </a>

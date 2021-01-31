@@ -7,13 +7,7 @@
 
 <div class="d-flex mb-4 align-items-center">
   <h2 translate>view_volunteer</h2>
-  <a
-    *ngIf="volunteer$ | async as volunteer"
-    [routerLink]="['/admin/volunteers', volunteer._id, 'edit']"
-    mat-stroked-button
-    color="primary"
-    class="ml-auto"
-  >
+  <a routerLink="edit" mat-stroked-button color="primary" class="ml-auto">
     <mat-icon>border_color</mat-icon>
     {{ "edit" | translate }}
   </a>
@@ -69,7 +63,7 @@
     <app-read-only-input
       class="col-sm-6 col-lg-4"
       value="{{ volunteer._id }}"
-      label="{{'id' | translate}} {{'volunteer' | translate}}"
+      label="{{ 'id' | translate }} {{ 'volunteer' | translate }}"
     ></app-read-only-input>
 
     <app-read-only-input

@@ -44,12 +44,7 @@
   <ng-container matColumnDef="links">
     <th mat-header-cell *matHeaderCellDef></th>
     <td mat-cell *matCellDef="let user">
-      <a
-        mat-stroked-button
-        [routerLink]="['/admin/beneficiaries/details', cast(user)._id]"
-      >
-        Detalii
-      </a>
+      <a mat-stroked-button [routerLink]="cast(user)._id">Detalii</a>
     </td>
   </ng-container>
 

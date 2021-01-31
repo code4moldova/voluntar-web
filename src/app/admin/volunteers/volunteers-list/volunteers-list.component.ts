@@ -141,9 +141,8 @@ export class VolunteersListComponent implements OnInit {
       .then();
   }
 
-  // for type hints
-  _(object): Volunteer {
-    return object as Volunteer;
+  cast(volunteer: unknown): Volunteer {
+    return volunteer as Volunteer;
   }
 }
 

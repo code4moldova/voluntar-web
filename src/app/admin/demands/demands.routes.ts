@@ -3,12 +3,12 @@ import { DemandsListComponent } from './demands-list/demands-list.component';
 
 export const demandsRoutes: Routes = [
   {
-    path: 'list',
+    path: '',
     component: DemandsListComponent,
   },
   {
     path: '**',
-    redirectTo: 'list',
+    redirectTo: '',
     pathMatch: 'full',
   },
 ];
