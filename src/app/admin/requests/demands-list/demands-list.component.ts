@@ -2,17 +2,16 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
-  OnDestroy,
   OnInit,
   Renderer2,
   ViewChild,
 } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
-import { BehaviorSubject, forkJoin, Observable, of, Subscription } from 'rxjs';
+import { BehaviorSubject, forkJoin, Observable, of } from 'rxjs';
 import { map, pluck, take, takeUntil } from 'rxjs/operators';
 
-import { RequestPageParams, RequestsFacade } from '../requests.facade';
+import { DemandsFacade, RequestPageParams } from '../demands.facade';
 import { UsersFacade } from '@users/users.facade';
 import { GeolocationService } from '@shared/services/geolocation/geolocation.service';
 
@@ -50,8 +49,8 @@ export class RequestsListComponent implements OnInit {
     'edit',
   ];
   dataSource$: Observable<Demand[] | IRequest[]>;
-  isLoading$ = this.requestsFacade.isLoading$;
-  count$ = this.requestsFacade.requestsCount$;
+  isLoading$ = this.demandsFacade.isLoading$;
+  count$ = this.demandsFacade.requestsCount$;
 
   public inputColumns: FilterInputColumns[];
   public selectColumns: FilterSelectColumns<{
@@ -98,7 +97,7 @@ export class RequestsListComponent implements OnInit {
   allStatusesCounts$ = new BehaviorSubject<number[]>([]);
 
   constructor(
-    private requestsFacade: RequestsFacade,
+    private demandsFacade: DemandsFacade,
     private usersFacade: UsersFacade,
     private geolocationService: GeolocationService,
     private tagsFacade: TagsFacade,
@@ -123,7 +122,7 @@ export class RequestsListComponent implements OnInit {
   }
 
   helperGetCountByStatus(status: string) {
-    return this.requestsFacade
+    return this.demandsFacade
       .getRequestByStatus(status)
       .pipe(map((res) => res.count));
   }
@@ -131,7 +130,7 @@ export class RequestsListComponent implements OnInit {
   ngOnInit() {
     this.fetchRequests();
     this.usersFacade.getUsers();
-    this.dataSource$ = this.requestsFacade.requests$;
+    this.dataSource$ = this.demandsFacade.requests$;
 
     this.inputColumns = [
       { name: 'First Name', value: 'first_name' },
@@ -182,23 +181,23 @@ export class RequestsListComponent implements OnInit {
   }
 
   fetchRequests() {
-    this.requestsFacade.getRequests(this.page);
-    this.requestsFacade.resetNewRequests();
+    this.demandsFacade.getRequests(this.page);
+    this.demandsFacade.resetNewRequests();
   }
 
   queryResult(criteria: { [keys: string]: string }) {
     this.lastFilter = criteria;
     this.page = { pageSize: 20, pageIndex: 1 };
-    this.requestsFacade.getRequests(this.page, criteria);
+    this.demandsFacade.getRequests(this.page, criteria);
   }
 
   onPageChange(event: PageEvent) {
     this.page = { pageSize: event.pageSize, pageIndex: event.pageIndex + 1 };
-    this.requestsFacade.getRequests(this.page, this.lastFilter);
+    this.demandsFacade.getRequests(this.page, this.lastFilter);
   }
 
   onExport() {
-    this.requestsFacade.getExportRequests().subscribe((res) => {
+    this.demandsFacade.getExportRequests().subscribe((res) => {
       this.downloadCsv(res);
     });
   }
@@ -229,7 +228,7 @@ export class RequestsListComponent implements OnInit {
         takeUntil(dialogRef.afterClosed())
       )
       .subscribe(() => {
-        this.requestsFacade.getRequests(this.page, this.lastFilter);
+        this.demandsFacade.getRequests(this.page, this.lastFilter);
         this.getAllStatusesCount();
         dialogRef.close();
       });

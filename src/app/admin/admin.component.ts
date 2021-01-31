@@ -6,16 +6,7 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
-import { filter } from 'rxjs/operators';
-import { RequestsFacade } from '@requests/requests.facade';
-import { AuthService } from '@auth/auth.service';
-import {
-  getActivityTypesTagsAction,
-  getAvailabilitiesTagsAction,
-  getOffersTagsAction,
-} from '@shared/tags/tags.actions';
-import { Store } from '@ngrx/store';
-import { AppState } from '@app/app.state';
+import { DemandsFacade } from '@requests/demands.facade';
 
 @Component({
   templateUrl: './admin.component.html',
@@ -37,9 +28,9 @@ import { AppState } from '@app/app.state';
   ],
 })
 export class AdminComponent implements OnInit {
-  constructor(private requestsFacade: RequestsFacade) {}
+  constructor(private demandsFacade: DemandsFacade) {}
 
   ngOnInit() {
-    this.requestsFacade.toggleNewRequestsPolling(true);
+    this.demandsFacade.toggleNewRequestsPolling(true);
   }
 }

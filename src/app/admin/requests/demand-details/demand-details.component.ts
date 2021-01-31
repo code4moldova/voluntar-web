@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { specialConditions, zones } from '@app/shared/constants';
-import { RequestsFacade } from '../requests.facade';
+import { DemandsFacade } from '../demands.facade';
 import { BeneficiariesService } from '@beneficiaries/beneficiaries.service';
 import { coordinates } from './demand-address-field/demand-address-field.component';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -43,7 +43,7 @@ export class DemandDetailsComponent implements OnInit {
   beneficiaryName = '';
 
   constructor(
-    private requestsFacade: RequestsFacade,
+    private demandsFacade: DemandsFacade,
     private demandsService: DemandsService,
     private snackBar: MatSnackBar,
     private beneficiariesService: BeneficiariesService,
@@ -75,8 +75,8 @@ export class DemandDetailsComponent implements OnInit {
     }
 
     // TODO: Refactor requests facade to demand facade
-    this.requestsFacade.saveRequest(payload);
-    combineLatest([this.requestsFacade.isLoading$, this.requestsFacade.error$])
+    this.demandsFacade.saveRequest(payload);
+    combineLatest([this.demandsFacade.isLoading$, this.demandsFacade.error$])
       .pipe(
         filter(([status, error]) => !status && !error),
         first()

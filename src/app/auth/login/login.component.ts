@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { RequestsFacade } from '@requests/requests.facade';
+import { DemandsFacade } from '@requests/demands.facade';
 import { environment } from 'src/environments/environment';
 import { AuthFacade } from '../auth.facade';
 
@@ -18,11 +18,11 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authFacade: AuthFacade,
-    private requestsFacade: RequestsFacade
+    private demandsFacade: DemandsFacade
   ) {}
 
   ngOnInit() {
-    this.requestsFacade.toggleNewRequestsPolling(false);
+    this.demandsFacade.toggleNewRequestsPolling(false);
   }
 
   onSubmit() {

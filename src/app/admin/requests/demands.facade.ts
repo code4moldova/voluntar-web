@@ -33,7 +33,7 @@ export type RequestPageParams = { pageSize: number; pageIndex: number };
 @Injectable({
   providedIn: 'root',
 })
-export class RequestsFacade {
+export class DemandsFacade {
   requests$ = this.store.pipe(select(selectRequestsData));
   isLoading$ = this.store.pipe(select(selectIsLoading));
   error$ = this.store.pipe(select(selectRequestsError));

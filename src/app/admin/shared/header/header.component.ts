@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthFacade } from '@auth/auth.facade';
 import { map } from 'rxjs/operators';
-import { RequestsFacade } from '@requests/requests.facade';
+import { DemandsFacade } from '@requests/demands.facade';
 
 @Component({
   selector: 'app-header',
@@ -9,7 +9,7 @@ import { RequestsFacade } from '@requests/requests.facade';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  newRequest$ = this.requestsFacade.newRequests;
+  newRequest$ = this.demandsFacade.newRequests;
   userName$ = this.userFacade.userData$.pipe(
     map((user) => (user ? user.first_name : 'User Name'))
   );
@@ -21,7 +21,7 @@ export class HeaderComponent {
 
   constructor(
     private userFacade: AuthFacade,
-    private requestsFacade: RequestsFacade
+    private demandsFacade: DemandsFacade
   ) {}
 
   onLogout() {
@@ -29,7 +29,7 @@ export class HeaderComponent {
   }
 
   fetchRequests() {
-    this.requestsFacade.getRequests({ pageSize: 20, pageIndex: 1 });
-    this.requestsFacade.resetNewRequests();
+    this.demandsFacade.getRequests({ pageSize: 20, pageIndex: 1 });
+    this.demandsFacade.resetNewRequests();
   }
 }
