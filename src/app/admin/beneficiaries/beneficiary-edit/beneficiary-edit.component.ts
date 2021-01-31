@@ -7,8 +7,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { BeneficiariesFacade } from '../beneficiaries.facade';
 import { Beneficiary } from '@shared/models';
-import { specialConditions, zones } from '@shared/constants';
+import { specialConditions } from '@shared/constants';
 import { COMMON_FIELDS } from '../beneficiary-new/beneficiary-new.component';
+import { zones } from '@shared/zone';
 
 @Component({
   templateUrl: './beneficiary-edit.component.html',
@@ -35,13 +36,13 @@ export class BeneficiaryEditComponent implements OnInit, OnDestroy {
     private router: Router,
     private snackBar: MatSnackBar,
     private elementRef: ElementRef,
-    private serviceFacade: BeneficiariesFacade
+    private serviceFacade: BeneficiariesFacade,
   ) {
     this.route.paramMap
       .pipe(
         map((params) => params.get('id')),
         tap((id) => (this.recordId = id)),
-        takeUntil(this.componentDestroyed$)
+        takeUntil(this.componentDestroyed$),
       )
       .subscribe((id) => {
         this.recordId = id;
@@ -59,7 +60,7 @@ export class BeneficiaryEditComponent implements OnInit, OnDestroy {
       combineLatest([this.serviceFacade.isLoading$, this.serviceFacade.error$])
         .pipe(
           filter(([status, error]) => !status && !error),
-          first()
+          first(),
         )
         .subscribe(() => {
           this.snackBar.open('Beneficiarul a fost salvat cu success.', '', {
@@ -78,7 +79,7 @@ export class BeneficiaryEditComponent implements OnInit, OnDestroy {
       });
 
       const element = this.elementRef.nativeElement.querySelector(
-        '.ng-invalid:not(form)'
+        '.ng-invalid:not(form)',
       );
 
       if (element) {
@@ -92,7 +93,7 @@ export class BeneficiaryEditComponent implements OnInit, OnDestroy {
       .pipe(
         filter((record) => !!record),
         map((record) => (this.recordId ? record : ({} as Beneficiary))),
-        takeUntil(this.componentDestroyed$)
+        takeUntil(this.componentDestroyed$),
       )
       .subscribe((record) => {
         this.form.patchValue(record);
@@ -106,7 +107,7 @@ export class BeneficiaryEditComponent implements OnInit, OnDestroy {
 
   goBack() {
     void this.router.navigateByUrl(
-      `/admin/beneficiaries/details/${this.recordId}`
+      `/admin/beneficiaries/details/${this.recordId}`,
     );
   }
 }

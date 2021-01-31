@@ -11,7 +11,7 @@ import { Beneficiary } from '@shared/models';
 import { BeneficiariesFacade } from '../beneficiaries.facade';
 import { BeneficiaryNewComponent } from '../beneficiary-new/beneficiary-new.component';
 import { saveBeneficiarySuccessAction } from '../beneficiaries.actions';
-import { zones } from '@shared/constants';
+import { zones } from '@shared/zone';
 
 @Component({
   templateUrl: './beneficiaries-list.component.html',
@@ -44,7 +44,7 @@ export class BeneficiariesListComponent implements OnInit {
     private serviceFacade: BeneficiariesFacade,
     private matDialog: MatDialog,
     private snackBar: MatSnackBar,
-    private actions$: ActionsSubject
+    private actions$: ActionsSubject,
   ) {}
 
   ngOnInit(): void {
@@ -63,7 +63,7 @@ export class BeneficiariesListComponent implements OnInit {
     const { blockListPageSize: pageSize, blockListPageIndex: pageIndex } = this;
     this.serviceFacade.getBeneficiaryBlockList(
       { pageSize, pageIndex },
-      this.blockListFilters
+      this.blockListFilters,
     );
   }
 
@@ -88,7 +88,7 @@ export class BeneficiariesListComponent implements OnInit {
     this.actions$
       .pipe(
         ofType(saveBeneficiarySuccessAction),
-        takeUntil(dialogRef.afterClosed())
+        takeUntil(dialogRef.afterClosed()),
       )
       .subscribe(() => {
         dialogRef.close();
@@ -115,7 +115,7 @@ export class BeneficiariesListComponent implements OnInit {
           panelClass: 'info',
           horizontalPosition: 'right',
           verticalPosition: 'top',
-        }
+        },
       );
       return;
     }

@@ -5,7 +5,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { specialConditions, zones } from '@app/shared/constants';
+import { specialConditions } from '@app/shared/constants';
 import { DemandsFacade } from '../demands.facade';
 import { BeneficiariesService } from '@beneficiaries/beneficiaries.service';
 import { coordinates } from './demand-address-field/demand-address-field.component';
@@ -20,6 +20,7 @@ import { DemandsService } from '../demands.service';
 import { demandTypes } from '@demands/shared/demand-type';
 import { DemandStatus } from '@demands/shared/demand-status';
 import { DemandBackEnd } from '@demands/shared/demand-backend';
+import { zones } from '@shared/zone';
 
 export interface ReceivedData {
   element: Demand;

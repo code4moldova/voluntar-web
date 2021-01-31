@@ -5,8 +5,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { combineLatest } from 'rxjs';
 import { filter, first } from 'rxjs/operators';
 
-import { specialConditions, zones } from '@shared/constants';
+import { specialConditions } from '@shared/constants';
 import { BeneficiariesFacade } from '../beneficiaries.facade';
+import { zones } from '@shared/zone';
 
 export const COMMON_FIELDS = {
   first_name: [null, Validators.required],
@@ -43,7 +44,7 @@ export class BeneficiaryNewComponent {
     private serviceFacade: BeneficiariesFacade,
     private snackBar: MatSnackBar,
     private elementRef: ElementRef,
-    public dialogRef: MatDialogRef<BeneficiaryNewComponent>
+    public dialogRef: MatDialogRef<BeneficiaryNewComponent>,
   ) {}
 
   closeDialog() {
@@ -59,7 +60,7 @@ export class BeneficiaryNewComponent {
       combineLatest([this.serviceFacade.isLoading$, this.serviceFacade.error$])
         .pipe(
           filter(([status, error]) => !status && !error),
-          first()
+          first(),
         )
         .subscribe(() => {
           this.snackBar.open('Beneficiarul a fost salvat cu success.', '', {
@@ -78,7 +79,7 @@ export class BeneficiaryNewComponent {
       });
 
       const element = this.elementRef.nativeElement.querySelector(
-        '.ng-invalid:not(form)'
+        '.ng-invalid:not(form)',
       );
 
       if (element) {

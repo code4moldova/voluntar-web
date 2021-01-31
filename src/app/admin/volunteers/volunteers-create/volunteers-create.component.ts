@@ -6,10 +6,10 @@ import {
   Validators,
 } from '@angular/forms';
 import { weekDays } from '@shared/week-day';
-import { zones } from '@shared/constants';
 import { VolunteersFacade } from '../volunteers.facade';
 import { generateHoursRange } from '@shared/generate-hours-range';
 import { volunteerRoles } from '../shared/volunteer-role';
+import { zones } from '@shared/zone';
 
 @Component({
   templateUrl: './volunteers-create.component.html',

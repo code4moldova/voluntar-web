@@ -1,15 +1,4 @@
-export enum Zone {
-  toate = 'toate',
-  botanica = 'botanica',
-  buiucani = 'buiucani',
-  centru = 'centru',
-  ciocana = 'ciocana',
-  riscani = 'riscani',
-  telecentru = 'telecentru',
-  suburbii = 'suburbii',
-}
-
-export const zones = Object.values(Zone);
+import { Zone } from '@shared/zone';
 
 /**
  * TODO: refactor to use normal l10n

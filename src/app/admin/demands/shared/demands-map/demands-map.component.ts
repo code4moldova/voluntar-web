@@ -20,9 +20,9 @@ import config from '@arcgis/core/config.js';
 import { DemandsService } from '../../demands.service';
 import { Demand } from '@demands/shared/demand';
 import { DemandsMapService } from './demands-map.services';
-import { Zone } from '@app/shared/constants';
 import { DemandType, demandTypes } from '@demands/shared/demand-type';
 import { Volunteer } from '@volunteers/shared/volunteer';
+import { Zone } from '@shared/zone';
 
 config.assetsPath = '/assets';
 

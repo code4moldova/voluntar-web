@@ -5,10 +5,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
 import { weekDays } from '@shared/week-day';
-import { zones } from '@shared/constants';
 import { Volunteer } from '../shared/volunteer';
 import { VolunteersService } from '../volunteers.service';
 import { volunteerRoles } from '../shared/volunteer-role';
+import { zones } from '@shared/zone';
 
 @Component({
   templateUrl: './volunteers-edit.component.html',

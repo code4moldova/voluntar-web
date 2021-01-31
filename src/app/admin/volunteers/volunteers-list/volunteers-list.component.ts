@@ -13,12 +13,13 @@ import { map, take, takeUntil } from 'rxjs/operators';
 import { saveVolunteerSuccessAction } from '../volunteers.actions';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
-import { KIV_ZONES, zones } from '@shared/constants';
+import { KIV_ZONES } from '@shared/constants';
 import { FilterObservableSelectColumns } from '@shared/filter/filter.types';
 import { VolunteersCreateComponent } from '../volunteers-create/volunteers-create.component';
 import { getOffersTagsAction } from '@shared/tags/tags.actions';
 import { AppState } from '@app/app.state';
 import { volunteerRoles } from '../shared/volunteer-role';
+import { zones } from '@shared/zone';
 
 @Component({
   templateUrl: './volunteers-list.component.html',
