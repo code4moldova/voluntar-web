@@ -7,7 +7,6 @@ const icons = [
   'blind_weak_seer',
   'copilot',
   'correct',
-  'deafmute',
   'deaf_mute',
   'delivery',
   'disability',
