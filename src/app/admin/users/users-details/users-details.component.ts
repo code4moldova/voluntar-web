@@ -8,7 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { DemandsService } from '@demands/demands.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { Demand } from '@shared/models/demand';
+import { Demand } from '@demands/shared/demand';
 
 @Component({
   templateUrl: './users-details.component.html',
@@ -33,7 +33,7 @@ export class UsersDetailsComponent implements OnDestroy, OnInit {
   constructor(
     private route: ActivatedRoute,
     private translateService: TranslateService,
-    private demandsService: DemandsService
+    private demandsService: DemandsService,
   ) {}
 
   ngOnInit() {
@@ -56,7 +56,7 @@ export class UsersDetailsComponent implements OnDestroy, OnInit {
       pageSize: this.perPage,
       pageIndex: 0,
       length: 0,
-    }
+    },
   ) => {
     this.page = page;
     return this.demandsService
@@ -65,7 +65,7 @@ export class UsersDetailsComponent implements OnDestroy, OnInit {
           pageIndex: this.page.pageIndex,
           pageSize: this.page.pageSize,
         },
-        { u_id: this.route.snapshot.data.user._id }
+        { u_id: this.route.snapshot.data.user._id },
       )
       .pipe(takeUntil(this._destroy))
       .subscribe((demands) => {

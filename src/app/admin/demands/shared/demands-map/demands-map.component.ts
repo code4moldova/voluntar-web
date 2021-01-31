@@ -18,10 +18,11 @@ import GraphicsLayer from '@arcgis/core/layers/GraphicsLayer';
 import config from '@arcgis/core/config.js';
 
 import { DemandsService } from '../../demands.service';
-import { Demand, DemandType, demandTypes } from '@app/shared/models/demand';
+import { Demand } from '@demands/shared/demand';
 import { DemandsMapService } from './demands-map.services';
 import { IVolunteer } from '@app/shared/models/volunteers';
 import { Zone } from '@app/shared/constants';
+import { DemandType, demandTypes } from '@demands/shared/demand-type';
 
 config.assetsPath = '/assets';
 
@@ -133,7 +134,7 @@ export class DemandsMapComponent implements OnDestroy, OnInit {
     public requestsService: DemandsService,
     private cdr: ChangeDetectorRef,
     private demandsMapService: DemandsMapService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
   ) {}
 
   ngOnInit(): any {
@@ -178,19 +179,19 @@ export class DemandsMapComponent implements OnDestroy, OnInit {
           const gr: Graphic = res.results[0].graphic;
           if (gr) {
             const exist = this.selectedDemands.find(
-              (r) => r._id === gr.attributes.requestId
+              (r) => r._id === gr.attributes.requestId,
             );
             if (exist === undefined) {
               //in case of missed - add demand to the selected demands and make it green on map
               this.selectedDemands.push(
-                this.requests.find((r) => r._id === gr.attributes.requestId)
+                this.requests.find((r) => r._id === gr.attributes.requestId),
               );
               this.selectedDemands = [...this.selectedDemands];
               gr.symbol.set('color', this.changedMarkerSymbol.color);
             } else {
               //in case of exist - remove demand from selected and make it white on map
               this.selectedDemands = this.selectedDemands.filter(
-                (r) => r !== exist
+                (r) => r !== exist,
               );
               gr.symbol.set('color', this.simpleMarkerSymbol.color);
             }
@@ -211,14 +212,14 @@ export class DemandsMapComponent implements OnDestroy, OnInit {
 
   initializeRequestsOnTheMap(
     status: 'init' | 'filter',
-    filters: any = {}
+    filters: any = {},
   ): void {
     if (status === 'init') {
       this.selectedDemands = [];
     } else {
       this.graphicsLayer.removeAll();
       this.selectedDemands.forEach((el) =>
-        this.addDemandToMap(el, this.changedMarkerSymbol)
+        this.addDemandToMap(el, this.changedMarkerSymbol),
       );
     }
     from(
@@ -230,16 +231,16 @@ export class DemandsMapComponent implements OnDestroy, OnInit {
         {
           status: 'confirmed',
           ...filters,
-        }
-      )
+        },
+      ),
     ).subscribe(
       (res) => {
         this.requests = res.list;
         this.requests.forEach((el) =>
-          this.addDemandToMap(el, this.simpleMarkerSymbol)
+          this.addDemandToMap(el, this.simpleMarkerSymbol),
         );
       },
-      (err) => console.log('Error getting demands from server! ', err)
+      (err) => console.log('Error getting demands from server! ', err),
     );
   }
 
@@ -258,7 +259,7 @@ export class DemandsMapComponent implements OnDestroy, OnInit {
           requestId: req._id,
           zone: req.beneficiary.zone ?? 'toate',
         },
-      })
+      }),
     );
   }
 
@@ -275,7 +276,7 @@ export class DemandsMapComponent implements OnDestroy, OnInit {
     ) {
       selectedZone = this.zones.find(
         (zone) =>
-          zone.value.toLowerCase() === this.selectedCityZone.toLowerCase()
+          zone.value.toLowerCase() === this.selectedCityZone.toLowerCase(),
       );
       this.mapView.center = new Point(selectedZone.mapCoordinates);
       currentFilter = { ...currentFilter, zone: selectedZone.value };
@@ -335,15 +336,15 @@ export class DemandsMapComponent implements OnDestroy, OnInit {
     from(
       this.demandsMapService.assignDemandsToVolunteer(
         this.selectedVolunteer._id,
-        this.selectedDemands
-      )
+        this.selectedDemands,
+      ),
     ).subscribe(
       () => {
         this.stepOnSelectionZone = 3;
       },
       (err) => {
         console.log('error', err.error);
-      }
+      },
     );
   }
 

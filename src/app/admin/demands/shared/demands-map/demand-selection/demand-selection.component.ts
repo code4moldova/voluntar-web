@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Demand } from '@app/shared/models/demand';
+import { Demand } from '@demands/shared/demand';
 
 @Component({
   selector: 'app-demand-selection',

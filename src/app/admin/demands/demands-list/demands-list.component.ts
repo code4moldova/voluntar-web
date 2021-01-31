@@ -28,7 +28,7 @@ import {
   FilterSelectColumns,
 } from '@shared/filter/filter.types';
 import { KIV_ZONES } from '@shared/constants';
-import { Demand } from '@app/shared/models/demand';
+import { Demand } from '@demands/shared/demand';
 
 @Component({
   templateUrl: './demands-list.component.html',

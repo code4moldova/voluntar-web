@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { environment } from 'src/environments/environment';
-import { Demand } from '@app/shared/models/demand';
+import { Demand } from '@demands/shared/demand';
 
 @Injectable({
   providedIn: 'root',

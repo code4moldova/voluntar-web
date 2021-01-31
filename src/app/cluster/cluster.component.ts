@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
-import { Demand, DemandStatus } from '@shared/models/demand';
+import { Demand } from '@demands/shared/demand';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { DemandStatus } from '@demands/shared/demand-status';
 
 @Component({
   templateUrl: './cluster.component.html',
@@ -20,7 +21,7 @@ export class ClusterComponent {
 
   changeDemand(
     demand: Demand,
-    demandStatus: DemandStatus.solved | DemandStatus.canceled
+    demandStatus: DemandStatus.solved | DemandStatus.canceled,
   ) {
     // TODO: Question. How to mutate an observable?
     demand.status = demandStatus;

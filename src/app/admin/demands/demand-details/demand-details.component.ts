@@ -14,14 +14,12 @@ import { Beneficiary } from '@app/shared/models';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { combineLatest } from 'rxjs';
 import { filter, first } from 'rxjs/operators';
-import {
-  Demand,
-  DemandBackEnd,
-  DemandStatus,
-  demandTypes,
-} from '@app/shared/models/demand';
+import { Demand } from '@demands/shared/demand';
 import { BeneficiariesFacade } from '@app/admin/beneficiaries/beneficiaries.facade';
 import { DemandsService } from '../demands.service';
+import { demandTypes } from '@demands/shared/demand-type';
+import { DemandStatus } from '@demands/shared/demand-status';
+import { DemandBackEnd } from '@demands/shared/demand-backend';
 
 export interface ReceivedData {
   element: Demand;
@@ -49,7 +47,7 @@ export class DemandDetailsComponent implements OnInit {
     private beneficiariesService: BeneficiariesService,
     private beneficiariesFacade: BeneficiariesFacade,
     public dialogRef: MatDialogRef<DemandDetailsComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: ReceivedData
+    @Inject(MAT_DIALOG_DATA) public data: ReceivedData,
   ) {}
 
   onSubmit() {
@@ -78,7 +76,7 @@ export class DemandDetailsComponent implements OnInit {
     combineLatest([this.demandsFacade.isLoading$, this.demandsFacade.error$])
       .pipe(
         filter(([status, error]) => !status && !error),
-        first()
+        first(),
       )
       .subscribe(() => {
         this.snackBar.open('Cererea a fost salvată cu success.', '', {
@@ -121,7 +119,7 @@ export class DemandDetailsComponent implements OnInit {
           el
             ? el.beneficiary.landline.substring(
                 2,
-                el.beneficiary.landline.length
+                el.beneficiary.landline.length,
               )
             : null,
           [
@@ -129,11 +127,11 @@ export class DemandDetailsComponent implements OnInit {
             Validators.minLength(6),
             Validators.maxLength(6),
             Validators.pattern(/^([0-9]){6}$/),
-          ]
+          ],
         ),
         special_condition: new FormControl(
           el ? el.beneficiary.special_condition : null,
-          [Validators.required]
+          [Validators.required],
         ),
       }),
       has_symptoms: new FormControl(el ? el.has_symptoms : null, [
@@ -170,7 +168,7 @@ export class DemandDetailsComponent implements OnInit {
 
     this.demandsService.updateDemand(updateDemand).subscribe(
       () => {},
-      () => console.log('ERROR submitting demand status update!')
+      () => console.log('ERROR submitting demand status update!'),
     );
   }
 
@@ -187,7 +185,7 @@ export class DemandDetailsComponent implements OnInit {
         },
         (error) => {
           console.error('ERROR: ' + error);
-        }
+        },
       );
     }
   }
@@ -204,8 +202,8 @@ export class DemandDetailsComponent implements OnInit {
       .patchValue(
         this.existentBeneficiary.landline.substring(
           2,
-          this.existentBeneficiary.landline.length
-        )
+          this.existentBeneficiary.landline.length,
+        ),
       );
     this.form.get('beneficiary.age').patchValue(this.existentBeneficiary.age);
     this.form.get('beneficiary.zone').patchValue(this.existentBeneficiary.zone);
