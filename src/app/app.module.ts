@@ -18,8 +18,6 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { NgxMaskModule } from 'ngx-mask';
 import { RouterModule } from '@angular/router';
-import { AuthStoreModule } from '@auth/auth-store.module';
-import { BeneficiariesStoreModule } from '@beneficiaries/beneficiaries-store.module';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { environment } from '../environments/environment';
@@ -31,6 +29,10 @@ import { volunteersReducer } from '@volunteers/volunteers.reducer';
 import { VolunteersEffects } from '@volunteers/volunteers.effects';
 import { demandsReducer } from '@demands/demands.reducer';
 import { DemandsEffects } from '@demands/demands.effects';
+import { authReducer } from '@auth/auth.reducer';
+import { AuthEffects } from '@auth/auth.effects';
+import { beneficiariesReducer } from '@beneficiaries/beneficiaries.reducer';
+import { BeneficiariesEffects } from '@beneficiaries/beneficiaries.effects';
 
 @NgModule({
   declarations: [AppComponent],
@@ -40,16 +42,19 @@ import { DemandsEffects } from '@demands/demands.effects';
     HttpClientModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
-    AuthStoreModule,
-    BeneficiariesStoreModule,
-    StoreModule.forFeature('volunteers', volunteersReducer),
-    EffectsModule.forFeature([VolunteersEffects]),
-    StoreModule.forFeature('requests', demandsReducer),
-    EffectsModule.forFeature([DemandsEffects]),
-    StoreModule.forFeature('users', usersReducer),
-    EffectsModule.forFeature([UsersEffects]),
     StoreModule.forRoot({}, {}),
-    EffectsModule.forRoot([]),
+    StoreModule.forFeature('auth', authReducer),
+    StoreModule.forFeature('beneficiaries', beneficiariesReducer),
+    StoreModule.forFeature('requests', demandsReducer),
+    StoreModule.forFeature('volunteers', volunteersReducer),
+    StoreModule.forFeature('users', usersReducer),
+    EffectsModule.forRoot([
+      AuthEffects,
+      BeneficiariesEffects,
+      VolunteersEffects,
+      DemandsEffects,
+      UsersEffects,
+    ]),
     environment.production
       ? []
       : StoreDevtoolsModule.instrument({
