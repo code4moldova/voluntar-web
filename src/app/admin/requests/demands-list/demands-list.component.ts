@@ -38,7 +38,7 @@ import { Demand } from '@app/shared/models/demand';
   styleUrls: ['./demands-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RequestsListComponent implements OnInit, OnDestroy {
+export class RequestsListComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   displayedColumns: string[] = [
     'icons',
@@ -47,12 +47,11 @@ export class RequestsListComponent implements OnInit, OnDestroy {
     'sector',
     'createdDate',
     'status',
-    'fixer',
+    'edit',
   ];
   dataSource$: Observable<Demand[] | IRequest[]>;
   isLoading$ = this.requestsFacade.isLoading$;
   count$ = this.requestsFacade.requestsCount$;
-  subscriptions$ = new Subscription();
 
   public inputColumns: FilterInputColumns[];
   public selectColumns: FilterSelectColumns<{
@@ -93,7 +92,6 @@ export class RequestsListComponent implements OnInit, OnDestroy {
       return 0;
     })
   );
-  filteredRows: any;
 
   allStatuses = this.tagsFacade.getStatusOptions();
 
@@ -113,10 +111,6 @@ export class RequestsListComponent implements OnInit, OnDestroy {
     this.getAllStatusesCount();
   }
 
-  editDemand(id: string) {
-    // TODO on row clicked action to implement???
-  }
-
   getAllStatusesCount() {
     const requests = [{}, ...this.allStatuses].map((status: any) =>
       this.helperGetCountByStatus(status._id)
@@ -134,23 +128,10 @@ export class RequestsListComponent implements OnInit, OnDestroy {
       .pipe(map((res) => res.count));
   }
 
-  operatorById$(fixer: string) {
-    return this.usersFacade.users$.pipe(
-      pluck('list'),
-      map((users) => users.find((u) => u._id === fixer))
-    );
-  }
-
   ngOnInit() {
     this.fetchRequests();
     this.usersFacade.getUsers();
     this.dataSource$ = this.requestsFacade.requests$;
-    this.subscriptions$.add(
-      this.dataSource$.subscribe(
-        (res) => {}
-        // console.log('OBJECTS=', res)
-      )
-    );
 
     this.inputColumns = [
       { name: 'First Name', value: 'first_name' },
@@ -176,11 +157,6 @@ export class RequestsListComponent implements OnInit, OnDestroy {
     ];
   }
 
-  getStatusLabel(status: string) {
-    const allStatuses = this.tagsFacade.getStatusOptions();
-    return (allStatuses.find((s) => s._id === status) || {}).label || 'unknown';
-  }
-
   onTabChanged(event: MatTabChangeEvent) {
     let status = null;
 
@@ -196,15 +172,13 @@ export class RequestsListComponent implements OnInit, OnDestroy {
       this.allStatusesCounts$.next(counts);
     });
 
-    this.router.navigate([], {
+    void this.router.navigate([], {
       relativeTo: this.activeRoute,
       queryParams: {
         status,
       },
       queryParamsHandling: 'merge',
     });
-
-    return;
   }
 
   fetchRequests() {
@@ -259,9 +233,5 @@ export class RequestsListComponent implements OnInit, OnDestroy {
         this.getAllStatusesCount();
         dialogRef.close();
       });
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions$.unsubscribe();
   }
 }

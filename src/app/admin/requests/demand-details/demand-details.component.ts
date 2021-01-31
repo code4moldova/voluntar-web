@@ -1,7 +1,7 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
+  Inject,
   OnInit,
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -9,7 +9,7 @@ import { specialConditions, zones } from '@app/shared/constants';
 import { RequestsFacade } from '../requests.facade';
 import { BeneficiariesService } from '@beneficiaries/beneficiaries.service';
 import { coordinates } from './demand-address-field/demand-address-field.component';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Beneficiary } from '@app/shared/models';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { combineLatest } from 'rxjs';
@@ -21,8 +21,6 @@ import {
   demandTypes,
 } from '@app/shared/models/demand';
 import { BeneficiariesFacade } from '@app/admin/beneficiaries/beneficiaries.facade';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Inject } from '@angular/core';
 import { RequestsService } from '../requests.service';
 
 export interface ReceivedData {
@@ -50,7 +48,6 @@ export class DemandDetailsComponent implements OnInit {
     private snackBar: MatSnackBar,
     private beneficiariesService: BeneficiariesService,
     private beneficiariesFacade: BeneficiariesFacade,
-    private cdr: ChangeDetectorRef,
     public dialogRef: MatDialogRef<DemandDetailsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ReceivedData
   ) {}
@@ -174,7 +171,7 @@ export class DemandDetailsComponent implements OnInit {
 
     this.requestsService.updateDemand(updateDemand).subscribe(
       () => {},
-      (err) => console.log('ERROR submitting demand status update!')
+      () => console.log('ERROR submitting demand status update!')
     );
   }
 
