@@ -1,5 +1,6 @@
 import { Beneficiary } from './beneficiary';
 import { IVolunteer } from './volunteers';
+import { User } from '@users/shared/user';
 
 export enum DemandType {
   warm_lunch = 'warm_lunch',
@@ -23,7 +24,7 @@ export enum DemandStatus {
 export interface Demand {
   _id?: string;
   beneficiary: Beneficiary;
-  user: any;
+  user: User;
   type: DemandType;
   status: DemandStatus;
   number: number;

@@ -1,0 +1,167 @@
+<ng-container *ngIf="demands$ | async as demands">
+  <div class="container py-4">
+    <div class="d-flex align-items-center mb-4">
+      <h3 class="mb-0" translate>demands_list</h3>
+      <a href="/" target="_blank" class="text-secondary ml-auto">voluntar.md</a>
+    </div>
+
+    <div
+      style="background-color: #f9f9f9; color: #989898; cursor: pointer"
+      class="p-4 rounded d-flex align-items-center justify-content-center mb-4"
+    >
+      <mat-icon svgIcon="map"></mat-icon>
+      <span class="ml-2 pt-1" translate>see_route_on_map</span>
+    </div>
+
+    <mat-accordion [multi]="false">
+      <div class="table-responsive">
+        <table mat-table [dataSource]="demands">
+          <ng-container matColumnDef="demand">
+            <th *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element; let i = index" class="px-0">
+              <mat-expansion-panel
+                class="shadow-none"
+                [style.borderRadius]="0"
+                [style.borderLeft]="
+                  cast(element).status === DemandStatus.canceled
+                    ? '2px solid #FF1111'
+                    : cast(element).status === DemandStatus.solved
+                    ? '2px solid #23B67A'
+                    : '2px solid transparent'
+                "
+              >
+                <mat-expansion-panel-header>
+                  <mat-panel-title class="d-flex align-items-center">
+                    <strong class="mr-2">{{ i + 1 }}</strong>
+
+                    <mat-icon
+                      inline
+                      style="font-size: 16px"
+                      class="text-secondary mx-2"
+                      [style.opacity]="
+                        cast(element).has_symptoms ? '100%' : '30%'
+                      "
+                    >
+                      coronavirus
+                    </mat-icon>
+
+                    <span class="mx-2 text-truncate" style="width: 125px">
+                      {{ cast(element).beneficiary.first_name }}
+                      {{ cast(element).beneficiary.last_name }}
+                    </span>
+
+                    <mat-icon
+                      inline
+                      class="text-secondary mx-2"
+                      style="font-size: 14px"
+                    >
+                      location_on
+                    </mat-icon>
+
+                    <span class="text-truncate mx-2">
+                      {{ cast(element).beneficiary.address }}
+                    </span>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-divider class="mx-n4 mb-3"></mat-divider>
+
+                <div class="mx-3">
+                  <div class="d-flex align-items-center mb-2">
+                    <mat-icon inline class="text-secondary mr-2">
+                      location_on
+                    </mat-icon>
+                    {{ cast(element).beneficiary.address }}
+                    <span
+                      *ngIf="cast(element).beneficiary.entrance as entrance"
+                    >
+                      , Sc. {{ entrance }}
+                    </span>
+                    <span *ngIf="cast(element).beneficiary.floor as floor">
+                      , Et. {{ floor }}
+                    </span>
+                    <span
+                      *ngIf="cast(element).beneficiary.apartment as apartment"
+                    >
+                      , Ap. {{ apartment }}
+                    </span>
+                  </div>
+
+                  <div class="d-flex align-items-center mb-2">
+                    <mat-icon inline class="text-secondary mr-2">call</mat-icon>
+                    <span *ngIf="cast(element).beneficiary.phone as phone">
+                      +373{{ phone }}
+                    </span>
+                    <span *ngIf="!cast(element).beneficiary.phone" translate>
+                      missing_phone
+                    </span>
+                  </div>
+
+                  <div class="d-flex align-items-center mb-2">
+                    <mat-icon inline class="text-secondary mr-2">lock</mat-icon>
+                    <span *ngIf="cast(element).secret as secret">
+                      {{ secret }}
+                    </span>
+                    <span *ngIf="!cast(element).secret" translate>
+                      missing_secret
+                    </span>
+                  </div>
+
+                  <div class="d-flex align-items-center mb-2">
+                    <mat-icon inline class="text-secondary mr-2">
+                      settings
+                    </mat-icon>
+                    {{ cast(element).user.first_name }}
+                    {{ cast(element).user.last_name }}
+                  </div>
+                </div>
+
+                <div class="row mt-3">
+                  <div class="col-sm-6 mb-2">
+                    <button
+                      mat-stroked-button
+                      color="primary"
+                      class="w-100 text-secondary"
+                      (click)="changeDemand(cast(element), DemandStatus.solved)"
+                    >
+                      <mat-icon class="text-success">
+                        check_circle_outline
+                      </mat-icon>
+                      {{ "demand_completed" | translate }}
+                    </button>
+                  </div>
+                  <div class="col-sm-6 mb-2">
+                    <button
+                      mat-stroked-button
+                      color="primary"
+                      class="w-100 text-secondary"
+                      (click)="
+                        changeDemand(cast(element), DemandStatus.canceled)
+                      "
+                    >
+                      <mat-icon class="text-danger">cancel</mat-icon>
+                      {{ "demand_not_completed" | translate }}
+                    </button>
+                  </div>
+                  <div class="col-md-6 mb-2">
+                    <mat-form-field class="d-block" appearance="outline">
+                      <mat-label translate>comment</mat-label>
+                      <textarea
+                        rows="3"
+                        matInput
+                        [(ngModel)]="cast(element).comments"
+                        title=""
+                      ></textarea>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </td>
+          </ng-container>
+
+          <tr *matHeaderRowDef="['demand']"></tr>
+          <tr mat-row *matRowDef="let element; columns: ['demand']"></tr>
+        </table>
+      </div>
+    </mat-accordion>
+  </div>
+</ng-container>

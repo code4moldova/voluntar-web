@@ -103,6 +103,12 @@
   "disability": "Dizabilitate",
   "deaf_mute": "Surdo-mut",
   "blind_weak_seer": "Orb / slab văzător",
+  "demands_list": "Listă cereri",
+  "see_route_on_map": "Vezi traseul pe hartă (WIP)",
+  "missing_phone": "Lipsă telefon",
+  "missing_secret": "Lipsă secret",
+  "demand_completed": "Cerere efectuată",
+  "demand_not_completed": "Nu a putut fi efectuată",
   "hero": {
     "headline": "Inițiativa <span>împreună<br />împotriva COVID-19</span>",
     "description": "Rețea de voluntari și voluntare care oferă suport celor din zona de risc, în parteneriat cu Serviciile de Asistență Socială din Republica Moldova în contextul situației de criză creată de pandemia de COVID-19."
