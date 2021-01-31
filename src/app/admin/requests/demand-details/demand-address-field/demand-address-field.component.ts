@@ -12,10 +12,10 @@ export interface coordinates {
 
 @Component({
   selector: 'app-request-address-field',
-  templateUrl: './request-address-field.component.html',
-  styleUrls: ['./request-address-field.component.scss'],
+  templateUrl: './demand-address-field.component.html',
+  styleUrls: ['./demand-address-field.component.scss'],
 })
-export class RequestAddressFieldComponent implements OnInit {
+export class DemandAddressFieldComponent implements OnInit {
   @Output() gotCoordinates = new EventEmitter<coordinates>();
   @Input() selectedAddress: string;
 

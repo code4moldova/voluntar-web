@@ -51,7 +51,10 @@
 
     <div
       style="margin-bottom: 23px"
-      *ngIf="isEmpty(existentBeneficiary); else beneficiaryExists"
+      *ngIf="
+        isEmpty(existentBeneficiary) || !isEmpty(data.element);
+        else beneficiaryExists
+      "
     ></div>
 
     <ng-template #beneficiaryExists>
@@ -287,12 +290,28 @@
 
   <div class="footer">
     <button
+      *ngIf="isEmpty(data.element); else editDemand"
       mat-flat-button
       color="primary"
       [disabled]="form.invalid"
       type="submit"
     >
-      Crează
+      Creaza
     </button>
+    <ng-template #editDemand>
+      <a
+        mat-flat-button
+        [disabled]="form.invalid"
+        color="confirmation"
+        (click)="onEditDemand(true)"
+      >
+        <mat-icon>check_circle_outline</mat-icon>
+        Confirma
+      </a>
+      <a mat-flat-button color="removal" (click)="onDeleteRecord()">
+        <mat-icon>delete_forever</mat-icon>
+        Sterge
+      </a>
+    </ng-template>
   </div>
 </form>

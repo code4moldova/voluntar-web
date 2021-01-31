@@ -55,4 +55,16 @@
     background-color: $color-functional-error;
     color: $color-grays-white;
   }
+
+  &[color="confirmation"] {
+    background-color: transparent;
+    color: $color-functional-success;
+    border: 2px solid $color-functional-success;
+  }
+
+  &[color="removal"] {
+    background-color: transparent;
+    color: $color-grays-gray-130;
+    border: 2px solid $color-grays-gray-130;
+  }
 }

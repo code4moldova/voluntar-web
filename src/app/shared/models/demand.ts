@@ -23,7 +23,7 @@ export enum DemandStatus {
 export interface Demand {
   _id?: string;
   beneficiary: Beneficiary;
-  user: string;
+  user: any;
   type: DemandType;
   status: DemandStatus;
   number: number;
@@ -33,4 +33,18 @@ export interface Demand {
   has_symptoms: boolean;
   created_at: string;
   volunteer: IVolunteer;
+}
+
+export interface DemandBackEnd {
+  _id?: string;
+  // user: string;
+  type: DemandType;
+  status: DemandStatus;
+  number: number;
+  secret: string;
+  urgent: boolean;
+  comments: string;
+  has_symptoms: boolean;
+  // created_at: string;
+  // volunteer: IVolunteer;
 }
