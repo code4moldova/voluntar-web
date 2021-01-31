@@ -31,7 +31,7 @@ export const adminRoutes: Routes = [
           ),
       },
       {
-        path: 'requests',
+        path: 'demands',
         data: {
           roles: [
             UserRole.administrator,
@@ -54,7 +54,7 @@ export const adminRoutes: Routes = [
       },
       {
         path: '**',
-        redirectTo: 'requests',
+        redirectTo: 'demands',
         pathMatch: 'full',
       },
     ],

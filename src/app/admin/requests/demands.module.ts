@@ -6,7 +6,7 @@ import { MaterialComponentsModule } from '@shared/material.module';
 import { SharedModule } from '@shared/shared.module';
 import { NgxMaskModule } from 'ngx-mask';
 import { RouterModule } from '@angular/router';
-import { requestsRoutes } from './requests.routes';
+import { demandsRoutes } from './demands.routes';
 import { DemandAddressFieldComponent } from './demand-details/demand-address-field/demand-address-field.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { DemandsMapComponent } from './shared/demands-map/demands-map.component';
@@ -26,7 +26,7 @@ import { FilterByNameOrFamilyPipe } from '@app/shared/pipes/filter-by-name-or-fa
   ],
   imports: [
     CommonModule,
-    RouterModule.forChild(requestsRoutes),
+    RouterModule.forChild(demandsRoutes),
     MaterialComponentsModule,
     SharedModule,
     NgxMaskModule.forChild(),

@@ -36,7 +36,7 @@ export class RolesGuard implements CanActivate {
           this.snackBar.open('Not allowed', '', {
             duration: 2000,
           });
-          this.route.navigate(['/requests']);
+          this.route.navigate(['/demands']);
           return false;
         }
         return rolesIntersection;

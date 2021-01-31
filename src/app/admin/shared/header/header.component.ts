@@ -14,24 +14,10 @@ export class HeaderComponent {
     map((user) => (user ? user.first_name : 'User Name'))
   );
 
-  links = [
-    {
-      label: 'Requests',
-      link: './requests',
-    },
-    {
-      label: 'Beneficiaries',
-      link: './beneficiaries',
-    },
-    {
-      label: 'Volunteers',
-      link: './volunteers',
-    },
-    {
-      label: 'Users',
-      link: './users',
-    },
-  ];
+  links = ['demands', 'beneficiaries', 'volunteers', 'users'].map((entity) => ({
+    labelKey: entity,
+    link: `./${entity}`,
+  }));
 
   constructor(
     private userFacade: AuthFacade,

@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { RequestsListComponent } from './demands-list/demands-list.component';
 
-export const requestsRoutes: Routes = [
+export const demandsRoutes: Routes = [
   {
     path: 'list',
     component: RequestsListComponent,

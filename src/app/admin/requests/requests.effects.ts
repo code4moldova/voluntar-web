@@ -76,7 +76,7 @@ export class RequestsEffects {
       exhaustMap(({ payload }) => {
         return this.demandsService.updateRequest(payload).pipe(
           map((res) => {
-            // this.router.navigate(['/requests/list']);
+            // this.router.navigate(['/demands/list']);
             return updateRequestSuccessAction({ payload: res });
           }),
           catchError((error) => of(updateRequestFailureAction({ error })))
