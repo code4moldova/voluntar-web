@@ -74,7 +74,6 @@ export class DemandDetailsComponent implements OnInit {
       this.beneficiariesFacade.saveBeneficiary(payload.beneficiary);
     }
 
-    // TODO: Refactor requests facade to demand facade
     this.demandsFacade.saveRequest(payload);
     combineLatest([this.demandsFacade.isLoading$, this.demandsFacade.error$])
       .pipe(

@@ -25,7 +25,7 @@
       "@shared/*": ["src/app/shared/*"],
       "@auth/*": ["src/app/auth/*"],
       "@beneficiaries/*": ["src/app/admin/beneficiaries/*"],
-      "@requests/*": ["src/app/admin/requests/*"],
+      "@demands/*": ["src/app/admin/demands/*"],
       "@users/*": ["src/app/admin/users/*"],
       "@volunteers/*": ["src/app/admin/volunteers/*"]
     },

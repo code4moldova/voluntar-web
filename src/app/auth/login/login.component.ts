@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { DemandsFacade } from '@requests/demands.facade';
+import { DemandsFacade } from '@demands/demands.facade';
 import { environment } from 'src/environments/environment';
 import { AuthFacade } from '../auth.facade';
 

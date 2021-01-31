@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthFacade } from '@auth/auth.facade';
 import { map } from 'rxjs/operators';
-import { DemandsFacade } from '@requests/demands.facade';
+import { DemandsFacade } from '@demands/demands.facade';
 
 @Component({
   selector: 'app-header',

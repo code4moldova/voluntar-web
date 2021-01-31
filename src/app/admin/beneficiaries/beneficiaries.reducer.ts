@@ -111,7 +111,7 @@ const beneficiaryReducer = createReducer(
     isLoading: false,
     error,
   })),
-  // Beneficiary requests history
+  // Beneficiary demands history
   on(getBeneficiaryRequestsAction, (state) => ({
     ...state,
     requests: { ...state.requests, isLoading: true, error: null },

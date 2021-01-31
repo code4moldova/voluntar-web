@@ -204,11 +204,11 @@ export class RequestsListComponent implements OnInit {
 
   downloadCsv(blob: Blob) {
     if (window.navigator.msSaveOrOpenBlob) {
-      window.navigator.msSaveBlob(blob, 'requests.csv');
+      window.navigator.msSaveBlob(blob, 'demands.csv');
     } else {
       const a = this.renderer.createElement('a');
       this.renderer.setAttribute(a, 'href', window.URL.createObjectURL(blob));
-      this.renderer.setAttribute(a, 'download', 'requests.csv');
+      this.renderer.setAttribute(a, 'download', 'demands.csv');
 
       a.click();
     }

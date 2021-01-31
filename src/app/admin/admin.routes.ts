@@ -41,7 +41,7 @@ export const adminRoutes: Routes = [
         },
         canActivate: [RolesGuard],
         loadChildren: () =>
-          import('@requests/demands.module').then((m) => m.DemandsModule),
+          import('./demands/demands.module').then((m) => m.DemandsModule),
       },
       {
         path: 'users',

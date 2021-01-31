@@ -6,7 +6,7 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
-import { DemandsFacade } from '@requests/demands.facade';
+import { DemandsFacade } from '@demands/demands.facade';
 
 @Component({
   templateUrl: './admin.component.html',

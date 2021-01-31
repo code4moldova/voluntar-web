@@ -30,8 +30,8 @@ import { usersReducer } from '@users/users.reducer';
 import { UsersEffects } from '@users/users.effects';
 import { volunteersReducer } from '@volunteers/volunteers.reducer';
 import { VolunteersEffects } from '@volunteers/volunteers.effects';
-import { demandsReducer } from '@requests/demands.reducer';
-import { DemandsEffects } from '@requests/demands.effects';
+import { demandsReducer } from '@demands/demands.reducer';
+import { DemandsEffects } from '@demands/demands.effects';
 
 @NgModule({
   declarations: [AppComponent],

@@ -239,7 +239,7 @@ export class DemandsMapComponent implements OnDestroy, OnInit {
           this.addDemandToMap(el, this.simpleMarkerSymbol)
         );
       },
-      (err) => console.log('Error getting requests from server! ', err)
+      (err) => console.log('Error getting demands from server! ', err)
     );
   }
 
