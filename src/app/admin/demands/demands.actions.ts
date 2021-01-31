@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { IRequest, IRequestDetails } from '@shared/models';
+import { IRequest } from '@shared/models';
 
 export enum ActionTypes {
   GET_REQUESTS = '[Requests] Get Requests',
@@ -24,67 +24,67 @@ export enum ActionTypes {
 
 export const getRequestsAction = createAction(
   ActionTypes.GET_REQUESTS,
-  props<{ page: { pageSize: number; pageIndex: number }; filters?: any }>()
+  props<{ page: { pageSize: number; pageIndex: number }; filters?: any }>(),
 );
 export const getRequestsFailureAction = createAction(
   ActionTypes.GET_REQUESTS_FAILURE,
-  props<{ error: any }>()
+  props<{ error: any }>(),
 );
 export const getRequestsSuccessAction = createAction(
   ActionTypes.GET_REQUESTS_SUCCESS,
-  props<{ payload: IRequestDetails[]; count: number }>()
+  props<{ payload: IRequest[]; count: number }>(),
 );
 
 export const getRequestAction = createAction(
   ActionTypes.GET_REQUEST,
-  props<{ id: string }>()
+  props<{ id: string }>(),
 );
 export const getRequestFailureAction = createAction(
   ActionTypes.GET_REQUEST_FAILURE,
-  props<{ error: any }>()
+  props<{ error: any }>(),
 );
 export const getRequestSuccessAction = createAction(
   ActionTypes.GET_REQUEST_SUCCESS,
-  props<{ payload: IRequestDetails }>()
+  props<{ payload: IRequest }>(),
 );
 
 export const saveRequestAction = createAction(
   ActionTypes.SAVE_REQUEST,
-  props<{ payload: IRequest }>()
+  props<{ payload: IRequest }>(),
 );
 export const saveRequestFailureAction = createAction(
   ActionTypes.SAVE_REQUEST_FAILURE,
-  props<{ error: any }>()
+  props<{ error: any }>(),
 );
 export const saveRequestSuccessAction = createAction(
   ActionTypes.SAVE_REQUEST_SUCCESS,
-  props<{ payload: IRequestDetails }>()
+  props<{ payload: IRequest }>(),
 );
 
 export const updateRequestAction = createAction(
   ActionTypes.UPDATE_REQUEST,
-  props<{ payload: IRequestDetails }>()
+  props<{ payload: IRequest }>(),
 );
 export const updateRequestFailureAction = createAction(
   ActionTypes.UPDATE_REQUEST_FAILURE,
-  props<{ error: any }>()
+  props<{ error: any }>(),
 );
 export const updateRequestSuccessAction = createAction(
   ActionTypes.UPDATE_REQUEST_SUCCESS,
-  props<{ payload: IRequestDetails }>()
+  props<{ payload: IRequest }>(),
 );
 
 export const getBeneficiariesByFilterAction = createAction(
   ActionTypes.GET_Beneficiares_BY_FILTER,
-  props<{ payload: { [keys: string]: string } }>()
+  props<{ payload: { [keys: string]: string } }>(),
 );
 
 export const getBeneficiariesByFilterSuccesAction = createAction(
   ActionTypes.GET_Beneficiares_BY_FILTER_FAILURE,
-  props<{ payload: IRequestDetails[] }>()
+  props<{ payload: IRequest[] }>(),
 );
 
 export const getBeneficiariesByFilterFailureAction = createAction(
   ActionTypes.GET_Beneficiares_BY_FILTER_FAILURE,
-  props<{ error: any }>()
+  props<{ error: any }>(),
 );

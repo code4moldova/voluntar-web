@@ -1,4 +1,6 @@
-import { RequestStatus, RequestType, Beneficiary } from '@shared/models';
+import { DemandStatus } from '@demands/shared/demand-status';
+import { Beneficiary } from '@beneficiaries/shared/beneficiary';
+import { DemandType } from '@demands/shared/demand-type';
 
 interface Volunteer {
   _id: string;
@@ -8,9 +10,9 @@ interface Volunteer {
 
 export interface BeneficiaryRequest {
   _id: string;
-  type: RequestType;
+  type: DemandType;
   number: number;
-  status: RequestStatus;
+  status: DemandStatus;
   urgent: boolean;
   comments: string;
   has_symptoms: boolean;

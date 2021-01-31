@@ -1,9 +1,9 @@
-import { IRequestDetails } from '@shared/models';
+import { IRequest } from '@shared/models';
 
 export interface DemandsState {
-  data: IRequestDetails[];
+  data: IRequest[];
   count: number;
-  details: IRequestDetails;
+  details: IRequest;
   isLoading: boolean;
   error: string;
 }

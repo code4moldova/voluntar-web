@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { RequestStatus } from '@shared/models';
+import { DemandStatus } from '@demands/shared/demand-status';
 
 const TITLES = {
   new: 'nou',
@@ -17,7 +17,7 @@ const TITLES = {
 })
 export class RequestStatusComponent implements OnInit {
   @Input()
-  status: RequestStatus;
+  status: DemandStatus;
   statusTitle: string;
 
   constructor() {}

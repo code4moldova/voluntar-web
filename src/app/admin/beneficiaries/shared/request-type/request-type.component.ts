@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { RequestType } from '@shared/models';
+import { DemandType } from '@demands/shared/demand-type';
 
 const TITLES = {
   warm_lunch: 'Prînz Cald',
@@ -14,7 +14,7 @@ const TITLES = {
 })
 export class RequestTypeComponent implements OnInit {
   @Input()
-  type: RequestType;
+  type: DemandType;
   typeTitle: string;
 
   constructor() {}

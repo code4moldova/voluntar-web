@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { IRequest, IRequestDetails } from '@shared/models';
+import { IRequest } from '@shared/models';
 import { environment } from 'src/environments/environment';
 import { Demand } from '@demands/shared/demand';
 import { DemandBackEnd } from '@demands/shared/demand-backend';
@@ -19,7 +19,7 @@ export class DemandsService {
     filters: any = {},
   ) {
     const params = new HttpParams({ fromObject: filters });
-    return this.http.get<{ count: number; list: IRequestDetails[] }>(
+    return this.http.get<{ count: number; list: IRequest[] }>(
       `${environment.url}/requests/filters/${page.pageIndex || 1}/${
         page.pageSize || 1000
       }`,
@@ -44,16 +44,14 @@ export class DemandsService {
   }
 
   getRequestById(id: string) {
-    return this.http.get<IRequestDetails>(
-      `${environment.url}/beneficiary?id=${id}`,
-    );
+    return this.http.get<IRequest>(`${environment.url}/beneficiary?id=${id}`);
   }
 
   saveRequest(request: IRequest) {
     return this.http.post<any>(`${environment.url}/beneficiary`, request);
   }
 
-  updateRequest(request: IRequestDetails) {
+  updateRequest(request: IRequest) {
     return this.http.put<any>(
       `${environment.url}/beneficiary?id=${request._id}`,
       request,
@@ -70,9 +68,9 @@ export class DemandsService {
     });
   }
 
-  // getBeneficiariesByFilter(httpParams: { [keys: string]: string }): Observable<{ count: number; list: IRequestDetails[] }> {
+  // getBeneficiariesByFilter(httpParams: { [keys: string]: string }): Observable<{ count: number; list: IRequest[] }> {
   //   const params = new HttpParams({ fromObject: httpParams });
-  //   return this.http.get<{ count: number; list: IRequestDetails[] }>(
+  //   return this.http.get<{ count: number; list: IRequest[] }>(
   //     `${environment.url}/beneficiary/filters/1/1000?`, { params },
   //   );
   // }

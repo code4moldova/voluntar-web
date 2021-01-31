@@ -13,7 +13,7 @@ import {
   selectRequestsError,
   selectRequestsCount,
 } from './demands.selectors';
-import { IRequest, IRequestDetails } from '@shared/models';
+import { IRequest } from '@shared/models';
 import { DemandsService } from './demands.service';
 import {
   map,
@@ -44,7 +44,7 @@ export class DemandsFacade {
 
   constructor(
     private store: Store<AppState>,
-    private requestService: DemandsService
+    private requestService: DemandsService,
   ) {
     const stopPolling$ = new Subject();
     combineLatest([this.newRequests$, this.requestsCount$])
@@ -61,12 +61,12 @@ export class DemandsFacade {
             switchMap(() =>
               this.requestService
                 .getRequests({ pageIndex: 1, pageSize: 1 })
-                .pipe(map(({ count }) => count))
+                .pipe(map(({ count }) => count)),
             ),
             pairwise(),
-            map(([prev, next]) => [next, countFromState, prev])
+            map(([prev, next]) => [next, countFromState, prev]),
           );
-        })
+        }),
       )
       .subscribe(([count, countFromState]) => {
         if (countFromState === null) {
@@ -104,10 +104,10 @@ export class DemandsFacade {
     return this.requestService.getRequests(page, filters);
   }
 
-  saveRequest(request: IRequest | IRequestDetails) {
+  saveRequest(request: IRequest) {
     if (request._id) {
       this.store.dispatch(
-        updateRequestAction({ payload: request as IRequestDetails })
+        updateRequestAction({ payload: request as IRequest }),
       );
     } else {
       this.store.dispatch(saveRequestAction({ payload: request }));
