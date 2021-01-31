@@ -13,7 +13,6 @@ import {
   selectRequestsError,
   selectRequestsCount,
 } from './demands.selectors';
-import { IRequest } from '@shared/models';
 import { DemandsService } from './demands.service';
 import {
   map,
@@ -24,6 +23,7 @@ import {
   tap,
 } from 'rxjs/operators';
 import { BehaviorSubject, interval, Subject, combineLatest } from 'rxjs';
+import { Demand } from '@demands/shared/demand';
 
 export type RequestPageParams = { pageSize: number; pageIndex: number };
 
@@ -104,11 +104,9 @@ export class DemandsFacade {
     return this.requestService.getRequests(page, filters);
   }
 
-  saveRequest(request: IRequest) {
+  saveRequest(request: Demand) {
     if (request._id) {
-      this.store.dispatch(
-        updateRequestAction({ payload: request as IRequest }),
-      );
+      this.store.dispatch(updateRequestAction({ payload: request as Demand }));
     } else {
       this.store.dispatch(saveRequestAction({ payload: request }));
     }

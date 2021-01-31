@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { DemandsState } from './demands.state';
-import { IRequest } from '@shared/models';
+import { Demand } from '@demands/shared/demand';
 
 export const selectRequests = createFeatureSelector<any, DemandsState>(
   'requests',
@@ -15,7 +15,7 @@ export const selectIsLoading = createSelector(
 
 export const selectRequestsData = createSelector(
   selectRequests,
-  (state: DemandsState): IRequest[] => {
+  (state: DemandsState): Demand[] => {
     return state.data;
   },
 );

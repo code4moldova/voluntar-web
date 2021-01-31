@@ -14,7 +14,6 @@ import { map, pluck, take, takeUntil } from 'rxjs/operators';
 import { DemandsFacade, RequestPageParams } from '../demands.facade';
 import { UsersFacade } from '@users/users.facade';
 
-import { IRequest } from '@shared/models';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -46,7 +45,7 @@ export class RequestsListComponent implements OnInit {
     'status',
     'edit',
   ];
-  dataSource$: Observable<Demand[] | IRequest[]>;
+  dataSource$: Observable<Demand[]>;
   isLoading$ = this.demandsFacade.isLoading$;
   count$ = this.demandsFacade.requestsCount$;
 

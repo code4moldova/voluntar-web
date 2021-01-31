@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { IRequest } from '@shared/models';
+import { Demand } from '@demands/shared/demand';
 
 export enum ActionTypes {
   GET_REQUESTS = '[Requests] Get Requests',
@@ -32,7 +32,7 @@ export const getRequestsFailureAction = createAction(
 );
 export const getRequestsSuccessAction = createAction(
   ActionTypes.GET_REQUESTS_SUCCESS,
-  props<{ payload: IRequest[]; count: number }>(),
+  props<{ payload: Demand[]; count: number }>(),
 );
 
 export const getRequestAction = createAction(
@@ -45,12 +45,12 @@ export const getRequestFailureAction = createAction(
 );
 export const getRequestSuccessAction = createAction(
   ActionTypes.GET_REQUEST_SUCCESS,
-  props<{ payload: IRequest }>(),
+  props<{ payload: Demand }>(),
 );
 
 export const saveRequestAction = createAction(
   ActionTypes.SAVE_REQUEST,
-  props<{ payload: IRequest }>(),
+  props<{ payload: Demand }>(),
 );
 export const saveRequestFailureAction = createAction(
   ActionTypes.SAVE_REQUEST_FAILURE,
@@ -58,12 +58,12 @@ export const saveRequestFailureAction = createAction(
 );
 export const saveRequestSuccessAction = createAction(
   ActionTypes.SAVE_REQUEST_SUCCESS,
-  props<{ payload: IRequest }>(),
+  props<{ payload: Demand }>(),
 );
 
 export const updateRequestAction = createAction(
   ActionTypes.UPDATE_REQUEST,
-  props<{ payload: IRequest }>(),
+  props<{ payload: Demand }>(),
 );
 export const updateRequestFailureAction = createAction(
   ActionTypes.UPDATE_REQUEST_FAILURE,
@@ -71,7 +71,7 @@ export const updateRequestFailureAction = createAction(
 );
 export const updateRequestSuccessAction = createAction(
   ActionTypes.UPDATE_REQUEST_SUCCESS,
-  props<{ payload: IRequest }>(),
+  props<{ payload: Demand }>(),
 );
 
 export const getBeneficiariesByFilterAction = createAction(
@@ -81,7 +81,7 @@ export const getBeneficiariesByFilterAction = createAction(
 
 export const getBeneficiariesByFilterSuccesAction = createAction(
   ActionTypes.GET_Beneficiares_BY_FILTER_FAILURE,
-  props<{ payload: IRequest[] }>(),
+  props<{ payload: Demand[] }>(),
 );
 
 export const getBeneficiariesByFilterFailureAction = createAction(
