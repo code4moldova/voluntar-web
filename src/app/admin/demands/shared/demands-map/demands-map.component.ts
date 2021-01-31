@@ -19,7 +19,6 @@ import config from '@arcgis/core/config.js';
 
 import { DemandsService } from '../../demands.service';
 import { Demand } from '@demands/shared/demand';
-import { DemandsMapService } from './demands-map.services';
 import { DemandType, demandTypes } from '@demands/shared/demand-type';
 import { Volunteer } from '@volunteers/shared/volunteer';
 import { Zone } from '@shared/zone';
@@ -131,9 +130,8 @@ export class DemandsMapComponent implements OnDestroy, OnInit {
   };
 
   constructor(
-    public demandsService: DemandsService,
+    private demandsService: DemandsService,
     private cdr: ChangeDetectorRef,
-    private demandsMapService: DemandsMapService,
     private snackBar: MatSnackBar,
   ) {}
 
@@ -334,9 +332,9 @@ export class DemandsMapComponent implements OnDestroy, OnInit {
 
   assignDemandsToVolunteer() {
     from(
-      this.demandsMapService.assignDemandsToVolunteer(
-        this.selectedVolunteer._id,
+      this.demandsService.assignToVolunteer(
         this.selectedDemands,
+        this.selectedVolunteer._id,
       ),
     ).subscribe(
       () => {

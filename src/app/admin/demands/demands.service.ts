@@ -42,4 +42,11 @@ export class DemandsService {
       responseType: 'blob',
     });
   }
+
+  assignToVolunteer(demands: Demand[] = [], volunteerId: string = '') {
+    return this.http.post<any>(`${environment.url}/clusters`, {
+      volunteer: `${volunteerId}`,
+      request_list: demands.map((demand) => demand._id),
+    });
+  }
 }
