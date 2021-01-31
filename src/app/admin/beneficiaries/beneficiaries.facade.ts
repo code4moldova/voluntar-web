@@ -38,7 +38,7 @@ export class BeneficiariesFacade {
   error$ = this.store.pipe(select(selectError));
 
   // Requests
-  requestsError$ = this.store.pipe(select(selectRequestsError));
+
   requestsData$ = this.store.pipe(select(selectRequestsData));
   requestsCount$ = this.store.pipe(select(selectRequestsCount));
   // BlockList

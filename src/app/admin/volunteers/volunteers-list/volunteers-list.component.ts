@@ -1,23 +1,18 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
-import { BehaviorSubject, forkJoin, Observable, of } from 'rxjs';
+import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
 
 import { VolunteerPageParams, VolunteersFacade } from '../volunteers.facade';
-import { TagsFacade } from '@shared/tags/tags.facade';
 
 import { Volunteer } from '../shared/volunteer';
-import { ActionsSubject, Store } from '@ngrx/store';
+import { ActionsSubject } from '@ngrx/store';
 import { ofType } from '@ngrx/effects';
 import { map, take, takeUntil } from 'rxjs/operators';
 import { saveVolunteerSuccessAction } from '../volunteers.actions';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
-import { KIV_ZONES } from '@shared/constants';
-import { FilterObservableSelectColumns } from '@shared/filter/filter.types';
 import { VolunteersCreateComponent } from '../volunteers-create/volunteers-create.component';
-import { getOffersTagsAction } from '@shared/tags/tags.actions';
-import { AppState } from '@app/app.state';
 import { volunteerRoles } from '../shared/volunteer-role';
 import { zones } from '@shared/zone';
 
@@ -26,18 +21,11 @@ import { zones } from '@shared/zone';
 })
 export class VolunteersListComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  displayedColumns: string[] = [
-    'name',
-    'phone',
-    'zone',
-    'icons',
-    'availableHours',
-  ];
+  displayedColumns: string[] = ['name', 'phone', 'zone', 'icons'];
   dataSource$: Observable<Volunteer[]>;
   isLoading$ = this.volunteersFacade.isLoading$;
   count$ = this.volunteersFacade.count$;
   allStatusesCounts$: BehaviorSubject<number[]> = new BehaviorSubject([]);
-  observableSelectColumns: FilterObservableSelectColumns[];
   tabs: Tab[] = [
     { label: 'Activi', status: 'active' },
     { label: 'Inactivi', status: 'inactive' },
@@ -54,20 +42,15 @@ export class VolunteersListComponent implements OnInit {
   });
   zones = zones;
   roles = volunteerRoles;
-  tagById$ = (id: any) => this.tagsFacadeService.availabilitiesById$(id);
 
   constructor(
     private fb: FormBuilder,
     private volunteersFacade: VolunteersFacade,
-    private tagsFacadeService: TagsFacade,
     private matDialog: MatDialog,
     private actions$: ActionsSubject,
     private activeRoute: ActivatedRoute,
     private router: Router,
-    store: Store<AppState>,
   ) {
-    store.dispatch(getOffersTagsAction());
-
     this.activeRoute.queryParams.pipe(take(1)).subscribe((params) => {
       this.filterForm.patchValue(params);
     });
@@ -77,19 +60,6 @@ export class VolunteersListComponent implements OnInit {
     this.getAllStatusesCount();
     this.dataSource$ = this.volunteersFacade.volunteers$;
     this.onTabChange(this.activeTab);
-
-    this.observableSelectColumns = [
-      {
-        name: 'Offer',
-        value: 'offer',
-        array: this.tagsFacadeService.offersTags$,
-      },
-      {
-        name: 'Sector',
-        value: 'zone_address',
-        array: of(KIV_ZONES),
-      },
-    ];
   }
 
   // TODO

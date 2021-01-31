@@ -121,12 +121,6 @@
         </td>
       </ng-container>
 
-      <ng-container matColumnDef="availableHours">
-        <td mat-cell *matCellDef="let volunteer">
-          {{ (tagById$(_(volunteer).availability_days) | async)?.ro }}
-        </td>
-      </ng-container>
-
       <tr
         mat-row
         *matRowDef="let volunteer; columns: displayedColumns"

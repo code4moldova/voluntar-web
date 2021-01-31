@@ -20,7 +20,6 @@ import { NgxMaskModule } from 'ngx-mask';
 import { RouterModule } from '@angular/router';
 import { AuthStoreModule } from '@auth/auth-store.module';
 import { BeneficiariesStoreModule } from '@beneficiaries/beneficiaries-store.module';
-import { TagsStoreModule } from '@shared/tags/tags-store.module';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { environment } from '../environments/environment';
@@ -49,7 +48,6 @@ import { DemandsEffects } from '@demands/demands.effects';
     EffectsModule.forFeature([DemandsEffects]),
     StoreModule.forFeature('users', usersReducer),
     EffectsModule.forFeature([UsersEffects]),
-    TagsStoreModule,
     StoreModule.forRoot({}, {}),
     EffectsModule.forRoot([]),
     environment.production
