@@ -18,7 +18,7 @@ import {
   updateVolunteerFailureAction,
 } from './volunteers.actions';
 
-const volunteerReducer = createReducer(
+export const volunteersReducer = createReducer<VolunteersState>(
   initialState,
   on(getVolunteersAction, (state) => ({
     ...state,
@@ -105,10 +105,3 @@ const volunteerReducer = createReducer(
     error,
   })),
 );
-
-export function volunteersReducer(
-  state: VolunteersState | undefined,
-  action: Action,
-) {
-  return volunteerReducer(state, action);
-}

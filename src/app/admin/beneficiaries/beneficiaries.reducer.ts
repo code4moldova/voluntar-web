@@ -25,7 +25,7 @@ import {
   getBeneficiaryBlockListFailureAction,
 } from './beneficiaries.actions';
 
-const beneficiaryReducer = createReducer(
+export const beneficiariesReducer = createReducer<BeneficiariesState>(
   initialState,
   on(getBeneficiariesAction, (state) => ({
     ...state,
@@ -139,10 +139,3 @@ const beneficiaryReducer = createReducer(
     blockList: { ...state.blockList, isLoading: false, error },
   })),
 );
-
-export function beneficiariesReducer(
-  state: BeneficiariesState | undefined,
-  action: Action,
-) {
-  return beneficiaryReducer(state, action);
-}
