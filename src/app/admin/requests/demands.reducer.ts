@@ -1,24 +1,24 @@
-import { createReducer, on, Action } from '@ngrx/store';
-import { initialState, RequestsState } from './requests.state';
+import { createReducer, on } from '@ngrx/store';
+import { DemandsState, initialState } from './demands.state';
 import {
-  getRequestsAction,
-  getRequestsSuccessAction,
-  getRequestsFailureAction,
-  getRequestAction,
-  getRequestSuccessAction,
-  getRequestFailureAction,
-  saveRequestAction,
-  saveRequestSuccessAction,
-  saveRequestFailureAction,
-  updateRequestAction,
-  updateRequestSuccessAction,
-  updateRequestFailureAction,
-  getBeneficiariesByFilterSuccesAction,
-  getBeneficiariesByFilterFailureAction,
   getBeneficiariesByFilterAction,
-} from './requests.actions';
+  getBeneficiariesByFilterFailureAction,
+  getBeneficiariesByFilterSuccesAction,
+  getRequestAction,
+  getRequestFailureAction,
+  getRequestsAction,
+  getRequestsFailureAction,
+  getRequestsSuccessAction,
+  getRequestSuccessAction,
+  saveRequestAction,
+  saveRequestFailureAction,
+  saveRequestSuccessAction,
+  updateRequestAction,
+  updateRequestFailureAction,
+  updateRequestSuccessAction,
+} from './demands.actions';
 
-const requestReducer = createReducer(
+export const demandsReducer = createReducer<DemandsState>(
   initialState,
   on(getRequestsAction, (state) => ({
     ...state,
@@ -103,10 +103,3 @@ const requestReducer = createReducer(
     error,
   }))
 );
-
-export function requestsReducer(
-  state: RequestsState | undefined,
-  action: Action
-) {
-  return requestReducer(state, action);
-}

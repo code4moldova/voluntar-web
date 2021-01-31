@@ -1,36 +1,36 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { RequestsState } from './requests.state';
+import { DemandsState } from './demands.state';
 import { IRequest } from '@shared/models';
 
-export const selectRequests = createFeatureSelector<any, RequestsState>(
+export const selectRequests = createFeatureSelector<any, DemandsState>(
   'requests'
 );
 
 export const selectIsLoading = createSelector(
   selectRequests,
-  (state: RequestsState): boolean => {
+  (state: DemandsState): boolean => {
     return state.isLoading;
   }
 );
 
 export const selectRequestsData = createSelector(
   selectRequests,
-  (state: RequestsState): IRequest[] => {
+  (state: DemandsState): IRequest[] => {
     return state.data;
   }
 );
 export const selectRequestsCount = createSelector(
   selectRequests,
-  (state: RequestsState): number => {
+  (state: DemandsState): number => {
     return state.count;
   }
 );
 
 export const selectRequestsError = createSelector(
   selectRequests,
-  (state: RequestsState) => state.error
+  (state: DemandsState) => state.error
 );
 export const selectRequestsDetails = createSelector(
   selectRequests,
-  (state: RequestsState) => state.details
+  (state: DemandsState) => state.details
 );

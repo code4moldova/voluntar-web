@@ -30,8 +30,8 @@ import { usersReducer } from '@users/users.reducer';
 import { UsersEffects } from '@users/users.effects';
 import { volunteersReducer } from '@volunteers/volunteers.reducer';
 import { VolunteersEffects } from '@volunteers/volunteers.effects';
-import { requestsReducer } from '@requests/requests.reducer';
-import { RequestsEffects } from '@requests/requests.effects';
+import { demandsReducer } from '@requests/demands.reducer';
+import { DemandsEffects } from '@requests/demands.effects';
 
 @NgModule({
   declarations: [AppComponent],
@@ -45,8 +45,8 @@ import { RequestsEffects } from '@requests/requests.effects';
     BeneficiariesStoreModule,
     StoreModule.forFeature('volunteers', volunteersReducer),
     EffectsModule.forFeature([VolunteersEffects]),
-    StoreModule.forFeature('requests', requestsReducer),
-    EffectsModule.forFeature([RequestsEffects]),
+    StoreModule.forFeature('requests', demandsReducer),
+    EffectsModule.forFeature([DemandsEffects]),
     StoreModule.forFeature('users', usersReducer),
     EffectsModule.forFeature([UsersEffects]),
     TagsStoreModule,

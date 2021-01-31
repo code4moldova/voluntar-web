@@ -1,28 +1,27 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Observable, of } from 'rxjs';
-import { catchError, switchMap, map, exhaustMap } from 'rxjs/operators';
+import { catchError, exhaustMap, map, switchMap } from 'rxjs/operators';
 import { Action } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { DemandsService } from './demands.service';
 import {
-  getRequestsSuccessAction,
-  getRequestsFailureAction,
-  getRequestsAction,
   getRequestAction,
-  getRequestSuccessAction,
   getRequestFailureAction,
+  getRequestsAction,
+  getRequestsFailureAction,
+  getRequestsSuccessAction,
+  getRequestSuccessAction,
   saveRequestAction,
   saveRequestFailureAction,
   saveRequestSuccessAction,
   updateRequestAction,
-  updateRequestSuccessAction,
   updateRequestFailureAction,
-} from './requests.actions';
-import { GeolocationService } from '@shared/services/geolocation/geolocation.service';
+  updateRequestSuccessAction,
+} from './demands.actions';
 
 @Injectable()
-export class RequestsEffects {
+export class DemandsEffects {
   constructor(
     private actions$: Actions,
     private router: Router,

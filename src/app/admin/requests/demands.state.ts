@@ -1,6 +1,6 @@
 import { IRequestDetails } from '@shared/models';
 
-export interface RequestsState {
+export interface DemandsState {
   data: IRequestDetails[];
   count: number;
   details: IRequestDetails;
@@ -8,7 +8,7 @@ export interface RequestsState {
   error: string;
 }
 
-export const initialState: RequestsState = {
+export const initialState: DemandsState = {
   data: [],
   count: null,
   details: null,

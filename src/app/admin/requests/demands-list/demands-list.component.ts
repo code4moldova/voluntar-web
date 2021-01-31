@@ -22,7 +22,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ActionsSubject } from '@ngrx/store';
 import { ofType } from '@ngrx/effects';
-import { saveRequestSuccessAction } from '../requests.actions';
+import { saveRequestSuccessAction } from '../demands.actions';
 import { DemandDetailsComponent } from '../demand-details/demand-details.component';
 import {
   FilterInputColumns,

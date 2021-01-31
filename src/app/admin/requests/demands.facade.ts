@@ -7,14 +7,14 @@ import {
   saveRequestAction,
   updateRequestAction,
   getBeneficiariesByFilterAction,
-} from './requests.actions';
+} from './demands.actions';
 import {
   selectIsLoading,
   selectRequestsData,
   selectRequestsError,
   selectRequestsDetails,
   selectRequestsCount,
-} from './requests.selectors';
+} from './demands.selectors';
 import { IRequest, IRequestDetails } from '@shared/models';
 import { DemandsService } from './demands.service';
 import {
