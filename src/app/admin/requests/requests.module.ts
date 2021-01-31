@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RequestDetailsComponent } from './request-details/request-details.component';
-import { RequestsListComponent } from './requests-list/requests-list.component';
+import { DemandDetailsComponent } from './demand-details/demand-details.component';
+import { RequestsListComponent } from './demands-list/demands-list.component';
 import { MaterialComponentsModule } from '@shared/material.module';
 import { SharedModule } from '@shared/shared.module';
 import { NgxMaskModule } from 'ngx-mask';
 import { RouterModule } from '@angular/router';
 import { requestsRoutes } from './requests.routes';
-import { RequestAddressFieldComponent } from './request-details/request-address-field/request-address-field.component';
+import { DemandAddressFieldComponent } from './demand-details/demand-address-field/demand-address-field.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { DemandsMapComponent } from './shared/demands-map/demands-map.component';
 import { DemandSelectionOnMapComponent } from './shared/demands-map/demand-selection/demand-selection.component';
@@ -16,9 +16,9 @@ import { FilterByNameOrFamilyPipe } from '@app/shared/pipes/filter-by-name-or-fa
 
 @NgModule({
   declarations: [
-    RequestDetailsComponent,
+    DemandDetailsComponent,
     RequestsListComponent,
-    RequestAddressFieldComponent,
+    DemandAddressFieldComponent,
     DemandsMapComponent,
     DemandSelectionOnMapComponent,
     VolunteerSelectionOnMapComponent,

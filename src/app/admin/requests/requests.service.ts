@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { IRequest, IRequestDetails } from '@shared/models';
 import { environment } from 'src/environments/environment';
-import { Demand } from '@app/shared/models/demand';
+import { Demand, DemandBackEnd } from '@app/shared/models/demand';
 
 @Injectable({
   providedIn: 'root',
@@ -57,6 +57,10 @@ export class RequestsService {
       `${environment.url}/beneficiary?id=${request._id}`,
       request
     );
+  }
+
+  updateDemand(demand: DemandBackEnd) {
+    return this.http.put<any>(`${environment.url}/requests`, demand);
   }
 
   exportRequests() {

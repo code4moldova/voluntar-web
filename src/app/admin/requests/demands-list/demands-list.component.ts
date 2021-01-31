@@ -2,13 +2,14 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
+  OnDestroy,
   OnInit,
   Renderer2,
   ViewChild,
 } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
-import { BehaviorSubject, forkJoin, Observable, of } from 'rxjs';
+import { BehaviorSubject, forkJoin, Observable, of, Subscription } from 'rxjs';
 import { map, pluck, take, takeUntil } from 'rxjs/operators';
 
 import { RequestPageParams, RequestsFacade } from '../requests.facade';
@@ -23,20 +24,21 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ActionsSubject } from '@ngrx/store';
 import { ofType } from '@ngrx/effects';
 import { saveRequestSuccessAction } from '../requests.actions';
-import { RequestDetailsComponent } from '../request-details/request-details.component';
+import { DemandDetailsComponent } from '../demand-details/demand-details.component';
 import {
   FilterInputColumns,
   FilterObservableSelectColumns,
   FilterSelectColumns,
 } from '@shared/filter/filter.types';
 import { KIV_ZONES } from '@shared/constants';
+import { Demand } from '@app/shared/models/demand';
 
 @Component({
-  templateUrl: './requests-list.component.html',
-  styleUrls: ['./requests-list.component.scss'],
+  templateUrl: './demands-list.component.html',
+  styleUrls: ['./demands-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RequestsListComponent implements OnInit {
+export class RequestsListComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   displayedColumns: string[] = [
     'icons',
@@ -47,9 +49,10 @@ export class RequestsListComponent implements OnInit {
     'status',
     'fixer',
   ];
-  dataSource$: Observable<IRequest[]>;
+  dataSource$: Observable<Demand[] | IRequest[]>;
   isLoading$ = this.requestsFacade.isLoading$;
   count$ = this.requestsFacade.requestsCount$;
+  subscriptions$ = new Subscription();
 
   public inputColumns: FilterInputColumns[];
   public selectColumns: FilterSelectColumns<{
@@ -110,6 +113,10 @@ export class RequestsListComponent implements OnInit {
     this.getAllStatusesCount();
   }
 
+  editDemand(id: string) {
+    // TODO on row clicked action to implement???
+  }
+
   getAllStatusesCount() {
     const requests = [{}, ...this.allStatuses].map((status: any) =>
       this.helperGetCountByStatus(status._id)
@@ -138,6 +145,12 @@ export class RequestsListComponent implements OnInit {
     this.fetchRequests();
     this.usersFacade.getUsers();
     this.dataSource$ = this.requestsFacade.requests$;
+    this.subscriptions$.add(
+      this.dataSource$.subscribe(
+        (res) => {}
+        // console.log('OBJECTS=', res)
+      )
+    );
 
     this.inputColumns = [
       { name: 'First Name', value: 'first_name' },
@@ -228,9 +241,9 @@ export class RequestsListComponent implements OnInit {
     }
   }
 
-  openNewRequestDialog() {
-    const dialogRef = this.matDialog.open(RequestDetailsComponent, {
-      data: {},
+  openNewRequestDialog(element: Demand = {} as Demand) {
+    const dialogRef = this.matDialog.open(DemandDetailsComponent, {
+      data: { element },
       maxWidth: '100%',
       maxHeight: '90vh',
       panelClass: 'newrequest-custom-modalbox',
@@ -246,5 +259,9 @@ export class RequestsListComponent implements OnInit {
         this.getAllStatusesCount();
         dialogRef.close();
       });
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions$.unsubscribe();
   }
 }

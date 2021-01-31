@@ -96,6 +96,7 @@
           class="blacklist"
         ></span>
         <mat-chip-list>
+          <!-- //TODO to remove??? -->
           <mat-chip
             *ngIf="element.have_money"
             [matTooltip]="'Has money'"
@@ -153,7 +154,11 @@
 
     <ng-container matColumnDef="fixer">
       <th mat-header-cell *matHeaderCellDef>Fixer</th>
-      <td mat-cell *matCellDef="let element">
+      <td
+        mat-cell
+        *matCellDef="let element"
+        (click)="openNewRequestDialog(element)"
+      >
         <mat-icon>settings</mat-icon>
         <ng-container *ngIf="element.fixer === 'None'; else getFixer">
           {{ element.fixer }}
@@ -166,7 +171,7 @@
       </td>
     </ng-container>
 
-    <ng-container matColumnDef="status">
+    <ng-container matColumnDef="status" (click)="editDemand($event)">
       <th mat-header-cell *matHeaderCellDef>Status</th>
       <td mat-cell *matCellDef="let element" class="{{ element.status }}">
         <mat-chip>{{ getStatusLabel(element.status) }}</mat-chip>
@@ -174,10 +179,10 @@
     </ng-container>
 
     <!-- Symbol Column -->
-    <ng-container matColumnDef="availableHours">
+    <!-- <ng-container matColumnDef="availableHours">
       <th mat-header-cell *matHeaderCellDef>Ore pe zi</th>
       <td mat-cell *matCellDef="let element">{{ element.available_hours }}</td>
-    </ng-container>
+    </ng-container> -->
 
     <tr
       mat-row
@@ -187,7 +192,7 @@
         cancelled: getStatusLabel(row.status) === 'Cancelled',
         blacklist: row.black_list === true
       }"
-      [routerLink]="['/admin/requests/details', row._id]"
+      [routerLink]="['/admin/requests/demand-details', row._id]"
     ></tr>
   </table>
 

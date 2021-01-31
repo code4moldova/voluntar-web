@@ -8,6 +8,7 @@ const icons = [
   'copilot',
   'correct',
   'deafmute',
+  'deaf_mute',
   'delivery',
   'disability',
   'export',

@@ -240,7 +240,7 @@ export class DemandsMapComponent implements OnDestroy, OnInit {
         );
       },
       (err) => console.log('Error getting requests from server! ', err),
-      () => console.log('finish read demands from DB, subscriptions ended')
+      () => {}
     );
   }
 
