@@ -1,8 +1,8 @@
 import { Beneficiary } from '@shared/models/beneficiary';
-import { IVolunteer } from '@shared/models/volunteers';
 import { User } from '@users/shared/user';
 import { DemandType } from '@demands/shared/demand-type';
 import { DemandStatus } from '@demands/shared/demand-status';
+import { Volunteer } from '@volunteers/shared/volunteer';
 
 export interface Demand {
   _id?: string;
@@ -16,5 +16,5 @@ export interface Demand {
   comments: string;
   has_symptoms: boolean;
   created_at: string;
-  volunteer: IVolunteer;
+  volunteer: Volunteer;
 }

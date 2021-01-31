@@ -20,9 +20,9 @@ import config from '@arcgis/core/config.js';
 import { DemandsService } from '../../demands.service';
 import { Demand } from '@demands/shared/demand';
 import { DemandsMapService } from './demands-map.services';
-import { IVolunteer } from '@app/shared/models/volunteers';
 import { Zone } from '@app/shared/constants';
 import { DemandType, demandTypes } from '@demands/shared/demand-type';
+import { Volunteer } from '@volunteers/shared/volunteer';
 
 config.assetsPath = '/assets';
 
@@ -108,7 +108,7 @@ export class DemandsMapComponent implements OnDestroy, OnInit {
   public stepOnSelectionZone = 1;
   buttonSelectorTextOnMap = 'Următor';
   public selectedDemands: Demand[] = [];
-  public selectedVolunteer: IVolunteer = null;
+  public selectedVolunteer: Volunteer = null;
   public selectedCityZone = '';
   public selectedDemandTypeFilter = '';
   public anyDemand = 'any';

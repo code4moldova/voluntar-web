@@ -1,9 +1,9 @@
-import { IVolunteer } from '@shared/models';
+import { Volunteer } from './shared/volunteer';
 
 export interface VolunteersState {
-  data: IVolunteer[];
+  data: Volunteer[];
   count: number;
-  details: IVolunteer;
+  details: Volunteer;
   isLoading: boolean;
   error: string;
 }

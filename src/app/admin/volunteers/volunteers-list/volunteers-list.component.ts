@@ -6,7 +6,7 @@ import { BehaviorSubject, forkJoin, Observable, of } from 'rxjs';
 import { VolunteerPageParams, VolunteersFacade } from '../volunteers.facade';
 import { TagsFacade } from '@shared/tags/tags.facade';
 
-import { IVolunteer } from '@shared/models';
+import { Volunteer } from '../shared/volunteer';
 import { ActionsSubject, Store } from '@ngrx/store';
 import { ofType } from '@ngrx/effects';
 import { map, take, takeUntil } from 'rxjs/operators';
@@ -18,7 +18,7 @@ import { FilterObservableSelectColumns } from '@shared/filter/filter.types';
 import { VolunteersCreateComponent } from '../volunteers-create/volunteers-create.component';
 import { getOffersTagsAction } from '@shared/tags/tags.actions';
 import { AppState } from '@app/app.state';
-import { volunteerRoles } from '@volunteers/shared/volunteer-role';
+import { volunteerRoles } from '../shared/volunteer-role';
 
 @Component({
   templateUrl: './volunteers-list.component.html',
@@ -32,7 +32,7 @@ export class VolunteersListComponent implements OnInit {
     'icons',
     'availableHours',
   ];
-  dataSource$: Observable<IVolunteer[]>;
+  dataSource$: Observable<Volunteer[]>;
   isLoading$ = this.volunteersFacade.isLoading$;
   count$ = this.volunteersFacade.count$;
   allStatusesCounts$: BehaviorSubject<number[]> = new BehaviorSubject([]);
@@ -171,8 +171,8 @@ export class VolunteersListComponent implements OnInit {
   }
 
   // for type hints
-  _(object): IVolunteer {
-    return object as IVolunteer;
+  _(object): Volunteer {
+    return object as Volunteer;
   }
 }
 

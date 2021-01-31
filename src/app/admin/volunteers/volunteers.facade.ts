@@ -12,7 +12,7 @@ import {
   selectIsLoading,
   selectVolunteersCount,
 } from './volunteers.selectors';
-import { IVolunteer } from '@shared/models';
+import { Volunteer } from './shared/volunteer';
 import { VolunteersService } from './volunteers.service';
 
 export type VolunteerPageParams = { pageSize: number; pageIndex: number };
@@ -28,10 +28,10 @@ export class VolunteersFacade {
 
   constructor(
     private store: Store<AppState>,
-    private volunteerService: VolunteersService
+    private volunteerService: VolunteersService,
   ) {}
 
-  saveVolunteer(volunteer: IVolunteer) {
+  saveVolunteer(volunteer: Volunteer) {
     if (volunteer._id) {
       this.store.dispatch(updateVolunteerAction({ payload: volunteer }));
     } else {

@@ -1,7 +1,7 @@
 import { Zone } from '@shared/constants';
-import { VolunteerRole } from '@volunteers/shared/volunteer-role';
+import { VolunteerRole } from './volunteer-role';
 
-export interface IVolunteer {
+export interface Volunteer {
   _id?: string;
   activity_types: string[];
   address: string;

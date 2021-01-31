@@ -9,7 +9,7 @@ import { weekDays } from '@shared/week-day';
 import { zones } from '@shared/constants';
 import { VolunteersFacade } from '../volunteers.facade';
 import { generateHoursRange } from '@shared/generate-hours-range';
-import { volunteerRoles } from '@volunteers/shared/volunteer-role';
+import { volunteerRoles } from '../shared/volunteer-role';
 
 @Component({
   templateUrl: './volunteers-create.component.html',
@@ -58,7 +58,7 @@ export class VolunteersCreateComponent {
 
   constructor(
     private volunteersService: VolunteersFacade,
-    private fb: FormBuilder
+    private fb: FormBuilder,
   ) {}
 
   onSubmit(form: FormGroup) {

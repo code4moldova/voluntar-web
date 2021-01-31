@@ -6,11 +6,11 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { IVolunteer } from '@app/shared/models/volunteers';
 import { Subscription } from 'rxjs';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { VolunteersService } from '@app/admin/volunteers/volunteers.service';
 import { WeekDay, weekDays } from '@app/shared/week-day';
+import { Volunteer } from '@volunteers/shared/volunteer';
 
 @Component({
   selector: 'app-volunteer-selection',
@@ -18,16 +18,16 @@ import { WeekDay, weekDays } from '@app/shared/week-day';
   styleUrls: ['./volunteer-selection.component.scss'],
 })
 export class VolunteerSelectionOnMapComponent implements OnInit, OnDestroy {
-  @Output() selectedVolunteer = new EventEmitter<IVolunteer>();
+  @Output() selectedVolunteer = new EventEmitter<Volunteer>();
   dateDemandRequested: Date = null;
-  public volunteers: IVolunteer[] = [];
+  public volunteers: Volunteer[] = [];
   volunteers$: Subscription;
   public filterVolunteerByNameOrFamily = '';
-  public selectedVol: IVolunteer = null;
+  public selectedVol: Volunteer = null;
 
   constructor(
     private cdr: ChangeDetectorRef,
-    private volunteerService: VolunteersService
+    private volunteerService: VolunteersService,
   ) {}
 
   volunteerClicked(id: string) {

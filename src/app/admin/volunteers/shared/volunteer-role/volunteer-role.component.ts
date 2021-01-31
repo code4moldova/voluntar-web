@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { VolunteerRole } from '@volunteers/shared/volunteer-role';
+import { VolunteerRole } from '../volunteer-role';
 
 @Component({
   selector: 'app-volunteer-role',

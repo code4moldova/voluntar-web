@@ -6,9 +6,9 @@ import { ActivatedRoute } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
 import { weekDays } from '@shared/week-day';
 import { zones } from '@shared/constants';
-import { IVolunteer } from '@shared/models';
-import { VolunteersService } from '@volunteers/volunteers.service';
-import { volunteerRoles } from '@volunteers/shared/volunteer-role';
+import { Volunteer } from '../shared/volunteer';
+import { VolunteersService } from '../volunteers.service';
+import { volunteerRoles } from '../shared/volunteer-role';
 
 @Component({
   templateUrl: './volunteers-edit.component.html',
@@ -20,7 +20,7 @@ export class VolunteersEditComponent implements OnDestroy {
   hours = generateHoursRange(8, 20);
   zones = zones;
   roles = volunteerRoles;
-  volunteer: IVolunteer;
+  volunteer: Volunteer;
 
   formGroup = this.fb.group({
     is_active: this.fb.control(false),
@@ -43,7 +43,7 @@ export class VolunteersEditComponent implements OnDestroy {
     facebook_profile: this.fb.control('', [
       Validators.required,
       Validators.pattern(
-        /(?:https?:\/\/)?(?:www\.)?facebook\.com\/.(?:(?:\w)*#!\/)?(?:pages\/)?(?:[\w\-]*\/)*([\w\-\.]*)/
+        /(?:https?:\/\/)?(?:www\.)?facebook\.com\/.(?:(?:\w)*#!\/)?(?:pages\/)?(?:[\w\-]*\/)*([\w\-\.]*)/,
       ),
     ]),
     role: this.fb.control(null, Validators.required),
@@ -55,7 +55,7 @@ export class VolunteersEditComponent implements OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
-    private volunteerService: VolunteersService
+    private volunteerService: VolunteersService,
   ) {
     route.data.pipe(takeUntil(this._destroy)).subscribe((data) => {
       this.volunteer = data.volunteer;
@@ -73,7 +73,7 @@ export class VolunteersEditComponent implements OnDestroy {
 
   getHours() {
     return this.hours.filter(
-      (h) => h.value > this.formGroup.get('availability_hours_start').value
+      (h) => h.value > this.formGroup.get('availability_hours_start').value,
     );
   }
 

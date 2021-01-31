@@ -3,16 +3,16 @@ import { VolunteersFacade } from '../volunteers.facade';
 import { filter, map, takeUntil } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
-import { IVolunteer } from '@shared/models';
+import { Volunteer } from '../shared/volunteer';
 import { TranslateService } from '@ngx-translate/core';
-import { volunteerRoles } from '@volunteers/shared/volunteer-role';
+import { volunteerRoles } from '../shared/volunteer-role';
 
 @Component({
   templateUrl: './volunteers-details.component.html',
 })
 export class VolunteersDetailsComponent implements OnInit, OnDestroy {
   volunteerRoles = volunteerRoles;
-  volunteer$ = this.route.data.pipe<IVolunteer>(map((data) => data.volunteer));
+  volunteer$ = this.route.data.pipe<Volunteer>(map((data) => data.volunteer));
 
   _destroy = new Subject();
   isLoading$ = this.volunteerFacade.isLoading$;
@@ -20,14 +20,14 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private volunteerFacade: VolunteersFacade,
-    private translateService: TranslateService
+    private translateService: TranslateService,
   ) {}
 
   ngOnInit() {
     this.volunteer$
       .pipe(
         filter((volunteer) => !!volunteer),
-        takeUntil(this._destroy)
+        takeUntil(this._destroy),
       )
       .subscribe();
   }
@@ -44,7 +44,7 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
       : this.translateService.instant('not_set');
   }
 
-  getAvailabilityDays(volunteer: IVolunteer): string {
+  getAvailabilityDays(volunteer: Volunteer): string {
     return volunteer.availability_days.length === 0
       ? this.translateService.instant('not_set')
       : volunteer.availability_days
