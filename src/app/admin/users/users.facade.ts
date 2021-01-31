@@ -1,16 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Store, select } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { AppState } from '@app/app.state';
+import { selectIsLoading, selectUsersList } from './users.selectors';
 import {
-  selectIsLoading,
-  selectUserDetails,
-  selectUsersList,
-} from './users.selectors';
-import {
+  createUserAction,
   getUserDetailsAction,
   getUsersAction,
   updateUserAction,
-  createUserAction,
 } from './users.actions';
 import { User } from './shared/user';
 import { UsersListRequest } from '@users/shared/users-list-request';
@@ -20,7 +16,7 @@ import { UsersListRequest } from '@users/shared/users-list-request';
 })
 export class UsersFacade {
   isLoading$ = this.store.pipe(select(selectIsLoading));
-  userDetails$ = this.store.pipe(select(selectUserDetails));
+
   users$ = this.store.pipe(select(selectUsersList));
   constructor(private store: Store<AppState>) {}
 

@@ -1,31 +1,31 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Observable, of } from 'rxjs';
-import { catchError, switchMap, tap, flatMap, map } from 'rxjs/operators';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import { Action } from '@ngrx/store';
 import { Router } from '@angular/router';
 import {
-  getBeneficiaryAction,
-  getBeneficiarySuccessAction,
-  getBeneficiaryFailureAction,
-  saveBeneficiaryAction,
-  saveBeneficiarySuccessAction,
-  saveBeneficiaryFailureAction,
-  updateBeneficiaryAction,
-  updateBeneficiarySuccessAction,
-  updateBeneficiaryFailureAction,
   getBeneficiariesAction,
-  getBeneficiariesSuccessAction,
-  getBeneficiariesFailureAction,
   getBeneficiariesByFilterAction,
-  getBeneficiariesByFilterSuccessAction,
   getBeneficiariesByFilterFailureAction,
-  getBeneficiaryRequestsAction,
-  getBeneficiaryRequestsFailureAction,
-  getBeneficiaryRequestsSuccessAction,
+  getBeneficiariesByFilterSuccessAction,
+  getBeneficiariesFailureAction,
+  getBeneficiariesSuccessAction,
+  getBeneficiaryAction,
   getBeneficiaryBlockListAction,
   getBeneficiaryBlockListFailureAction,
   getBeneficiaryBlockListSuccessAction,
+  getBeneficiaryFailureAction,
+  getBeneficiaryRequestsAction,
+  getBeneficiaryRequestsFailureAction,
+  getBeneficiaryRequestsSuccessAction,
+  getBeneficiarySuccessAction,
+  saveBeneficiaryAction,
+  saveBeneficiaryFailureAction,
+  saveBeneficiarySuccessAction,
+  updateBeneficiaryAction,
+  updateBeneficiaryFailureAction,
+  updateBeneficiarySuccessAction,
 } from './beneficiaries.actions';
 
 import { BeneficiariesService } from './beneficiaries.service';

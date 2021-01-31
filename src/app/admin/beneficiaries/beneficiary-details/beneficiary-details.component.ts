@@ -16,8 +16,6 @@ export class BeneficiaryDetailsComponent implements OnInit, OnDestroy {
   componentDestroyed$ = new Subject();
   user: Beneficiary;
 
-  error$ = this.serviceFacade.error$;
-  requestsError$ = this.serviceFacade.requestsError$;
   requestsData$ = this.serviceFacade.requestsData$;
   requestsCount$ = this.serviceFacade.requestsCount$;
   pageIndex = 1;

@@ -3,7 +3,6 @@ import { Store, select } from '@ngrx/store';
 import { AppState } from '@app/app.state';
 import {
   getRequestsAction,
-  getRequestAction,
   saveRequestAction,
   updateRequestAction,
   getBeneficiariesByFilterAction,
@@ -12,7 +11,6 @@ import {
   selectIsLoading,
   selectRequestsData,
   selectRequestsError,
-  selectRequestsDetails,
   selectRequestsCount,
 } from './demands.selectors';
 import { IRequest, IRequestDetails } from '@shared/models';
@@ -24,7 +22,6 @@ import {
   pairwise,
   filter,
   tap,
-  withLatestFrom,
 } from 'rxjs/operators';
 import { BehaviorSubject, interval, Subject, combineLatest } from 'rxjs';
 
@@ -37,7 +34,7 @@ export class DemandsFacade {
   requests$ = this.store.pipe(select(selectRequestsData));
   isLoading$ = this.store.pipe(select(selectIsLoading));
   error$ = this.store.pipe(select(selectRequestsError));
-  requestDetails$ = this.store.pipe(select(selectRequestsDetails));
+
   requestsCount$ = this.store.pipe(select(selectRequestsCount));
 
   private hasNewRequests$ = new BehaviorSubject(false);
@@ -52,13 +49,13 @@ export class DemandsFacade {
     const stopPolling$ = new Subject();
     combineLatest([this.newRequests$, this.requestsCount$])
       .pipe(
-        tap(([value, countFromState]) => {
+        tap(([value]) => {
           if (!value) {
             stopPolling$.next(true);
           }
         }),
-        filter(([value, countFromState]) => value),
-        switchMap(([value, countFromState]) => {
+        filter(([value]) => value),
+        switchMap(([, countFromState]) => {
           return interval(this.DELAY_TIME).pipe(
             takeUntil(stopPolling$),
             switchMap(() =>
@@ -71,12 +68,12 @@ export class DemandsFacade {
           );
         })
       )
-      .subscribe(([count, countFromState, prev]) => {
+      .subscribe(([count, countFromState]) => {
         if (countFromState === null) {
           return;
         }
         if (countFromState < count) {
-          this.audio.play();
+          void this.audio.play();
         }
         this.hasNewRequests$.next(countFromState < count);
       });
@@ -105,22 +102,6 @@ export class DemandsFacade {
         }
       : {};
     return this.requestService.getRequests(page, filters);
-  }
-
-  getRequestByPhone(phone: string, key: string = 'phone') {
-    return this.requestService.getRequests(
-      {
-        pageIndex: 0,
-        pageSize: 20,
-      },
-      {
-        [key]: phone,
-      }
-    );
-  }
-
-  getRequestById(id: string) {
-    this.store.dispatch(getRequestAction({ id }));
   }
 
   saveRequest(request: IRequest | IRequestDetails) {

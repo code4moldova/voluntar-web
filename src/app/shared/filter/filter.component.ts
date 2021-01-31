@@ -8,13 +8,8 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
 
-import { Subscription, EMPTY } from 'rxjs';
-import {
-  debounceTime,
-  distinctUntilChanged,
-  catchError,
-  take,
-} from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { debounceTime, distinctUntilChanged, take } from 'rxjs/operators';
 
 import {
   FilterInputColumns,
@@ -31,7 +26,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class FilterComponent implements OnInit, OnDestroy {
   @Input() public inputColumns: FilterInputColumns[];
   @Input() public selectColumns: FilterSelectColumns<any>[];
-  @Input() public observableSelectColumns: FilterObservableSelectColumns<any>[];
+  @Input() public observableSelectColumns: FilterObservableSelectColumns[];
   @Output() public queryResult = new EventEmitter<{ [keys: string]: string }>();
 
   public form = this.fb.group({});
@@ -79,7 +74,7 @@ export class FilterComponent implements OnInit, OnDestroy {
     Object.keys(filters).forEach((key) =>
       filters[key] === '' || filters[key] === null ? delete filters[key] : ''
     );
-    this.router.navigate([], {
+    void this.router.navigate([], {
       relativeTo: this.route,
       queryParams: filters,
     });

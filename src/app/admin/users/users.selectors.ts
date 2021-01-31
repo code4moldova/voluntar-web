@@ -12,7 +12,7 @@ export const selectIsLoading = createSelector(
   }
 );
 
-export const selectUserDetails = createSelector(
+createSelector(
   selectUsers,
   (state: UsersState): User => {
     return state.userDetails;

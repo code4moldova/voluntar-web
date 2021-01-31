@@ -20,7 +20,7 @@
             formControlName="phone"
             class="phone_number"
             [autofocus]="true"
-            (change)="checkForExistentBeneficiary($event.target.value)"
+            (change)="checkForExistentBeneficiary($event)"
           />
           <mat-error
             *ngIf="form.get('beneficiary.phone').invalid && form.touched"
@@ -156,21 +156,21 @@
       <div class="field" fxFlex fxLayout="column">
         <div class="title">Scară</div>
         <div class="value">
-          <input matInput formControlName="entrance" style="width: 69.53px" />
+          <input matInput formControlName="entrance" style="width: 70px" />
         </div>
       </div>
 
       <div class="field" fxFlex fxLayout="column">
         <div class="title">Etaj</div>
         <div class="value">
-          <input matInput formControlName="floor" style="width: 69.53px" />
+          <input matInput formControlName="floor" style="width: 70px" />
         </div>
       </div>
 
       <div class="field" fxFlex fxLayout="column">
         <div class="title">Apartament</div>
         <div class="value">
-          <input matInput formControlName="apartment" style="width: 69.53px" />
+          <input matInput formControlName="apartment" style="width: 70px" />
         </div>
       </div>
     </div>

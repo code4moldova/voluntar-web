@@ -7,7 +7,7 @@ $modalWindowHeight: 1053px;
   .mat-dialog-container {
     width: $modalWindowWidth;
     height: $modalWindowHeight;
-    padding: 0px !important;
+    padding: 0 !important;
     background: #ffffff;
   }
 }
@@ -15,7 +15,7 @@ $modalWindowHeight: 1053px;
 .modal_header_line {
   height: 60px;
   width: 100%;
-  border-radius: 0px;
+  border-radius: 0;
   border-bottom: 1px solid #ccc;
 
   & a {
@@ -31,10 +31,7 @@ $modalWindowHeight: 1053px;
 
 .content {
   border-bottom: 1px solid #dedede;
-  padding-left: 41px;
-  padding-right: 40px;
-  padding-top: 23px;
-  padding-bottom: 0px;
+  padding: 23px 40px 0px 41px;
 
   .beneficiary {
     margin-bottom: 23px;
@@ -115,7 +112,7 @@ $modalWindowHeight: 1053px;
   }
 
   .fields_row#telephone {
-    margin-bottom: 0px;
+    margin-bottom: 0;
   }
 
   .title {

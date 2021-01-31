@@ -1,18 +1,18 @@
-import { createReducer, on, Action } from '@ngrx/store';
+import { Action, createReducer, on } from '@ngrx/store';
 import { UsersState } from './shared/users.state';
 import {
-  getUsersAction,
-  getUsersSuccessAction,
-  getUsersFailureAction,
-  getUserDetailsAction,
-  getUserDetailsSuccessAction,
-  getUserDetailsFailureAction,
   createUserAction,
-  createUserSuccessAction,
   createUserFailureAction,
+  createUserSuccessAction,
+  getUserDetailsAction,
+  getUserDetailsFailureAction,
+  getUserDetailsSuccessAction,
+  getUsersAction,
+  getUsersFailureAction,
+  getUsersSuccessAction,
   updateUserAction,
-  updateUserSuccessAction,
   updateUserFailureAction,
+  updateUserSuccessAction,
 } from './users.actions';
 
 export const usersReducer = createReducer<UsersState, Action>(

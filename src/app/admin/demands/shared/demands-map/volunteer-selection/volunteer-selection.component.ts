@@ -55,8 +55,8 @@ export class VolunteerSelectionOnMapComponent implements OnInit, OnDestroy {
     return days.includes(selectedDayOfTheWeek);
   }
 
-  onDateChange(event: MatDatepickerInputEvent<Date>) {
-    this.dateDemandRequested = event.value;
+  onDateChange(event: MatDatepickerInputEvent<unknown>) {
+    this.dateDemandRequested = event.value as Date;
   }
 
   ngOnDestroy(): void {

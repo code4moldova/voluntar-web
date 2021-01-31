@@ -11,7 +11,6 @@ export enum ActionTypes {
   GET_REQUEST_FAILURE = '[Request] Get Request Failure',
 
   GET_Beneficiares_BY_FILTER = '[Request] Get Request By Filter',
-  GET_Beneficiares_BY_FILTER_SUCCES = '[Request] Get Request By Filter Succes',
   GET_Beneficiares_BY_FILTER_FAILURE = '[Request] Get Request By Filter Failure',
 
   SAVE_REQUEST = '[Request] Save Request',

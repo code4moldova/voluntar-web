@@ -1,22 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Observable, of } from 'rxjs';
-import { catchError, switchMap, tap, flatMap, map } from 'rxjs/operators';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import { Action } from '@ngrx/store';
 import { Router } from '@angular/router';
 import {
+  createUserAction,
+  createUserFailureAction,
+  createUserSuccessAction,
+  getUserDetailsAction,
+  getUserDetailsFailureAction,
+  getUserDetailsSuccessAction,
   getUsersAction,
   getUsersFailureAction,
   getUsersSuccessAction,
-  getUserDetailsAction,
-  getUserDetailsSuccessAction,
-  getUserDetailsFailureAction,
-  createUserAction,
-  createUserSuccessAction,
-  createUserFailureAction,
   updateUserAction,
-  updateUserSuccessAction,
   updateUserFailureAction,
+  updateUserSuccessAction,
 } from './users.actions';
 import { UsersService } from './users.service';
 

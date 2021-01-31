@@ -46,7 +46,7 @@ export class AuthEffects {
         ofType(logoutAction),
         tap(() => {
           this.tokenStorage.clear();
-          this.router.navigate(['/login']);
+          void this.router.navigate(['/login']);
         })
       );
     },

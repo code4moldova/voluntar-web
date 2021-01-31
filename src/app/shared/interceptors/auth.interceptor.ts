@@ -32,7 +32,7 @@ export class AuthInterceptor implements HttpInterceptor {
           duration: 3000,
           panelClass: 'danger',
         });
-        this.router.navigate(['/login']);
+        void this.router.navigate(['/login']);
         return EMPTY;
       }
       request = request.clone({

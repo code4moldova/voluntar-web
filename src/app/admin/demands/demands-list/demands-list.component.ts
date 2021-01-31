@@ -83,7 +83,7 @@ export class RequestsListComponent implements OnInit {
         this.selectedTab = status;
 
         return (
-          this.tagsFacade.getStatusOptions().findIndex((stats) => {
+          this.allStatuses.findIndex((stats) => {
             return stats._id === status;
           }) + 1
         );
@@ -92,7 +92,24 @@ export class RequestsListComponent implements OnInit {
     })
   );
 
-  allStatuses = this.tagsFacade.getStatusOptions();
+  allStatuses = [
+    {
+      label: 'New',
+      _id: 'new',
+    },
+    {
+      label: 'In progress',
+      _id: 'onprogress',
+    },
+    {
+      label: 'Cancelled',
+      _id: 'cancelled',
+    },
+    {
+      label: 'Done',
+      _id: 'done',
+    },
+  ];
 
   allStatusesCounts$ = new BehaviorSubject<number[]>([]);
 
@@ -100,7 +117,6 @@ export class RequestsListComponent implements OnInit {
     private demandsFacade: DemandsFacade,
     private usersFacade: UsersFacade,
     private geolocationService: GeolocationService,
-    private tagsFacade: TagsFacade,
     private renderer: Renderer2,
     private router: Router,
     private activeRoute: ActivatedRoute,

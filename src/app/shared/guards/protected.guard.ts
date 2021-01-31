@@ -1,11 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  CanActivate,
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot,
-  UrlTree,
-  Router,
-} from '@angular/router';
+import { CanActivate, UrlTree, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { TokenStorage } from '@shared/token-storage.service';
 import { map } from 'rxjs/operators';
@@ -15,20 +9,13 @@ import { map } from 'rxjs/operators';
 })
 export class ProtectedGuard implements CanActivate {
   constructor(private tokenStorage: TokenStorage, private router: Router) {}
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ):
-    | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree>
-    | boolean
-    | UrlTree {
+  canActivate(): Observable<boolean | UrlTree> {
     return this.tokenStorage.getAccessToken().pipe(
       map((token) => {
         if (Boolean(token)) {
           return true;
         }
-        this.router.navigate(['/login']);
+        void this.router.navigate(['/login']);
         return false;
       })
     );

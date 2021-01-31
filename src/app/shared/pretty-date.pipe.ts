@@ -18,7 +18,7 @@ const RO_MONTHS = [
   name: 'prettyDate',
 })
 export class PrettyDatePipe implements PipeTransform {
-  transform(value: string | Date, ...args: unknown[]): string {
+  transform(value: string | Date): string {
     if (!value) {
       return '';
     }

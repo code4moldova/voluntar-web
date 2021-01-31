@@ -41,12 +41,6 @@ export class VolunteersService {
     return this.http.get<IVolunteer>(`${environment.url}/volunteer?id=${id}`);
   }
 
-  getVolunteersNearbyRequest(requestId: string, volunteers = 10) {
-    return this.http.get<{ list: IVolunteer[] }>(
-      `${environment.url}/volunteer/closest/${requestId}/${volunteers}`
-    );
-  }
-
   getVolunteersByFilter(
     httpParams: { [key: string]: string } = {}
   ): Observable<{ count: number; list: IVolunteer[] }> {

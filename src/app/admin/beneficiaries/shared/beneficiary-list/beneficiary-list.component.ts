@@ -36,6 +36,10 @@ export class BeneficiaryListComponent {
     'links',
   ];
 
+  cast(beneficiary: unknown): Beneficiary {
+    return beneficiary as Beneficiary;
+  }
+
   onPageChange(event: PageEvent) {
     this.pageChangeEvent.emit(event);
   }

@@ -10,8 +10,6 @@ import { getVolunteersAction, getVolunteerAction } from './volunteers.actions';
 import {
   selectVolunteersData,
   selectIsLoading,
-  selectVolunteersDetails,
-  selectError,
   selectVolunteersCount,
 } from './volunteers.selectors';
 import { IVolunteer } from '@shared/models';
@@ -24,10 +22,10 @@ export type VolunteerPageParams = { pageSize: number; pageIndex: number };
 })
 export class VolunteersFacade {
   volunteers$ = this.store.pipe(select(selectVolunteersData));
-  volunteerDetails$ = this.store.pipe(select(selectVolunteersDetails));
+
   count$ = this.store.pipe(select(selectVolunteersCount));
   isLoading$ = this.store.pipe(select(selectIsLoading));
-  error$ = this.store.pipe(select(selectError));
+
   constructor(
     private store: Store<AppState>,
     private volunteerService: VolunteersService

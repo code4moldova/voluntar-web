@@ -21,7 +21,6 @@ import {
   selectRequestsError,
   selectRequestsData,
   selectRequestsCount,
-  selectBlockListError,
   selectBlockListData,
   selectBlockListCount,
   selectBlockListIsLoading,
@@ -43,7 +42,7 @@ export class BeneficiariesFacade {
   requestsData$ = this.store.pipe(select(selectRequestsData));
   requestsCount$ = this.store.pipe(select(selectRequestsCount));
   // BlockList
-  blockListError$ = this.store.pipe(select(selectBlockListError));
+
   blockListData$ = this.store.pipe(select(selectBlockListData));
   blockListCount$ = this.store.pipe(select(selectBlockListCount));
   blockListIsLoading$ = this.store.pipe(select(selectBlockListIsLoading));

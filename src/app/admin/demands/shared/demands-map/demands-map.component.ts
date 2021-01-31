@@ -8,7 +8,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { from, Subscription } from 'rxjs';
+import { from } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import Map from '@arcgis/core/Map';
 import Graphic from '@arcgis/core/Graphic';

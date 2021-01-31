@@ -37,7 +37,7 @@ const volunteerReducer = createReducer(
     error,
   })),
 
-  on(saveVolunteerAction, (state, volunteer) => ({
+  on(saveVolunteerAction, (state) => ({
     ...state,
     error: null,
     isLoading: true,

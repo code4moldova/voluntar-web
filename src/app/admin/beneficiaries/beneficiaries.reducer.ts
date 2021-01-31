@@ -44,7 +44,7 @@ const beneficiaryReducer = createReducer(
     error,
   })),
 
-  on(saveBeneficiaryAction, (state, Beneficiary) => ({
+  on(saveBeneficiaryAction, (state) => ({
     ...state,
     error: null,
     isLoading: true,

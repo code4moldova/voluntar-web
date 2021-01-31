@@ -27,12 +27,3 @@ interface SpatialReference {
   wkid: number;
   latestWkid: number;
 }
-export interface ZoneI {
-  _id: string;
-  created_by: string;
-  en: string;
-  is_active: boolean;
-  ro: string;
-  ru: string;
-  select: string;
-}

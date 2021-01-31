@@ -105,6 +105,8 @@ export class BeneficiaryEditComponent implements OnInit, OnDestroy {
   }
 
   goBack() {
-    this.router.navigateByUrl(`/admin/beneficiaries/details/${this.recordId}`);
+    void this.router.navigateByUrl(
+      `/admin/beneficiaries/details/${this.recordId}`
+    );
   }
 }

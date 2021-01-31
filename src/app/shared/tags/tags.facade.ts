@@ -5,40 +5,15 @@ import {
   selectActivityTypesTags,
   selectAvailabilitiesTags,
   selectOffersTags,
-  selectTagsError,
-  selectTagsIsLoading,
 } from './tags.selectors';
 import { map } from 'rxjs/operators';
-import { TagsService } from './tags.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TagsFacade {
-  private statusOptions = [
-    {
-      label: 'New',
-      _id: 'new',
-    },
-    {
-      label: 'In progress',
-      _id: 'onprogress',
-    },
-    {
-      label: 'Cancelled',
-      _id: 'cancelled',
-    },
-    {
-      label: 'Done',
-      _id: 'done',
-    },
-  ];
-
-  isLoading$ = this.store.pipe(select(selectTagsIsLoading));
-  error$ = this.store.pipe(select(selectTagsError));
-
   activityTypesTags$ = this.store.pipe(select(selectActivityTypesTags));
-  availabilitiesTags$ = this.store.pipe(select(selectAvailabilitiesTags));
+
   offersTags$ = this.store.pipe(select(selectOffersTags));
 
   availabilitiesById$ = (id: any) =>
@@ -46,12 +21,5 @@ export class TagsFacade {
       .pipe(select(selectAvailabilitiesTags))
       .pipe(map((tags) => tags.find((t) => t._id === id)));
 
-  constructor(
-    private store: Store<TagsState>,
-    private tagsService: TagsService
-  ) {}
-
-  getStatusOptions() {
-    return this.statusOptions;
-  }
+  constructor(private store: Store<TagsState>) {}
 }

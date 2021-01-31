@@ -8,7 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { DemandsService } from '@demands/demands.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { IRequestDetails as Demand } from '@shared/models';
+import { Demand } from '@shared/models/demand';
 
 @Component({
   templateUrl: './users-details.component.html',
@@ -47,6 +47,10 @@ export class UsersDetailsComponent implements OnDestroy, OnInit {
     this._destroy.complete();
   }
 
+  cast(demand: unknown): Demand {
+    return demand as Demand;
+  }
+
   getDemands = (
     page: PageEvent = {
       pageSize: this.perPage,
@@ -66,7 +70,7 @@ export class UsersDetailsComponent implements OnDestroy, OnInit {
       .pipe(takeUntil(this._destroy))
       .subscribe((demands) => {
         this.page.length = demands.count;
-        this.dataSource.data = demands.list;
+        this.dataSource.data = (demands.list as unknown) as Demand[];
       });
   };
 

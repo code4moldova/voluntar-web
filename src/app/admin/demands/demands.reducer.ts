@@ -37,7 +37,7 @@ export const demandsReducer = createReducer<DemandsState>(
     error,
   })),
 
-  on(saveRequestAction, (state, volunteer) => ({
+  on(saveRequestAction, (state) => ({
     ...state,
     error: null,
     isLoading: true,

@@ -75,6 +75,10 @@ export class UsersListComponent implements OnInit, OnDestroy {
     this._onDestroy.complete();
   }
 
+  cast(user: unknown): User {
+    return user as User;
+  }
+
   onPageChange(page: PageEvent) {
     this.page = page;
     this.getUsers();

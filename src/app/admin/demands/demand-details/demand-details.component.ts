@@ -35,7 +35,7 @@ export interface ReceivedData {
 export class DemandDetailsComponent implements OnInit {
   form: FormGroup;
   zones = zones;
-  needs = demandTypes;
+  needs: string[] = demandTypes;
   specialConditions = specialConditions;
   existentBeneficiary: Beneficiary = {} as Beneficiary;
   validAddress = true;
@@ -142,7 +142,9 @@ export class DemandDetailsComponent implements OnInit {
       type: new FormControl(el ? el.type : '', [Validators.required]),
       comments: new FormControl(el ? el.comments : null),
       secret: new FormControl(this.getSecret(), [
-        (Validators.required, Validators.minLength(5), Validators.maxLength(5)),
+        Validators.required,
+        Validators.minLength(5),
+        Validators.maxLength(5),
       ]),
       urgent: new FormControl(el ? el.urgent : false),
     });
@@ -153,8 +155,6 @@ export class DemandDetailsComponent implements OnInit {
   closeDialog() {
     this.dialogRef.close();
   }
-
-  enumUnsorted() {}
 
   onEditDemand(edit?: boolean) {
     const updateDemand: DemandBackEnd = {
@@ -174,7 +174,8 @@ export class DemandDetailsComponent implements OnInit {
     );
   }
 
-  checkForExistentBeneficiary(phone: any) {
+  checkForExistentBeneficiary($event: Event) {
+    const phone = ($event.target as HTMLInputElement).value;
     if (phone.length === 8) {
       this.beneficiariesService.getBeneficiariesByFilter({ phone }).subscribe(
         (success) => {

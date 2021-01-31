@@ -45,9 +45,7 @@ export class DemandAddressFieldComponent implements OnInit {
       .pipe(first())
       .subscribe((coors) => {
         if (coors) {
-          if (coors.address.length > 1 || coors.address.length === 0)
-            coors.valid = true;
-          else coors.valid = false;
+          coors.valid = coors.address.length >= 0;
           this.gotCoordinates.emit(coors);
           this.selectedAddress = coors.address || '';
         }

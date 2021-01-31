@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {
   CanActivate,
   ActivatedRouteSnapshot,
-  RouterStateSnapshot,
   UrlTree,
   Router,
 } from '@angular/router';
@@ -11,7 +10,6 @@ import { AuthFacade } from '@auth/auth.facade';
 import { map } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserRole } from '@users/shared/user-role';
-// import { Route } from '@angular/compiler/src/core';
 
 @Injectable({
   providedIn: 'root',
@@ -22,10 +20,7 @@ export class RolesGuard implements CanActivate {
     private snackBar: MatSnackBar,
     private route: Router
   ) {}
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<boolean | UrlTree> {
+  canActivate(next: ActivatedRouteSnapshot): Observable<boolean | UrlTree> {
     return this.userFacade.userRoles$.pipe(
       map((roles: UserRole[]) => {
         const routeRoles: UserRole[] = next.data.roles;
@@ -36,7 +31,7 @@ export class RolesGuard implements CanActivate {
           this.snackBar.open('Not allowed', '', {
             duration: 2000,
           });
-          this.route.navigate(['/demands']);
+          void this.route.navigate(['/demands']);
           return false;
         }
         return rolesIntersection;

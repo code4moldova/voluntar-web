@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
   });
   isLoading$ = this.authFacade.isLoading$;
   isTestEnvironment = !environment.production;
+
   constructor(
     private fb: FormBuilder,
     private authFacade: AuthFacade,

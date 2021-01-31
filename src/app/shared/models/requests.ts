@@ -6,13 +6,6 @@ export type RequestStatus =
   | 'solved'
   | 'archived';
 export type RequestType = 'warm_lunch' | 'grocery' | 'medicine';
-export enum RequestTypeUpdated {
-  warm_lunch = 'Prânz Cald',
-  grocery = 'Produse Alimentare',
-  medicine = 'Medicamente',
-  invoices = 'Achitare Facturi',
-  transport = 'Transport Persoana',
-}
 
 export interface IRequest {
   _id?: string;

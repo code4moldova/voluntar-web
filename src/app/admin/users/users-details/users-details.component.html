@@ -180,44 +180,44 @@
                     <small
                       class="text-truncate text-secondary mx-3"
                       style="width: 60px"
-                      title="{{ element._id }}"
+                      title="{{ cast(element)._id }}"
                     >
-                      {{ element._id }}
+                      {{ cast(element)._id }}
                     </small>
                     <span class="mx-3 text-truncate" style="width: 125px">
-                      {{ element.beneficiary.first_name }}
-                      {{ element.beneficiary.last_name }}
+                      {{ cast(element).beneficiary.first_name }}
+                      {{ cast(element).beneficiary.last_name }}
                     </span>
                     <span class="mx-3">
-                      +373{{ element.beneficiary.phone }}
+                      +373{{ cast(element).beneficiary.phone }}
                     </span>
                     <span class="mx-3" style="width: 100px">
-                      {{ element.beneficiary.zone | translate }}
+                      {{ cast(element).beneficiary.zone | translate }}
                     </span>
                     <span class="mx-3">
-                      {{ element.created_at | prettyDate }}
+                      {{ cast(element).created_at | prettyDate }}
                     </span>
                     <span class="mx-3 text-truncate" style="width: 125px">
-                      {{ element.volunteer.first_name }}
-                      {{ element.volunteer.last_name }}
+                      {{ cast(element).volunteer.first_name }}
+                      {{ cast(element).volunteer.last_name }}
                     </span>
                   </div>
                 </mat-panel-title>
               </mat-expansion-panel-header>
-              {{ "age" | translate }}: {{ element.beneficiary.age }}
+              {{ "age" | translate }}: {{ cast(element).beneficiary.age }}
               <mat-divider class="my-2"></mat-divider>
-              {{ "comment" | translate }}: {{ element.comments }}
+              {{ "comment" | translate }}: {{ cast(element).comments }}
               <mat-divider class="my-2"></mat-divider>
-              {{ "type" | translate }}: {{ element.type | translate }}
+              {{ "type" | translate }}: {{ cast(element).type | translate }}
 
               <mat-divider class="my-2"></mat-divider>
-              {{ "status" | translate }}: {{ element.status | translate }}
+              {{ "status" | translate }}: {{ cast(element).status | translate }}
               <mat-divider class="my-2"></mat-divider>
               {{ "has_symptoms" | translate }}:
-              {{ element.has_symptoms ? "yes" : ("no" | translate) }}
+              {{ cast(element).has_symptoms ? "yes" : ("no" | translate) }}
               <mat-divider class="my-2"></mat-divider>
               {{ "urgent" | translate }}:
-              {{ element.urgent ? "yes" : ("no" | translate) }}
+              {{ cast(element).urgent ? "yes" : ("no" | translate) }}
             </mat-expansion-panel>
           </td>
         </ng-container>

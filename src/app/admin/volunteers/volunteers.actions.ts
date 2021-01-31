@@ -1,6 +1,5 @@
 import { createAction, props } from '@ngrx/store';
 import { IVolunteer } from '@shared/models';
-import { PageEvent } from '@angular/material/paginator';
 
 export enum ActionTypes {
   GET_VOLUNTEERS = '[Volunteers] Get Volunteers',

@@ -4,7 +4,7 @@
     <th mat-header-cell *matHeaderCellDef></th>
     <td mat-cell *matCellDef="let user">
       <app-disability
-        [disability]="user.special_condition"
+        [disability]="cast(user).special_condition"
         [showLabel]="false"
       ></app-disability>
     </td>
@@ -13,7 +13,7 @@
   <ng-container matColumnDef="name">
     <th mat-header-cell *matHeaderCellDef></th>
     <td mat-cell *matCellDef="let user">
-      {{ user.last_name }} {{ user.first_name }}
+      {{ cast(user).last_name }} {{ cast(user).first_name }}
     </td>
   </ng-container>
   <!-- Phone Column -->
@@ -21,7 +21,7 @@
     <th mat-header-cell *matHeaderCellDef></th>
     <td mat-cell *matCellDef="let user">
       <mat-icon>phone</mat-icon>
-      {{ user.landline }}
+      {{ cast(user).landline }}
     </td>
   </ng-container>
   <!-- Sector Column -->
@@ -29,7 +29,7 @@
     <th mat-header-cell *matHeaderCellDef></th>
     <td mat-cell *matCellDef="let user">
       <mat-icon>room</mat-icon>
-      {{ user.zone | translate }}
+      {{ cast(user).zone | translate }}
     </td>
   </ng-container>
   <!-- Date Column -->
@@ -37,7 +37,7 @@
     <th mat-header-cell *matHeaderCellDef></th>
     <td mat-cell *matCellDef="let user">
       <mat-icon>history</mat-icon>
-      {{ user.created_at | prettyDate }}
+      {{ cast(user).created_at | prettyDate }}
     </td>
   </ng-container>
   <!-- Links Column -->
@@ -46,7 +46,7 @@
     <td mat-cell *matCellDef="let user">
       <a
         mat-stroked-button
-        [routerLink]="['/admin/beneficiaries/details', user._id]"
+        [routerLink]="['/admin/beneficiaries/details', cast(user)._id]"
       >
         Detalii
       </a>
