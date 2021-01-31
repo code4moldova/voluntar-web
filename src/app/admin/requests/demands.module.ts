@@ -33,4 +33,4 @@ import { FilterByNameOrFamilyPipe } from '@app/shared/pipes/filter-by-name-or-fa
     TranslateModule,
   ],
 })
-export class RequestsModule {}
+export class DemandsModule {}
