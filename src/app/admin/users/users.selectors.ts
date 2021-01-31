@@ -9,19 +9,19 @@ export const selectIsLoading = createSelector(
   selectUsers,
   (state: UsersState): boolean => {
     return state.isLoading;
-  }
+  },
 );
 
 createSelector(
   selectUsers,
   (state: UsersState): User => {
     return state.userDetails;
-  }
+  },
 );
 
 export const selectUsersList = createSelector(
   selectUsers,
   (state: UsersState): UsersListResponse => {
     return state.data;
-  }
+  },
 );

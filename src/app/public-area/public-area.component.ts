@@ -18,7 +18,7 @@ export class PublicAreaComponent implements OnDestroy {
     translate: TranslateService,
     route: ActivatedRoute,
     router: Router,
-    scroller: ViewportScroller
+    scroller: ViewportScroller,
   ) {
     translate.addLangs(['ru', 'ro']);
     const storageLang = localStorage.getItem(KEY_STORAGE_LANG);
@@ -30,8 +30,8 @@ export class PublicAreaComponent implements OnDestroy {
     }
     this._subscription.add(
       translate.onLangChange.subscribe((event: LangChangeEvent) =>
-        localStorage.setItem(KEY_STORAGE_LANG, event.lang)
-      )
+        localStorage.setItem(KEY_STORAGE_LANG, event.lang),
+      ),
     );
 
     /**
@@ -44,11 +44,11 @@ export class PublicAreaComponent implements OnDestroy {
           // prevent auto scrolling for some links
           // see example in `help-guide.component.html`
           filter((f) => f && !history.state.preventAnchorScroll),
-          auditTime(0, animationFrameScheduler)
+          auditTime(0, animationFrameScheduler),
         )
         .subscribe((fragment) => {
           scroller.scrollToAnchor(fragment);
-        })
+        }),
     );
   }
 

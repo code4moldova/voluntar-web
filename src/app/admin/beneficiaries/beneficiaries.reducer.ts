@@ -137,12 +137,12 @@ const beneficiaryReducer = createReducer(
   on(getBeneficiaryBlockListFailureAction, (state, { error }) => ({
     ...state,
     blockList: { ...state.blockList, isLoading: false, error },
-  }))
+  })),
 );
 
 export function beneficiariesReducer(
   state: BeneficiariesState | undefined,
-  action: Action
+  action: Action,
 ) {
   return beneficiaryReducer(state, action);
 }

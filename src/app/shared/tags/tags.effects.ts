@@ -24,11 +24,11 @@ export class TagsEffects {
       switchMap(() =>
         this.tagsService.getActivityTypes().pipe(
           map((res) =>
-            getActivityTypesTagsSuccessAction({ payload: res.list })
+            getActivityTypesTagsSuccessAction({ payload: res.list }),
           ),
-          catchError((error) => of(getTagsFailureAction({ error })))
-        )
-      )
+          catchError((error) => of(getTagsFailureAction({ error }))),
+        ),
+      ),
     );
   });
 
@@ -38,11 +38,11 @@ export class TagsEffects {
       switchMap(() =>
         this.tagsService.getAvailabilities().pipe(
           map((res) =>
-            getAvailabilitiesTagsSuccessAction({ payload: res.list })
+            getAvailabilitiesTagsSuccessAction({ payload: res.list }),
           ),
-          catchError((error) => of(getTagsFailureAction({ error })))
-        )
-      )
+          catchError((error) => of(getTagsFailureAction({ error }))),
+        ),
+      ),
     );
   });
 
@@ -52,9 +52,9 @@ export class TagsEffects {
       switchMap(() =>
         this.tagsService.getOffers().pipe(
           map((res) => getOffersTagsSuccessAction({ payload: res.list })),
-          catchError((error) => of(getTagsFailureAction({ error })))
-        )
-      )
+          catchError((error) => of(getTagsFailureAction({ error }))),
+        ),
+      ),
     );
   });
 }

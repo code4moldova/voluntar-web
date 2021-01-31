@@ -35,7 +35,7 @@ export class FilterComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
@@ -72,7 +72,7 @@ export class FilterComponent implements OnInit, OnDestroy {
 
   public search(filters: { [keys: string]: string | null }): void {
     Object.keys(filters).forEach((key) =>
-      filters[key] === '' || filters[key] === null ? delete filters[key] : ''
+      filters[key] === '' || filters[key] === null ? delete filters[key] : '',
     );
     void this.router.navigate([], {
       relativeTo: this.route,

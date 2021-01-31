@@ -7,7 +7,7 @@ export const appRoutes: Routes = [
     path: '',
     loadChildren: () =>
       import('./public-area/public-area.module').then(
-        (m) => m.PublicAreaModule
+        (m) => m.PublicAreaModule,
       ),
   },
   {

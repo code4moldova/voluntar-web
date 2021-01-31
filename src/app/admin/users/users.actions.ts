@@ -23,52 +23,52 @@ export enum ActionTypes {
 
 export const getUsersAction = createAction(
   ActionTypes.GET_USERS,
-  props<{ payload?: UsersListRequest }>()
+  props<{ payload?: UsersListRequest }>(),
 );
 export const getUsersFailureAction = createAction(
   ActionTypes.GET_USERS_FAILURE,
-  props<{ error: any }>()
+  props<{ error: any }>(),
 );
 export const getUsersSuccessAction = createAction(
   ActionTypes.GET_USERS_SUCCESS,
-  props<{ payload: UsersListResponse }>()
+  props<{ payload: UsersListResponse }>(),
 );
 
 export const getUserDetailsAction = createAction(
   ActionTypes.GET_USER_DETAILS,
-  props<{ id: string }>()
+  props<{ id: string }>(),
 );
 export const getUserDetailsFailureAction = createAction(
   ActionTypes.GET_USER_DETAILS_FAILURE,
-  props<{ error: any }>()
+  props<{ error: any }>(),
 );
 export const getUserDetailsSuccessAction = createAction(
   ActionTypes.GET_USER_DETAILS_SUCCESS,
-  props<{ payload: User }>()
+  props<{ payload: User }>(),
 );
 
 export const createUserAction = createAction(
   ActionTypes.CREATE_USER,
-  props<{ payload: User }>()
+  props<{ payload: User }>(),
 );
 export const createUserFailureAction = createAction(
   ActionTypes.CREATE_USER_FAILURE,
-  props<{ error: any }>()
+  props<{ error: any }>(),
 );
 export const createUserSuccessAction = createAction(
   ActionTypes.CREATE_USER_SUCCESS,
-  props<{ payload: User }>()
+  props<{ payload: User }>(),
 );
 
 export const updateUserAction = createAction(
   ActionTypes.UPDATE_USER,
-  props<{ payload: User }>()
+  props<{ payload: User }>(),
 );
 export const updateUserFailureAction = createAction(
   ActionTypes.UPDATE_USER_FAILURE,
-  props<{ error: any }>()
+  props<{ error: any }>(),
 );
 export const updateUserSuccessAction = createAction(
   ActionTypes.UPDATE_USER_SUCCESS,
-  props<{ payload: User }>()
+  props<{ payload: User }>(),
 );

@@ -15,7 +15,7 @@ export const publicAreaRoutes: Routes = [
         path: 'terms-and-conditions',
         loadChildren: () =>
           import('./terms/terms-and-conditions.module').then(
-            (m) => m.TermsAndConditionsModule
+            (m) => m.TermsAndConditionsModule,
           ),
       },
     ],

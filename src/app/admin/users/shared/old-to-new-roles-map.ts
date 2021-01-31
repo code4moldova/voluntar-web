@@ -6,6 +6,6 @@ export function oldToNewRolesMap(roles: UserRole[]): UserRole[] {
       ? UserRole.administrator
       : role === UserRole.fixer
       ? UserRole.coordinator
-      : role
+      : role,
   );
 }

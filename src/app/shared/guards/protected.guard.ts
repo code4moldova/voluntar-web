@@ -17,7 +17,7 @@ export class ProtectedGuard implements CanActivate {
         }
         void this.router.navigate(['/login']);
         return false;
-      })
+      }),
     );
   }
 }

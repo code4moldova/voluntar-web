@@ -26,7 +26,7 @@ export class UsersEditComponent implements OnDestroy {
   hours = generateHoursRange(8, 20);
   roles = userRoles.filter(
     // Filter deprecated roles
-    (role) => ![UserRole.fixer, UserRole.admin].includes(role)
+    (role) => ![UserRole.fixer, UserRole.admin].includes(role),
   );
 
   formGroup = this.fb.group({
@@ -49,7 +49,7 @@ export class UsersEditComponent implements OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
-    private usersService: UsersService
+    private usersService: UsersService,
   ) {
     route.data.pipe(takeUntil(this._destroy)).subscribe((data) => {
       const resolvedUser: User = data.user;

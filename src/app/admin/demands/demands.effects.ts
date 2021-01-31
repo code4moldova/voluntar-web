@@ -25,7 +25,7 @@ export class DemandsEffects {
   constructor(
     private actions$: Actions,
     private router: Router,
-    private demandsService: DemandsService
+    private demandsService: DemandsService,
   ) {}
 
   getRequestsEffect$: Observable<Action> = createEffect(() => {
@@ -34,11 +34,11 @@ export class DemandsEffects {
       switchMap(({ page, filters }) =>
         this.demandsService.getRequests(page, filters).pipe(
           map((res) =>
-            getRequestsSuccessAction({ payload: res.list, count: res.count })
+            getRequestsSuccessAction({ payload: res.list, count: res.count }),
           ),
-          catchError((error) => of(getRequestsFailureAction({ error })))
-        )
-      )
+          catchError((error) => of(getRequestsFailureAction({ error }))),
+        ),
+      ),
     );
   });
 
@@ -48,9 +48,9 @@ export class DemandsEffects {
       switchMap(({ id }) =>
         this.demandsService.getRequestById(id).pipe(
           map((res) => getRequestSuccessAction({ payload: res })),
-          catchError((error) => of(getRequestFailureAction({ error })))
-        )
-      )
+          catchError((error) => of(getRequestFailureAction({ error }))),
+        ),
+      ),
     );
   });
 
@@ -63,9 +63,9 @@ export class DemandsEffects {
           map((res) => {
             return saveRequestSuccessAction({ payload: res });
           }),
-          catchError((error) => of(saveRequestFailureAction({ error })))
+          catchError((error) => of(saveRequestFailureAction({ error }))),
         );
-      })
+      }),
     );
   });
 
@@ -78,9 +78,9 @@ export class DemandsEffects {
             // this.router.navigate(['/demands/list']);
             return updateRequestSuccessAction({ payload: res });
           }),
-          catchError((error) => of(updateRequestFailureAction({ error })))
+          catchError((error) => of(updateRequestFailureAction({ error }))),
         );
-      })
+      }),
     );
   });
 

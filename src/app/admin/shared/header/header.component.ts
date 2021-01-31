@@ -11,7 +11,7 @@ import { DemandsFacade } from '@demands/demands.facade';
 export class HeaderComponent {
   newRequest$ = this.demandsFacade.newRequests;
   userName$ = this.userFacade.userData$.pipe(
-    map((user) => (user ? user.first_name : 'User Name'))
+    map((user) => (user ? user.first_name : 'User Name')),
   );
 
   links = ['demands', 'beneficiaries', 'volunteers', 'users'].map((entity) => ({
@@ -21,7 +21,7 @@ export class HeaderComponent {
 
   constructor(
     private userFacade: AuthFacade,
-    private demandsFacade: DemandsFacade
+    private demandsFacade: DemandsFacade,
   ) {}
 
   onLogout() {

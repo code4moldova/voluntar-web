@@ -12,13 +12,13 @@ export class TagsService {
 
   getActivityTypes(): Observable<{ list: IActivityTypeTag[] }> {
     return this.http.get<{ list: IActivityTypeTag[] }>(
-      `${environment.url}/tag/activity_types`
+      `${environment.url}/tag/activity_types`,
     );
   }
 
   getAvailabilities(): Observable<{ list: IAvailabilityTag[] }> {
     return this.http.get<{ list: IAvailabilityTag[] }>(
-      `${environment.url}/tag/availability`
+      `${environment.url}/tag/availability`,
     );
   }
 

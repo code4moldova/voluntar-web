@@ -33,7 +33,7 @@ export class EsriMapComponent implements OnDestroy, AfterViewInit {
 
   constructor(
     private dialogRef: MatDialogRef<EsriMapComponent>,
-    @Inject(MAT_DIALOG_DATA) private data: { coors: number[]; address: string }
+    @Inject(MAT_DIALOG_DATA) private data: { coors: number[]; address: string },
   ) {}
 
   ngAfterViewInit() {
@@ -58,7 +58,7 @@ export class EsriMapComponent implements OnDestroy, AfterViewInit {
           view: this.view,
           nextBasemap: 'streets',
         }),
-        'bottom-left'
+        'bottom-left',
       );
 
       this.view.when(
@@ -68,7 +68,7 @@ export class EsriMapComponent implements OnDestroy, AfterViewInit {
             [
               latitude || 47.01266177894471,
               longitude || 28.825140232956283,
-            ].reverse()
+            ].reverse(),
           );
           if (this.data.address) {
             await this.search.search(this.data.address);
@@ -77,7 +77,7 @@ export class EsriMapComponent implements OnDestroy, AfterViewInit {
         },
         (error: any) => {
           throw new Error(error);
-        }
+        },
       );
 
       const symbol = new SimpleMarkerSymbol({
@@ -102,7 +102,7 @@ export class EsriMapComponent implements OnDestroy, AfterViewInit {
           const resp = await this.search.activeSource.locator.locationToAddress(
             {
               location: evt.mapPoint,
-            }
+            },
           );
 
           // resp.attributes = {
@@ -139,7 +139,7 @@ export class EsriMapComponent implements OnDestroy, AfterViewInit {
 
           this.search.searchTerm = address;
           await this.view.goTo(
-            [evt.mapPoint.latitude, evt.mapPoint.longitude].reverse()
+            [evt.mapPoint.latitude, evt.mapPoint.longitude].reverse(),
           );
         }
       });
@@ -166,7 +166,7 @@ export class EsriMapComponent implements OnDestroy, AfterViewInit {
 }
 
 function isLocatorSearchSource(
-  searchSource: LayerSearchSource | LocatorSearchSource
+  searchSource: LayerSearchSource | LocatorSearchSource,
 ): searchSource is LocatorSearchSource {
   return (
     searchSource.declaredClass === 'esri.tasks.Locator' &&

@@ -25,7 +25,7 @@ export class UsersEffects {
   constructor(
     private actions$: Actions,
     private router: Router,
-    private usersService: UsersService
+    private usersService: UsersService,
   ) {}
 
   getUsers$: Observable<Action> = createEffect(() => {
@@ -36,11 +36,11 @@ export class UsersEffects {
           map((res) =>
             getUsersSuccessAction({
               payload: res,
-            })
+            }),
           ),
-          catchError(({ error }) => of(getUsersFailureAction({ error })))
-        )
-      )
+          catchError(({ error }) => of(getUsersFailureAction({ error }))),
+        ),
+      ),
     );
   });
 
@@ -54,9 +54,9 @@ export class UsersEffects {
               payload: res,
             });
           }),
-          catchError(({ error }) => of(getUserDetailsFailureAction({ error })))
-        )
-      )
+          catchError(({ error }) => of(getUserDetailsFailureAction({ error }))),
+        ),
+      ),
     );
   });
 
@@ -71,9 +71,9 @@ export class UsersEffects {
               payload: res.user,
             });
           }),
-          catchError(({ error }) => of(createUserFailureAction({ error })))
+          catchError(({ error }) => of(createUserFailureAction({ error }))),
         );
-      })
+      }),
     );
   });
 
@@ -87,9 +87,9 @@ export class UsersEffects {
               payload: res,
             });
           }),
-          catchError(({ error }) => of(updateUserFailureAction({ error })))
-        )
-      )
+          catchError(({ error }) => of(updateUserFailureAction({ error }))),
+        ),
+      ),
     );
   });
 }

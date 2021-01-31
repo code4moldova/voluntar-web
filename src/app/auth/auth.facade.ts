@@ -17,13 +17,13 @@ export class AuthFacade {
   userRoles$ = this.tokenStorage.getParsedToken().pipe(
     filter((user: User) => Boolean(user)),
     pluck('roles'),
-    map(oldToNewRolesMap)
+    map(oldToNewRolesMap),
   );
   isLoading$ = this.store.pipe(select(selectIsLoading));
 
   constructor(
     private store: Store<AppState>,
-    private tokenStorage: TokenStorage
+    private tokenStorage: TokenStorage,
   ) {}
 
   loginUser(credentials: AuthCredentials) {

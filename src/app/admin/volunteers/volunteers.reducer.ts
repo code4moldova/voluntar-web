@@ -103,12 +103,12 @@ const volunteerReducer = createReducer(
     ...state,
     isLoading: false,
     error,
-  }))
+  })),
 );
 
 export function volunteersReducer(
   state: VolunteersState | undefined,
-  action: Action
+  action: Action,
 ) {
   return volunteerReducer(state, action);
 }

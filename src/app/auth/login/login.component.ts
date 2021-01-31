@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authFacade: AuthFacade,
-    private demandsFacade: DemandsFacade
+    private demandsFacade: DemandsFacade,
   ) {}
 
   ngOnInit() {

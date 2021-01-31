@@ -18,7 +18,7 @@ export class NotificationInterceptor implements HttpInterceptor {
 
   intercept(
     request: HttpRequest<any>,
-    next: HttpHandler
+    next: HttpHandler,
   ): Observable<HttpEvent<any>> {
     if (request.method === 'PUT') {
       this.snackBar.open('Updating', '', {
@@ -50,7 +50,7 @@ export class NotificationInterceptor implements HttpInterceptor {
             });
           }
         }
-      })
+      }),
     );
   }
 }

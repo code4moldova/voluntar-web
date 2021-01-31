@@ -18,14 +18,14 @@ export class RolesGuard implements CanActivate {
   constructor(
     private userFacade: AuthFacade,
     private snackBar: MatSnackBar,
-    private route: Router
+    private route: Router,
   ) {}
   canActivate(next: ActivatedRouteSnapshot): Observable<boolean | UrlTree> {
     return this.userFacade.userRoles$.pipe(
       map((roles: UserRole[]) => {
         const routeRoles: UserRole[] = next.data.roles;
         const rolesIntersection = roles.some((role) =>
-          routeRoles.includes(role)
+          routeRoles.includes(role),
         );
         if ((routeRoles && !roles) || !rolesIntersection) {
           this.snackBar.open('Not allowed', '', {
@@ -35,7 +35,7 @@ export class RolesGuard implements CanActivate {
           return false;
         }
         return rolesIntersection;
-      })
+      }),
     );
   }
 }

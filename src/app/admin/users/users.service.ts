@@ -21,12 +21,12 @@ export class UsersService {
   update(user: User) {
     return this.http.put<any>(
       `${environment.url}/operator?id=${user._id}`,
-      user
+      user,
     );
   }
 
   getList(
-    filter: UsersListRequest = { page: 0, per_page: 10 }
+    filter: UsersListRequest = { page: 0, per_page: 10 },
   ): Observable<UsersListResponse> {
     const { page, per_page, ...params } = filter;
     const url = `${environment.url}/operator/filters/${page + 1}/${per_page}`;
@@ -38,7 +38,7 @@ export class UsersService {
         map((response) => ({
           ...response,
           list: response.list.map(userRoleMergeMapSort),
-        }))
+        })),
       );
   }
 

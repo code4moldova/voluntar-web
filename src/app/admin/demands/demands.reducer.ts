@@ -101,5 +101,5 @@ export const demandsReducer = createReducer<DemandsState>(
     ...state,
     isLoading: false,
     error,
-  }))
+  })),
 );

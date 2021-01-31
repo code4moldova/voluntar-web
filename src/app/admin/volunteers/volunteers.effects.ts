@@ -25,7 +25,7 @@ export class VolunteersEffects {
   constructor(
     private actions$: Actions,
     private router: Router,
-    private volunteerService: VolunteersService
+    private volunteerService: VolunteersService,
   ) {}
 
   saveVolunteerEffect$: Observable<Action> = createEffect(() => {
@@ -37,9 +37,9 @@ export class VolunteersEffects {
           map(({ user }) => {
             return saveVolunteerSuccessAction({ payload: user });
           }),
-          catchError(({ error }) => of(saveVolunteerFailureAction({ error })))
+          catchError(({ error }) => of(saveVolunteerFailureAction({ error }))),
         );
-      })
+      }),
     );
   });
 
@@ -51,9 +51,9 @@ export class VolunteersEffects {
           map((res) => {
             return saveVolunteerSuccessAction({ payload: res });
           }),
-          catchError(({ error }) => of(saveVolunteerFailureAction({ error })))
+          catchError(({ error }) => of(saveVolunteerFailureAction({ error }))),
         );
-      })
+      }),
     );
   });
 
@@ -68,9 +68,9 @@ export class VolunteersEffects {
               count: res.count,
             });
           }),
-          catchError((error) => of(getVolunteersFailureAction({ error })))
-        )
-      )
+          catchError((error) => of(getVolunteersFailureAction({ error }))),
+        ),
+      ),
     );
   });
 
@@ -82,9 +82,9 @@ export class VolunteersEffects {
           map((res) => {
             return getVolunteerSuccessAction({ payload: res });
           }),
-          catchError((error) => of(getVolunteersFailureAction({ error })))
-        )
-      )
+          catchError((error) => of(getVolunteersFailureAction({ error }))),
+        ),
+      ),
     );
   });
 
@@ -97,10 +97,10 @@ export class VolunteersEffects {
             return getVolunteersByFilterSuccessAction({ payload: res.list });
           }),
           catchError((error) =>
-            of(getVolunteersByFilterFailureAction({ error }))
-          )
-        )
-      )
+            of(getVolunteersByFilterFailureAction({ error })),
+          ),
+        ),
+      ),
     );
   });
 }

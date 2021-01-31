@@ -11,7 +11,7 @@ export function userRoleMergeMapSort(user: User): User {
   const mergedRoles = [...(user.role ?? []), ...(user.roles ?? [])];
   const remappedUniqueRoles = [...new Set(oldToNewRolesMap(mergedRoles))];
   const sortedRolesByPriority = remappedUniqueRoles.sort(
-    (a, b) => UserRolePriority.indexOf(a) - UserRolePriority.indexOf(b)
+    (a, b) => UserRolePriority.indexOf(a) - UserRolePriority.indexOf(b),
   );
   return {
     ...user,

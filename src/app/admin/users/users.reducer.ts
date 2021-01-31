@@ -84,5 +84,5 @@ export const usersReducer = createReducer<UsersState, Action>(
     ...state,
     isLoading: false,
     error,
-  }))
+  })),
 );

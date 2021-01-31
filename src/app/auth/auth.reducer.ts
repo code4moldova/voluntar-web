@@ -25,7 +25,7 @@ const customerReducer = createReducer(
     ...state,
     isLoading: false,
     error,
-  }))
+  })),
 );
 
 export function authReducer(state: AuthState | undefined, action: Action) {

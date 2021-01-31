@@ -14,7 +14,7 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(private snackBar: MatSnackBar, private router: Router) {}
   intercept(
     request: HttpRequest<any>,
-    next: HttpHandler
+    next: HttpHandler,
   ): Observable<HttpEvent<any>> {
     // This has to be ignored
     // Headers injected in corresponding services
@@ -38,7 +38,7 @@ export class AuthInterceptor implements HttpInterceptor {
       request = request.clone({
         headers: request.headers.set(
           'Authorization',
-          `Basic ${btoa(token + ':.')}`
+          `Basic ${btoa(token + ':.')}`,
         ),
       });
     }

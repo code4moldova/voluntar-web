@@ -24,7 +24,7 @@ import { UsersFacade } from '@users/users.facade';
 export class UsersCreateComponent {
   roles = userRoles.filter(
     // Filter deprecated roles
-    (role) => ![UserRole.fixer, UserRole.admin].includes(role)
+    (role) => ![UserRole.fixer, UserRole.admin].includes(role),
   );
   weekDays = weekDays;
   hours = generateHoursRange(8, 20);

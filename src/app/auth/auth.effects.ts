@@ -19,7 +19,7 @@ export class AuthEffects {
     private actions$: Actions,
     private authService: AuthService,
     private tokenStorage: TokenStorage,
-    private router: Router
+    private router: Router,
   ) {}
 
   login$: Observable<Action> = createEffect(() => {
@@ -34,9 +34,9 @@ export class AuthEffects {
               accessToken: res.token,
             });
           }),
-          catchError((error) => of(loginFailureAction({ error })))
-        )
-      )
+          catchError((error) => of(loginFailureAction({ error }))),
+        ),
+      ),
     );
   });
 
@@ -47,9 +47,9 @@ export class AuthEffects {
         tap(() => {
           this.tokenStorage.clear();
           void this.router.navigate(['/login']);
-        })
+        }),
       );
     },
-    { dispatch: false }
+    { dispatch: false },
   );
 }

@@ -1,6 +1,6 @@
 export function generateHoursRange(
   from: number,
-  to: number
+  to: number,
 ): Array<{ label: string; value: number }> {
   const hours = [];
 

@@ -35,7 +35,7 @@ export class BeneficiariesEffects {
   constructor(
     private actions$: Actions,
     private router: Router,
-    private service: BeneficiariesService
+    private service: BeneficiariesService,
   ) {}
 
   getBeneficiaryByIdEffect$: Observable<Action> = createEffect(() => {
@@ -46,9 +46,9 @@ export class BeneficiariesEffects {
           map((res) => {
             return getBeneficiarySuccessAction({ payload: res });
           }),
-          catchError((error) => of(getBeneficiaryFailureAction({ error })))
-        )
-      )
+          catchError((error) => of(getBeneficiaryFailureAction({ error }))),
+        ),
+      ),
     );
   });
 
@@ -61,9 +61,11 @@ export class BeneficiariesEffects {
           map(({ user }) => {
             return saveBeneficiarySuccessAction({ payload: user });
           }),
-          catchError(({ error }) => of(saveBeneficiaryFailureAction({ error })))
+          catchError(({ error }) =>
+            of(saveBeneficiaryFailureAction({ error })),
+          ),
         );
-      })
+      }),
     );
   });
 
@@ -76,10 +78,10 @@ export class BeneficiariesEffects {
             return updateBeneficiarySuccessAction({ payload: res });
           }),
           catchError(({ error }) =>
-            of(updateBeneficiaryFailureAction({ error }))
-          )
+            of(updateBeneficiaryFailureAction({ error })),
+          ),
         );
-      })
+      }),
     );
   });
 
@@ -94,9 +96,9 @@ export class BeneficiariesEffects {
               count: res.count,
             });
           }),
-          catchError((error) => of(getBeneficiariesFailureAction({ error })))
-        )
-      )
+          catchError((error) => of(getBeneficiariesFailureAction({ error }))),
+        ),
+      ),
     );
   });
 
@@ -109,10 +111,10 @@ export class BeneficiariesEffects {
             return getBeneficiariesByFilterSuccessAction({ payload: res.list });
           }),
           catchError((error) =>
-            of(getBeneficiariesByFilterFailureAction({ error }))
-          )
-        )
-      )
+            of(getBeneficiariesByFilterFailureAction({ error })),
+          ),
+        ),
+      ),
     );
   });
 
@@ -128,10 +130,10 @@ export class BeneficiariesEffects {
             });
           }),
           catchError((error) =>
-            of(getBeneficiaryRequestsFailureAction({ error }))
-          )
-        )
-      )
+            of(getBeneficiaryRequestsFailureAction({ error })),
+          ),
+        ),
+      ),
     );
   });
 
@@ -152,10 +154,10 @@ export class BeneficiariesEffects {
               });
             }),
             catchError((error) =>
-              of(getBeneficiaryBlockListFailureAction({ error }))
-            )
-          )
-      )
+              of(getBeneficiaryBlockListFailureAction({ error })),
+            ),
+          ),
+      ),
     );
   });
 }

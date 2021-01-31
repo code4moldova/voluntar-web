@@ -14,7 +14,7 @@ export class GoBackDirective {
   constructor(
     private location: Location,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
   ) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {

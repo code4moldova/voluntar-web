@@ -16,27 +16,27 @@ export enum ActionTypes {
 
 export const getTagsFailureAction = createAction(
   ActionTypes.GET_TAGS_FAILURE,
-  props<{ error: any }>()
+  props<{ error: any }>(),
 );
 
 export const getActivityTypesTagsAction = createAction(
-  ActionTypes.GET_ACTIVITY_TYPES_TAGS
+  ActionTypes.GET_ACTIVITY_TYPES_TAGS,
 );
 export const getActivityTypesTagsSuccessAction = createAction(
   ActionTypes.GET_ACTIVITY_TYPES_TAGS_SUCCESS,
-  props<{ payload: IActivityTypeTag[] }>()
+  props<{ payload: IActivityTypeTag[] }>(),
 );
 
 export const getAvailabilitiesTagsAction = createAction(
-  ActionTypes.GET_AVAILABILITIES_TAGS
+  ActionTypes.GET_AVAILABILITIES_TAGS,
 );
 export const getAvailabilitiesTagsSuccessAction = createAction(
   ActionTypes.GET_AVAILABILITIES_TAGS_SUCCESS,
-  props<{ payload: IAvailabilityTag[] }>()
+  props<{ payload: IAvailabilityTag[] }>(),
 );
 
 export const getOffersTagsAction = createAction(ActionTypes.GET_OFFERS_TAGS);
 export const getOffersTagsSuccessAction = createAction(
   ActionTypes.GET_OFFERS_TAGS_SUCCESS,
-  props<{ payload: IOfferTag[] }>()
+  props<{ payload: IOfferTag[] }>(),
 );

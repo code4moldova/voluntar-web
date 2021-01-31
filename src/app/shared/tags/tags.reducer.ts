@@ -52,5 +52,5 @@ export const tagsReducer = createReducer<TagsState, Action>(
     ...state,
     isLoading: false,
     offers: payload,
-  }))
+  })),
 );

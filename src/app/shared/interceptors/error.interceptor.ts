@@ -19,12 +19,12 @@ export class ErrorInterceptor implements HttpInterceptor {
   constructor(
     private snackBar: MatSnackBar,
     private tokenStorage: TokenStorage,
-    private store: Store<any>
+    private store: Store<any>,
   ) {}
 
   intercept(
     request: HttpRequest<any>,
-    next: HttpHandler
+    next: HttpHandler,
   ): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
@@ -44,7 +44,7 @@ export class ErrorInterceptor implements HttpInterceptor {
           panelClass: 'danger',
         });
         return throwError(error);
-      })
+      }),
     );
   }
 }

@@ -17,7 +17,7 @@ export class PublicGuard implements CanActivate {
           return false;
         }
         return true;
-      })
+      }),
     );
   }
 }

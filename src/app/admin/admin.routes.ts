@@ -16,7 +16,7 @@ export const adminRoutes: Routes = [
         canActivate: [RolesGuard],
         loadChildren: () =>
           import('./beneficiaries/beneficiaries.module').then(
-            (m) => m.BeneficiariesModule
+            (m) => m.BeneficiariesModule,
           ),
       },
       {
@@ -27,7 +27,7 @@ export const adminRoutes: Routes = [
         canActivate: [RolesGuard],
         loadChildren: () =>
           import('./volunteers/volunteers.module').then(
-            (m) => m.VolunteersModule
+            (m) => m.VolunteersModule,
           ),
       },
       {

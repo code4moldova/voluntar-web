@@ -8,12 +8,12 @@ export const selectIsLoading = createSelector(
   selectUser,
   (state: AuthState): boolean => {
     return state.isLoading;
-  }
+  },
 );
 
 export const selectAuthUserData = createSelector(
   selectUser,
   (state: AuthState): User => {
     return state.userData;
-  }
+  },
 );

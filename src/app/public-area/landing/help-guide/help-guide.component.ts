@@ -34,7 +34,7 @@ export class HelpGuideComponent implements OnInit {
 
   constructor(
     private _route: ActivatedRoute,
-    public navSvc: NavigationService
+    public navSvc: NavigationService,
   ) {}
 
   ngOnInit() {
@@ -49,7 +49,7 @@ export class HelpGuideComponent implements OnInit {
         if (fragment.includes(this.navSvc.whoCanHelpSectionId)) {
           return 2;
         }
-      })
+      }),
     );
   }
 }

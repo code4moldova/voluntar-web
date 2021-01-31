@@ -14,15 +14,15 @@ import { DemandsFacade } from '@demands/demands.facade';
     trigger('show', [
       state(
         'collapsed',
-        style({ opacity: '0', top: '40px', visibility: 'hidden' })
+        style({ opacity: '0', top: '40px', visibility: 'hidden' }),
       ),
       state(
         'expanded',
-        style({ opacity: '1', top: '70px', visibility: 'visible' })
+        style({ opacity: '1', top: '70px', visibility: 'visible' }),
       ),
       transition(
         'expanded <=> collapsed',
-        animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')
+        animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)'),
       ),
     ]),
   ],

@@ -55,7 +55,7 @@ export class UsersListComponent implements OnInit, OnDestroy {
     private usersFacade: UsersFacade,
     private usersService: UsersService,
     private matDialog: MatDialog,
-    private actions$: ActionsSubject
+    private actions$: ActionsSubject,
   ) {}
 
   ngOnInit(): void {
@@ -132,7 +132,7 @@ export class UsersListComponent implements OnInit, OnDestroy {
       .pipe(
         ofType(createUserSuccessAction),
         tap(() => this.usersFacade.getUsers()),
-        takeUntil(dialogRef.afterClosed())
+        takeUntil(dialogRef.afterClosed()),
       )
       .subscribe(() => dialogRef.close());
   }

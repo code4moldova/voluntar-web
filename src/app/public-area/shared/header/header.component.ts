@@ -21,7 +21,7 @@ export class HeaderComponent {
 
   constructor(
     private _translate: TranslateService,
-    public navSvc: NavigationService
+    public navSvc: NavigationService,
   ) {}
 
   changeLang(lang: string): void {
