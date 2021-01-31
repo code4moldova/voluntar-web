@@ -60,7 +60,7 @@ export class UsersDetailsComponent implements OnDestroy, OnInit {
   ) => {
     this.page = page;
     return this.demandsService
-      .getRequests(
+      .getDemands(
         {
           pageIndex: this.page.pageIndex,
           pageSize: this.page.pageSize,

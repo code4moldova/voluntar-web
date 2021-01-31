@@ -1,7 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 
 import { Beneficiary } from './shared/beneficiary';
-import { BeneficiaryRequest } from './beneficiaries.state';
+import { Demand } from '@demands/shared/demand';
 
 export enum ActionTypes {
   GET_BENEFICIARIES = '[Beneficiaries] Get Beneficiaries',
@@ -12,16 +12,16 @@ export enum ActionTypes {
   GET_BENEFICIARY_SUCCESS = '[Beneficiary] Get Beneficiary Success',
   GET_BENEFICIARY_FAILURE = '[Beneficiary] Get Beneficiary Failure',
 
-  GET_BENEFICIARY_REQUESTS = '[Beneficiary] Get Beneficiary Requests',
-  GET_BENEFICIARY_REQUESTS_SUCCESS = '[Beneficiary] Get Beneficiary Requests Success',
-  GET_BENEFICIARY_REQUESTS_FAILURE = '[Beneficiary] Get Beneficiary Requests Failure',
+  GET_BENEFICIARY_DEMANDS = '[Beneficiary] Get Beneficiary Demands',
+  GET_BENEFICIARY_DEMANDS_SUCCESS = '[Beneficiary] Get Beneficiary Demands Success',
+  GET_BENEFICIARY_DEMANDS_FAILURE = '[Beneficiary] Get Beneficiary Demands Failure',
 
   GET_BENEFICIARY_BLOCK_LIST = '[Beneficiary] Get Beneficiary Block List',
   GET_BENEFICIARY_BLOCK_LIST_SUCCESS = '[Beneficiary] Get Beneficiary Block List Success',
   GET_BENEFICIARY_BLOCK_LIST_FAILURE = '[Beneficiary] Get Beneficiary Block List Failure',
 
   GET_BENEFICIARIES_BY_FILTER = '[Beneficiaries] Get Beneficiaries By Filter',
-  GET_BENEFICIARIES_BY_FILTER_SUCCES = '[Beneficiaries] Get Beneficiaries By Filter Success',
+  GET_BENEFICIARIES_BY_FILTER_SUCCESS = '[Beneficiaries] Get Beneficiaries By Filter Success',
   GET_BENEFICIARIES_BY_FILTER_FAILURE = '[Beneficiaries] Get Beneficiaries By Filter Failure',
 
   SAVE_BENEFICIARY = '[Beneficiary] Save Beneficiary',
@@ -59,18 +59,18 @@ export const getBeneficiaryFailureAction = createAction(
   props<{ error: any }>(),
 );
 
-export const getBeneficiaryRequestsAction = createAction(
-  ActionTypes.GET_BENEFICIARY_REQUESTS,
+export const getBeneficiaryDemandsAction = createAction(
+  ActionTypes.GET_BENEFICIARY_DEMANDS,
   props<{ id: string; page: { pageSize: number; pageIndex: number } }>(),
 );
 
-export const getBeneficiaryRequestsSuccessAction = createAction(
-  ActionTypes.GET_BENEFICIARY_REQUESTS_SUCCESS,
-  props<{ payload: BeneficiaryRequest[]; count: number }>(),
+export const getBeneficiaryDemandsSuccessAction = createAction(
+  ActionTypes.GET_BENEFICIARY_DEMANDS_SUCCESS,
+  props<{ payload: Demand[]; count: number }>(),
 );
 
-export const getBeneficiaryRequestsFailureAction = createAction(
-  ActionTypes.GET_BENEFICIARY_REQUESTS_FAILURE,
+export const getBeneficiaryDemandsFailureAction = createAction(
+  ActionTypes.GET_BENEFICIARY_DEMANDS_FAILURE,
   props<{ error: any }>(),
 );
 
@@ -106,7 +106,7 @@ export const getBeneficiariesByFilterAction = createAction(
 );
 
 export const getBeneficiariesByFilterSuccessAction = createAction(
-  ActionTypes.GET_BENEFICIARIES_BY_FILTER_SUCCES,
+  ActionTypes.GET_BENEFICIARIES_BY_FILTER_SUCCESS,
   props<{ payload: Beneficiary[] }>(),
 );
 

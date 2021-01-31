@@ -19,13 +19,13 @@
 
     <button
       mat-icon-button
-      [disabled]="(newRequest$ | async) === false"
-      (click)="fetchRequests()"
-      [matTooltip]="(newRequest$ | async) ? 'New Request' : null"
+      [disabled]="(newDemands$ | async) === false"
+      (click)="fetchDemands()"
+      [matTooltip]="(newDemands$ | async) ? 'New Request' : null"
       aria-label="Notifications"
     >
       <mat-icon
-        [matBadge]="(newRequest$ | async) ? '!' : null"
+        [matBadge]="(newDemands$ | async) ? '!' : null"
         matBadgeColor="primary"
       >
         notifications_none

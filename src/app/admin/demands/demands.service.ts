@@ -2,29 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Demand } from '@demands/shared/demand';
-import { DemandBackEnd } from '@demands/shared/demand-backend';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DemandsService {
   constructor(private http: HttpClient) {}
-
-  getRequests(
-    page: { pageIndex: number; pageSize: number } = {
-      pageIndex: 1,
-      pageSize: 20,
-    },
-    filters: any = {},
-  ) {
-    const params = new HttpParams({ fromObject: filters });
-    return this.http.get<{ count: number; list: Demand[] }>(
-      `${environment.url}/requests/filters/${page.pageIndex || 1}/${
-        page.pageSize || 1000
-      }`,
-      { params },
-    );
-  }
 
   getDemands(
     page: { pageIndex: number; pageSize: number } = {
@@ -42,35 +25,21 @@ export class DemandsService {
     );
   }
 
-  getRequestById(id: string) {
-    return this.http.get<Demand>(`${environment.url}/beneficiary?id=${id}`);
+  getDemand(id: string) {
+    return this.http.get<Demand>(`${environment.url}/requests/${id}`);
   }
 
-  saveRequest(request: Demand) {
-    return this.http.post<any>(`${environment.url}/beneficiary`, request);
+  saveDemand(demand: Demand) {
+    return this.http.post<any>(`${environment.url}/requests`, demand);
   }
 
-  updateRequest(request: Demand) {
-    return this.http.put<any>(
-      `${environment.url}/beneficiary?id=${request._id}`,
-      request,
-    );
-  }
-
-  updateDemand(demand: DemandBackEnd) {
+  updateDemand(demand: Demand) {
     return this.http.put<any>(`${environment.url}/requests`, demand);
   }
 
-  exportRequests() {
-    return this.http.get(`${environment.url}/export/csv/beneficiaries`, {
+  exportDemands() {
+    return this.http.get(`${environment.url}/export/csv/requests`, {
       responseType: 'blob',
     });
   }
-
-  // getBeneficiariesByFilter(httpParams: { [keys: string]: string }): Observable<{ count: number; list: Demand[] }> {
-  //   const params = new HttpParams({ fromObject: httpParams });
-  //   return this.http.get<{ count: number; list: Demand[] }>(
-  //     `${environment.url}/beneficiary/filters/1/1000?`, { params },
-  //   );
-  // }
 }

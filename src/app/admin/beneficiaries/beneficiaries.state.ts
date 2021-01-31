@@ -1,24 +1,5 @@
-import { DemandStatus } from '@demands/shared/demand-status';
 import { Beneficiary } from '@beneficiaries/shared/beneficiary';
-import { DemandType } from '@demands/shared/demand-type';
-
-interface Volunteer {
-  _id: string;
-  first_name: string;
-  last_name: string;
-}
-
-export interface BeneficiaryRequest {
-  _id: string;
-  type: DemandType;
-  number: number;
-  status: DemandStatus;
-  urgent: boolean;
-  comments: string;
-  has_symptoms: boolean;
-  created_at: string | Date;
-  volunteer?: Volunteer;
-}
+import { Demand } from '@demands/shared/demand';
 
 export interface LoadableState<T> {
   count: number;
@@ -33,7 +14,7 @@ export interface BeneficiariesState {
   details: Beneficiary;
   isLoading: boolean;
   error: string;
-  requests: LoadableState<BeneficiaryRequest>;
+  demands: LoadableState<Demand>;
   blockList: LoadableState<Beneficiary>;
 }
 
@@ -43,7 +24,7 @@ export const initialState: BeneficiariesState = {
   details: null,
   isLoading: false,
   error: null,
-  requests: {
+  demands: {
     count: -1,
     isLoading: false,
     error: null,

@@ -8,11 +8,11 @@ const TITLES = {
 };
 
 @Component({
-  selector: 'app-request-type',
-  templateUrl: './request-type.component.html',
-  styleUrls: ['./request-type.component.scss'],
+  selector: 'app-demand-type',
+  templateUrl: './demand-type.component.html',
+  styleUrls: ['./demand-type.component.scss'],
 })
-export class RequestTypeComponent implements OnInit {
+export class DemandTypeComponent implements OnInit {
   @Input()
   type: DemandType;
   typeTitle: string;

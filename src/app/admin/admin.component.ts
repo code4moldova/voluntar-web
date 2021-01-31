@@ -31,6 +31,6 @@ export class AdminComponent implements OnInit {
   constructor(private demandsFacade: DemandsFacade) {}
 
   ngOnInit() {
-    this.demandsFacade.toggleNewRequestsPolling(true);
+    this.demandsFacade.toggleNewDemandsPolling(true);
   }
 }

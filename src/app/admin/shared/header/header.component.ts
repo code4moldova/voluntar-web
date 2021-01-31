@@ -9,7 +9,7 @@ import { DemandsFacade } from '@demands/demands.facade';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  newRequest$ = this.demandsFacade.newRequests;
+  newDemands$ = this.demandsFacade.newDemands;
   userName$ = this.userFacade.userData$.pipe(
     map((user) => (user ? user.first_name : 'User Name')),
   );
@@ -28,8 +28,8 @@ export class HeaderComponent {
     this.userFacade.logout();
   }
 
-  fetchRequests() {
-    this.demandsFacade.getRequests({ pageSize: 20, pageIndex: 1 });
-    this.demandsFacade.resetNewRequests();
+  fetchDemands() {
+    this.demandsFacade.getDemands({ pageSize: 20, pageIndex: 1 });
+    this.demandsFacade.resetNewDemands();
   }
 }

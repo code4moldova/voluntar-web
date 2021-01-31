@@ -2,35 +2,35 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { DemandsState } from './demands.state';
 import { Demand } from '@demands/shared/demand';
 
-export const selectRequests = createFeatureSelector<any, DemandsState>(
-  'requests',
+export const selectDemands = createFeatureSelector<any, DemandsState>(
+  'demands',
 );
 
 export const selectIsLoading = createSelector(
-  selectRequests,
+  selectDemands,
   (state: DemandsState): boolean => {
     return state.isLoading;
   },
 );
 
-export const selectRequestsData = createSelector(
-  selectRequests,
+export const selectDemandsData = createSelector(
+  selectDemands,
   (state: DemandsState): Demand[] => {
     return state.data;
   },
 );
-export const selectRequestsCount = createSelector(
-  selectRequests,
+export const selectDemandsCount = createSelector(
+  selectDemands,
   (state: DemandsState): number => {
     return state.count;
   },
 );
 
-export const selectRequestsError = createSelector(
-  selectRequests,
+export const selectDemandsError = createSelector(
+  selectDemands,
   (state: DemandsState) => state.error,
 );
-export const selectRequestsDetails = createSelector(
-  selectRequests,
+export const selectDemandsDetails = createSelector(
+  selectDemands,
   (state: DemandsState) => state.details,
 );

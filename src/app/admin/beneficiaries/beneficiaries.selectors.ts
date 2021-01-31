@@ -1,11 +1,8 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
-import {
-  BeneficiariesState,
-  BeneficiaryRequest,
-  LoadableState,
-} from './beneficiaries.state';
+import { BeneficiariesState, LoadableState } from './beneficiaries.state';
 import { Beneficiary } from './shared/beneficiary';
+import { Demand } from '@demands/shared/demand';
 
 export const selectBeneficiaries = createFeatureSelector<
   any,
@@ -47,30 +44,30 @@ export const selectBeneficiaryDetails = createSelector(
   },
 );
 
-export const selectRequests = createSelector(
+export const selectDemands = createSelector(
   selectBeneficiaries,
   (state: BeneficiariesState): any => {
-    return state.requests;
+    return state.demands;
   },
 );
 
-export const selectRequestsError = createSelector(
-  selectRequests,
-  (state: LoadableState<BeneficiaryRequest>): any => {
+export const selectDemandsError = createSelector(
+  selectDemands,
+  (state: LoadableState<Demand>): any => {
     return state.error;
   },
 );
 
-export const selectRequestsData = createSelector(
-  selectRequests,
-  (state: LoadableState<BeneficiaryRequest>): BeneficiaryRequest[] => {
+export const selectDemandsData = createSelector(
+  selectDemands,
+  (state: LoadableState<Demand>): Demand[] => {
     return state.data;
   },
 );
 
-export const selectRequestsCount = createSelector(
-  selectRequests,
-  (state: LoadableState<BeneficiaryRequest>): number => {
+export const selectDemandsCount = createSelector(
+  selectDemands,
+  (state: LoadableState<Demand>): number => {
     return state.count;
   },
 );

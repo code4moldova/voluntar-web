@@ -17,9 +17,9 @@ import {
   getBeneficiariesByFilterAction,
   getBeneficiariesByFilterSuccessAction,
   getBeneficiariesByFilterFailureAction,
-  getBeneficiaryRequestsAction,
-  getBeneficiaryRequestsSuccessAction,
-  getBeneficiaryRequestsFailureAction,
+  getBeneficiaryDemandsAction,
+  getBeneficiaryDemandsSuccessAction,
+  getBeneficiaryDemandsFailureAction,
   getBeneficiaryBlockListAction,
   getBeneficiaryBlockListSuccessAction,
   getBeneficiaryBlockListFailureAction,
@@ -112,17 +112,17 @@ export const beneficiariesReducer = createReducer<BeneficiariesState>(
     error,
   })),
   // Beneficiary demands history
-  on(getBeneficiaryRequestsAction, (state) => ({
+  on(getBeneficiaryDemandsAction, (state) => ({
     ...state,
-    requests: { ...state.requests, isLoading: true, error: null },
+    demands: { ...state.demands, isLoading: true, error: null },
   })),
-  on(getBeneficiaryRequestsSuccessAction, (state, { payload, count }) => ({
+  on(getBeneficiaryDemandsSuccessAction, (state, { payload, count }) => ({
     ...state,
-    requests: { ...state.requests, isLoading: false, data: payload, count },
+    demands: { ...state.demands, isLoading: false, data: payload, count },
   })),
-  on(getBeneficiaryRequestsFailureAction, (state, { error }) => ({
+  on(getBeneficiaryDemandsFailureAction, (state, { error }) => ({
     ...state,
-    requests: { ...state.requests, isLoading: false, error },
+    demands: { ...state.demands, isLoading: false, error },
   })),
 
   // Block list

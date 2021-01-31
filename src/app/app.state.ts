@@ -7,5 +7,5 @@ export interface AppState {
   auth: AuthState;
   beneficiaries: BeneficiariesState;
   volunteers: VolunteersState;
-  requests: DemandsState;
+  demands: DemandsState;
 }

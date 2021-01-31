@@ -19,7 +19,7 @@ import { Volunteer } from '@volunteers/shared/volunteer';
 })
 export class VolunteerSelectionOnMapComponent implements OnInit, OnDestroy {
   @Output() selectedVolunteer = new EventEmitter<Volunteer>();
-  dateDemandRequested: Date = null;
+  selectedDemandDate: Date = null;
   public volunteers: Volunteer[] = [];
   volunteers$: Subscription;
   public filterVolunteerByNameOrFamily = '';
@@ -47,16 +47,16 @@ export class VolunteerSelectionOnMapComponent implements OnInit, OnDestroy {
 
   checkIfVolunteerAvailable(days: WeekDay[]): boolean {
     // if no any date selected - we show all volunteers
-    if (!this.dateDemandRequested) return true;
+    if (!this.selectedDemandDate) return true;
 
-    const todayDay = this.dateDemandRequested.getDay();
+    const todayDay = this.selectedDemandDate.getDay();
     const selectedDayOfTheWeek = weekDays[todayDay];
 
     return days.includes(selectedDayOfTheWeek);
   }
 
   onDateChange(event: MatDatepickerInputEvent<unknown>) {
-    this.dateDemandRequested = event.value as Date;
+    this.selectedDemandDate = event.value as Date;
   }
 
   ngOnDestroy(): void {

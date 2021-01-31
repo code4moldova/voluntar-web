@@ -6,18 +6,18 @@ import { Action } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { DemandsService } from './demands.service';
 import {
-  getRequestAction,
-  getRequestFailureAction,
-  getRequestsAction,
-  getRequestsFailureAction,
-  getRequestsSuccessAction,
-  getRequestSuccessAction,
-  saveRequestAction,
-  saveRequestFailureAction,
-  saveRequestSuccessAction,
-  updateRequestAction,
-  updateRequestFailureAction,
-  updateRequestSuccessAction,
+  getDemandFailureAction,
+  getDemandRequestAction,
+  getDemandsFailureAction,
+  getDemandsRequestAction,
+  getDemandsSuccessAction,
+  getDemandSuccessAction,
+  saveDemandFailureAction,
+  saveDemandRequestAction,
+  saveDemandSuccessAction,
+  updateDemandFailureAction,
+  updateDemandRequestAction,
+  updateDemandSuccessAction,
 } from './demands.actions';
 
 @Injectable()
@@ -28,71 +28,59 @@ export class DemandsEffects {
     private demandsService: DemandsService,
   ) {}
 
-  getRequestsEffect$: Observable<Action> = createEffect(() => {
+  getDemandsEffect$: Observable<Action> = createEffect(() => {
     return this.actions$.pipe(
-      ofType(getRequestsAction),
+      ofType(getDemandsRequestAction),
       switchMap(({ page, filters }) =>
-        this.demandsService.getRequests(page, filters).pipe(
+        this.demandsService.getDemands(page, filters).pipe(
           map((res) =>
-            getRequestsSuccessAction({ payload: res.list, count: res.count }),
+            getDemandsSuccessAction({ payload: res.list, count: res.count }),
           ),
-          catchError((error) => of(getRequestsFailureAction({ error }))),
+          catchError((error) => of(getDemandsFailureAction({ error }))),
         ),
       ),
     );
   });
 
-  getRequestDetailsEffect: Observable<Action> = createEffect(() => {
+  getDemandDetailsEffect: Observable<Action> = createEffect(() => {
     return this.actions$.pipe(
-      ofType(getRequestAction),
+      ofType(getDemandRequestAction),
       switchMap(({ id }) =>
-        this.demandsService.getRequestById(id).pipe(
-          map((res) => getRequestSuccessAction({ payload: res })),
-          catchError((error) => of(getRequestFailureAction({ error }))),
+        this.demandsService.getDemand(id).pipe(
+          map((res) => getDemandSuccessAction({ payload: res })),
+          catchError((error) => of(getDemandFailureAction({ error }))),
         ),
       ),
     );
   });
 
-  saveRequestDetailsEffect$: Observable<Action> = createEffect(() => {
+  saveDemandDetailsEffect$: Observable<Action> = createEffect(() => {
     return this.actions$.pipe(
-      ofType(saveRequestAction),
+      ofType(saveDemandRequestAction),
       exhaustMap(({ payload }) => {
         const { _id, ...withoutId } = payload;
-        return this.demandsService.saveRequest(withoutId).pipe(
+        return this.demandsService.saveDemand(withoutId).pipe(
           map((res) => {
-            return saveRequestSuccessAction({ payload: res });
+            return saveDemandSuccessAction({ payload: res });
           }),
-          catchError((error) => of(saveRequestFailureAction({ error }))),
+          catchError((error) => of(saveDemandFailureAction({ error }))),
         );
       }),
     );
   });
 
-  updateRequestDetailsEffect$: Observable<Action> = createEffect(() => {
+  updateDemandDetailsEffect$: Observable<Action> = createEffect(() => {
     return this.actions$.pipe(
-      ofType(updateRequestAction),
+      ofType(updateDemandRequestAction),
       exhaustMap(({ payload }) => {
-        return this.demandsService.updateRequest(payload).pipe(
+        return this.demandsService.updateDemand(payload).pipe(
           map((res) => {
             // this.router.navigate(['/demands/list']);
-            return updateRequestSuccessAction({ payload: res });
+            return updateDemandSuccessAction({ payload: res });
           }),
-          catchError((error) => of(updateRequestFailureAction({ error }))),
+          catchError((error) => of(updateDemandFailureAction({ error }))),
         );
       }),
     );
   });
-
-  // getBeneficiaresEffect: Observable<Action> = createEffect(() => {
-  //   return this.actions$.pipe(
-  //     ofType(getBeneficiariesByFilterAction),
-  //     switchMap((action) =>
-  //       this.requestService.getBeneficiariesByFilter(action.payload).pipe(
-  //         map(res => getRequestsSuccessAction({ payload: res.list, count: res.count })),
-  //         catchError(error => of(getRequestFailureAction({ error })))
-  //       )
-  //     )
-  //   );
-  // });
 }

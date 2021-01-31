@@ -9,8 +9,8 @@ import { BeneficiaryDetailsComponent } from './beneficiary-details/beneficiary-d
 import { BeneficiaryNewComponent } from './beneficiary-new/beneficiary-new.component';
 import { BeneficiaryEditComponent } from './beneficiary-edit/beneficiary-edit.component';
 import { DisabilityComponent } from './shared/disability/disability.component';
-import { RequestStatusComponent } from './shared/request-status/request-status.component';
-import { RequestTypeComponent } from './shared/request-type/request-type.component';
+import { DemandStatusComponent } from './shared/demand-status/demand-status.component';
+import { DemandTypeComponent } from './shared/demand-type/demand-type.component';
 import { BeneficiaryListComponent } from './shared/beneficiary-list/beneficiary-list.component';
 import { RouterModule } from '@angular/router';
 import { beneficiariesRoutes } from './beneficiaries.routes';
@@ -24,8 +24,8 @@ import { TranslateModule } from '@ngx-translate/core';
     BeneficiaryNewComponent,
     BeneficiaryEditComponent,
     DisabilityComponent,
-    RequestStatusComponent,
-    RequestTypeComponent,
+    DemandStatusComponent,
+    DemandTypeComponent,
     BeneficiaryListComponent,
   ],
   imports: [

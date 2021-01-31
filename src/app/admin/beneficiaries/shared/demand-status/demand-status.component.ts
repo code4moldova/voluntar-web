@@ -11,11 +11,11 @@ const TITLES = {
 };
 
 @Component({
-  selector: 'app-request-status',
-  templateUrl: './request-status.component.html',
-  styleUrls: ['./request-status.component.scss'],
+  selector: 'app-demand-status',
+  templateUrl: './demand-status.component.html',
+  styleUrls: ['./demand-status.component.scss'],
 })
-export class RequestStatusComponent implements OnInit {
+export class DemandStatusComponent implements OnInit {
   @Input()
   status: DemandStatus;
   statusTitle: string;

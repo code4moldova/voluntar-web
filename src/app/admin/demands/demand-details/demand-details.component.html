@@ -139,10 +139,10 @@
     <div class="fields_row">
       <div class="field" fxFlex fxLayout="column">
         <div class="title">Adresă</div>
-        <app-request-address-field
+        <app-demand-address-field
           (gotCoordinates)="updateAddress($event)"
-          [selectedAddress]="requestAddress"
-        ></app-request-address-field>
+          [selectedAddress]="demandAddress"
+        ></app-demand-address-field>
         <mat-error
           *ngIf="form.get('beneficiary.address').invalid && form.touched"
         >

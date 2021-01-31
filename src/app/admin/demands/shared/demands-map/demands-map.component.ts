@@ -42,7 +42,7 @@ export class DemandsMapComponent implements OnDestroy, OnInit {
   private map: Map = null;
   private mapView: MapView;
   private graphicsLayer: GraphicsLayer = null;
-  public requests: Demand[] = [];
+  public demands: Demand[] = [];
   public zones = [
     {
       // Backend does not have such a zone, do not use it in REST communication
@@ -131,7 +131,7 @@ export class DemandsMapComponent implements OnDestroy, OnInit {
   };
 
   constructor(
-    public requestsService: DemandsService,
+    public demandsService: DemandsService,
     private cdr: ChangeDetectorRef,
     private demandsMapService: DemandsMapService,
     private snackBar: MatSnackBar,
@@ -154,7 +154,7 @@ export class DemandsMapComponent implements OnDestroy, OnInit {
     try {
       //Geographic data stored temporarily in memory.
       //Displaying individual geographic features as graphics, visual aids or text on the map.
-      this.initializeRequestsOnTheMap('init');
+      this.initializeDemandsOnTheMap('init');
 
       this.map = await new Map({
         basemap: 'streets-navigation-vector', // possible: topo-vector
@@ -172,19 +172,19 @@ export class DemandsMapComponent implements OnDestroy, OnInit {
         this.mapView.hitTest(ev.screenPoint).then((res) => {
           if (
             res.results.length < 1 || // clicked to no object on the map
-            res.results[0].graphic.attributes?.requestId === undefined
+            res.results[0].graphic.attributes?.demandId === undefined
           )
             return;
 
           const gr: Graphic = res.results[0].graphic;
           if (gr) {
             const exist = this.selectedDemands.find(
-              (r) => r._id === gr.attributes.requestId,
+              (r) => r._id === gr.attributes.demandId,
             );
             if (exist === undefined) {
               //in case of missed - add demand to the selected demands and make it green on map
               this.selectedDemands.push(
-                this.requests.find((r) => r._id === gr.attributes.requestId),
+                this.demands.find((r) => r._id === gr.attributes.demandId),
               );
               this.selectedDemands = [...this.selectedDemands];
               gr.symbol.set('color', this.changedMarkerSymbol.color);
@@ -210,7 +210,7 @@ export class DemandsMapComponent implements OnDestroy, OnInit {
     }
   }
 
-  initializeRequestsOnTheMap(
+  initializeDemandsOnTheMap(
     status: 'init' | 'filter',
     filters: any = {},
   ): void {
@@ -223,7 +223,7 @@ export class DemandsMapComponent implements OnDestroy, OnInit {
       );
     }
     from(
-      this.requestsService.getDemands(
+      this.demandsService.getDemands(
         {
           pageIndex: 1,
           pageSize: 20000,
@@ -235,8 +235,8 @@ export class DemandsMapComponent implements OnDestroy, OnInit {
       ),
     ).subscribe(
       (res) => {
-        this.requests = res.list;
-        this.requests.forEach((el) =>
+        this.demands = res.list;
+        this.demands.forEach((el) =>
           this.addDemandToMap(el, this.simpleMarkerSymbol),
         );
       },
@@ -256,7 +256,7 @@ export class DemandsMapComponent implements OnDestroy, OnInit {
         geometry: pointToMap,
         symbol: sym,
         attributes: {
-          requestId: req._id,
+          demandId: req._id,
           zone: req.beneficiary.zone ?? 'toate',
         },
       }),
@@ -290,7 +290,7 @@ export class DemandsMapComponent implements OnDestroy, OnInit {
         type: this.selectedDemandTypeFilter,
       };
     }
-    this.initializeRequestsOnTheMap('filter', currentFilter);
+    this.initializeDemandsOnTheMap('filter', currentFilter);
   }
 
   selectedVolunteerProvided(ev) {
@@ -300,7 +300,7 @@ export class DemandsMapComponent implements OnDestroy, OnInit {
   nextFormStep(): void {
     if (this.stepOnSelectionZone === 3) {
       this.stepOnSelectionZone = 1;
-      this.initializeRequestsOnTheMap('init');
+      this.initializeDemandsOnTheMap('init');
     } else {
       this.stepOnSelectionZone++;
     }

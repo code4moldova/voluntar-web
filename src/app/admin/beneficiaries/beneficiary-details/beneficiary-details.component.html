@@ -4,7 +4,12 @@
 
 <div fxLayoutAlign="space-between center" class="mb-2">
   <h2>Detalii Beneficiar</h2>
-  <a mat-stroked-button [routerLink]="['./edit', user._id]" class="edit-link">
+  <a
+    mat-stroked-button
+    *ngIf="user"
+    [routerLink]="['./edit', user._id]"
+    class="edit-link"
+  >
     <mat-icon>edit</mat-icon>
     Editează
   </a>
@@ -78,25 +83,25 @@
 
   <div class="secondary-title">
     Istoric Cereri
-    <span class="count">({{ requestsCount$ | async }})</span>
+    <span class="count">({{ demandsCount$ | async }})</span>
   </div>
   <mat-accordion multi displayMode="flat">
     <mat-expansion-panel
-      *ngFor="let req of requestsData$ | async"
+      *ngFor="let req of demandsData$ | async"
       displayMode="flat"
     >
       <mat-expansion-panel-header>
         <mat-panel-title>
           <div class="number" style="width: 100px">#{{ req.number }}</div>
           <div class="type" style="width: 300px">
-            <app-request-type [type]="req.type"></app-request-type>
+            <app-demand-type [type]="req.type"></app-demand-type>
           </div>
           <div class="date" style="width: 200px">
             <mat-icon>event</mat-icon>
             {{ req.created_at | prettyDate }}
           </div>
           <div class="status" style="width: 170px">
-            <app-request-status [status]="req.status"></app-request-status>
+            <app-demand-status [status]="req.status"></app-demand-status>
           </div>
           <div class="volunteer" style="width: 183px">
             <span *ngIf="req.volunteer">
@@ -112,7 +117,7 @@
   </mat-accordion>
   <mat-paginator
     (page)="onPageChange($event)"
-    [length]="requestsCount$ | async"
+    [length]="demandsCount$ | async"
     [pageSizeOptions]="[20, 50, 100]"
   ></mat-paginator>
 </div>

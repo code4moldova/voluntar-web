@@ -11,7 +11,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { BehaviorSubject, forkJoin, Observable, of } from 'rxjs';
 import { map, pluck, take, takeUntil } from 'rxjs/operators';
 
-import { DemandsFacade, RequestPageParams } from '../demands.facade';
+import { DemandsFacade, DemandsPageParams } from '../demands.facade';
 import { UsersFacade } from '@users/users.facade';
 
 import { MatTabChangeEvent } from '@angular/material/tabs';
@@ -19,7 +19,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ActionsSubject } from '@ngrx/store';
 import { ofType } from '@ngrx/effects';
-import { saveRequestSuccessAction } from '../demands.actions';
+import { saveDemandSuccessAction } from '../demands.actions';
 import { DemandDetailsComponent } from '../demand-details/demand-details.component';
 import {
   FilterInputColumns,
@@ -34,7 +34,7 @@ import { Demand } from '@demands/shared/demand';
   styleUrls: ['./demands-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RequestsListComponent implements OnInit {
+export class DemandsListComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   displayedColumns: string[] = [
     'icons',
@@ -47,7 +47,7 @@ export class RequestsListComponent implements OnInit {
   ];
   dataSource$: Observable<Demand[]>;
   isLoading$ = this.demandsFacade.isLoading$;
-  count$ = this.demandsFacade.requestsCount$;
+  count$ = this.demandsFacade.demandsCount$;
 
   public inputColumns: FilterInputColumns[];
   public selectColumns: FilterSelectColumns<{
@@ -57,7 +57,7 @@ export class RequestsListComponent implements OnInit {
   public observableSelectColumns: FilterObservableSelectColumns[];
 
   lastFilter = {};
-  page: RequestPageParams = { pageSize: 20, pageIndex: 1 };
+  page: DemandsPageParams = { pageSize: 20, pageIndex: 1 };
 
   private isActive = [
     {
@@ -123,10 +123,10 @@ export class RequestsListComponent implements OnInit {
   }
 
   getAllStatusesCount() {
-    const requests = [{}, ...this.allStatuses].map((status: any) =>
+    const demands = [{}, ...this.allStatuses].map((status: any) =>
       this.helperGetCountByStatus(status._id),
     );
-    forkJoin(requests)
+    forkJoin(demands)
       .pipe(take(1))
       .subscribe((res) => {
         this.allStatusesCounts$.next(res);
@@ -135,14 +135,14 @@ export class RequestsListComponent implements OnInit {
 
   helperGetCountByStatus(status: string) {
     return this.demandsFacade
-      .getRequestByStatus(status)
+      .getDemandsByStatus(status)
       .pipe(map((res) => res.count));
   }
 
   ngOnInit() {
-    this.fetchRequests();
+    this.fetchDemands();
     this.usersFacade.getUsers();
-    this.dataSource$ = this.demandsFacade.requests$;
+    this.dataSource$ = this.demandsFacade.demands$;
 
     this.inputColumns = [
       { name: 'First Name', value: 'first_name' },
@@ -192,24 +192,24 @@ export class RequestsListComponent implements OnInit {
     });
   }
 
-  fetchRequests() {
-    this.demandsFacade.getRequests(this.page);
-    this.demandsFacade.resetNewRequests();
+  fetchDemands() {
+    this.demandsFacade.getDemands(this.page);
+    this.demandsFacade.resetNewDemands();
   }
 
   queryResult(criteria: { [keys: string]: string }) {
     this.lastFilter = criteria;
     this.page = { pageSize: 20, pageIndex: 1 };
-    this.demandsFacade.getRequests(this.page, criteria);
+    this.demandsFacade.getDemands(this.page, criteria);
   }
 
   onPageChange(event: PageEvent) {
     this.page = { pageSize: event.pageSize, pageIndex: event.pageIndex + 1 };
-    this.demandsFacade.getRequests(this.page, this.lastFilter);
+    this.demandsFacade.getDemands(this.page, this.lastFilter);
   }
 
   onExport() {
-    this.demandsFacade.getExportRequests().subscribe((res) => {
+    this.demandsFacade.getExportDemands().subscribe((res) => {
       this.downloadCsv(res);
     });
   }
@@ -226,21 +226,18 @@ export class RequestsListComponent implements OnInit {
     }
   }
 
-  openNewRequestDialog(element: Demand = {} as Demand) {
+  openNewDemandDialog(element: Demand = {} as Demand) {
     const dialogRef = this.matDialog.open(DemandDetailsComponent, {
       data: { element },
       maxWidth: '100%',
       maxHeight: '90vh',
-      panelClass: 'newrequest-custom-modalbox',
+      panelClass: 'new-demand-custom-modal-box',
     });
 
     this.actions$
-      .pipe(
-        ofType(saveRequestSuccessAction),
-        takeUntil(dialogRef.afterClosed()),
-      )
+      .pipe(ofType(saveDemandSuccessAction), takeUntil(dialogRef.afterClosed()))
       .subscribe(() => {
-        this.demandsFacade.getRequests(this.page, this.lastFilter);
+        this.demandsFacade.getDemands(this.page, this.lastFilter);
         this.getAllStatusesCount();
         dialogRef.close();
       });

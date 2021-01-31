@@ -69,10 +69,10 @@ export class VolunteersListComponent implements OnInit {
   onVolunteersExport(): void {}
 
   getAllStatusesCount() {
-    const requests = this.tabs.map((tab) =>
+    const demands = this.tabs.map((tab) =>
       this.helperGetCountByStatus(tab.status),
     );
-    forkJoin(requests)
+    forkJoin(demands)
       .pipe(take(1))
       .subscribe((res) => {
         this.allStatusesCounts$.next(res);

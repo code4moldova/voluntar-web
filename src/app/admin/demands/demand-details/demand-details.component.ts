@@ -18,7 +18,6 @@ import { BeneficiariesFacade } from '@app/admin/beneficiaries/beneficiaries.faca
 import { DemandsService } from '../demands.service';
 import { demandTypes } from '@demands/shared/demand-type';
 import { DemandStatus } from '@demands/shared/demand-status';
-import { DemandBackEnd } from '@demands/shared/demand-backend';
 import { zones } from '@shared/zone';
 import { specialConditions } from '@beneficiaries/shared/special-condition';
 
@@ -38,7 +37,7 @@ export class DemandDetailsComponent implements OnInit {
   specialConditions = specialConditions;
   existentBeneficiary: Beneficiary = {} as Beneficiary;
   validAddress = true;
-  requestAddress: string;
+  demandAddress: string;
   beneficiaryName = '';
 
   constructor(
@@ -73,7 +72,7 @@ export class DemandDetailsComponent implements OnInit {
       this.beneficiariesFacade.saveBeneficiary(payload.beneficiary);
     }
 
-    this.demandsFacade.saveRequest(payload);
+    this.demandsFacade.saveDemand(payload);
     combineLatest([this.demandsFacade.isLoading$, this.demandsFacade.error$])
       .pipe(
         filter(([status, error]) => !status && !error),
@@ -147,8 +146,8 @@ export class DemandDetailsComponent implements OnInit {
       ]),
       urgent: new FormControl(el ? el.urgent : false),
     });
-    if (el) this.requestAddress = el.beneficiary.address;
-    else this.requestAddress = '';
+    if (el) this.demandAddress = el.beneficiary.address;
+    else this.demandAddress = '';
   }
 
   closeDialog() {
@@ -156,21 +155,20 @@ export class DemandDetailsComponent implements OnInit {
   }
 
   onEditDemand(edit?: boolean) {
-    const updateDemand: DemandBackEnd = {
-      _id: this.data.element._id,
-      type: this.data.element.type,
-      status: edit ? DemandStatus.confirmed : DemandStatus.archived,
-      number: this.data.element.number,
-      secret: this.data.element.secret,
-      urgent: this.data.element.urgent,
-      comments: this.data.element.comments,
-      has_symptoms: this.data.element.has_symptoms,
-    };
-
-    this.demandsService.updateDemand(updateDemand).subscribe(
-      () => {},
-      () => console.log('ERROR submitting demand status update!'),
-    );
+    this.demandsService
+      .updateDemand({
+        _id: this.data.element._id,
+        type: this.data.element.type,
+        status: edit ? DemandStatus.confirmed : DemandStatus.archived,
+        number: this.data.element.number,
+        secret: this.data.element.secret,
+        urgent: this.data.element.urgent,
+        comments: this.data.element.comments,
+        has_symptoms: this.data.element.has_symptoms,
+      } as Demand)
+      .subscribe({
+        error: () => console.log('ERROR submitting demand status update!'),
+      });
   }
 
   checkForExistentBeneficiary($event: Event) {
@@ -223,7 +221,7 @@ export class DemandDetailsComponent implements OnInit {
     this.form
       .get('beneficiary.special_condition')
       .patchValue(this.existentBeneficiary.special_condition);
-    this.requestAddress = this.existentBeneficiary.address;
+    this.demandAddress = this.existentBeneficiary.address;
   }
 
   getUrgentStyleObject() {

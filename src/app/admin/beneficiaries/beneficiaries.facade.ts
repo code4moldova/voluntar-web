@@ -9,7 +9,7 @@ import {
   getBeneficiariesByFilterAction,
   getBeneficiariesAction,
   getBeneficiaryAction,
-  getBeneficiaryRequestsAction,
+  getBeneficiaryDemandsAction,
   getBeneficiaryBlockListAction,
 } from './beneficiaries.actions';
 import {
@@ -18,9 +18,9 @@ import {
   selectBeneficiaryDetails,
   selectError,
   selectBeneficiariesCount,
-  selectRequestsError,
-  selectRequestsData,
-  selectRequestsCount,
+  selectDemandsError,
+  selectDemandsData,
+  selectDemandsCount,
   selectBlockListData,
   selectBlockListCount,
   selectBlockListIsLoading,
@@ -37,11 +37,8 @@ export class BeneficiariesFacade {
   isLoading$ = this.store.pipe(select(selectIsLoading));
   error$ = this.store.pipe(select(selectError));
 
-  // Requests
-
-  requestsData$ = this.store.pipe(select(selectRequestsData));
-  requestsCount$ = this.store.pipe(select(selectRequestsCount));
-  // BlockList
+  demandsData$ = this.store.pipe(select(selectDemandsData));
+  demandsCount$ = this.store.pipe(select(selectDemandsCount));
 
   blockListData$ = this.store.pipe(select(selectBlockListData));
   blockListCount$ = this.store.pipe(select(selectBlockListCount));
@@ -64,11 +61,11 @@ export class BeneficiariesFacade {
     this.store.dispatch(getBeneficiariesAction({ page, filters }));
   }
 
-  getBeneficiaryRequests(
+  getBeneficiaryDemands(
     page: { pageSize: number; pageIndex: number },
     id: string,
   ) {
-    this.store.dispatch(getBeneficiaryRequestsAction({ page, id }));
+    this.store.dispatch(getBeneficiaryDemandsAction({ page, id }));
   }
 
   getBeneficiaryBlockList(

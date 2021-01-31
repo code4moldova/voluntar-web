@@ -1,98 +1,98 @@
 import { createReducer, on } from '@ngrx/store';
 import { DemandsState, initialState } from './demands.state';
 import {
-  getBeneficiariesByFilterAction,
   getBeneficiariesByFilterFailureAction,
-  getBeneficiariesByFilterSuccesAction,
-  getRequestAction,
-  getRequestFailureAction,
-  getRequestsAction,
-  getRequestsFailureAction,
-  getRequestsSuccessAction,
-  getRequestSuccessAction,
-  saveRequestAction,
-  saveRequestFailureAction,
-  saveRequestSuccessAction,
-  updateRequestAction,
-  updateRequestFailureAction,
-  updateRequestSuccessAction,
+  getBeneficiariesByFilterRequestAction,
+  getBeneficiariesByFilterSuccessAction,
+  getDemandFailureAction,
+  getDemandRequestAction,
+  getDemandsFailureAction,
+  getDemandsRequestAction,
+  getDemandsSuccessAction,
+  getDemandSuccessAction,
+  saveDemandFailureAction,
+  saveDemandRequestAction,
+  saveDemandSuccessAction,
+  updateDemandFailureAction,
+  updateDemandRequestAction,
+  updateDemandSuccessAction,
 } from './demands.actions';
 
 export const demandsReducer = createReducer<DemandsState>(
   initialState,
-  on(getRequestsAction, (state) => ({
+  on(getDemandsRequestAction, (state) => ({
     ...state,
     error: null,
     isLoading: true,
   })),
-  on(getRequestsSuccessAction, (state, { payload, count }) => ({
+  on(getDemandsSuccessAction, (state, { payload, count }) => ({
     ...state,
     isLoading: false,
     data: payload,
     count,
   })),
-  on(getRequestsFailureAction, (state, { error }) => ({
+  on(getDemandsFailureAction, (state, { error }) => ({
     ...state,
     isLoading: false,
     error,
   })),
 
-  on(saveRequestAction, (state) => ({
+  on(saveDemandRequestAction, (state) => ({
     ...state,
     error: null,
     isLoading: true,
   })),
-  on(saveRequestSuccessAction, (state, { payload }) => ({
+  on(saveDemandSuccessAction, (state, { payload }) => ({
     ...state,
     isLoading: false,
     details: payload,
   })),
-  on(saveRequestFailureAction, (state, { error }) => ({
+  on(saveDemandFailureAction, (state, { error }) => ({
     ...state,
     isLoading: false,
     error,
   })),
 
-  on(getRequestAction, (state) => ({
+  on(getDemandRequestAction, (state) => ({
     ...state,
     error: null,
     isLoading: true,
   })),
-  on(getRequestSuccessAction, (state, { payload }) => ({
-    ...state,
-    isLoading: false,
-    error: null,
-    details: payload,
-  })),
-  on(getRequestFailureAction, (state, { error }) => ({
-    ...state,
-    isLoading: false,
-    error,
-  })),
-
-  on(updateRequestAction, (state) => ({
-    ...state,
-    error: null,
-    isLoading: true,
-  })),
-  on(updateRequestSuccessAction, (state, { payload }) => ({
+  on(getDemandSuccessAction, (state, { payload }) => ({
     ...state,
     isLoading: false,
     error: null,
     details: payload,
   })),
-  on(updateRequestFailureAction, (state, { error }) => ({
+  on(getDemandFailureAction, (state, { error }) => ({
     ...state,
     isLoading: false,
     error,
   })),
 
-  on(getBeneficiariesByFilterAction, (state) => ({
+  on(updateDemandRequestAction, (state) => ({
     ...state,
     error: null,
     isLoading: true,
   })),
-  on(getBeneficiariesByFilterSuccesAction, (state, { payload }) => ({
+  on(updateDemandSuccessAction, (state, { payload }) => ({
+    ...state,
+    isLoading: false,
+    error: null,
+    details: payload,
+  })),
+  on(updateDemandFailureAction, (state, { error }) => ({
+    ...state,
+    isLoading: false,
+    error,
+  })),
+
+  on(getBeneficiariesByFilterRequestAction, (state) => ({
+    ...state,
+    error: null,
+    isLoading: true,
+  })),
+  on(getBeneficiariesByFilterSuccessAction, (state, { payload }) => ({
     ...state,
     isLoading: false,
     data: payload,

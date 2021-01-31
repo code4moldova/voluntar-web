@@ -11,7 +11,7 @@ export interface coordinates {
 }
 
 @Component({
-  selector: 'app-request-address-field',
+  selector: 'app-demand-address-field',
   templateUrl: './demand-address-field.component.html',
   styleUrls: ['./demand-address-field.component.scss'],
 })

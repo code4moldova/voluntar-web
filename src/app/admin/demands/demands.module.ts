@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DemandDetailsComponent } from './demand-details/demand-details.component';
-import { RequestsListComponent } from './demands-list/demands-list.component';
+import { DemandsListComponent } from './demands-list/demands-list.component';
 import { MaterialComponentsModule } from '@shared/material.module';
 import { SharedModule } from '@shared/shared.module';
 import { NgxMaskModule } from 'ngx-mask';
@@ -17,7 +17,7 @@ import { FilterByNameOrFamilyPipe } from '@app/shared/pipes/filter-by-name-or-fa
 @NgModule({
   declarations: [
     DemandDetailsComponent,
-    RequestsListComponent,
+    DemandsListComponent,
     DemandAddressFieldComponent,
     DemandsMapComponent,
     DemandSelectionOnMapComponent,

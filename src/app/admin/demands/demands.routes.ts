@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
-import { RequestsListComponent } from './demands-list/demands-list.component';
+import { DemandsListComponent } from './demands-list/demands-list.component';
 
 export const demandsRoutes: Routes = [
   {
     path: 'list',
-    component: RequestsListComponent,
+    component: DemandsListComponent,
   },
   {
     path: '**',

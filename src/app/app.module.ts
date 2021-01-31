@@ -45,7 +45,7 @@ import { BeneficiariesEffects } from '@beneficiaries/beneficiaries.effects';
     StoreModule.forRoot({}, {}),
     StoreModule.forFeature('auth', authReducer),
     StoreModule.forFeature('beneficiaries', beneficiariesReducer),
-    StoreModule.forFeature('requests', demandsReducer),
+    StoreModule.forFeature('demands', demandsReducer),
     StoreModule.forFeature('volunteers', volunteersReducer),
     StoreModule.forFeature('users', usersReducer),
     EffectsModule.forRoot([

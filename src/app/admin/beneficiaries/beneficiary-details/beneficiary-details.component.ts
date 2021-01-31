@@ -16,8 +16,8 @@ export class BeneficiaryDetailsComponent implements OnInit, OnDestroy {
   componentDestroyed$ = new Subject();
   user: Beneficiary;
 
-  requestsData$ = this.serviceFacade.requestsData$;
-  requestsCount$ = this.serviceFacade.requestsCount$;
+  demandsData$ = this.serviceFacade.demandsData$;
+  demandsCount$ = this.serviceFacade.demandsCount$;
   pageIndex = 1;
   pageSize = 20;
 
@@ -35,13 +35,13 @@ export class BeneficiaryDetailsComponent implements OnInit, OnDestroy {
         this.recordId = id;
         if (id) {
           this.serviceFacade.getBeneficiaryById(id);
-          this.loadRequests(id);
+          this.loadDemands(id);
         }
       });
   }
 
-  private loadRequests(id: string) {
-    this.serviceFacade.getBeneficiaryRequests(
+  private loadDemands(id: string) {
+    this.serviceFacade.getBeneficiaryDemands(
       { pageIndex: this.pageIndex, pageSize: this.pageSize },
       id,
     );
@@ -67,7 +67,7 @@ export class BeneficiaryDetailsComponent implements OnInit, OnDestroy {
   onPageChange($event: PageEvent) {
     this.pageIndex = $event.pageIndex;
     this.pageSize = $event.pageSize;
-    this.loadRequests(this.recordId);
+    this.loadDemands(this.recordId);
   }
 
   userAddress(): string {

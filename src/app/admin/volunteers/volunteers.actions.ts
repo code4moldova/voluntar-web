@@ -11,7 +11,7 @@ export enum ActionTypes {
   GET_VOLUNTEER_FAILURE = '[Volunteer] Get Volunteer Failure',
 
   GET_VOLUNTEERS_BY_FILTER = '[Volunteers] Get Volunteers By Filter',
-  GET_VOLUNTEERS_BY_FILTER_SUCCES = '[Volunteers] Get Volunteers By Filter Success',
+  GET_VOLUNTEERS_BY_FILTER_SUCCESS = '[Volunteers] Get Volunteers By Filter Success',
   GET_VOLUNTEERS_BY_FILTER_FAILURE = '[Volunteers] Get Volunteers By Filter Failure',
 
   SAVE_VOLUNTEER = '[Volunteer] Save Volunteer',
@@ -81,7 +81,7 @@ export const getVolunteersByFilterAction = createAction(
 );
 
 export const getVolunteersByFilterSuccessAction = createAction(
-  ActionTypes.GET_VOLUNTEERS_BY_FILTER_SUCCES,
+  ActionTypes.GET_VOLUNTEERS_BY_FILTER_SUCCESS,
   props<{ payload: Volunteer[] }>(),
 );
 

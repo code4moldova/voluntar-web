@@ -88,7 +88,7 @@ export class VolunteersEffects {
     );
   });
 
-  getVolunteersByFilterffect$: Observable<Action> = createEffect(() => {
+  getVolunteersByFilterEffect$: Observable<Action> = createEffect(() => {
     return this.actions$.pipe(
       ofType(getVolunteersByFilterAction),
       switchMap((action) =>

@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 import { Beneficiary } from './shared/beneficiary';
 import { environment } from 'src/environments/environment';
-import { BeneficiaryRequest } from './beneficiaries.state';
+import { Demand } from '@demands/shared/demand';
 
 @Injectable({
   providedIn: 'root',
@@ -73,7 +73,7 @@ export class BeneficiariesService {
     );
   }
 
-  getBeneficiaryRequests(
+  getBeneficiaryDemands(
     page: { pageIndex: number; pageSize: number } = {
       pageIndex: 1,
       pageSize: 20,
@@ -81,7 +81,7 @@ export class BeneficiariesService {
     id: string,
   ) {
     const params = new HttpParams({ fromObject: { b_id: id } });
-    return this.http.get<{ list: BeneficiaryRequest[]; count: number }>(
+    return this.http.get<{ list: Demand[]; count: number }>(
       `${environment.url}/requests/filters/${page.pageIndex || 1}/${
         page.pageSize
       }`,
