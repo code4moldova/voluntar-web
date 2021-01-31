@@ -7,7 +7,7 @@ import { takeUntil } from 'rxjs/operators';
 import { ofType } from '@ngrx/effects';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { Beneficiary } from '@shared/models';
+import { Beneficiary } from '../shared/beneficiary';
 import { BeneficiariesFacade } from '../beneficiaries.facade';
 import { BeneficiaryNewComponent } from '../beneficiary-new/beneficiary-new.component';
 import { saveBeneficiarySuccessAction } from '../beneficiaries.actions';

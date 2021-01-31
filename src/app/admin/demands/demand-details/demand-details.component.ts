@@ -10,7 +10,7 @@ import { DemandsFacade } from '../demands.facade';
 import { BeneficiariesService } from '@beneficiaries/beneficiaries.service';
 import { coordinates } from './demand-address-field/demand-address-field.component';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Beneficiary } from '@app/shared/models';
+import { Beneficiary } from '@beneficiaries/shared/beneficiary';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { combineLatest } from 'rxjs';
 import { filter, first } from 'rxjs/operators';

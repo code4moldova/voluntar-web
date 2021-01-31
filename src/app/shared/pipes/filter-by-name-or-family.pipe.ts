@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Beneficiary } from '@shared/models';
+import { Beneficiary } from '@beneficiaries/shared/beneficiary';
 import { Volunteer } from '@volunteers/shared/volunteer';
 
 @Pipe({

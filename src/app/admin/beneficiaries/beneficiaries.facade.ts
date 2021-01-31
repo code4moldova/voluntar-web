@@ -25,7 +25,7 @@ import {
   selectBlockListCount,
   selectBlockListIsLoading,
 } from './beneficiaries.selectors';
-import { Beneficiary } from '@shared/models';
+import { Beneficiary } from './shared/beneficiary';
 
 @Injectable({
   providedIn: 'root',
@@ -59,21 +59,21 @@ export class BeneficiariesFacade {
 
   getBeneficiaries(
     page: { pageSize: number; pageIndex: number },
-    filters?: any
+    filters?: any,
   ) {
     this.store.dispatch(getBeneficiariesAction({ page, filters }));
   }
 
   getBeneficiaryRequests(
     page: { pageSize: number; pageIndex: number },
-    id: string
+    id: string,
   ) {
     this.store.dispatch(getBeneficiaryRequestsAction({ page, id }));
   }
 
   getBeneficiaryBlockList(
     page: { pageSize: number; pageIndex: number },
-    filters: Record<string, string>
+    filters: Record<string, string>,
   ) {
     this.store.dispatch(getBeneficiaryBlockListAction({ page, filters }));
   }

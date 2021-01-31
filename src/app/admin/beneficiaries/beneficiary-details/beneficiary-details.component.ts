@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { filter, map, takeUntil, tap } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
-import { Beneficiary } from '@shared/models';
+import { Beneficiary } from '../shared/beneficiary';
 import { PageEvent } from '@angular/material/paginator';
 
 @Component({
@@ -23,13 +23,13 @@ export class BeneficiaryDetailsComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
-    private serviceFacade: BeneficiariesFacade
+    private serviceFacade: BeneficiariesFacade,
   ) {
     this.route.paramMap
       .pipe(
         map((params) => params.get('id')),
         tap((id) => (this.recordId = id)),
-        takeUntil(this.componentDestroyed$)
+        takeUntil(this.componentDestroyed$),
       )
       .subscribe((id) => {
         this.recordId = id;
@@ -43,7 +43,7 @@ export class BeneficiaryDetailsComponent implements OnInit, OnDestroy {
   private loadRequests(id: string) {
     this.serviceFacade.getBeneficiaryRequests(
       { pageIndex: this.pageIndex, pageSize: this.pageSize },
-      id
+      id,
     );
   }
 
@@ -52,7 +52,7 @@ export class BeneficiaryDetailsComponent implements OnInit, OnDestroy {
       .pipe(
         filter((record) => !!record),
         map((record) => (this.recordId ? record : ({} as Beneficiary))),
-        takeUntil(this.componentDestroyed$)
+        takeUntil(this.componentDestroyed$),
       )
       .subscribe((record) => {
         this.user = record;

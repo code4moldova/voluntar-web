@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 
-import { Beneficiary } from '@shared/models';
+import { Beneficiary } from './shared/beneficiary';
 import { BeneficiaryRequest } from './beneficiaries.state';
 
 export enum ActionTypes {
@@ -35,84 +35,84 @@ export enum ActionTypes {
 
 export const getBeneficiariesAction = createAction(
   ActionTypes.GET_BENEFICIARIES,
-  props<{ page: { pageSize: number; pageIndex: number }; filters?: any }>()
+  props<{ page: { pageSize: number; pageIndex: number }; filters?: any }>(),
 );
 export const getBeneficiariesFailureAction = createAction(
   ActionTypes.GET_BENEFICIARIES_FAILURE,
-  props<{ error: any }>()
+  props<{ error: any }>(),
 );
 export const getBeneficiariesSuccessAction = createAction(
   ActionTypes.GET_BENEFICIARIES_SUCCESS,
-  props<{ payload: Beneficiary[]; count: number }>()
+  props<{ payload: Beneficiary[]; count: number }>(),
 );
 
 export const getBeneficiaryAction = createAction(
   ActionTypes.GET_BENEFICIARY,
-  props<{ id: string }>()
+  props<{ id: string }>(),
 );
 export const getBeneficiarySuccessAction = createAction(
   ActionTypes.GET_BENEFICIARY_SUCCESS,
-  props<{ payload: Beneficiary }>()
+  props<{ payload: Beneficiary }>(),
 );
 export const getBeneficiaryFailureAction = createAction(
   ActionTypes.GET_BENEFICIARY_FAILURE,
-  props<{ error: any }>()
+  props<{ error: any }>(),
 );
 
 export const getBeneficiaryRequestsAction = createAction(
   ActionTypes.GET_BENEFICIARY_REQUESTS,
-  props<{ id: string; page: { pageSize: number; pageIndex: number } }>()
+  props<{ id: string; page: { pageSize: number; pageIndex: number } }>(),
 );
 
 export const getBeneficiaryRequestsSuccessAction = createAction(
   ActionTypes.GET_BENEFICIARY_REQUESTS_SUCCESS,
-  props<{ payload: BeneficiaryRequest[]; count: number }>()
+  props<{ payload: BeneficiaryRequest[]; count: number }>(),
 );
 
 export const getBeneficiaryRequestsFailureAction = createAction(
   ActionTypes.GET_BENEFICIARY_REQUESTS_FAILURE,
-  props<{ error: any }>()
+  props<{ error: any }>(),
 );
 
 export const saveBeneficiaryAction = createAction(
   ActionTypes.SAVE_BENEFICIARY,
-  props<{ payload: Beneficiary }>()
+  props<{ payload: Beneficiary }>(),
 );
 export const saveBeneficiaryFailureAction = createAction(
   ActionTypes.SAVE_BENEFICIARY_FAILURE,
-  props<{ error: any }>()
+  props<{ error: any }>(),
 );
 export const saveBeneficiarySuccessAction = createAction(
   ActionTypes.SAVE_BENEFICIARY_SUCCESS,
-  props<{ payload: any }>()
+  props<{ payload: any }>(),
 );
 
 export const updateBeneficiaryAction = createAction(
   ActionTypes.UPDATE_BENEFICIARY,
-  props<{ payload: Beneficiary }>()
+  props<{ payload: Beneficiary }>(),
 );
 export const updateBeneficiaryFailureAction = createAction(
   ActionTypes.UPDATE_BENEFICIARY_FAILURE,
-  props<{ error: any }>()
+  props<{ error: any }>(),
 );
 export const updateBeneficiarySuccessAction = createAction(
   ActionTypes.UPDATE_BENEFICIARY_SUCCESS,
-  props<{ payload: any }>()
+  props<{ payload: any }>(),
 );
 
 export const getBeneficiariesByFilterAction = createAction(
   ActionTypes.GET_BENEFICIARIES_BY_FILTER,
-  props<{ payload: { [keys: string]: string } }>()
+  props<{ payload: { [keys: string]: string } }>(),
 );
 
 export const getBeneficiariesByFilterSuccessAction = createAction(
   ActionTypes.GET_BENEFICIARIES_BY_FILTER_SUCCES,
-  props<{ payload: Beneficiary[] }>()
+  props<{ payload: Beneficiary[] }>(),
 );
 
 export const getBeneficiariesByFilterFailureAction = createAction(
   ActionTypes.GET_BENEFICIARIES_BY_FILTER_FAILURE,
-  props<{ error: any }>()
+  props<{ error: any }>(),
 );
 
 export const getBeneficiaryBlockListAction = createAction(
@@ -120,15 +120,15 @@ export const getBeneficiaryBlockListAction = createAction(
   props<{
     page: { pageSize: number; pageIndex: number };
     filters: Record<string, string>;
-  }>()
+  }>(),
 );
 
 export const getBeneficiaryBlockListSuccessAction = createAction(
   ActionTypes.GET_BENEFICIARY_BLOCK_LIST_SUCCESS,
-  props<{ payload: Beneficiary[]; count: number }>()
+  props<{ payload: Beneficiary[]; count: number }>(),
 );
 
 export const getBeneficiaryBlockListFailureAction = createAction(
   ActionTypes.GET_BENEFICIARY_BLOCK_LIST_FAILURE,
-  props<{ error: any }>()
+  props<{ error: any }>(),
 );

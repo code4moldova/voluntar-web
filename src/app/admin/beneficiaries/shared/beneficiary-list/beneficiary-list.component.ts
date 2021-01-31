@@ -6,7 +6,7 @@ import {
   EventEmitter,
 } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Beneficiary } from '@shared/models';
+import { Beneficiary } from '../beneficiary';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
 @Component({

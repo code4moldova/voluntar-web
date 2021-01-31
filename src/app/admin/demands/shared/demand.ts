@@ -1,8 +1,8 @@
-import { Beneficiary } from '@shared/models/beneficiary';
 import { User } from '@users/shared/user';
 import { DemandType } from '@demands/shared/demand-type';
 import { DemandStatus } from '@demands/shared/demand-status';
 import { Volunteer } from '@volunteers/shared/volunteer';
+import { Beneficiary } from '@beneficiaries/shared/beneficiary';
 
 export interface Demand {
   _id?: string;
