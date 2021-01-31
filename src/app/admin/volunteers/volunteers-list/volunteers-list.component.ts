@@ -21,7 +21,7 @@ import { zones } from '@shared/zone';
 })
 export class VolunteersListComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  displayedColumns: string[] = ['name', 'phone', 'zone', 'icons'];
+  displayedColumns = ['name', 'phone', 'zone', 'icons', 'details'];
   dataSource$: Observable<Volunteer[]>;
   isLoading$ = this.volunteersFacade.isLoading$;
   count$ = this.volunteersFacade.count$;
