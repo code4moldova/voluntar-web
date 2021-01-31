@@ -1,4 +1,5 @@
-import { VolunteerRole, Zone } from '@shared/constants';
+import { Zone } from '@shared/constants';
+import { VolunteerRole } from '@volunteers/shared/volunteer-role';
 
 export interface IVolunteer {
   _id?: string;

@@ -4,8 +4,8 @@ import { filter, map, takeUntil } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { IVolunteer } from '@shared/models';
-import { volunteerRoles } from '@shared/constants';
 import { TranslateService } from '@ngx-translate/core';
+import { volunteerRoles } from '@volunteers/shared/volunteer-role';
 
 @Component({
   templateUrl: './volunteers-details.component.html',

@@ -47,18 +47,6 @@ export const KIV_ZONES = [
   },
 ];
 
-// TODO: Move in volunteers/shared
-export enum VolunteerRole {
-  delivery = 'delivery',
-  copilot = 'copilot',
-  packing = 'packing',
-  supply = 'supply',
-  operator = 'operator',
-}
-
-// TODO: Move in volunteers/shared
-export const volunteerRoles = Object.values(VolunteerRole);
-
 export enum SpecialCondition {
   disability = 'disability',
   deaf_mute = 'deaf_mute',
