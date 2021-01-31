@@ -1,3 +1,5 @@
+import { SpecialCondition } from '@beneficiaries/shared/special-condition';
+
 export interface Beneficiary {
   _id?: string;
   first_name: string;
@@ -12,6 +14,6 @@ export interface Beneficiary {
   apartment: string;
   latitude: number;
   longitude: number;
-  special_condition: string;
+  special_condition: SpecialCondition;
   created_at: string | Date;
 }

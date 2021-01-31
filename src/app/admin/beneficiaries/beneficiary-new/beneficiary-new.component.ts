@@ -5,9 +5,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { combineLatest } from 'rxjs';
 import { filter, first } from 'rxjs/operators';
 
-import { specialConditions } from '@shared/constants';
 import { BeneficiariesFacade } from '../beneficiaries.facade';
 import { zones } from '@shared/zone';
+import { specialConditions } from '@beneficiaries/shared/special-condition';
 
 export const COMMON_FIELDS = {
   first_name: [null, Validators.required],

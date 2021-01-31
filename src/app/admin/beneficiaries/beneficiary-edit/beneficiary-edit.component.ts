@@ -7,9 +7,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { BeneficiariesFacade } from '../beneficiaries.facade';
 import { Beneficiary } from '../shared/beneficiary';
-import { specialConditions } from '@shared/constants';
 import { COMMON_FIELDS } from '../beneficiary-new/beneficiary-new.component';
 import { zones } from '@shared/zone';
+import { specialConditions } from '@beneficiaries/shared/special-condition';
 
 @Component({
   templateUrl: './beneficiary-edit.component.html',
