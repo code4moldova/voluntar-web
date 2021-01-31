@@ -46,7 +46,7 @@ export class DemandsMapComponent implements OnDestroy, OnInit {
   public zones = [
     {
       // Backend does not have such a zone, do not use it in REST communication
-      value: Zone.toate,
+      value: 'toate',
       mapCoordinates: {
         latitude: 47.024758255143986,
         longitude: 28.83263462925968,
