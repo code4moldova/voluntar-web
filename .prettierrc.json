@@ -1,5 +1,6 @@
 {
   "htmlWhitespaceSensitivity": "ignore",
+  "trailingComma": "all",
   "overrides": [
     {
       "files": ["*.css", "*.scss"],

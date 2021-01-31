@@ -5,7 +5,6 @@ import { BehaviorSubject, forkJoin, Observable, of } from 'rxjs';
 
 import { VolunteerPageParams, VolunteersFacade } from '../volunteers.facade';
 import { TagsFacade } from '@shared/tags/tags.facade';
-import { GeolocationService } from '@shared/services/geolocation/geolocation.service';
 
 import { IVolunteer } from '@shared/models';
 import { ActionsSubject, Store } from '@ngrx/store';
@@ -62,10 +61,9 @@ export class VolunteersListComponent implements OnInit {
     private tagsFacadeService: TagsFacade,
     private matDialog: MatDialog,
     private actions$: ActionsSubject,
-    private geolocationService: GeolocationService,
     private activeRoute: ActivatedRoute,
     private router: Router,
-    store: Store<AppState>
+    store: Store<AppState>,
   ) {
     store.dispatch(getOffersTagsAction());
 
@@ -101,7 +99,7 @@ export class VolunteersListComponent implements OnInit {
 
   getAllStatusesCount() {
     const requests = this.tabs.map((tab) =>
-      this.helperGetCountByStatus(tab.status)
+      this.helperGetCountByStatus(tab.status),
     );
     forkJoin(requests)
       .pipe(take(1))
@@ -135,7 +133,7 @@ export class VolunteersListComponent implements OnInit {
     this.actions$
       .pipe(
         ofType(saveVolunteerSuccessAction),
-        takeUntil(dialogRef.afterClosed())
+        takeUntil(dialogRef.afterClosed()),
       )
       .subscribe(() => {
         this.volunteersFacade.getVolunteers(this.page, this.lastFilter);

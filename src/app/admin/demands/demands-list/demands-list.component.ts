@@ -13,10 +13,8 @@ import { map, pluck, take, takeUntil } from 'rxjs/operators';
 
 import { DemandsFacade, RequestPageParams } from '../demands.facade';
 import { UsersFacade } from '@users/users.facade';
-import { GeolocationService } from '@shared/services/geolocation/geolocation.service';
 
 import { IRequest } from '@shared/models';
-import { TagsFacade } from '@shared/tags/tags.facade';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -89,7 +87,7 @@ export class RequestsListComponent implements OnInit {
         );
       }
       return 0;
-    })
+    }),
   );
 
   allStatuses = [
@@ -116,19 +114,18 @@ export class RequestsListComponent implements OnInit {
   constructor(
     private demandsFacade: DemandsFacade,
     private usersFacade: UsersFacade,
-    private geolocationService: GeolocationService,
     private renderer: Renderer2,
     private router: Router,
     private activeRoute: ActivatedRoute,
     private matDialog: MatDialog,
-    private actions$: ActionsSubject
+    private actions$: ActionsSubject,
   ) {
     this.getAllStatusesCount();
   }
 
   getAllStatusesCount() {
     const requests = [{}, ...this.allStatuses].map((status: any) =>
-      this.helperGetCountByStatus(status._id)
+      this.helperGetCountByStatus(status._id),
     );
     forkJoin(requests)
       .pipe(take(1))
@@ -241,7 +238,7 @@ export class RequestsListComponent implements OnInit {
     this.actions$
       .pipe(
         ofType(saveRequestSuccessAction),
-        takeUntil(dialogRef.afterClosed())
+        takeUntil(dialogRef.afterClosed()),
       )
       .subscribe(() => {
         this.demandsFacade.getRequests(this.page, this.lastFilter);
