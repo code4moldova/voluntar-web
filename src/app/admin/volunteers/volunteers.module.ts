@@ -4,7 +4,6 @@ import { VolunteersListComponent } from './volunteers-list/volunteers-list.compo
 import { VolunteersDetailsComponent } from './volunteers-details/volunteers-details.component';
 import { MaterialComponentsModule } from '@shared/material.module';
 import { SharedModule } from '@shared/shared.module';
-import { VolunteerModalInfoComponent } from './shared/volunteer-modal-info/volunteer-modal-info.component';
 import { NgxMaskModule } from 'ngx-mask';
 import { RouterModule } from '@angular/router';
 import { volunteersRoutes } from './volunteers.routes';
@@ -16,7 +15,6 @@ import { VolunteersEditComponent } from './volunteers-edit/volunteers-edit.compo
   declarations: [
     VolunteersListComponent,
     VolunteersDetailsComponent,
-    VolunteerModalInfoComponent,
     VolunteersCreateComponent,
     VolunteerRoleComponent,
     VolunteersEditComponent,
