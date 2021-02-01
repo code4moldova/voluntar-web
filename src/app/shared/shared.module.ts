@@ -10,6 +10,8 @@ import { PrettyDatePipe } from './pretty-date.pipe';
 import { AppBadgeComponent } from './app-badge/app-badge.component';
 import { ReadOnlyInputComponent } from '@shared/components/read-only-input/read-only-input.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { AdminPageHeaderComponent } from './components/admin-page-header/admin-page-header.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
@@ -19,6 +21,7 @@ import { TranslateModule } from '@ngx-translate/core';
     MaterialComponentsModule,
     FlexLayoutModule,
     TranslateModule,
+    RouterModule,
   ],
   exports: [
     CommonModule,
@@ -33,6 +36,7 @@ import { TranslateModule } from '@ngx-translate/core';
     PrettyDatePipe,
     AppBadgeComponent,
     ReadOnlyInputComponent,
+    AdminPageHeaderComponent,
   ],
   declarations: [
     EsriMapComponent,
@@ -41,6 +45,7 @@ import { TranslateModule } from '@ngx-translate/core';
     PrettyDatePipe,
     AppBadgeComponent,
     ReadOnlyInputComponent,
+    AdminPageHeaderComponent,
   ],
 })
 export class SharedModule {}
