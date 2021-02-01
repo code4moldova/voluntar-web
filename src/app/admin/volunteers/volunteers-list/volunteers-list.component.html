@@ -1,42 +1,10 @@
-<h2 class="mt-5 mb-2" fxLayoutAlign="space-between center">Voluntari</h2>
-
-<div class="mb-2 d-flex flex-column flex-sm-row flex-wrap">
-  <div>
-    <button
-      mat-flat-button
-      type="button"
-      color="default"
-      disabled
-      class="mb-1 mr-sm-2"
-      (click)="onVolunteersImport()"
-    >
-      <mat-icon>publish</mat-icon>
-      Import
-    </button>
-
-    <button
-      mat-flat-button
-      type="button"
-      color="default"
-      class="mb-1 mr-sm-2"
-      (click)="onVolunteersExport()"
-    >
-      <mat-icon>get_app</mat-icon>
-      Export
-    </button>
-  </div>
-
-  <button
-    mat-flat-button
-    type="button"
-    color="primary"
-    (click)="openNewVolunteerDialog()"
-    class="mb-1 ml-sm-auto"
-  >
-    <mat-icon>add</mat-icon>
-    Adaugă voluntar
-  </button>
-</div>
+<app-admin-page-header
+  title="Voluntari"
+  (importCallback)="onVolunteersImport()"
+  (exportCallback)="onVolunteersExport()"
+  (addCallback)="openNewVolunteerDialog()"
+  addBtnLabel="Adaugă voluntar"
+></app-admin-page-header>
 
 <mat-card class="mb-4">
   <form

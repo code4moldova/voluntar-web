@@ -1,0 +1,65 @@
+<div class="mt-4 mb-3">
+  <a
+    href="#"
+    appGoBack
+    mat-stroked-button
+    color="primary"
+    *ngIf="!addCallback.observers.length"
+  >
+    <mat-icon>arrow_back</mat-icon>
+    <span translate>back</span>
+  </a>
+</div>
+
+<div class="mb-4 d-flex justify-content-between">
+  <div class="flex-column">
+    <h2 translate>{{ title }}</h2>
+    <div class="d-flex">
+      <button
+        *ngIf="importCallback.observers.length"
+        mat-flat-button
+        type="button"
+        color="default"
+        class="mr-sm-2"
+        (click)="importCallback.emit()"
+      >
+        <mat-icon>publish</mat-icon>
+        Import
+      </button>
+
+      <button
+        *ngIf="exportCallback.observers.length"
+        mat-flat-button
+        type="button"
+        color="default"
+        class="mr-sm-2"
+        (click)="exportCallback.emit()"
+      >
+        <mat-icon>get_app</mat-icon>
+        Export
+      </button>
+    </div>
+  </div>
+  <div class="mt-auto">
+    <a
+      *ngIf="editLink"
+      [routerLink]="editLink"
+      mat-stroked-button
+      color="primary"
+    >
+      <mat-icon>border_color</mat-icon>
+      {{ "edit" | translate }}
+    </a>
+
+    <button
+      *ngIf="addBtnLabel && addCallback.observers.length"
+      mat-flat-button
+      type="button"
+      color="primary"
+      (click)="addCallback.emit()"
+    >
+      <mat-icon>add</mat-icon>
+      {{ addBtnLabel }}
+    </button>
+  </div>
+</div>
