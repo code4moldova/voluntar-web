@@ -1,21 +1,9 @@
-<h2 class="mt-5 mb-2">Beneficiari</h2>
-
-<div class="actions">
-  <button class="button-export" mat-flat-button (click)="onExport()">
-    <mat-icon>cloud_download</mat-icon>
-    Export CSV
-  </button>
-
-  <button
-    mat-flat-button
-    type="button"
-    color="primary"
-    (click)="openNewBeneficiaryDialog()"
-  >
-    <mat-icon>add</mat-icon>
-    Nou beneficiar
-  </button>
-</div>
+<app-admin-page-header
+  title="beneficiaries"
+  addBtnLabel="add_beneficiary"
+  (exportCallback)="onExport()"
+  (addCallback)="openNewBeneficiaryDialog()"
+></app-admin-page-header>
 
 <mat-card class="mat-card-search-bar">
   <form (ngSubmit)="onSearchSubmit()">
