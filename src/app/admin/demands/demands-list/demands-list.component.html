@@ -1,39 +1,9 @@
-<h2 class="mt-5 mb-2">Cereri</h2>
-
-<div class="mb-4 d-flex flex-column flex-sm-row flex-wrap">
-  <button
-    mat-flat-button
-    type="button"
-    color="default"
-    disabled
-    class="mb-1 mr-sm-2"
-  >
-    <mat-icon>publish</mat-icon>
-    Import
-  </button>
-
-  <button
-    mat-flat-button
-    type="button"
-    color="default"
-    (click)="onExport()"
-    class="mb-1 mr-sm-2"
-  >
-    <mat-icon>get_app</mat-icon>
-    Export
-  </button>
-
-  <button
-    mat-flat-button
-    type="button"
-    color="primary"
-    (click)="openNewDemandDialog()"
-    class="mb-1 ml-sm-auto"
-  >
-    <mat-icon>add</mat-icon>
-    New Request
-  </button>
-</div>
+<app-admin-page-header
+  title="demands"
+  addBtnLabel="add_demand"
+  (exportCallback)="onExport()"
+  (addCallback)="openNewDemandDialog()"
+></app-admin-page-header>
 
 <app-filter
   [inputColumns]="inputColumns"

@@ -1,15 +1,8 @@
-<div fxLayoutAlign="space-between center" class="mt-5 mb-2">
-  <h2>Utilizatori</h2>
-  <button
-    mat-flat-button
-    type="button"
-    color="primary"
-    (click)="openNewUserDialog()"
-  >
-    <mat-icon>add</mat-icon>
-    Nou user
-  </button>
-</div>
+<app-admin-page-header
+  title="users"
+  addBtnLabel="add_user"
+  (addCallback)="openNewUserDialog()"
+></app-admin-page-header>
 
 <nav mat-tab-nav-bar class="bg-white">
   <a
