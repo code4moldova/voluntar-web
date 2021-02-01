@@ -2,82 +2,101 @@
   <a href="#" appGoBack>&lt;- Înapoi</a>
 </div>
 
-<h2 class="mb-2">Editeaza Beneficiar</h2>
+<h2 class="mb-2" translate>beneficiary_edit</h2>
 
-<mat-card style="width: 1040px">
-  <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <div class="fieldset">Date personale</div>
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="pb-4">
+  <div class="bg-white p-4 mat-typography">
+    <h4 class="d-flex justify-content-between">
+      <strong translate>personal_data</strong>
+    </h4>
 
-    <div class="fields_row">
-      <div class="field" fxFlex fxLayout="column">
-        <div class="title">Nume (Familie)</div>
-        <div class="value">
-          <input matInput style="width: 230px" formControlName="last_name" />
-        </div>
+    <div class="row">
+      <div class="col-sm-6 col-lg-3">
+        <mat-form-field
+          floatLabel="always"
+          appearance="outline"
+          class="d-block"
+        >
+          <mat-label translate>last_name</mat-label>
+          <input matInput formControlName="last_name" title="" />
+          <mat-error translate>required_field</mat-error>
+        </mat-form-field>
       </div>
 
-      <div class="field" fxFlex fxLayout="column">
-        <div class="title">Prenume</div>
-        <div class="value">
-          <input matInput style="width: 230px" formControlName="first_name" />
-        </div>
+      <div class="col-sm-6 col-lg-3">
+        <mat-form-field
+          floatLabel="always"
+          appearance="outline"
+          class="d-block"
+        >
+          <mat-label translate>first_name</mat-label>
+          <input matInput formControlName="first_name" title="" />
+          <mat-error translate>required_field</mat-error>
+        </mat-form-field>
       </div>
 
-      <div class="field mobile" fxFlex fxLayout="column">
-        <div class="title">Telefon (Mobil)</div>
-        <div class="value">
-          <input matInput style="width: 230px" formControlName="phone" />
-        </div>
+      <div class="col-sm-6 col-lg-3">
+        <mat-form-field
+          floatLabel="always"
+          appearance="outline"
+          class="d-block"
+        >
+          <mat-label translate>phone</mat-label>
+          <input matInput formControlName="phone" type="tel" title="" />
+          <mat-error translate>eight_digits</mat-error>
+        </mat-form-field>
       </div>
 
-      <div class="field landline" fxFlex fxLayout="column">
-        <div class="title">Telefon (Fix)</div>
-        <div class="value">
-          <input style="width: 230px" matInput formControlName="landline" />
-        </div>
+      <div class="col-sm-6 col-lg-3">
+        <mat-form-field
+          floatLabel="always"
+          appearance="outline"
+          class="d-block"
+        >
+          <mat-label translate>landline</mat-label>
+          <input matInput formControlName="landline" type="tel" title="" />
+          <mat-error translate>eight_digits</mat-error>
+        </mat-form-field>
       </div>
-    </div>
 
-    <div class="fields_row">
-      <div class="field" fxFlex fxLayout="column">
-        <div class="title">Sector</div>
-        <div class="value">
-          <mat-select
-            formControlName="zone"
-            style="width: 230px"
-            placeholder="Alege"
-          >
+      <div class="col-sm-6 col-lg-3">
+        <mat-form-field
+          floatLabel="always"
+          appearance="outline"
+          class="d-block"
+        >
+          <mat-label translate>zone</mat-label>
+          <mat-select formControlName="zone">
             <mat-option *ngFor="let zone of zones" [value]="zone">
               {{ zone | translate }}
             </mat-option>
           </mat-select>
-        </div>
+          <mat-error translate>required_field</mat-error>
+        </mat-form-field>
       </div>
-      <!-- Field -->
-      <div class="field" fxFlex fxLayout="column"></div>
-      <!-- Field -->
-      <div class="field" fxFlex fxLayout="column">
-        <div class="title">Vîrsta</div>
-        <div class="value">
-          <input
-            type="number"
-            matInput
-            style="width: 230px"
-            formControlName="age"
-            placeholder="65"
-          />
-        </div>
+
+      <div class="col-sm-6 col-lg-3"></div>
+
+      <div class="col-sm-6 col-lg-3">
+        <mat-form-field
+          floatLabel="always"
+          appearance="outline"
+          class="d-block"
+        >
+          <mat-label translate>age</mat-label>
+          <input matInput formControlName="age" type="number" title="" />
+          <mat-error translate>required_field</mat-error>
+        </mat-form-field>
       </div>
-      <!-- Field -->
-      <div class="field" fxFlex fxLayout="column">
-        <div class="title">Condiții speciale</div>
-        <div class="value">
-          <mat-select
-            formControlName="special_condition"
-            style="width: 230px"
-            placeholder="Alege"
-          >
-            <mat-option>--</mat-option>
+
+      <div class="col-sm-6 col-lg-3">
+        <mat-form-field
+          floatLabel="always"
+          appearance="outline"
+          class="d-block"
+        >
+          <mat-label translate>special_condition</mat-label>
+          <mat-select formControlName="special_condition">
             <mat-option
               *ngFor="let condition of specialConditions"
               [value]="condition"
@@ -85,51 +104,86 @@
               {{ condition | translate }}
             </mat-option>
           </mat-select>
-        </div>
+          <mat-error translate>required_field</mat-error>
+        </mat-form-field>
       </div>
+
+      <div class="col-sm-6 col-lg-3">
+        <mat-form-field
+          floatLabel="always"
+          appearance="outline"
+          class="d-block"
+        >
+          <mat-label translate>address</mat-label>
+          <input matInput formControlName="address" title="" />
+          <mat-error translate>required_field</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-sm-6 col-lg-1 pr-lg-0">
+        <mat-form-field
+          floatLabel="always"
+          appearance="outline"
+          class="d-block"
+        >
+          <mat-label translate>entrance</mat-label>
+          <input
+            matInput
+            formControlName="entrance"
+            title="{{ 'entrance' | translate }}"
+          />
+          <mat-error translate>required_field</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-sm-6 col-lg-1 px-lg-1">
+        <mat-form-field
+          floatLabel="always"
+          appearance="outline"
+          class="d-block"
+        >
+          <mat-label translate>floor</mat-label>
+          <input
+            matInput
+            formControlName="floor"
+            title="{{ 'floor' | translate }}"
+          />
+          <mat-error translate>required_field</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-sm-6 col-lg-1 pl-lg-0">
+        <mat-form-field
+          floatLabel="always"
+          appearance="outline"
+          class="d-block"
+        >
+          <mat-label translate>apartment</mat-label>
+          <input
+            matInput
+            formControlName="apartment"
+            title="{{ 'apartment' | translate }}"
+          />
+          <mat-error translate>required_field</mat-error>
+        </mat-form-field>
+      </div>
+
+      <app-read-only-input
+        class="col-sm-6 col-lg-3"
+        value="{{ this.formGroup.get('_id').value }}"
+        label="created_at"
+      ></app-read-only-input>
     </div>
 
-    <div class="fields_row" fxLayoutAlign="start start">
-      <div class="field" fxFlex="25" fxLayout="column">
-        <div class="title">Adresă</div>
-        <div class="value">
-          <input matInput formControlName="address" style="width: 230px" />
-        </div>
-      </div>
-      <div>
-        <div class="field" fxFlex fxLayout="column">
-          <div class="title">Scară</div>
-          <div class="value">
-            <input matInput formControlName="entrance" style="width: 70px" />
-          </div>
-        </div>
-        <div class="field" fxFlex fxLayout="column">
-          <div class="title">Etaj</div>
-          <div class="value">
-            <input matInput formControlName="floor" style="width: 70px" />
-          </div>
-        </div>
-        <div class="field" fxFlex fxLayout="column">
-          <div class="title">Apartament</div>
-          <div class="value">
-            <input matInput formControlName="apartment" style="width: 70px" />
-          </div>
-        </div>
-      </div>
+    <mat-divider class="my-4"></mat-divider>
+
+    <div class="d-flex">
+      <mat-slide-toggle class="mr-auto" formControlName="black_list">
+        {{ "black_list" | translate }}
+      </mat-slide-toggle>
+      <button class="ml-auto" mat-flat-button color="primary">
+        {{ "save" | translate }}
+      </button>
     </div>
-    <hr />
-    <div class="footer">
-      <div>
-        <mat-slide-toggle formControlName="black_list">
-          Blocklist
-        </mat-slide-toggle>
-      </div>
-      <div class="buttons">
-        <button mat-stroked-button (click)="goBack()">Anulează</button>
-        <button mat-stroked-button type="submit" color="primary">
-          Salvează
-        </button>
-      </div>
-    </div>
-  </form>
-</mat-card>
+  </div>
+</form>
