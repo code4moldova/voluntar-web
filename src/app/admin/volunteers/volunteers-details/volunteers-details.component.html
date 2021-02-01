@@ -1,7 +1,7 @@
 <app-admin-page-header
   *ngIf="volunteer$ | async as volunteer"
   title="view_volunteer"
-  [editLink]="['/admin/volunteers', volunteer._id, 'edit']"
+  editLink="edit"
 ></app-admin-page-header>
 
 <div
