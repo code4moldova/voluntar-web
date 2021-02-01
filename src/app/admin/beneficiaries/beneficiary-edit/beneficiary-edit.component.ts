@@ -13,14 +13,13 @@ import { specialConditions } from '@beneficiaries/shared/special-condition';
 
 @Component({
   templateUrl: './beneficiary-edit.component.html',
-  styleUrls: ['./beneficiary-edit.component.scss'],
 })
 export class BeneficiaryEditComponent implements OnInit, OnDestroy {
   recordId: string;
   componentDestroyed$ = new Subject();
   zones = zones;
   specialConditions = specialConditions;
-  form = this.fb.group({
+  formGroup = this.fb.group({
     ...COMMON_FIELDS,
     landline: [
       null,
@@ -53,23 +52,15 @@ export class BeneficiaryEditComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    if (this.form.valid) {
-      const payload = this.form.getRawValue();
-
+    if (this.formGroup.valid) {
+      const payload = this.formGroup.getRawValue();
       this.serviceFacade.saveBeneficiary(payload);
       combineLatest([this.serviceFacade.isLoading$, this.serviceFacade.error$])
         .pipe(
           filter(([status, error]) => !status && !error),
           first(),
         )
-        .subscribe(() => {
-          this.snackBar.open('Beneficiarul a fost salvat cu success.', '', {
-            duration: 5000,
-            horizontalPosition: 'right',
-            verticalPosition: 'top',
-          });
-          this.goBack();
-        });
+        .subscribe(() => this.goBack());
     } else {
       this.snackBar.open('Introduceți cîmpurile obligatorii', '', {
         duration: 5000,
@@ -96,7 +87,7 @@ export class BeneficiaryEditComponent implements OnInit, OnDestroy {
         takeUntil(this.componentDestroyed$),
       )
       .subscribe((record) => {
-        this.form.patchValue(record);
+        this.formGroup.patchValue(record);
       });
   }
 
