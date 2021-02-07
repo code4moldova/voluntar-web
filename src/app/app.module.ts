@@ -72,7 +72,7 @@ import { BeneficiariesEffects } from '@beneficiaries/beneficiaries.effects';
         deps: [HttpClient],
       },
       defaultLanguage: 'ro',
-    }),
+    })
   ],
   providers: [
     {
@@ -91,6 +91,6 @@ import { BeneficiariesEffects } from '@beneficiaries/beneficiaries.effects';
       multi: true,
     },
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}

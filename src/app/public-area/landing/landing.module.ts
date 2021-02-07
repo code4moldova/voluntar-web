@@ -8,6 +8,8 @@ import { HelpGuideComponent } from './help-guide/help-guide.component';
 import { MakeDonationComponent } from './make-donation/make-donation.component';
 import { FooterModule } from '../shared/footer/footer.module';
 import { HeaderModule } from '../shared/header/header.module';
+import { PartnersComponent } from './partners.component/partners.component';
+import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -15,6 +17,7 @@ import { HeaderModule } from '../shared/header/header.module';
     HeroComponent,
     HelpGuideComponent,
     MakeDonationComponent,
+    PartnersComponent,
   ],
   imports: [
     CommonModule,
@@ -27,6 +30,7 @@ import { HeaderModule } from '../shared/header/header.module';
     TranslateModule,
     FooterModule,
     HeaderModule,
+    NgbCarouselModule,
   ],
 })
 export class LandingModule {}

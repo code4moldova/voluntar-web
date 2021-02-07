@@ -1,0 +1,27 @@
+.carousel-control-prev,
+.carousel-control-next {
+  width: auto !important;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  filter: invert(68%) sepia(72%) saturate(0%) hue-rotate(221deg) brightness(94%) contrast(93%);
+  width: 25px;
+  height: 25px;
+}
+
+.carousel-control-prev {
+  left: -50px;
+}
+
+.carousel-control-next {
+  right: -50px;
+}
+
+.mh-100px {
+  max-height: 100px;
+}
+
+.outline-none {
+  outline: none;
+}
