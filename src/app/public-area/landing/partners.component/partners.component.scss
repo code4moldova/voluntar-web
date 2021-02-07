@@ -1,0 +1,36 @@
+.carousel-control-prev, .carousel-control-next {
+  width: auto!important;
+}
+
+.carousel-control-prev-icon, .carousel-control-next-icon {
+  filter: invert(68%) sepia(72%) saturate(0%) hue-rotate(221deg) brightness(94%) contrast(93%);
+  width: 25px;
+  height: 25px;
+}
+
+.carousel-control-prev {
+  left: -50px;
+}
+
+.carousel-control-next {
+  right: -50px;
+}
+
+.carousel-slide {
+  width: 100%;
+}
+
+.carousel-image {
+  max-width: 25%;
+	max-height: 100px;
+	padding: 15px 30px;
+}
+.carousel-image1 {
+  max-width: 25%;
+	max-height: 100px;
+	padding:6px 42px;
+}
+.carousel{
+  outline-width: 0px;
+  margin-bottom: 100px;
+}
