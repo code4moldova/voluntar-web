@@ -9,7 +9,7 @@ import { MakeDonationComponent } from './make-donation/make-donation.component';
 import { FooterModule } from '../shared/footer/footer.module';
 import { HeaderModule } from '../shared/header/header.module';
 import { PartnersComponent } from './partners.component/partners.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -30,7 +30,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     TranslateModule,
     FooterModule,
     HeaderModule,
-    NgbModule,    
-  ]
+    NgbCarouselModule,
+  ],
 })
 export class LandingModule {}

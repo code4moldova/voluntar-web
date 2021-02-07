@@ -2,7 +2,8 @@ import {
   ChangeDetectionStrategy,
   Component,
   ViewEncapsulation,
-  ViewChild
+  ViewChild,
+  AfterViewInit,
 } from '@angular/core';
 import { NgbCarousel, NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
 
@@ -12,16 +13,14 @@ import { NgbCarousel, NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./partners.component.scss'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [NgbCarouselConfig]
+  providers: [NgbCarouselConfig],
 })
-
-export class PartnersComponent {
+export class PartnersComponent implements AfterViewInit {
+  @ViewChild('carousel', { static: true }) carousel: NgbCarousel;
 
   constructor(config: NgbCarouselConfig) {
     config.showNavigationIndicators = false;
   }
-
-  @ViewChild('carousel', {static : true}) carousel: NgbCarousel;
 
   ngAfterViewInit() {
     this.carousel.pause();
