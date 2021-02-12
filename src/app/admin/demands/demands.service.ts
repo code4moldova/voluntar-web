@@ -37,7 +37,7 @@ export class DemandsService {
     return this.http.put<any>(`${environment.url}/requests`, demand);
   }
 
-  exportDemands() {
+  getCSVBlob() {
     return this.http.get(`${environment.url}/export/csv/requests`, {
       responseType: 'blob',
     });

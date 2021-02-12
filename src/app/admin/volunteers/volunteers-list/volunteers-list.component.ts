@@ -15,6 +15,8 @@ import { FormBuilder } from '@angular/forms';
 import { VolunteersCreateComponent } from '../volunteers-create/volunteers-create.component';
 import { volunteerRoles } from '../shared/volunteer-role';
 import { zones } from '@shared/zone';
+import { downloadCsv } from '@shared/download-csv';
+import { VolunteersService } from '@volunteers/volunteers.service';
 
 @Component({
   templateUrl: './volunteers-list.component.html',
@@ -46,6 +48,7 @@ export class VolunteersListComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private volunteersFacade: VolunteersFacade,
+    private volunteerService: VolunteersService,
     private matDialog: MatDialog,
     private actions$: ActionsSubject,
     private activeRoute: ActivatedRoute,
@@ -65,8 +68,11 @@ export class VolunteersListComponent implements OnInit {
   // TODO
   onVolunteersImport(): void {}
 
-  // TODO
-  onVolunteersExport(): void {}
+  onVolunteersExport(): void {
+    this.volunteerService
+      .getCSVBlob()
+      .subscribe((blob) => downloadCsv(blob, 'demands'));
+  }
 
   getAllStatusesCount() {
     const demands = this.tabs.map((tab) =>

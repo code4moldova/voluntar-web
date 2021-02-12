@@ -88,4 +88,10 @@ export class BeneficiariesService {
       { params },
     );
   }
+
+  getCSVBlob() {
+    return this.http.get(`${environment.url}/export/csv/beneficiaries`, {
+      responseType: 'blob',
+    });
+  }
 }
