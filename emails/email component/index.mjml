@@ -1,0 +1,36 @@
+<mjml>
+  <mj-head>
+    <mj-attributes>
+      <mj-text align="center" color="#555" />
+    </mj-attributes>
+  </mj-head>
+  <mj-body>
+    <mj-wrapper>
+      <mj-section background-color="#fff">
+        <mj-column>
+          <mj-text align="center">
+            <h1>Bine ai venit!</h1>
+          </mj-text>
+          <mj-image width="300px" height="300px" src="bro.png"></mj-image>
+          <mj-text font-family="Roboto" font-style="normal" font-weight="normal" font-size="16px" line-height="13px" padding-top="80px" color="#424242">Suntem bucuroși că ai decis să te alături echiperi noastre.<br></br>Te vom contacta când găsim o sarcină pentru tine.</mj-text>
+          <mj-navbar>
+            <mj-navbar-link font-family="Roboto" font-style="normal" font-weight="500" font-size="16px" line-height="19px" color="#23B67A" text-transform="lowercase" padding-top="20px"> voluntar.md </mj-navbar-link>
+          </mj-navbar>
+        </mj-column>
+      </mj-section>
+      <mj-section background-color="#fff">
+        <mj-column>
+          <mj-image width="130px" height="69px" src="logo-oameni-pentru-oameni.png" align="left"></mj-image>
+        </mj-column>
+        <mj-column>
+          <mj-social icon-size="44px" mode="horizontal" align="right">
+            <mj-social-element src="vector.png" href="https://www.facebook.com/codeformoldova/">
+            </mj-social-element>
+            <mj-social-element src="insta.png" href="https://www.instagram.com/code4md/?hl=en">
+            </mj-social-element>
+          </mj-social>
+        </mj-column>
+      </mj-section>
+    </mj-wrapper>
+  </mj-body>
+</mjml>
