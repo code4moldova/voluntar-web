@@ -12,6 +12,8 @@ import { BeneficiariesFacade } from '../beneficiaries.facade';
 import { BeneficiaryNewComponent } from '../beneficiary-new/beneficiary-new.component';
 import { saveBeneficiarySuccessAction } from '../beneficiaries.actions';
 import { zones } from '@shared/zone';
+import { downloadCsv } from '@shared/download-csv';
+import { BeneficiariesService } from '@beneficiaries/beneficiaries.service';
 
 @Component({
   templateUrl: './beneficiaries-list.component.html',
@@ -20,15 +22,15 @@ import { zones } from '@shared/zone';
 export class BeneficiariesListComponent implements OnInit {
   tabIndex = 0;
   dataSource$: Observable<Beneficiary[]>;
-  count$ = this.serviceFacade.count$;
-  isLoading$ = this.serviceFacade.isLoading$;
+  count$ = this.beneficiariesFacade.count$;
+  isLoading$ = this.beneficiariesFacade.isLoading$;
   pageSize = 20;
   pageIndex = 1;
   filters = {};
 
   blockListDataSource$: Observable<Beneficiary[]>;
-  blockListCount$ = this.serviceFacade.blockListCount$;
-  blockListIsLoading$ = this.serviceFacade.blockListIsLoading$;
+  blockListCount$ = this.beneficiariesFacade.blockListCount$;
+  blockListIsLoading$ = this.beneficiariesFacade.blockListIsLoading$;
   blockListPageSize = 20;
   blockListPageIndex = 1;
   blockListFilters = {};
@@ -41,7 +43,8 @@ export class BeneficiariesListComponent implements OnInit {
   prevFilterSector = '';
 
   constructor(
-    private serviceFacade: BeneficiariesFacade,
+    private beneficiariesFacade: BeneficiariesFacade,
+    private beneficiariesService: BeneficiariesService,
     private matDialog: MatDialog,
     private snackBar: MatSnackBar,
     private actions$: ActionsSubject,
@@ -50,18 +53,21 @@ export class BeneficiariesListComponent implements OnInit {
   ngOnInit(): void {
     this.reloadBeneficiaries();
     this.reloadBlockList();
-    this.dataSource$ = this.serviceFacade.beneficiaries$;
-    this.blockListDataSource$ = this.serviceFacade.blockListData$;
+    this.dataSource$ = this.beneficiariesFacade.beneficiaries$;
+    this.blockListDataSource$ = this.beneficiariesFacade.blockListData$;
   }
 
   reloadBeneficiaries() {
     const { pageSize, pageIndex } = this;
-    this.serviceFacade.getBeneficiaries({ pageSize, pageIndex }, this.filters);
+    this.beneficiariesFacade.getBeneficiaries(
+      { pageSize, pageIndex },
+      this.filters,
+    );
   }
 
   reloadBlockList() {
     const { blockListPageSize: pageSize, blockListPageIndex: pageIndex } = this;
-    this.serviceFacade.getBeneficiaryBlockList(
+    this.beneficiariesFacade.getBeneficiaryBlockList(
       { pageSize, pageIndex },
       this.blockListFilters,
     );
@@ -98,7 +104,9 @@ export class BeneficiariesListComponent implements OnInit {
   }
 
   onExport() {
-    window.alert('TODO');
+    this.beneficiariesService
+      .getCSVBlob()
+      .subscribe((blob) => downloadCsv(blob, 'beneficiaries'));
   }
 
   onSearchSubmit() {

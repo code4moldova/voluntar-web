@@ -3,7 +3,6 @@ import {
   Component,
   ElementRef,
   OnInit,
-  Renderer2,
   ViewChild,
 } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
@@ -28,6 +27,8 @@ import {
 } from '@shared/filter/filter.types';
 import { KIV_ZONES } from '@shared/constants';
 import { Demand } from '@demands/shared/demand';
+import { downloadCsv } from '@shared/download-csv';
+import { DemandsService } from '@demands/demands.service';
 
 @Component({
   templateUrl: './demands-list.component.html',
@@ -112,8 +113,8 @@ export class DemandsListComponent implements OnInit {
 
   constructor(
     private demandsFacade: DemandsFacade,
+    private demandsService: DemandsService,
     private usersFacade: UsersFacade,
-    private renderer: Renderer2,
     private router: Router,
     private activeRoute: ActivatedRoute,
     private matDialog: MatDialog,
@@ -209,21 +210,9 @@ export class DemandsListComponent implements OnInit {
   }
 
   onExport() {
-    this.demandsFacade.getExportDemands().subscribe((res) => {
-      this.downloadCsv(res);
-    });
-  }
-
-  downloadCsv(blob: Blob) {
-    if (window.navigator.msSaveOrOpenBlob) {
-      window.navigator.msSaveBlob(blob, 'demands.csv');
-    } else {
-      const a = this.renderer.createElement('a');
-      this.renderer.setAttribute(a, 'href', window.URL.createObjectURL(blob));
-      this.renderer.setAttribute(a, 'download', 'demands.csv');
-
-      a.click();
-    }
+    this.demandsService
+      .getCSVBlob()
+      .subscribe((blob) => downloadCsv(blob, 'demands'));
   }
 
   openNewDemandDialog(element: Demand = {} as Demand) {

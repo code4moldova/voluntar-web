@@ -121,8 +121,4 @@ export class DemandsFacade {
   toggleNewDemandsPolling(value: boolean) {
     this.newDemands$.next(value);
   }
-
-  getExportDemands() {
-    return this.demandsService.exportDemands();
-  }
 }

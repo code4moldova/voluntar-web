@@ -1,29 +1,28 @@
 import { Injectable } from '@angular/core';
-import { Store, select } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 
 import { AppState } from '@app/app.state';
 
 import {
+  getBeneficiariesAction,
+  getBeneficiariesByFilterAction,
+  getBeneficiaryAction,
+  getBeneficiaryBlockListAction,
+  getBeneficiaryDemandsAction,
   saveBeneficiaryAction,
   updateBeneficiaryAction,
-  getBeneficiariesByFilterAction,
-  getBeneficiariesAction,
-  getBeneficiaryAction,
-  getBeneficiaryDemandsAction,
-  getBeneficiaryBlockListAction,
 } from './beneficiaries.actions';
 import {
-  selectBeneficiariesData,
-  selectIsLoading,
-  selectBeneficiaryDetails,
-  selectError,
   selectBeneficiariesCount,
-  selectDemandsError,
-  selectDemandsData,
-  selectDemandsCount,
-  selectBlockListData,
+  selectBeneficiariesData,
+  selectBeneficiaryDetails,
   selectBlockListCount,
+  selectBlockListData,
   selectBlockListIsLoading,
+  selectDemandsCount,
+  selectDemandsData,
+  selectError,
+  selectIsLoading,
 } from './beneficiaries.selectors';
 import { Beneficiary } from './shared/beneficiary';
 
