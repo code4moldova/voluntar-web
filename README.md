@@ -6,10 +6,10 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Get started
 
-Clone the repository
+Fork the repository. Clone forked repository
 
 ```
-git clone git@github.com:code4moldova/voluntar-web.git
+git clone git@github.com:your-username/voluntar-web.git
 cd voluntar-web
 ```
 
