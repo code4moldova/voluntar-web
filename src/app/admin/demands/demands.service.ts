@@ -16,7 +16,12 @@ export class DemandsService {
     },
     filters: any = {},
   ) {
-    const params = new HttpParams({ fromObject: filters });
+    const nonUndefinedFilters = Object.fromEntries(
+      Object.entries<string>(filters).filter(
+        ([, value]) => value !== undefined,
+      ),
+    );
+    const params = new HttpParams({ fromObject: nonUndefinedFilters });
     return this.http.get<{ count: number; list: Demand[] }>(
       `${environment.url}/requests/filters/${page.pageIndex || 1}/${
         page.pageSize || 1000
@@ -43,7 +48,7 @@ export class DemandsService {
     });
   }
 
-  assignToVolunteer(demands: Demand[] = [], volunteerId: string = '') {
+  assignToVolunteer(demands: Demand[] = [], volunteerId: string) {
     return this.http.post<any>(`${environment.url}/clusters`, {
       volunteer: `${volunteerId}`,
       request_list: demands.map((demand) => demand._id),

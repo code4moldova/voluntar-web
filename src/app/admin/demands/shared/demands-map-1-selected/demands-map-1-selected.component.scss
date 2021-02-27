@@ -1,0 +1,9 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 500px;
+}
+
+mat-list-item:hover {
+  background-color: #edebe9;
+}

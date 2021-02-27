@@ -307,10 +307,3 @@ tr {
     }
   }
 }
-
-// fill full size of container
-::ng-deep.map-expansion-panel {
-  .mat-expansion-panel-body {
-    padding: 0;
-  }
-}

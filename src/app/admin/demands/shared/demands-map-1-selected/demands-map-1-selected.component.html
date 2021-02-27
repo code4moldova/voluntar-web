@@ -1,0 +1,90 @@
+<h3 class="text-center m-0 py-2 border-bottom">
+  <strong>{{ "select_beneficiaries" | translate }}</strong>
+</h3>
+
+<div class="container py-2 bg-light border-bottom">
+  <div class="row">
+    <div class="col-6">
+      <mat-select
+        [formControl]="zone"
+        placeholder="{{ 'zone' | translate }}"
+        (selectionChange)="filterChanged()"
+      >
+        <mat-option value="all">
+          {{ "all" | translate }}
+        </mat-option>
+        <mat-option *ngFor="let zone of zones" [value]="zone">
+          {{ zone | translate }}
+        </mat-option>
+      </mat-select>
+    </div>
+    <div class="col-6">
+      <mat-select
+        [formControl]="type"
+        placeholder="{{ 'necessity' | translate }}"
+        (selectionChange)="filterChanged()"
+      >
+        <mat-option value="all">
+          {{ "all" | translate }}
+        </mat-option>
+        <mat-option *ngFor="let demand of demandTypes" [value]="demand">
+          {{ demand | translate }}
+        </mat-option>
+      </mat-select>
+    </div>
+  </div>
+</div>
+
+<div
+  *ngIf="selectedDemands.length === 0"
+  class="d-flex flex-column align-items-center justify-content-center flex-grow-1"
+>
+  <mat-icon inline style="font-size: 50px" class="text-secondary mb-3">
+    bookmark_add
+  </mat-icon>
+  <span style="font-size: 16px" class="pb-4">
+    {{ "select_demand_on_map" | translate }}
+  </span>
+</div>
+
+<mat-list
+  style="overflow-y: scroll"
+  class="pt-0 flex-grow-1"
+  role="list"
+  *ngIf="selectedDemands.length > 0"
+>
+  <!-- TODO: render items nicer -->
+  <mat-list-item
+    role="listitem"
+    class="border-bottom h-auto py-2"
+    style="cursor: pointer"
+    *ngFor="let demand of selectedDemands"
+    (click)="demandClick.emit(demand)"
+  >
+    <div class="w-100">
+      <div>
+        <mat-icon svgIcon="selection-dot"></mat-icon>
+        {{ demand.beneficiary.first_name }} {{ demand.beneficiary.last_name }}
+      </div>
+      <div>
+        <mat-icon>place</mat-icon>
+        {{ demand.beneficiary.zone | translate }}
+      </div>
+      <div>
+        <mat-icon [svgIcon]="demand.type"></mat-icon>
+        {{ demand.type | translate }}
+      </div>
+    </div>
+  </mat-list-item>
+</mat-list>
+
+<div class="text-center p-2 border-top">
+  <button
+    mat-flat-button
+    color="primary"
+    [disabled]="selectedDemands.length === 0"
+    (click)="nextClick.emit($event)"
+  >
+    {{ "select_volunteer" | translate }}
+  </button>
+</div>

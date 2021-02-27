@@ -12,15 +12,7 @@
   (queryResult)="queryResult($event)"
 ></app-filter>
 
-<mat-expansion-panel hideToggle class="map-expansion-panel">
-  <mat-expansion-panel-header>
-    <mat-panel-title class="d-flex justify-content-center">
-      <mat-icon>map</mat-icon>
-      <span class="ml-1">Hartă</span>
-    </mat-panel-title>
-  </mat-expansion-panel-header>
-  <app-demands-map></app-demands-map>
-</mat-expansion-panel>
+<app-demands-map></app-demands-map>
 
 <mat-tab-group
   [selectedIndex]="selectedTabIndex$ | async"

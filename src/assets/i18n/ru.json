@@ -127,6 +127,17 @@
   "toate": "Все",
   "details": "Детали",
   "all": "Toate",
+  "new_assignment": "Asignare noua",
+  "link_sent_to_volunteer_email": "Link-ul a fost trimis voluntarului pe email.",
+  "task_in_process": "Sarcina este în Proces.",
+  "success": "Succes",
+  "assign_demands": "Asigneaza cereri",
+  "search": "Cauta",
+  "availability_date": "Valabilitate",
+  "select_volunteer": "Selecteaza voluntar",
+  "select_demand_on_map": "Selecteaza cerere pe harta",
+  "necessity": "Necesitate",
+  "select_beneficiaries": "Selecteaza beneficiari",
   "hero": {
     "headline": "Инициатива <span>Вместе<br />против COVID-19</span>",
     "description": "Гражданский проект, который объединяет усилия и помогает людям в неблагоприятных ситуациях во время пандемии COVID-19"

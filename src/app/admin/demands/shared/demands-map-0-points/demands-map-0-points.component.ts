@@ -1,10 +1,12 @@
 import {
+  ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
   Input,
   OnChanges,
   OnDestroy,
+  OnInit,
   Output,
   SimpleChanges,
 } from '@angular/core';
@@ -20,6 +22,7 @@ import Point from '@arcgis/core/geometry/Point';
 import SimpleMarkerSymbol from '@arcgis/core/symbols/SimpleMarkerSymbol';
 import MapViewClickEventHandler = __esri.MapViewClickEventHandler;
 import MapViewClickEvent = __esri.MapViewClickEvent;
+import { Observable, Subscription } from 'rxjs';
 
 config.assetsPath = '/assets';
 
@@ -28,10 +31,6 @@ export const centerCoordinate: Coordinate = {
   latitude: 47.024758255143986,
   longitude: 28.83263462925968,
 };
-
-export interface SelectableDemand extends Demand {
-  selected: boolean;
-}
 
 const notSelectedSymbol = new SimpleMarkerSymbol({
   color: '#FFFFFF',
@@ -43,26 +42,17 @@ const notSelectedSymbol = new SimpleMarkerSymbol({
   },
 });
 
-const selectedSymbol = new SimpleMarkerSymbol({
-  color: '#FFFFFF',
-  style: 'circle',
-  size: 10,
-  outline: {
-    color: '#ED5555',
-    width: 1,
-  },
-});
-
 @Component({
-  selector: 'app-demands-map-points',
+  selector: 'app-demands-map-0-points',
   template: '',
-  styleUrls: ['./demands-map-points.component.scss'],
+  styleUrls: ['./demands-map-0-points.component.scss'],
 })
-export class DemandsMapPointsComponent implements OnChanges, OnDestroy {
-  @Input() demands: SelectableDemand[];
-  @Output() demandClick = new EventEmitter<SelectableDemand>();
-  // Emit when a new zone was selected
-  // @Input() center: EventEmitter<Point>;
+export class DemandsMap0PointsComponent
+  implements OnInit, OnChanges, OnDestroy {
+  private subscriptions = new Subscription();
+  @Input() demands: Demand[];
+  @Input() centerZone: Observable<Coordinate>;
+  @Output() demandClick = new EventEmitter<Demand>();
 
   graphicsLayer = new GraphicsLayer();
   map = new Map({
@@ -77,8 +67,17 @@ export class DemandsMapPointsComponent implements OnChanges, OnDestroy {
     map: this.map,
   });
 
-  constructor(private elementRef: ElementRef) {
+  constructor(private elementRef: ElementRef, private cdr: ChangeDetectorRef) {
     this.mapView.on('click', this.onMapClick);
+  }
+
+  ngOnInit(): void {
+    this.subscriptions.add(
+      this.centerZone.subscribe((coordinate) => {
+        // TODO: cdr this does not work, wtf, even with cdr
+        void this.mapView.goTo(coordinate, { animate: true });
+      }),
+    );
   }
 
   onMapClick: MapViewClickEventHandler = (ev: MapViewClickEvent) => {
@@ -86,17 +85,18 @@ export class DemandsMapPointsComponent implements OnChanges, OnDestroy {
       // Find a hit that has demand attribute
       const result = hitResult.results.find((r) => r.graphic.attributes.demand);
       if (result) {
-        // TODO: Do we need to navigate? Maybe point should be removed when added
-        void this.mapView.goTo(ev.mapPoint, { animate: true });
+        // TODO: Do we need to navigate?
+        // TODO: disable for the moment, it's annoying
+        // void this.mapView.goTo(ev.mapPoint, { animate: true });
         this.demandClick.emit(result.graphic.attributes.demand);
       }
     });
   };
 
   ngOnChanges(changes: SimpleChanges) {
-    const previous: SelectableDemand[] = changes.demands.previousValue ?? [];
+    const previous: Demand[] = changes.demands.previousValue ?? [];
     // TODO: Check if beneficiary has coordinates?
-    const current: SelectableDemand[] = changes.demands.currentValue ?? [];
+    const current: Demand[] = changes.demands.currentValue ?? [];
 
     // A XOR can be used to create symmetric difference,
     // for removed and added, but will be more complicated
@@ -106,36 +106,34 @@ export class DemandsMapPointsComponent implements OnChanges, OnDestroy {
     const removed = difference(previous, current);
     const added = difference(current, previous);
 
-    const removedIds = removed.map((d) => d._id);
-
     this.graphicsLayer.graphics.removeMany(
       this.graphicsLayer.graphics.filter((item) =>
-        removedIds.includes(item.attributes.demand._id),
+        removed.includes(item.attributes.demand),
       ),
     );
 
     this.graphicsLayer.graphics.addMany(
-      added.map(
-        (demand) =>
-          new Graphic({
-            // Keep in mind, demand is a field in attributes, it's like a flag
-            attributes: { demand },
-            // `demand.beneficiary` has latitude and longitude
-            geometry: new Point(demand.beneficiary),
-            symbol: demand.selected
-              ? selectedSymbol.clone()
-              : notSelectedSymbol.clone(),
-          }),
-      ),
+      added.map((demand) => getNewGraphic(demand)),
     );
 
-    // TODO: find a solution to trigger rerender
-    // this.changeDetectorRef.detectChanges();
+    // TODO: cdr no rerender when changing map even with cdr
+    // this.cdr.detectChanges(),
   }
 
   ngOnDestroy() {
+    this.subscriptions.unsubscribe();
     // From the docs, this should destroy everything, it's a cascade destroy
     // MapView, Map, GraphicsLayer, Graphic
     this.mapView.destroy();
   }
+}
+
+function getNewGraphic(demand: Demand) {
+  return new Graphic({
+    // Keep in mind, demand is a field in attributes, it's like a flag
+    attributes: { demand },
+    // `demand.beneficiary` has latitude and longitude
+    geometry: new Point(demand.beneficiary),
+    symbol: notSelectedSymbol.clone(),
+  });
 }
