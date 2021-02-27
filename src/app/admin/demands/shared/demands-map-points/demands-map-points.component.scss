@@ -1,0 +1,7 @@
+// There is also this global import for arcgis styles in styles.scss
+// @import "~@arcgis/core/assets/esri/themes/light/main.css";
+// Adding it here does not work
+
+:host {
+  height: 100%;
+}
