@@ -31,7 +31,7 @@ export class DemandsMapComponent implements OnInit, OnDestroy {
   filteredVolunteers: Volunteer[] = [];
   selectedVolunteer: Volunteer | null = null;
   cluster: Cluster | null = null;
-  centerZone = new Subject<Coordinate>();
+  centerZone = new Subject<Coordinate | null>();
   centerZoneObservable = this.centerZone.asObservable();
 
   constructor(
@@ -102,10 +102,8 @@ export class DemandsMapComponent implements OnInit, OnDestroy {
 
   demandFilterChange(filter: Filter) {
     this.getDemands(filter);
-    if (filter.zone) {
-      const coordinates = zonesCoordinates[filter.zone];
-      this.centerZone.next(coordinates);
-    }
+    const coordinates = filter.zone ? zonesCoordinates[filter.zone] : null;
+    this.centerZone.next(coordinates);
   }
 
   volunteerClick(volunteer: Volunteer) {

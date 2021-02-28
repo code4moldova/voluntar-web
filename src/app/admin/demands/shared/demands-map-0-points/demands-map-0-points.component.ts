@@ -51,7 +51,7 @@ export class DemandsMap0PointsComponent
   implements OnInit, OnChanges, OnDestroy {
   private subscriptions = new Subscription();
   @Input() demands: Demand[];
-  @Input() centerZone: Observable<Coordinate>;
+  @Input() centerZone: Observable<Coordinate | null>;
   @Output() demandClick = new EventEmitter<Demand>();
 
   graphicsLayer = new GraphicsLayer();
@@ -61,22 +61,23 @@ export class DemandsMap0PointsComponent
     layers: [this.graphicsLayer],
   });
   mapView = new MapView({
-    center: centerCoordinate,
+    center: new Point(centerCoordinate),
     container: this.elementRef.nativeElement,
     zoom: 12,
     map: this.map,
   });
 
-  constructor(private elementRef: ElementRef, private cdr: ChangeDetectorRef) {
+  constructor(private elementRef: ElementRef) {
     this.mapView.on('click', this.onMapClick);
   }
 
   ngOnInit(): void {
     this.subscriptions.add(
-      this.centerZone.subscribe((coordinate) => {
-        // TODO: cdr this does not work, wtf, even with cdr
-        void this.mapView.goTo(coordinate, { animate: true });
-      }),
+      this.centerZone.subscribe((coordinate) =>
+        this.mapView.goTo(new Point(coordinate ?? centerCoordinate), {
+          animate: true,
+        }),
+      ),
     );
   }
 
@@ -115,9 +116,6 @@ export class DemandsMap0PointsComponent
     this.graphicsLayer.graphics.addMany(
       added.map((demand) => getNewGraphic(demand)),
     );
-
-    // TODO: cdr no rerender when changing map even with cdr
-    // this.cdr.detectChanges(),
   }
 
   ngOnDestroy() {
