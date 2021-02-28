@@ -3,6 +3,7 @@ import { Zone } from '@shared/zone';
 
 export interface Volunteer {
   _id?: string;
+  cluster_id?: string;
   activity_types: string[];
   address: string;
   age: number;

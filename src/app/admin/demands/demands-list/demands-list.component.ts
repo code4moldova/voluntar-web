@@ -231,4 +231,12 @@ export class DemandsListComponent implements OnInit {
         dialogRef.close();
       });
   }
+
+  cast(element: unknown): Demand {
+    return element as Demand;
+  }
+
+  getClusterUrl(demand: Demand): string {
+    return `${window.location.origin}/cluster/${demand.volunteer.cluster_id}`;
+  }
 }
