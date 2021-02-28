@@ -127,6 +127,17 @@
   "toate": "Toate",
   "details": "Detalii",
   "all": "Toate",
+  "new_assignment": "Asignare noua",
+  "link_sent_to_volunteer_email": "Link-ul a fost trimis voluntarului pe email.",
+  "task_in_process": "Sarcina este în Proces.",
+  "success": "Succes",
+  "assign_demands": "Asigneaza cereri",
+  "search": "Cauta",
+  "availability_date": "Valabilitate",
+  "select_volunteer": "Selecteaza voluntar",
+  "select_demand_on_map": "Selecteaza cerere pe harta",
+  "necessity": "Necesitate",
+  "select_beneficiaries": "Selecteaza beneficiari",
   "hero": {
     "headline": "Inițiativa <span>împreună<br />împotriva COVID-19</span>",
     "description": "Rețea de voluntari și voluntare care oferă suport celor din zona de risc, în parteneriat cu Serviciile de Asistență Socială din Republica Moldova în contextul situației de criză creată de pandemia de COVID-19."

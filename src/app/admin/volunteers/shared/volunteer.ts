@@ -15,7 +15,7 @@ export interface Volunteer {
   last_name: string;
   latitude: number;
   longitude: number;
-  phone: number;
+  phone: string;
   black_list: boolean;
   role: VolunteerRole[];
   zone: Zone;

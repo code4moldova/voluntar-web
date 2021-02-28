@@ -1,0 +1,92 @@
+<h3 class="text-center m-0 py-2 border-bottom">
+  <strong>{{ "select_volunteer" | translate }}</strong>
+</h3>
+
+<div class="container bg-light border-bottom">
+  <div class="row">
+    <div class="col-8 d-flex align-items-center">
+      <input
+        matInput
+        placeholder="{{ 'availability_date' | translate }}"
+        style="cursor: pointer"
+        title=""
+        [matDatepicker]="datePicker"
+        (dateChange)="onDateChange($event)"
+      />
+      <mat-datepicker-toggle [for]="datePicker"></mat-datepicker-toggle>
+      <mat-datepicker #datePicker></mat-datepicker>
+    </div>
+  </div>
+</div>
+
+<div class="container py-2 bg-light border-bottom">
+  <input
+    matInput
+    [formControl]="search"
+    class="form-control"
+    placeholder="{{ 'search' | translate }}"
+    title=""
+  />
+</div>
+
+<div
+  *ngIf="volunteers.length === 0"
+  class="d-flex flex-column align-items-center justify-content-center flex-grow-1"
+>
+  <mat-icon inline style="font-size: 50px" class="text-secondary mb-3">
+    error_outline
+  </mat-icon>
+  <span style="font-size: 16px" class="pb-4">
+    {{ "no_volunteers" | translate }}
+  </span>
+</div>
+
+<mat-list
+  style="overflow-y: scroll"
+  class="pt-0 flex-grow-1"
+  role="list"
+  *ngIf="volunteers.length > 0"
+>
+  <mat-list-item
+    role="listitem"
+    class="border-bottom h-auto py-2"
+    style="cursor: pointer"
+    [style.background-color]="
+      volunteer._id === selectedVolunteer?._id ? '#edebe9' : 'white'
+    "
+    *ngFor="let volunteer of volunteers"
+    (click)="
+      volunteerClick.emit(
+        volunteer._id === selectedVolunteer?._id ? null : volunteer
+      )
+    "
+  >
+    <div class="w-100 px-2">
+      <div>{{ volunteer.first_name }} {{ volunteer.last_name }}</div>
+      <div class="d-flex align-items-center">
+        <small *ngIf="volunteer.phone" class="mr-2">
+          +373{{ volunteer.phone }}
+        </small>
+        <small *ngIf="volunteer.role[0]" class="d-flex align-items-center">
+          <mat-icon [svgIcon]="volunteer.role[0]"></mat-icon>
+          <span class="ml-2">{{ volunteer.role[0] | translate }}</span>
+        </small>
+      </div>
+    </div>
+  </mat-list-item>
+</mat-list>
+
+<div class="text-center p-2 border-top">
+  <button mat-flat-button color="primary" (click)="backClick.emit($event)">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <button
+    mat-flat-button
+    color="primary"
+    class="ml-1"
+    [disabled]="selectedVolunteer === null"
+    (click)="nextClick.emit($event)"
+  >
+    {{ "assign_demands" | translate }}
+  </button>
+</div>

@@ -9,22 +9,24 @@ import { RouterModule } from '@angular/router';
 import { demandsRoutes } from './demands.routes';
 import { DemandAddressFieldComponent } from './demand-details/demand-address-field/demand-address-field.component';
 import { TranslateModule } from '@ngx-translate/core';
-import { DemandsMapComponent } from './shared/demands-map/demands-map.component';
-import { DemandSelectionOnMapComponent } from './shared/demands-map/demand-selection/demand-selection.component';
-import { VolunteerSelectionOnMapComponent } from './shared/demands-map/volunteer-selection/volunteer-selection.component';
 import { FilterByNameOrFamilyPipe } from '@app/shared/pipes/filter-by-name-or-family.pipe';
-import { DemandsMapPointsComponent } from '@demands/shared/demands-map-points/demands-map-points.component';
+import { DemandsMapComponent } from '@demands/shared/demands-map/demands-map.component';
+import { DemandsMap0PointsComponent } from '@demands/shared/demands-map-0-points/demands-map-0-points.component';
+import { DemandsMap1SelectedComponent } from '@demands/shared/demands-map-1-selected/demands-map-1-selected.component';
+import { DemandsMap2VolunteerComponent } from '@demands/shared/demands-map-2-volunteer/demands-map-2-volunteer.component';
+import { DemandsMap3CompleteComponent } from '@demands/shared/demands-map-3-complete/demands-map-3-complete.component';
 
 @NgModule({
   declarations: [
     DemandDetailsComponent,
     DemandsListComponent,
     DemandAddressFieldComponent,
-    DemandsMapComponent,
-    DemandSelectionOnMapComponent,
-    VolunteerSelectionOnMapComponent,
     FilterByNameOrFamilyPipe,
-    DemandsMapPointsComponent,
+    DemandsMapComponent,
+    DemandsMap0PointsComponent,
+    DemandsMap1SelectedComponent,
+    DemandsMap2VolunteerComponent,
+    DemandsMap3CompleteComponent,
   ],
   imports: [
     CommonModule,

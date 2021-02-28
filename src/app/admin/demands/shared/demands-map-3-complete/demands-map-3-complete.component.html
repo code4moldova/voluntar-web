@@ -1,0 +1,57 @@
+<h3 class="text-center m-0 py-2 border-bottom">
+  <strong>{{ "success" | translate }}</strong>
+</h3>
+
+<div
+  class="flex-grow-1 mat-typography d-flex flex-column justify-content-center align-items-center"
+>
+  <mat-icon inline class="text-success mb-5 mt-2" style="font-size: 100px">
+    check_circle_outline
+  </mat-icon>
+
+  <div class="w-75 mb-0 mat-title text-success text-center">
+    <strong>{{ "task_in_process" | translate }}</strong>
+  </div>
+  <div class="w-75 mb-2 mat-subheading-2 text-center">
+    {{ "link_sent_to_volunteer_email" | translate }}
+  </div>
+
+  <div
+    class="w-75 shadow-lg border-info px-4 py-3"
+    style="border-left: 4px solid"
+  >
+    <div class="mb-2">
+      <strong>{{ volunteer.first_name }} {{ volunteer.last_name }}</strong>
+    </div>
+
+    <a
+      *ngIf="volunteer.phone"
+      href="tel:+373{{ volunteer.phone }}"
+      class="text-truncate d-block text-dark"
+    >
+      +373{{ volunteer.phone }}
+    </a>
+    <div *ngIf="volunteer.role[0]">{{ volunteer.role[0] | translate }}</div>
+    <a
+      *ngIf="volunteer.email"
+      href="mailto:{{ volunteer.email }}"
+      class="text-truncate d-block text-dark"
+    >
+      {{ volunteer.email }}
+    </a>
+    <a
+      [href]="getClusterUrl(cluster)"
+      [title]="getClusterUrl(cluster)"
+      target="_blank"
+      class="text-truncate d-block text-dark"
+    >
+      {{ getClusterUrl(cluster) }}
+    </a>
+  </div>
+</div>
+
+<div class="text-center p-2 border-top">
+  <button mat-stroked-button color="primary" (click)="nextClick.emit($event)">
+    {{ "new_assignment" | translate }}
+  </button>
+</div>
