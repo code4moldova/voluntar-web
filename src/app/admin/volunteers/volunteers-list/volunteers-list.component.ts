@@ -4,7 +4,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
 
 import { VolunteerPageParams, VolunteersFacade } from '../volunteers.facade';
-
 import { Volunteer } from '../shared/volunteer';
 import { ActionsSubject } from '@ngrx/store';
 import { ofType } from '@ngrx/effects';
@@ -15,8 +14,9 @@ import { FormBuilder } from '@angular/forms';
 import { VolunteersCreateComponent } from '../volunteers-create/volunteers-create.component';
 import { volunteerRoles } from '../shared/volunteer-role';
 import { zones } from '@shared/zone';
-import { downloadCsv } from '@shared/download-csv';
 import { VolunteersService } from '@volunteers/volunteers.service';
+import { CsvService } from '@app/admin/shared/csv.service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   templateUrl: './volunteers-list.component.html',
@@ -27,12 +27,12 @@ export class VolunteersListComponent implements OnInit {
   dataSource$: Observable<Volunteer[]>;
   isLoading$ = this.volunteersFacade.isLoading$;
   count$ = this.volunteersFacade.count$;
-  allStatusesCounts$: BehaviorSubject<number[]> = new BehaviorSubject([]);
+  allStatusesCounts$ = new BehaviorSubject<number[]>([]);
   tabs: Tab[] = [
     { label: 'Activi', status: 'active' },
     { label: 'Inactivi', status: 'inactive' },
     { label: 'Blacklist', status: 'blacklist' },
-    { label: 'Toti', status: null },
+    { label: 'Toti', status: undefined },
   ];
   activeTab = this.tabs[0];
   page: VolunteerPageParams = { pageSize: 20, pageIndex: 1 };
@@ -53,6 +53,7 @@ export class VolunteersListComponent implements OnInit {
     private actions$: ActionsSubject,
     private activeRoute: ActivatedRoute,
     private router: Router,
+    private csvService: CsvService,
   ) {
     this.activeRoute.queryParams.pipe(take(1)).subscribe((params) => {
       this.filterForm.patchValue(params);
@@ -65,13 +66,16 @@ export class VolunteersListComponent implements OnInit {
     this.onTabChange(this.activeTab);
   }
 
-  // TODO
-  onVolunteersImport(): void {}
+  onImport(): void {
+    this.csvService
+      .upload(`${environment.url}/import/csv/volunteers`)
+      .subscribe();
+  }
 
-  onVolunteersExport(): void {
-    this.volunteerService
-      .getCSVBlob()
-      .subscribe((blob) => downloadCsv(blob, 'demands'));
+  onExport(): void {
+    this.csvService
+      .download(`${environment.url}/export/csv/volunteers`, 'volunteers.csv')
+      .subscribe();
   }
 
   getAllStatusesCount() {
@@ -85,13 +89,13 @@ export class VolunteersListComponent implements OnInit {
       });
   }
 
-  helperGetCountByStatus(status: string) {
+  helperGetCountByStatus(status?: string) {
     return this.volunteersFacade
       .getByStatus(status)
       .pipe(map((res) => res.count));
   }
 
-  queryResult(criteria: { [keys: string]: string }) {
+  queryResult(criteria: { [keys: string]: string | undefined }) {
     this.lastFilter = criteria;
     this.page = { pageSize: 20, pageIndex: 1 };
     this.volunteersFacade.getVolunteers(this.page, criteria);
@@ -154,5 +158,5 @@ export class VolunteersListComponent implements OnInit {
 
 type Tab = {
   label: string;
-  status: string;
+  status?: string;
 };

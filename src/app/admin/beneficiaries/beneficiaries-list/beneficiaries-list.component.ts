@@ -12,8 +12,9 @@ import { BeneficiariesFacade } from '../beneficiaries.facade';
 import { BeneficiaryNewComponent } from '../beneficiary-new/beneficiary-new.component';
 import { saveBeneficiarySuccessAction } from '../beneficiaries.actions';
 import { zones } from '@shared/zone';
-import { downloadCsv } from '@shared/download-csv';
 import { BeneficiariesService } from '@beneficiaries/beneficiaries.service';
+import { environment } from '../../../../environments/environment';
+import { CsvService } from '@app/admin/shared/csv.service';
 
 @Component({
   templateUrl: './beneficiaries-list.component.html',
@@ -48,6 +49,7 @@ export class BeneficiariesListComponent implements OnInit {
     private matDialog: MatDialog,
     private snackBar: MatSnackBar,
     private actions$: ActionsSubject,
+    private csvService: CsvService,
   ) {}
 
   ngOnInit(): void {
@@ -104,9 +106,12 @@ export class BeneficiariesListComponent implements OnInit {
   }
 
   onExport() {
-    this.beneficiariesService
-      .getCSVBlob()
-      .subscribe((blob) => downloadCsv(blob, 'beneficiaries'));
+    this.csvService
+      .download(
+        `${environment.url}/export/csv/beneficiaries`,
+        'beneficiaries.csv',
+      )
+      .subscribe();
   }
 
   onSearchSubmit() {

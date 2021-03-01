@@ -52,10 +52,4 @@ export class VolunteersService {
       },
     );
   }
-
-  getCSVBlob() {
-    return this.http.get(`${environment.url}/export/csv/volunteers`, {
-      responseType: 'blob',
-    });
-  }
 }
