@@ -51,7 +51,7 @@ export class VolunteersFacade {
     this.store.dispatch(getVolunteersByFilterAction({ payload: criteria }));
   }
 
-  getByStatus(status: string) {
+  getByStatus(status?: string) {
     const page = {
       pageIndex: 0,
       pageSize: 1,

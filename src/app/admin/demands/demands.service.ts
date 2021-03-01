@@ -42,12 +42,6 @@ export class DemandsService {
     return this.http.put<any>(`${environment.url}/requests`, demand);
   }
 
-  getCSVBlob() {
-    return this.http.get(`${environment.url}/export/csv/requests`, {
-      responseType: 'blob',
-    });
-  }
-
   assignToVolunteer(demands: Demand[] = [], volunteerId: string) {
     return this.http.post<any>(`${environment.url}/clusters`, {
       volunteer: `${volunteerId}`,

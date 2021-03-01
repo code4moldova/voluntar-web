@@ -27,8 +27,9 @@ import {
 } from '@shared/filter/filter.types';
 import { KIV_ZONES } from '@shared/constants';
 import { Demand } from '@demands/shared/demand';
-import { downloadCsv } from '@shared/download-csv';
 import { DemandsService } from '@demands/demands.service';
+import { environment } from '../../../../environments/environment';
+import { CsvService } from '@app/admin/shared/csv.service';
 
 @Component({
   templateUrl: './demands-list.component.html',
@@ -119,6 +120,7 @@ export class DemandsListComponent implements OnInit {
     private activeRoute: ActivatedRoute,
     private matDialog: MatDialog,
     private actions$: ActionsSubject,
+    private csvService: CsvService,
   ) {
     this.getAllStatusesCount();
   }
@@ -209,10 +211,16 @@ export class DemandsListComponent implements OnInit {
     this.demandsFacade.getDemands(this.page, this.lastFilter);
   }
 
+  onImport() {
+    this.csvService
+      .upload(`${environment.url}/import/csv/requests`)
+      .subscribe();
+  }
+
   onExport() {
-    this.demandsService
-      .getCSVBlob()
-      .subscribe((blob) => downloadCsv(blob, 'demands'));
+    this.csvService
+      .download(`${environment.url}/export/csv/requests`, 'demands.csv')
+      .subscribe();
   }
 
   openNewDemandDialog(element: Demand = {} as Demand) {
