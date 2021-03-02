@@ -138,6 +138,8 @@
   "select_demand_on_map": "Selecteaza cerere pe harta",
   "necessity": "Necesitate",
   "select_beneficiaries": "Selecteaza beneficiari",
+  "role": "Rol",
+  "search_by_phone_and_name": "Cautare (Telefon, Nume, Prenume)",
   "hero": {
     "headline": "Inițiativa <span>împreună<br />împotriva COVID-19</span>",
     "description": "Rețea de voluntari și voluntare care oferă suport celor din zona de risc, în parteneriat cu Serviciile de Asistență Socială din Republica Moldova în contextul situației de criză creată de pandemia de COVID-19."
