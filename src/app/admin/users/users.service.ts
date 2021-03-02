@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { User } from './shared/user';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
@@ -32,7 +32,9 @@ export class UsersService {
     const url = `${environment.url}/operator/filters/${page + 1}/${per_page}`;
     return this.http
       .get<UsersListResponse>(url, {
-        params: JSON.parse(JSON.stringify(params)),
+        params: new HttpParams({
+          fromObject: JSON.parse(JSON.stringify(params)),
+        }),
       })
       .pipe(
         map((response) => ({

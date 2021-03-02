@@ -12,14 +12,15 @@ import { saveVolunteerSuccessAction } from '../volunteers.actions';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 import { VolunteersCreateComponent } from '../volunteers-create/volunteers-create.component';
-import { volunteerRoles } from '../shared/volunteer-role';
-import { zones } from '@shared/zone';
+import { VolunteerRole, volunteerRoles } from '../shared/volunteer-role';
+import { Zone, zones } from '@shared/zone';
 import { VolunteersService } from '@volunteers/volunteers.service';
 import { CsvService } from '@app/admin/shared/csv.service';
 import { environment } from '../../../../environments/environment';
 
 @Component({
   templateUrl: './volunteers-list.component.html',
+  styleUrls: ['./volunteers-list.component.scss'],
 })
 export class VolunteersListComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -37,13 +38,12 @@ export class VolunteersListComponent implements OnInit {
   activeTab = this.tabs[0];
   page: VolunteerPageParams = { pageSize: 20, pageIndex: 1 };
   lastFilter = {};
-  filterForm = this.fb.group({
-    query: [null],
-    zone: [null],
-    role: [null],
-  });
   zones = zones;
-  roles = volunteerRoles;
+  volunteerRoles = volunteerRoles;
+
+  searchFilterQuery = '';
+  searchFilterZone = '';
+  searchFilterRole = '';
 
   constructor(
     private fb: FormBuilder,
@@ -54,16 +54,22 @@ export class VolunteersListComponent implements OnInit {
     private activeRoute: ActivatedRoute,
     private router: Router,
     private csvService: CsvService,
-  ) {
-    this.activeRoute.queryParams.pipe(take(1)).subscribe((params) => {
-      this.filterForm.patchValue(params);
-    });
-  }
+  ) {}
 
   ngOnInit() {
     this.getAllStatusesCount();
     this.dataSource$ = this.volunteersFacade.volunteers$;
     this.onTabChange(this.activeTab);
+  }
+
+  searchSubmit() {
+    this.paginator.firstPage();
+    this.queryResult({
+      status: this.activeTab.status,
+      query: this.searchFilterQuery || undefined,
+      zone: getValue<Zone>(this.searchFilterZone),
+      role: getValue<VolunteerRole>(this.searchFilterRole),
+    });
   }
 
   onImport(): void {
@@ -130,27 +136,6 @@ export class VolunteersListComponent implements OnInit {
       : this.queryResult({});
   }
 
-  onSearchSubmit() {
-    const query: any = {};
-    const filters = this.filterForm.value;
-    Object.keys(filters).forEach((key) => {
-      if (filters[key] && filters[key].length > 0) {
-        query[key] = filters[key];
-      }
-    });
-    if (this.activeTab) {
-      query.status = this.activeTab;
-    }
-    this.router
-      .navigate([], {
-        relativeTo: this.activeRoute,
-        queryParams: {
-          ...query,
-        },
-      })
-      .then();
-  }
-
   cast(volunteer: unknown): Volunteer {
     return volunteer as Volunteer;
   }
@@ -160,3 +145,7 @@ type Tab = {
   label: string;
   status?: string;
 };
+
+function getValue<T extends string>(value: string): T | undefined {
+  return value !== 'all' && value ? (value as T) : undefined;
+}

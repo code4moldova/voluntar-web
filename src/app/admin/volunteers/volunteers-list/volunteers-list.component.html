@@ -6,38 +6,42 @@
   addBtnLabel="add_volunteer"
 ></app-admin-page-header>
 
-<mat-card class="mb-4">
-  <form
-    class="mat-form-field-flex flex-wrap flex-md-nowrap"
-    [formGroup]="filterForm"
-    (ngSubmit)="onSearchSubmit()"
-  >
-    <mat-form-field class="full-width-input pr-1">
-      <mat-label>Căutare</mat-label>
-      <input type="text" matInput formControlName="query" title="" />
-      <mat-hint>telefon, nume, prenume</mat-hint>
-    </mat-form-field>
-    <mat-form-field class="px-1">
-      <mat-select placeholder="Sector" formControlName="zone">
-        <mat-option [value]="null">Sector</mat-option>
-        <mat-option *ngFor="let zone of zones" [value]="zone">
-          {{ zone | translate }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field class="px-1">
-      <mat-select placeholder="Oferta" formControlName="role">
-        <mat-option [value]="null">Oferta</mat-option>
-        <mat-option *ngFor="let role of roles" [value]="role">
-          {{ role | translate }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <button mat-flat-button color="primary" type="submit" class="px-1">
-      <mat-icon class="mr-0">search</mat-icon>
+<form (ngSubmit)="searchSubmit()">
+  <mat-card class="search-filter mb-3">
+    <input
+      type="text"
+      matInput
+      title=""
+      class="mr-1"
+      placeholder="{{ 'search_by_phone_and_name' | translate }}"
+      [(ngModel)]="searchFilterQuery"
+      [ngModelOptions]="{ standalone: true }"
+    />
+    <mat-select
+      placeholder="{{ 'role' | translate }}"
+      class="mx-1"
+      [(value)]="searchFilterZone"
+    >
+      <mat-option value="all">{{ "all" | translate }}</mat-option>
+      <mat-option *ngFor="let zone of zones" [value]="zone">
+        {{ zone | translate }}
+      </mat-option>
+    </mat-select>
+    <mat-select
+      placeholder="{{ 'role' | translate }}"
+      class="mx-1"
+      [(value)]="searchFilterRole"
+    >
+      <mat-option value="all">{{ "all" | translate }}</mat-option>
+      <mat-option *ngFor="let role of volunteerRoles" [value]="role">
+        {{ role | translate }}
+      </mat-option>
+    </mat-select>
+    <button mat-mini-fab color="primary" class="ml-1">
+      <mat-icon>search</mat-icon>
     </button>
-  </form>
-</mat-card>
+  </mat-card>
+</form>
 
 <nav mat-tab-nav-bar class="bg-white">
   <a
