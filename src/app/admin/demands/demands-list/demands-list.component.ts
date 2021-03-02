@@ -7,8 +7,8 @@ import {
 } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
-import { BehaviorSubject, forkJoin, Observable, of } from 'rxjs';
-import { map, pluck, take, takeUntil } from 'rxjs/operators';
+import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
+import { map, take, takeUntil } from 'rxjs/operators';
 
 import { DemandsFacade, DemandsPageParams } from '../demands.facade';
 import { UsersFacade } from '@users/users.facade';
@@ -20,12 +20,6 @@ import { ActionsSubject } from '@ngrx/store';
 import { ofType } from '@ngrx/effects';
 import { saveDemandSuccessAction } from '../demands.actions';
 import { DemandDetailsComponent } from '../demand-details/demand-details.component';
-import {
-  FilterInputColumns,
-  FilterObservableSelectColumns,
-  FilterSelectColumns,
-} from '@shared/filter/filter.types';
-import { KIV_ZONES } from '@shared/constants';
 import { Demand } from '@demands/shared/demand';
 import { DemandsService } from '@demands/demands.service';
 import { environment } from '../../../../environments/environment';
@@ -51,26 +45,8 @@ export class DemandsListComponent implements OnInit {
   isLoading$ = this.demandsFacade.isLoading$;
   count$ = this.demandsFacade.demandsCount$;
 
-  public inputColumns: FilterInputColumns[];
-  public selectColumns: FilterSelectColumns<{
-    label: string;
-    _id: string | boolean;
-  }>[];
-  public observableSelectColumns: FilterObservableSelectColumns[];
-
   lastFilter = {};
   page: DemandsPageParams = { pageSize: 20, pageIndex: 1 };
-
-  private isActive = [
-    {
-      label: 'Yes',
-      _id: true,
-    },
-    {
-      label: 'No',
-      _id: false,
-    },
-  ];
 
   @ViewChild('empty', { static: true }) empty: ElementRef;
   selectedTab = 'all';
@@ -146,29 +122,6 @@ export class DemandsListComponent implements OnInit {
     this.fetchDemands();
     this.usersFacade.getUsers();
     this.dataSource$ = this.demandsFacade.demands$;
-
-    this.inputColumns = [
-      { name: 'First Name', value: 'first_name' },
-      { name: 'Last Name', value: 'last_name' },
-      { name: 'Phone', value: 'phone', icon: 'phone' },
-    ];
-
-    this.observableSelectColumns = [
-      {
-        name: 'Fixer',
-        value: 'fixer',
-        array: this.usersFacade.users$.pipe(pluck('list')),
-      },
-      {
-        name: 'Zone address',
-        value: 'zone_address',
-        array: of(KIV_ZONES),
-      },
-    ];
-
-    this.selectColumns = [
-      { name: 'Is Active', value: 'is_active', array: this.isActive },
-    ];
   }
 
   onTabChanged(event: MatTabChangeEvent) {

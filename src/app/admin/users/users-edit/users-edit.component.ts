@@ -1,6 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { UserRole, userRoles } from '@users/shared/user-role';
+import { filterDeprecatedUserRoles, userRoles } from '@users/shared/user-role';
 import { weekDays } from '@shared/week-day';
 import { generateHoursRange } from '@shared/generate-hours-range';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -24,10 +24,7 @@ export class UsersEditComponent implements OnDestroy {
 
   weekDays = weekDays;
   hours = generateHoursRange(8, 20);
-  roles = userRoles.filter(
-    // Filter deprecated roles
-    (role) => ![UserRole.fixer, UserRole.admin].includes(role),
-  );
+  roles = filterDeprecatedUserRoles(userRoles);
 
   formGroup = this.fb.group({
     _id: this.fb.control(''),

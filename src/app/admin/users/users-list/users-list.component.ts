@@ -8,18 +8,29 @@ import { ActionsSubject } from '@ngrx/store';
 import { createUserSuccessAction } from '../users.actions';
 import { ofType } from '@ngrx/effects';
 import { UsersCreateComponent } from '@users/users-create/users-create.component';
-import { forkJoin, Subject } from 'rxjs';
+import { forkJoin, Subscription } from 'rxjs';
 import { User } from '@users/shared/user';
 import { UsersService } from '@users/users.service';
 import { UsersListResponse } from '@users/shared/users-list-response';
-import { UserRole } from '@users/shared/user-role';
+import {
+  filterDeprecatedUserRoles,
+  UserRole,
+  userRoles,
+} from '@users/shared/user-role';
 
 @Component({
   templateUrl: './users-list.component.html',
+  styleUrls: ['./users-list.component.scss'],
 })
 export class UsersListComponent implements OnInit, OnDestroy {
-  private _onDestroy = new Subject<void>();
+  private subscriptions = new Subscription();
+
   UserRole = UserRole;
+  userRoles = filterDeprecatedUserRoles(userRoles);
+
+  searchFilterQuery = '';
+  searchFilterRole = '';
+
   displayedColumns = ['name', 'phone', 'email', 'role', 'details'];
   isLoading$ = this.usersFacade.isLoading$;
   dataSource = new MatTableDataSource<User>([]);
@@ -59,20 +70,30 @@ export class UsersListComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.usersFacade.users$
-      .pipe(takeUntil(this._onDestroy))
-      .subscribe((users) => {
+    this.subscriptions.add(
+      this.usersFacade.users$.subscribe((users) => {
         this.page.length = users.count;
         this.dataSource.data = users.list;
-      });
+      }),
+    );
 
     this.getUsers();
     this.getTabsCount();
   }
 
   ngOnDestroy(): void {
-    this._onDestroy.next();
-    this._onDestroy.complete();
+    this.subscriptions.unsubscribe();
+  }
+
+  searchSubmit() {
+    const query = this.searchFilterQuery || undefined;
+    const role =
+      this.searchFilterRole !== 'all' && this.searchFilterRole
+        ? (this.searchFilterRole as UserRole)
+        : undefined;
+
+    this.paginator.firstPage();
+    this.getUsers(query, role);
   }
 
   cast(user: unknown): User {
@@ -90,11 +111,13 @@ export class UsersListComponent implements OnInit, OnDestroy {
     this.getUsers();
   }
 
-  getUsers() {
+  getUsers(query?: string, role?: UserRole) {
     this.usersFacade.getUsers({
       is_active: this.activeTab.is_active,
       page: this.page.pageIndex,
       per_page: this.page.pageSize,
+      query,
+      roles: role,
     });
   }
 
@@ -106,21 +129,23 @@ export class UsersListComponent implements OnInit, OnDestroy {
       per_page: Number.MAX_SAFE_INTEGER,
     };
 
-    forkJoin([
-      service.getList({ ...kindOfAllUsers, is_active: true }),
-      service.getList({ ...kindOfAllUsers, is_active: false }),
-      service.getList({ ...kindOfAllUsers, is_active: undefined }),
-    ])
-      .pipe(map(extractUsersListsCounts), takeUntil(this._onDestroy))
-      .subscribe(([activeUsers, nonActiveUsers, allUsers]) => {
-        const activeTab = this.tabs.find((t) => t.is_active === true);
-        const nonActiveTab = this.tabs.find((t) => t.is_active === false);
-        const allTab = this.tabs.find((t) => t.is_active === undefined);
-        // In reality tabs exist, we check to make TS happy
-        if (activeTab) activeTab.count = activeUsers;
-        if (nonActiveTab) nonActiveTab.count = nonActiveUsers;
-        if (allTab) allTab.count = allUsers;
-      });
+    this.subscriptions.add(
+      forkJoin([
+        service.getList({ ...kindOfAllUsers, is_active: true }),
+        service.getList({ ...kindOfAllUsers, is_active: false }),
+        service.getList({ ...kindOfAllUsers, is_active: undefined }),
+      ])
+        .pipe(map(extractUsersListsCounts))
+        .subscribe(([activeUsers, nonActiveUsers, allUsers]) => {
+          const activeTab = this.tabs.find((t) => t.is_active === true);
+          const nonActiveTab = this.tabs.find((t) => t.is_active === false);
+          const allTab = this.tabs.find((t) => t.is_active === undefined);
+          // In reality tabs exist, we check to make TS happy
+          if (activeTab) activeTab.count = activeUsers;
+          if (nonActiveTab) nonActiveTab.count = nonActiveUsers;
+          if (allTab) allTab.count = allUsers;
+        }),
+    );
   }
 
   openNewUserDialog() {

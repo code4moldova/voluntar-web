@@ -10,6 +10,13 @@ export enum UserRole {
 
 export const userRoles = Object.values(UserRole);
 
+export function filterDeprecatedUserRoles(roles: UserRole[]) {
+  return roles.filter(
+    // Filter deprecated roles
+    (role) => ![UserRole.fixer, UserRole.admin].includes(role),
+  );
+}
+
 export const UserRolePriority = [
   UserRole.administrator,
   UserRole.coordinator,

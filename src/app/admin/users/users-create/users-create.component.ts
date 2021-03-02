@@ -7,7 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { weekDays } from '@shared/week-day';
-import { UserRole, userRoles } from '@users/shared/user-role';
+import { filterDeprecatedUserRoles, userRoles } from '@users/shared/user-role';
 import { generateHoursRange } from '@shared/generate-hours-range';
 import { UsersFacade } from '@users/users.facade';
 
@@ -22,10 +22,7 @@ import { UsersFacade } from '@users/users.facade';
   ],
 })
 export class UsersCreateComponent {
-  roles = userRoles.filter(
-    // Filter deprecated roles
-    (role) => ![UserRole.fixer, UserRole.admin].includes(role),
-  );
+  roles = filterDeprecatedUserRoles(userRoles);
   weekDays = weekDays;
   hours = generateHoursRange(8, 20);
 

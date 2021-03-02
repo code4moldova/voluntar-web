@@ -6,13 +6,6 @@
   (addCallback)="openNewDemandDialog()"
 ></app-admin-page-header>
 
-<app-filter
-  [inputColumns]="inputColumns"
-  [observableSelectColumns]="observableSelectColumns"
-  [selectColumns]="selectColumns"
-  (queryResult)="queryResult($event)"
-></app-filter>
-
 <app-demands-map></app-demands-map>
 
 <mat-tab-group
