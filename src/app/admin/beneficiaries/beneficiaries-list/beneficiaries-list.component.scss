@@ -37,22 +37,22 @@ h1 {
   box-shadow: none;
   display: flex;
 
-  input,
-  mat-select {
+  > input,
+  > mat-select {
     flex-grow: 1;
     padding: 5px 10px;
     border: 1px solid rgba(0, 0, 0, 0.4);
   }
 
-  mat-select {
+  > mat-select {
     max-width: 150px;
   }
 
-  input {
+  > input {
     font-size: 14px;
   }
 
-  button {
+  > button {
     box-shadow: none !important;
     border-radius: 0 !important;
     width: 36px;
@@ -66,6 +66,18 @@ h1 {
       width: 18px;
       height: 18px;
       font-size: 18px;
+    }
+  }
+
+  .date-picker-wrapper {
+    display: flex;
+    padding-left: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.4);
+
+    mat-datepicker-toggle ::ng-deep button {
+      width: 34px;
+      height: 34px;
+      line-height: 34px;
     }
   }
 }

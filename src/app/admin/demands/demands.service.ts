@@ -16,17 +16,16 @@ export class DemandsService {
     },
     filters: any = {},
   ) {
-    const nonUndefinedFilters = Object.fromEntries(
-      Object.entries<string>(filters).filter(
-        ([, value]) => value !== undefined,
-      ),
-    );
-    const params = new HttpParams({ fromObject: nonUndefinedFilters });
     return this.http.get<{ count: number; list: Demand[] }>(
       `${environment.url}/requests/filters/${page.pageIndex || 1}/${
         page.pageSize || 1000
       }`,
-      { params },
+      {
+        params: new HttpParams({
+          // Used to remove undefined values
+          fromObject: JSON.parse(JSON.stringify(filters)),
+        }),
+      },
     );
   }
 

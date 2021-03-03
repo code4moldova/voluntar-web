@@ -140,6 +140,7 @@
   "select_beneficiaries": "Selecteaza beneficiari",
   "role": "Rol",
   "search_by_phone_and_name": "Cautare (Telefon, Nume, Prenume)",
+  "date": "Dată",
   "hero": {
     "headline": "Инициатива <span>Вместе<br />против COVID-19</span>",
     "description": "Гражданский проект, который объединяет усилия и помогает людям в неблагоприятных ситуациях во время пандемии COVID-19"
