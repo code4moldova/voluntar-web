@@ -6,6 +6,44 @@
   (addCallback)="openNewDemandDialog()"
 ></app-admin-page-header>
 
+<form (ngSubmit)="searchSubmit()">
+  <mat-card class="search-filter mb-3">
+    <input
+      type="text"
+      matInput
+      title=""
+      class="mr-1"
+      placeholder="{{ 'search_by_phone_and_name' | translate }}"
+      [(ngModel)]="searchFilterQuery"
+      [ngModelOptions]="{ standalone: true }"
+    />
+    <mat-select
+      placeholder="{{ 'zone' | translate }}"
+      class="mx-1"
+      [(value)]="searchFilterZone"
+    >
+      <mat-option value="all">{{ "all" | translate }}</mat-option>
+      <mat-option *ngFor="let zone of zones" [value]="zone">
+        {{ zone | translate }}
+      </mat-option>
+    </mat-select>
+    <div class="date-picker-wrapper mx-1">
+      <input
+        matInput
+        placeholder="{{ 'date' | translate }}"
+        title=""
+        [matDatepicker]="datePicker"
+        (dateChange)="searchFilterDate = $any($event).value"
+      />
+      <mat-datepicker-toggle [for]="datePicker"></mat-datepicker-toggle>
+      <mat-datepicker #datePicker></mat-datepicker>
+    </div>
+    <button mat-mini-fab color="primary" class="ml-1">
+      <mat-icon>search</mat-icon>
+    </button>
+  </mat-card>
+</form>
+
 <app-demands-map></app-demands-map>
 
 <mat-tab-group
@@ -40,7 +78,7 @@
   </mat-tab>
 </mat-tab-group>
 
-<mat-card>
+<mat-card class="mat-card-table">
   <table mat-table [dataSource]="dataSource$ | async">
     <ng-container matColumnDef="icons">
       <th mat-header-cell *matHeaderCellDef></th>

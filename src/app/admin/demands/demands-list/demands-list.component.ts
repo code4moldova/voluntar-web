@@ -24,6 +24,7 @@ import { Demand } from '@demands/shared/demand';
 import { DemandsService } from '@demands/demands.service';
 import { environment } from '../../../../environments/environment';
 import { CsvService } from '@app/admin/shared/csv.service';
+import { Zone, zones } from '@shared/zone';
 
 @Component({
   templateUrl: './demands-list.component.html',
@@ -88,6 +89,11 @@ export class DemandsListComponent implements OnInit {
 
   allStatusesCounts$ = new BehaviorSubject<number[]>([]);
 
+  zones = zones;
+  searchFilterQuery = '';
+  searchFilterZone = '';
+  searchFilterDate: Date | null = null;
+
   constructor(
     private demandsFacade: DemandsFacade,
     private demandsService: DemandsService,
@@ -124,6 +130,19 @@ export class DemandsListComponent implements OnInit {
     this.dataSource$ = this.demandsFacade.demands$;
   }
 
+  searchSubmit() {
+    this.queryResult({
+      query: this.searchFilterQuery || undefined,
+      zone:
+        this.searchFilterZone !== 'all' && this.searchFilterZone
+          ? (this.searchFilterZone as Zone)
+          : undefined,
+      // TODO: toGMTString is deprecated, backend should send in a better format
+      // @ts-ignore
+      created_at: this.searchFilterDate?.toGMTString(),
+    });
+  }
+
   onTabChanged(event: MatTabChangeEvent) {
     let status = null;
 
@@ -153,7 +172,7 @@ export class DemandsListComponent implements OnInit {
     this.demandsFacade.resetNewDemands();
   }
 
-  queryResult(criteria: { [keys: string]: string }) {
+  queryResult(criteria: { [keys: string]: string | undefined }) {
     this.lastFilter = criteria;
     this.page = { pageSize: 20, pageIndex: 1 };
     this.demandsFacade.getDemands(this.page, criteria);
