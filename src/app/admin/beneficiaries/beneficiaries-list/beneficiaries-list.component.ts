@@ -11,7 +11,7 @@ import { Beneficiary } from '../shared/beneficiary';
 import { BeneficiariesFacade } from '../beneficiaries.facade';
 import { BeneficiaryNewComponent } from '../beneficiary-new/beneficiary-new.component';
 import { saveBeneficiarySuccessAction } from '../beneficiaries.actions';
-import { zones } from '@shared/zone';
+import { Zone, zones } from '@shared/zone';
 import { BeneficiariesService } from '@beneficiaries/beneficiaries.service';
 import { environment } from '../../../../environments/environment';
 import { CsvService } from '@app/admin/shared/csv.service';
@@ -38,10 +38,8 @@ export class BeneficiariesListComponent implements OnInit {
 
   // Search bar
   zones = zones;
-  filterStr = '';
-  filterSector = '';
-  prevFilterStr = '';
-  prevFilterSector = '';
+  searchFilterQuery = '';
+  searchFilterZone = '';
 
   constructor(
     private beneficiariesFacade: BeneficiariesFacade,
@@ -71,7 +69,7 @@ export class BeneficiariesListComponent implements OnInit {
     const { blockListPageSize: pageSize, blockListPageIndex: pageIndex } = this;
     this.beneficiariesFacade.getBeneficiaryBlockList(
       { pageSize, pageIndex },
-      this.blockListFilters,
+      this.filters,
     );
   }
 
@@ -114,45 +112,24 @@ export class BeneficiariesListComponent implements OnInit {
       .subscribe();
   }
 
-  onSearchSubmit() {
-    if (this.filterStr === '' && this.filterSector === '') {
-      // TODO allow user to reset filters and display full list again
-      // if (this.tabIndex === 0) {
-      // } else {
-      // }
-      this.snackBar.open(
-        'Introduceți textul de căutare sau/și alegi un sector',
-        '',
-        {
-          duration: 5000,
-          panelClass: 'info',
-          horizontalPosition: 'right',
-          verticalPosition: 'top',
-        },
-      );
-      return;
-    }
-
-    const filter = { query: this.filterStr, zone: this.filterSector };
-
-    if (this.tabIndex === 0) {
-      this.filters = filter;
-      this.reloadBeneficiaries();
-    } else {
-      // block list
-      this.blockListFilters = filter;
-      this.reloadBlockList();
-    }
-  }
-
   onTabChange(index: number) {
     this.tabIndex = index;
-    // Preserve filters between tabs
-    const tmpFilterStr = this.filterStr;
-    const tmpFilterSector = this.filterSector;
-    this.filterStr = this.prevFilterStr;
-    this.filterSector = this.prevFilterSector;
-    this.prevFilterStr = tmpFilterStr;
-    this.prevFilterSector = tmpFilterSector;
+  }
+
+  searchSubmit() {
+    this.filters = {
+      query: this.searchFilterQuery || undefined,
+      zone:
+        this.searchFilterZone !== 'all' && this.searchFilterZone
+          ? (this.searchFilterZone as Zone)
+          : undefined,
+    };
+
+    if (this.tabIndex === 0) {
+      this.reloadBeneficiaries();
+    } else {
+      // Block list
+      this.reloadBlockList();
+    }
   }
 }

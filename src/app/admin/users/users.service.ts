@@ -33,6 +33,7 @@ export class UsersService {
     return this.http
       .get<UsersListResponse>(url, {
         params: new HttpParams({
+          // Filter undefined values
           fromObject: JSON.parse(JSON.stringify(params)),
         }),
       })

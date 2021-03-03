@@ -5,32 +5,32 @@
   (addCallback)="openNewBeneficiaryDialog()"
 ></app-admin-page-header>
 
-<mat-card class="mat-card-search-bar">
-  <form (ngSubmit)="onSearchSubmit()">
-    <div class="search-bar">
-      <input
-        type="text"
-        placeholder="Căutare (Telefon, Nume, Prenume)"
-        matInput
-        [(ngModel)]="filterStr"
-        [ngModelOptions]="{ standalone: true }"
-      />
-      <mat-select
-        class="mat-select-zone"
-        [(value)]="filterSector"
-        placeholder="Sector"
-      >
-        <mat-option value="">--Sector--</mat-option>
-        <mat-option *ngFor="let zone of zones" [value]="zone">
-          {{ zone | translate }}
-        </mat-option>
-      </mat-select>
-      <button mat-flat-button color="primary" type="submit">
-        <mat-icon>search</mat-icon>
-      </button>
-    </div>
-  </form>
-</mat-card>
+<form (ngSubmit)="searchSubmit()">
+  <mat-card class="search-filter mb-3">
+    <input
+      type="text"
+      matInput
+      title=""
+      class="mr-1"
+      placeholder="{{ 'search_by_phone_and_name' | translate }}"
+      [(ngModel)]="searchFilterQuery"
+      [ngModelOptions]="{ standalone: true }"
+    />
+    <mat-select
+      placeholder="{{ 'zone' | translate }}"
+      class="mx-1"
+      [(value)]="searchFilterZone"
+    >
+      <mat-option value="all">{{ "all" | translate }}</mat-option>
+      <mat-option *ngFor="let zone of zones" [value]="zone">
+        {{ zone | translate }}
+      </mat-option>
+    </mat-select>
+    <button mat-mini-fab color="primary" class="ml-1">
+      <mat-icon>search</mat-icon>
+    </button>
+  </mat-card>
+</form>
 
 <mat-tab-group
   mat-align-tabs="start"
