@@ -30,12 +30,16 @@ export class BeneficiariesService {
     },
     filters: any = {},
   ) {
-    const params = new HttpParams({ fromObject: filters });
     return this.http.get<{ list: Beneficiary[]; count: number }>(
       `${environment.url}/beneficiary/filters/${page.pageIndex || 1}/${
         page.pageSize || 1000
       }`,
-      { params },
+      {
+        params: new HttpParams({
+          // Filter undefined values
+          fromObject: JSON.parse(JSON.stringify(filters)),
+        }),
+      },
     );
   }
 

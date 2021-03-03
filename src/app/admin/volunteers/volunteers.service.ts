@@ -34,6 +34,7 @@ export class VolunteersService {
       }`,
       {
         params: new HttpParams({
+          // Filter undefined values
           fromObject: JSON.parse(JSON.stringify(filters)),
         }),
       },

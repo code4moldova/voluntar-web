@@ -31,46 +31,41 @@ h1 {
   }
 }
 
-// Search bar
-.mat-card-search-bar {
-  padding: 10px;
-  margin: 15px 0;
-}
-
-.search-bar {
+/* TODO: dedupe this block of code */
+.search-filter {
+  padding: 8px;
+  box-shadow: none;
   display: flex;
-  font-size: 14px;
 
-  input {
-    margin-right: 12px;
+  input,
+  mat-select {
+    flex-grow: 1;
     padding: 5px 10px;
-    width: 100%;
-    border: 0.5px solid rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(0, 0, 0, 0.4);
   }
 
-  .mat-select-zone {
-    width: 230px;
-    margin-right: 12px;
-    border: 0.5px solid rgba(0, 0, 0, 0.4);
+  mat-select {
+    max-width: 150px;
+  }
 
-    .mat-select-trigger {
-      top: 12px; // TODO lz how to make it work?
-    }
+  input {
+    font-size: 14px;
   }
 
   button {
+    box-shadow: none !important;
     border-radius: 0 !important;
-    min-width: 35px;
-    padding: 0 10px 0 8px;
-    width: 35px;
-    height: 35px;
+    width: 36px;
+    height: 36px;
+
+    ::ng-deep .mat-button-wrapper {
+      line-height: 20px;
+    }
 
     mat-icon {
-      font-size: 18px;
       width: 18px;
       height: 18px;
-      margin: 0;
-      font-weight: bold;
+      font-size: 18px;
     }
   }
 }
