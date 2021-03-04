@@ -4,16 +4,16 @@ import { Demand } from '@demands/shared/demand';
 export interface LoadableState<T> {
   count: number;
   isLoading: boolean;
-  error: string;
+  error: string | null;
   data: T[];
 }
 
 export interface BeneficiariesState {
   data: Beneficiary[];
   count: number;
-  details: Beneficiary;
+  details: Beneficiary | null;
   isLoading: boolean;
-  error: string;
+  error: string | null;
   demands: LoadableState<Demand>;
   blockList: LoadableState<Beneficiary>;
 }

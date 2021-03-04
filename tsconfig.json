@@ -13,9 +13,11 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "es2020",
-    // Keep this to true, and the IDE will show strict TS errors
+    // Turn to true after, after started local dev server
+    // This way IDE will show strict errors
+    // And dev-server will not crash
     "strict": false,
-    // Disable this, because in Angular sometimes
+    // Disable this, because in Angular some times
     // properties are initialized in init, or after view init
     "strictPropertyInitialization": false,
     "paths": {

@@ -1,317 +1,410 @@
-<div class="modal_header_line" fxLayout="row" fxLayoutAlign="center center">
-  <a>Crează Cerere Nouă</a>
-</div>
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <div class="content" formGroupName="beneficiary">
-    <div class="fieldset">Detalii Beneficiar</div>
+<form
+  [formGroup]="form"
+  (ngSubmit)="
+    onSubmit(demand ? getDemandNextStatus(demand) : DemandStatus.confirmed)
+  "
+>
+  <h2 mat-dialog-title class="text-center">
+    {{ (demand ? "edit_demand" : "create_demand") | translate }}
+  </h2>
 
-    <div class="fields_row" id="telephone">
-      <div class="field mobile" fxFlex fxLayout="column">
-        <div class="title">Telefon (Mobil)</div>
-        <div class="value">
-          <input
-            class="phone_prefix"
-            placeholder="+373"
-            readonly
-            tabindex="-1"
-          />
-          <input
-            matInput
-            formControlName="phone"
-            class="phone_number"
-            [autofocus]="true"
-            (change)="checkForExistentBeneficiary($event)"
-          />
-          <mat-error
-            *ngIf="form.get('beneficiary.phone').invalid && form.touched"
-          >
-            'atenție, eroare - cîmp de 8 cifre obligatoriu!'
-          </mat-error>
+  <mat-divider class="mx-n4"></mat-divider>
+
+  <mat-dialog-content class="mat-typography py-3">
+    <h4>
+      <strong translate>beneficiary_details</strong>
+    </h4>
+
+    <fieldset *ngIf="selectedBeneficiary">
+      <div class="row">
+        <div class="col-sm-6">
+          <app-read-only-input
+            value="{{ selectedBeneficiary.first_name }} {{
+              selectedBeneficiary.last_name
+            }}"
+            label="name"
+          ></app-read-only-input>
+        </div>
+        <div class="col-sm-6">
+          <app-read-only-input
+            value="{{ selectedBeneficiary.age }}"
+            label="age"
+          ></app-read-only-input>
         </div>
       </div>
-
-      <div class="field landline" fxFlex fxLayout="column">
-        <div class="title">Telefon (Fix)</div>
-        <div class="value">
-          <input
-            class="phone_prefix"
-            placeholder="022"
-            readonly
-            tabindex="-1"
-          />
-          <input matInput formControlName="landline" class="phone_number" />
-          <mat-error
-            *ngIf="form.get('beneficiary.landline').invalid && form.touched"
-          >
-            'atenție, eroare - cîmp de 6 cifre obligatoriu!'
-          </mat-error>
+      <div class="row">
+        <div class="col-sm-6">
+          <app-read-only-input
+            value="{{ selectedBeneficiary.phone }}"
+            label="phone"
+          ></app-read-only-input>
+        </div>
+        <div class="col-sm-6">
+          <app-read-only-input
+            value="{{ selectedBeneficiary.landline }}"
+            label="landline"
+          ></app-read-only-input>
         </div>
       </div>
-    </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <app-read-only-input
+            value="{{ selectedBeneficiary.zone | translate }}"
+            label="{{ 'zone' | translate }}"
+          ></app-read-only-input>
+        </div>
+        <div class="col-sm-6">
+          <app-read-only-input
+            [value]="getFullAddress(selectedBeneficiary)"
+            label="address"
+          ></app-read-only-input>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <app-read-only-input
+            [value]="
+              (selectedBeneficiary.special_condition
+                ? selectedBeneficiary.special_condition
+                : 'none'
+              ) | translate
+            "
+            label="{{ 'special_condition' | translate }}"
+          ></app-read-only-input>
+        </div>
+      </div>
+    </fieldset>
 
-    <div
-      style="margin-bottom: 23px"
-      *ngIf="
-        isEmpty(firstBeneficiary) || !isEmpty(data.element);
-        else beneficiaryExists
-      "
-    ></div>
-
-    <ng-template #beneficiaryExists>
-      <div class="arrow"></div>
-
-      <div class="beneficiary">
-        <div
-          class="field"
-          fxFlex
-          fxLayout="column"
-          (click)="updateDataFromBeneficiary()"
-        >
-          <div class="title">Beneficiar existent</div>
-          <div class="value">
-            {{ beneficiaryName }}
+    <fieldset *ngIf="!selectedBeneficiary" formGroupName="beneficiary">
+      <div class="row">
+        <div class="col-sm-6">
+          <mat-form-field
+            floatLabel="always"
+            appearance="outline"
+            class="d-block"
+          >
+            <mat-label translate>phone</mat-label>
+            <input
+              matInput
+              formControlName="phone"
+              title=""
+              placeholder="69111111"
+            />
+            <button
+              mat-icon-button
+              matSuffix
+              type="button"
+              [hidden]="foundBeneficiaries.length === 0"
+              (click)="foundBeneficiariesIsOpen = !foundBeneficiariesIsOpen"
+            >
+              <mat-icon>
+                {{
+                  foundBeneficiariesIsOpen
+                    ? "keyboard_arrow_up"
+                    : "keyboard_arrow_down"
+                }}
+              </mat-icon>
+            </button>
+            <mat-error translate>eight_digits</mat-error>
+          </mat-form-field>
+          <div class="position-relative mt-n3 mx-1" style="z-index: 1">
+            <div
+              *ngIf="foundBeneficiariesIsOpen"
+              class="position-absolute w-100 bg-white rounded border border-success p-1"
+            >
+              <div class="text-success py-1 px-2" translate>
+                existing_beneficiaries
+              </div>
+              <mat-selection-list [multiple]="false" class="pt-0">
+                <mat-list-option
+                  style="height: auto"
+                  class="py-2"
+                  *ngFor="let ben of foundBeneficiaries"
+                  (click)="selectExistingBeneficiary(ben)"
+                >
+                  {{ ben.first_name }} {{ ben.last_name }}
+                </mat-list-option>
+              </mat-selection-list>
+            </div>
           </div>
         </div>
-      </div>
-    </ng-template>
-
-    <div class="fields_row">
-      <div class="field" fxFlex fxLayout="column">
-        <div class="title">Nume (Familie)</div>
-        <div class="value">
-          <input matInput style="width: 185px" formControlName="last_name" />
-          <mat-error
-            *ngIf="form.get('beneficiary.last_name').invalid && form.touched"
+        <div class="col-sm-6">
+          <mat-form-field
+            floatLabel="always"
+            appearance="outline"
+            class="d-block"
           >
-            atenție, eroare - cîmp obligatoriu!
-          </mat-error>
+            <mat-label translate>landline</mat-label>
+            <input
+              matInput
+              formControlName="landline"
+              title=""
+              placeholder="22111111"
+            />
+            <mat-error translate>eight_digits</mat-error>
+          </mat-form-field>
         </div>
       </div>
 
-      <div class="field" fxFlex fxLayout="column">
-        <div class="title">Prenume</div>
-        <div class="value">
-          <input matInput style="width: 185px" formControlName="first_name" />
-          <mat-error
-            *ngIf="form.get('beneficiary.first_name').invalid && form.touched"
+      <div class="row">
+        <div class="col-sm-5">
+          <mat-form-field
+            floatLabel="always"
+            appearance="outline"
+            class="d-block"
           >
-            atenție, eroare - cîmp obligatoriu!
-          </mat-error>
+            <mat-label translate>family_name</mat-label>
+            <input matInput formControlName="first_name" title="" />
+            <mat-error translate>required_field</mat-error>
+          </mat-form-field>
         </div>
-      </div>
 
-      <div class="field" fxFlex fxLayout="column">
-        <div class="title">Vîrsta</div>
-        <div class="value">
-          <input
-            type="number"
-            matInput
-            style="width: 70px"
-            formControlName="age"
-            placeholder="65"
-          />
-        </div>
-      </div>
-    </div>
-
-    <div class="fields_row">
-      <div class="field" fxFlex fxLayout="column">
-        <div class="title">Sector</div>
-        <div class="value">
-          <mat-select
-            formControlName="zone"
-            style="width: 230px"
-            placeholder="Alege"
+        <div class="col-sm-5">
+          <mat-form-field
+            floatLabel="always"
+            appearance="outline"
+            class="d-block"
           >
-            <mat-option *ngFor="let zone of zones" [value]="zone">
-              {{ zone | translate }}
-            </mat-option>
-          </mat-select>
-          <mat-error
-            *ngIf="form.get('beneficiary.zone').invalid && form.touched"
+            <mat-label translate>last_name</mat-label>
+            <input matInput formControlName="last_name" title="" />
+            <mat-error translate>required_field</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-sm-2">
+          <mat-form-field
+            floatLabel="always"
+            appearance="outline"
+            class="d-block"
           >
-            atenție, eroare - cîmp obligatoriu!
-          </mat-error>
-        </div>
-      </div>
-    </div>
-
-    <div class="fields_row">
-      <div class="field" fxFlex fxLayout="column">
-        <div class="title">Adresă</div>
-        <app-demand-address-field
-          (gotCoordinates)="updateAddress($event)"
-          [selectedAddress]="demandAddress"
-        ></app-demand-address-field>
-        <mat-error
-          *ngIf="form.get('beneficiary.address').invalid && form.touched"
-        >
-          atenție, eroare - cîmp obligatoriu!
-        </mat-error>
-        <mat-error *ngIf="!validAddress && form.touched">
-          atenție, eroare - adresa nu a fost găsită!
-        </mat-error>
-      </div>
-
-      <div class="field" fxFlex fxLayout="column">
-        <div class="title">Scară</div>
-        <div class="value">
-          <input matInput formControlName="entrance" style="width: 70px" />
+            <mat-label translate>age</mat-label>
+            <input matInput formControlName="age" type="number" title="" />
+            <mat-error translate>required_field</mat-error>
+          </mat-form-field>
         </div>
       </div>
 
-      <div class="field" fxFlex fxLayout="column">
-        <div class="title">Etaj</div>
-        <div class="value">
-          <input matInput formControlName="floor" style="width: 70px" />
+      <div class="row">
+        <div class="col-sm-6">
+          <mat-form-field appearance="outline" class="d-block">
+            <mat-label>{{ "zone" | translate }}</mat-label>
+            <mat-select formControlName="zone">
+              <mat-option *ngFor="let zone of zones" [value]="zone">
+                {{ zone | translate }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('beneficiary.zone').invalid">
+              {{ "required_field" | translate }}
+            </mat-error>
+          </mat-form-field>
         </div>
       </div>
 
-      <div class="field" fxFlex fxLayout="column">
-        <div class="title">Apartament</div>
-        <div class="value">
-          <input matInput formControlName="apartment" style="width: 70px" />
-        </div>
-      </div>
-    </div>
-
-    <div class="fields_row">
-      <div class="field" fxFlex fxLayout="column">
-        <div class="title">Condiții speciale</div>
-        <div class="value">
-          <mat-select
-            formControlName="special_condition"
-            style="width: 230px"
-            placeholder="Alege"
+      <div class="row">
+        <div class="col-sm-6">
+          <mat-form-field
+            floatLabel="always"
+            appearance="outline"
+            class="d-block"
           >
-            <mat-option [value]="'None'">
-              <mat-icon></mat-icon>
-              Nu are
-            </mat-option>
-            <mat-option
-              *ngFor="let condition of specialConditions"
-              [value]="condition"
+            <mat-label translate>address</mat-label>
+            <input matInput formControlName="address" title="" />
+            <button
+              mat-icon-button
+              matSuffix
+              type="button"
+              (click)="selectAddress()"
             >
-              <mat-icon svgIcon="{{ condition }}"></mat-icon>
-              {{ condition | translate }}
-            </mat-option>
-          </mat-select>
-          <mat-error
-            *ngIf="
-              form.get('beneficiary.special_condition').invalid && form.touched
-            "
+              <mat-icon>explore</mat-icon>
+            </button>
+            <mat-error translate>required_field</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-sm-2">
+          <mat-form-field
+            floatLabel="always"
+            appearance="outline"
+            class="d-block"
           >
-            atenție, eroare - cîmp obligatoriu!
-          </mat-error>
+            <mat-label translate>entrance</mat-label>
+            <input matInput formControlName="entrance" title="" />
+            <mat-error translate>required_field</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-sm-2">
+          <mat-form-field
+            floatLabel="always"
+            appearance="outline"
+            class="d-block"
+          >
+            <mat-label translate>floor</mat-label>
+            <input matInput formControlName="floor" title="" />
+            <mat-error translate>required_field</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-sm-2">
+          <mat-form-field
+            floatLabel="always"
+            appearance="outline"
+            class="d-block"
+          >
+            <mat-label translate>apartment</mat-label>
+            <input matInput formControlName="apartment" title="" />
+            <mat-error translate>required_field</mat-error>
+          </mat-form-field>
         </div>
       </div>
-    </div>
-  </div>
 
-  <div class="content">
-    <div class="fieldset">Detalii Cerere</div>
-
-    <div class="fields_row">
-      <div class="field" fxFlex fxLayout="column">
-        <div class="title">Are nevoie de</div>
-        <div class="value">
-          <mat-select
-            formControlName="type"
-            style="width: 230px"
-            placeholder="Alege"
-          >
-            <mat-option *ngFor="let need of needs" [value]="need">
-              <mat-icon [svgIcon]="need"></mat-icon>
-              {{ need | translate }}
-            </mat-option>
-          </mat-select>
-          <mat-error *ngIf="form.get('type').invalid && form.touched">
-            atenție, eroare - cîmp obligatoriu!
-          </mat-error>
+      <div class="row">
+        <div class="col-sm-6">
+          <mat-form-field appearance="outline" class="d-block">
+            <mat-label translate>special_condition</mat-label>
+            <mat-select formControlName="special_condition">
+              <mat-option value="none">{{ "none" | translate }}</mat-option>
+              <mat-option
+                *ngFor="let condition of specialConditions"
+                [value]="condition"
+              >
+                {{ condition | translate }}
+              </mat-option>
+            </mat-select>
+            <mat-error translate>required_field</mat-error>
+          </mat-form-field>
         </div>
       </div>
+    </fieldset>
 
-      <div class="field" fxFlex fxLayout="column">
-        <div class="title">Boală contagioasă</div>
-        <div class="value">
-          <mat-select
-            formControlName="has_symptoms"
-            style="width: 230px"
-            placeholder="Alege"
-          >
-            <mat-option [value]="false">
-              <mat-icon></mat-icon>
-              Nu are
+    <mat-divider class="mx-n4 my-3"></mat-divider>
+
+    <h4>
+      <strong translate>demand_details</strong>
+    </h4>
+
+    <div class="row">
+      <div class="col-sm-6">
+        <mat-form-field appearance="outline" class="d-block">
+          <mat-label translate>demand_type</mat-label>
+          <mat-select formControlName="type">
+            <mat-option
+              *ngFor="let demandType of demandTypes"
+              [value]="demandType"
+            >
+              {{ demandType | translate }}
             </mat-option>
+          </mat-select>
+          <mat-error translate>required_field</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-sm-6">
+        <mat-form-field appearance="outline" class="d-block">
+          <mat-label translate>symptoms</mat-label>
+          <mat-select formControlName="has_symptoms">
             <mat-option [value]="true">
-              <mat-icon [svgIcon]="'mask'"></mat-icon>
-              Are simptome
+              {{ "has_symptoms" | translate }}
+            </mat-option>
+            <mat-option [value]="false">
+              {{ "has_no_symptoms" | translate }}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="form.get('has_symptoms').invalid && form.touched">
-            atenție, eroare - cîmp obligatoriu!
-          </mat-error>
-        </div>
+          <mat-error translate>required_field</mat-error>
+        </mat-form-field>
       </div>
     </div>
 
-    <div class="fields_row">
-      <div class="field" fxFlex fxLayout="column">
-        <div class="title">Comentarii operator</div>
-        <div class="value">
-          <input
-            matInput
-            formControlName="comments"
-            style="width: 470px"
-            placeholder="---"
-          />
-        </div>
+    <mat-form-field floatLabel="always" appearance="outline" class="d-block">
+      <mat-label translate>comments</mat-label>
+      <textarea
+        rows="4"
+        matInput
+        formControlName="comments"
+        title=""
+      ></textarea>
+    </mat-form-field>
+
+    <div class="row">
+      <div class="col-sm-4">
+        <mat-form-field
+          floatLabel="always"
+          appearance="outline"
+          class="d-block"
+        >
+          <mat-label translate>secret</mat-label>
+          <input readonly matInput formControlName="secret" title="" />
+          <button
+            mat-icon-button
+            matSuffix
+            type="button"
+            (click)="regenerateSecret()"
+          >
+            <mat-icon>autorenew</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+
+      <div class="col-sm-4 offset-sm-4 d-flex justify-content-sm-end">
+        <mat-slide-toggle class="mt-0 mt-sm-3" formControlName="urgent">
+          {{ "urgent" | translate }}
+        </mat-slide-toggle>
       </div>
     </div>
+  </mat-dialog-content>
 
-    <div class="fields_row">
-      <div class="field" fxFlex fxLayout="column">
-        <div class="title">Parola secretă</div>
-        <div class="value">
-          <input matInput formControlName="secret" style="width: 150px" />
-          <mat-error *ngIf="form.get('secret').invalid && form.touched">
-            atenție, parola greșită!
-          </mat-error>
-        </div>
-      </div>
+  <mat-divider class="mx-n4"></mat-divider>
 
-      <div class="field" fxFlex fxLayout="column">
-        <div class="slide-toggle" [ngStyle]="getUrgentStyleObject()">
-          <mat-slide-toggle formControlName="urgent">Urgent?</mat-slide-toggle>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="footer">
+  <mat-dialog-actions class="justify-content-center py-3">
     <button
-      *ngIf="isEmpty(data.element); else editDemand"
       mat-flat-button
+      class="px-5 py-1"
       color="primary"
-      [disabled]="form.invalid"
       type="submit"
+      *ngIf="!demand"
     >
-      Creaza
+      {{ "create" | translate }}
     </button>
-    <ng-template #editDemand>
-      <a
-        mat-flat-button
-        [disabled]="form.invalid"
-        color="confirmation"
-        (click)="onEditDemand(DemandStatus.confirmed)"
-      >
-        <mat-icon>check_circle_outline</mat-icon>
-        Confirma
-      </a>
-      <a mat-flat-button color="removal" (click)="onDeleteRecord()">
-        <mat-icon>delete_forever</mat-icon>
-        Sterge
-      </a>
-    </ng-template>
-  </div>
+    <button
+      mat-stroked-button
+      class="btn-outline-success px-5 py-1"
+      type="submit"
+      *ngIf="demand"
+    >
+      <mat-icon>check_circle_outline</mat-icon>
+      <ng-container [ngSwitch]="demand.status">
+        <span *ngSwitchCase="DemandStatus.new">
+          {{ "confirm" | translate }}
+        </span>
+        <span *ngSwitchCase="DemandStatus.in_process">
+          {{ "resolve" | translate }}
+        </span>
+        <span *ngSwitchDefault>
+          {{ "save" | translate }}
+        </span>
+      </ng-container>
+    </button>
+    <button
+      mat-stroked-button
+      class="btn-outline-secondary px-5 py-1"
+      type="button"
+      *ngIf="demand"
+      (click)="
+        onSubmit(
+          demand.status === DemandStatus.in_process
+            ? DemandStatus.canceled
+            : DemandStatus.archived
+        )
+      "
+    >
+      <mat-icon>delete</mat-icon>
+      <ng-container [ngSwitch]="demand.status">
+        <span *ngSwitchCase="DemandStatus.in_process">
+          {{ "cancel" | translate }}
+        </span>
+        <span *ngSwitchDefault>
+          {{ "archive" | translate }}
+        </span>
+      </ng-container>
+    </button>
+  </mat-dialog-actions>
 </form>

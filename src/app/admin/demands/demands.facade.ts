@@ -1,28 +1,28 @@
 import { Injectable } from '@angular/core';
-import { Store, select } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { AppState } from '@app/app.state';
 import {
+  getBeneficiariesByFilterRequestAction,
   getDemandsRequestAction,
   saveDemandRequestAction,
   updateDemandRequestAction,
-  getBeneficiariesByFilterRequestAction,
 } from './demands.actions';
 import {
-  selectIsLoading,
+  selectDemandsCount,
   selectDemandsData,
   selectDemandsError,
-  selectDemandsCount,
+  selectIsLoading,
 } from './demands.selectors';
 import { DemandsService } from './demands.service';
 import {
-  map,
-  takeUntil,
-  switchMap,
-  pairwise,
   filter,
+  map,
+  pairwise,
+  switchMap,
+  takeUntil,
   tap,
 } from 'rxjs/operators';
-import { BehaviorSubject, interval, Subject, combineLatest } from 'rxjs';
+import { BehaviorSubject, combineLatest, interval, Subject } from 'rxjs';
 import { Demand } from '@demands/shared/demand';
 
 export type DemandsPageParams = { pageSize: number; pageIndex: number };
@@ -68,7 +68,7 @@ export class DemandsFacade {
         }),
       )
       .subscribe(([count, countFromState]) => {
-        if (countFromState === null) {
+        if (countFromState === null || count === null) {
           return;
         }
         if (countFromState < count) {

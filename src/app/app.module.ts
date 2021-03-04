@@ -33,6 +33,9 @@ import { authReducer } from '@auth/auth.reducer';
 import { AuthEffects } from '@auth/auth.effects';
 import { beneficiariesReducer } from '@beneficiaries/beneficiaries.reducer';
 import { BeneficiariesEffects } from '@beneficiaries/beneficiaries.effects';
+import config from '@arcgis/core/config';
+
+config.assetsPath = '/assets';
 
 @NgModule({
   declarations: [AppComponent],

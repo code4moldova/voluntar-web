@@ -49,7 +49,6 @@ export class DemandsListComponent implements OnInit {
   lastFilter = {};
   page: DemandsPageParams = { pageSize: 20, pageIndex: 1 };
 
-  @ViewChild('empty', { static: true }) empty: ElementRef;
   selectedTab = 'all';
   selectedTabIndex$ = this.activeRoute.queryParams.pipe(
     map((params) => {
@@ -195,12 +194,10 @@ export class DemandsListComponent implements OnInit {
       .subscribe();
   }
 
-  openNewDemandDialog(element: Demand = {} as Demand) {
+  openDemandDialog(demand: Demand | null = null) {
     const dialogRef = this.matDialog.open(DemandDetailsComponent, {
-      data: { element },
-      maxWidth: '100%',
-      maxHeight: '90vh',
-      panelClass: 'new-demand-custom-modal-box',
+      width: '550px',
+      data: demand,
     });
 
     this.actions$

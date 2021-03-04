@@ -6,6 +6,7 @@ import { Subject } from 'rxjs';
 
 import { Beneficiary } from '../shared/beneficiary';
 import { PageEvent } from '@angular/material/paginator';
+import { isRecord } from '@shared/is-record';
 
 @Component({
   templateUrl: './beneficiary-details.component.html',
@@ -27,7 +28,7 @@ export class BeneficiaryDetailsComponent implements OnInit, OnDestroy {
   ) {
     this.route.paramMap
       .pipe(
-        map((params) => params.get('id')),
+        map((params) => params.get('id') as string),
         tap((id) => (this.recordId = id)),
         takeUntil(this.componentDestroyed$),
       )
@@ -50,7 +51,7 @@ export class BeneficiaryDetailsComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.serviceFacade.beneficiaryDetails$
       .pipe(
-        filter((record) => !!record),
+        filter(isRecord),
         map((record) => (this.recordId ? record : ({} as Beneficiary))),
         takeUntil(this.componentDestroyed$),
       )
