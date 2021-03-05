@@ -14,8 +14,7 @@
     "target": "es2015",
     "module": "es2020",
     // Keep this to true, and the IDE will show strict TS errors
-    // for building the frontend strict is set to false see tsconfig.app.json
-    "strict": true,
+    "strict": false,
     // Disable this, because in Angular sometimes
     // properties are initialized in init, or after view init
     "strictPropertyInitialization": false,
