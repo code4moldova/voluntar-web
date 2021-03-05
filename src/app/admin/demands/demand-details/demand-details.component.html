@@ -52,7 +52,7 @@
     <div
       style="margin-bottom: 23px"
       *ngIf="
-        isEmpty(existentBeneficiary) || !isEmpty(data.element);
+        isEmpty(firstBeneficiary) || !isEmpty(data.element);
         else beneficiaryExists
       "
     ></div>
@@ -303,7 +303,7 @@
         mat-flat-button
         [disabled]="form.invalid"
         color="confirmation"
-        (click)="onEditDemand(true)"
+        (click)="onEditDemand(DemandStatus.confirmed)"
       >
         <mat-icon>check_circle_outline</mat-icon>
         Confirma

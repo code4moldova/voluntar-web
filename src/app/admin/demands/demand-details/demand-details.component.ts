@@ -32,10 +32,12 @@ export interface ReceivedData {
 })
 export class DemandDetailsComponent implements OnInit {
   form: FormGroup;
+  DemandStatus = DemandStatus;
   zones = zones;
   needs: string[] = demandTypes;
   specialConditions = specialConditions;
-  existentBeneficiary: Beneficiary = {} as Beneficiary;
+  firstBeneficiary: Beneficiary | null = null;
+  selectedBeneficiary: Beneficiary | null = null;
   validAddress = true;
   demandAddress: string;
   beneficiaryName = '';
@@ -55,11 +57,12 @@ export class DemandDetailsComponent implements OnInit {
 
     const payload = {
       ...this.form.value,
+      status: DemandStatus.new,
     };
 
-    if (this.existentBeneficiary)
-      payload.beneficiary = this.existentBeneficiary;
-    else {
+    if (this.selectedBeneficiary) {
+      payload.beneficiary = this.selectedBeneficiary._id;
+    } else {
       payload.beneficiary.landline = `22${payload.beneficiary.landline}`;
 
       // TODO: Get the coordinates from the address
@@ -72,7 +75,17 @@ export class DemandDetailsComponent implements OnInit {
       this.beneficiariesFacade.saveBeneficiary(payload.beneficiary);
     }
 
-    this.demandsFacade.saveDemand(payload);
+    if (this.selectedBeneficiary) {
+      this.demandsFacade.saveDemand(payload);
+    } else {
+      this.beneficiariesFacade.beneficiaryDetails$
+        .pipe(filter((ben) => !!ben))
+        .subscribe((ben) => {
+          payload.beneficiary = ben._id;
+          this.demandsFacade.saveDemand(payload);
+        });
+    }
+
     combineLatest([this.demandsFacade.isLoading$, this.demandsFacade.error$])
       .pipe(
         filter(([status, error]) => !status && !error),
@@ -154,12 +167,12 @@ export class DemandDetailsComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  onEditDemand(edit?: boolean) {
+  onEditDemand(status: DemandStatus) {
     this.demandsService
       .updateDemand({
         _id: this.data.element._id,
         type: this.data.element.type,
-        status: edit ? DemandStatus.confirmed : DemandStatus.archived,
+        status,
         number: this.data.element.number,
         secret: this.data.element.secret,
         urgent: this.data.element.urgent,
@@ -177,8 +190,8 @@ export class DemandDetailsComponent implements OnInit {
       this.beneficiariesService.getBeneficiariesByFilter({ phone }).subscribe(
         (success) => {
           if (success.count !== 0) {
-            this.existentBeneficiary = success.list[0];
-            this.beneficiaryName = `${this.existentBeneficiary.last_name} ${this.existentBeneficiary.first_name}`;
+            this.firstBeneficiary = success.list[0];
+            this.beneficiaryName = `${this.firstBeneficiary.last_name} ${this.firstBeneficiary.first_name}`;
           }
           // this.cdr.detectChanges();
         },
@@ -190,38 +203,39 @@ export class DemandDetailsComponent implements OnInit {
   }
 
   updateDataFromBeneficiary() {
+    this.selectedBeneficiary = this.firstBeneficiary;
     this.form
       .get('beneficiary.last_name')
-      .patchValue(this.existentBeneficiary.last_name);
+      .patchValue(this.selectedBeneficiary.last_name);
     this.form
       .get('beneficiary.first_name')
-      .patchValue(this.existentBeneficiary.first_name);
+      .patchValue(this.selectedBeneficiary.first_name);
     this.form
       .get('beneficiary.landline')
       .patchValue(
-        this.existentBeneficiary.landline.substring(
+        this.selectedBeneficiary.landline.substring(
           2,
-          this.existentBeneficiary.landline.length,
+          this.selectedBeneficiary.landline.length,
         ),
       );
-    this.form.get('beneficiary.age').patchValue(this.existentBeneficiary.age);
-    this.form.get('beneficiary.zone').patchValue(this.existentBeneficiary.zone);
+    this.form.get('beneficiary.age').patchValue(this.selectedBeneficiary.age);
+    this.form.get('beneficiary.zone').patchValue(this.selectedBeneficiary.zone);
     this.form
       .get('beneficiary.address')
-      .patchValue(this.existentBeneficiary.address);
+      .patchValue(this.selectedBeneficiary.address);
     this.form
       .get('beneficiary.entrance')
-      .patchValue(this.existentBeneficiary.entrance);
+      .patchValue(this.selectedBeneficiary.entrance);
     this.form
       .get('beneficiary.floor')
-      .patchValue(this.existentBeneficiary.floor);
+      .patchValue(this.selectedBeneficiary.floor);
     this.form
       .get('beneficiary.apartment')
-      .patchValue(this.existentBeneficiary.apartment);
+      .patchValue(this.selectedBeneficiary.apartment);
     this.form
       .get('beneficiary.special_condition')
-      .patchValue(this.existentBeneficiary.special_condition);
-    this.demandAddress = this.existentBeneficiary.address;
+      .patchValue(this.selectedBeneficiary.special_condition);
+    this.demandAddress = this.selectedBeneficiary.address;
   }
 
   getUrgentStyleObject() {
@@ -237,7 +251,7 @@ export class DemandDetailsComponent implements OnInit {
   }
 
   isEmpty(obj: Beneficiary | Demand) {
-    return Object.keys(obj).length < 1;
+    return !!obj && Object.keys(obj).length < 1;
   }
 
   getSecret() {
@@ -250,6 +264,6 @@ export class DemandDetailsComponent implements OnInit {
 
   // TODO: Implement delete in services
   onDeleteRecord() {
-    this.onEditDemand(false);
+    this.onEditDemand(DemandStatus.archived);
   }
 }
