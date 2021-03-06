@@ -139,7 +139,7 @@ export class DemandsListComponent implements OnInit {
           : undefined,
       // TODO: toGMTString is deprecated, backend should send in a better format
       // @ts-ignore
-      created_at: this.searchFilterDate?.toGMTString(),
+      created_at: this.searchFilterDate?.toISOString(),
     });
   }
 
