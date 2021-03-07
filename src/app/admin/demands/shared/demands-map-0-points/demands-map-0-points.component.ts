@@ -86,7 +86,6 @@ export class DemandsMap0PointsComponent
 
   ngOnChanges(changes: SimpleChanges) {
     const previous: Demand[] = changes.demands.previousValue ?? [];
-    // TODO: Check if beneficiary has coordinates?
     const current: Demand[] = changes.demands.currentValue ?? [];
 
     // A XOR can be used to create symmetric difference,
@@ -104,7 +103,10 @@ export class DemandsMap0PointsComponent
     );
 
     this.graphicsLayer.graphics.addMany(
-      added.map((demand) => getNewGraphic(demand)),
+      added
+        // Check if beneficiary has coordinates
+        .filter(({ beneficiary: ben }) => ben.latitude && ben.longitude)
+        .map((demand) => getNewGraphic(demand)),
     );
   }
 
