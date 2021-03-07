@@ -5,10 +5,7 @@ import { Component, Input } from '@angular/core';
   templateUrl: './read-only-input.component.html',
 })
 export class ReadOnlyInputComponent {
-  @Input()
-  value: string;
-  @Input()
-  label: string;
-  @Input()
-  title: string;
+  @Input() value: string;
+  @Input() label: string;
+  @Input() title: string;
 }

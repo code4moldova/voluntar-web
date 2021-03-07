@@ -1,10 +1,9 @@
 <map #map></map>
 <button
   mat-raised-button
-  (click)="submitCoors()"
+  (click)="submitCoordinates()"
   type="button"
   color="primary"
-  [disabled]="(mapIsLoaded$ | async) === false"
 >
-  Add current address
+  {{ "add_current_address" | translate }}
 </button>

@@ -2,10 +2,10 @@ import { Demand } from '@demands/shared/demand';
 
 export interface DemandsState {
   data: Demand[];
-  count: number;
-  details: Demand;
+  count: number | null;
+  details: Demand | null;
   isLoading: boolean;
-  error: string;
+  error: string | null;
 }
 
 export const initialState: DemandsState = {

@@ -1,5 +1,4 @@
 import {
-  ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
@@ -12,25 +11,16 @@ import {
 } from '@angular/core';
 import { Demand } from '@demands/shared/demand';
 import GraphicsLayer from '@arcgis/core/layers/GraphicsLayer';
-import config from '@arcgis/core/config';
-import { Coordinate } from '@shared/zone';
+import { centerCoordinate, Coordinate } from '@shared/zone';
 import difference from 'lodash.difference';
 import Graphic from '@arcgis/core/Graphic';
 import Map from '@arcgis/core/Map';
 import MapView from '@arcgis/core/views/MapView';
 import Point from '@arcgis/core/geometry/Point';
 import SimpleMarkerSymbol from '@arcgis/core/symbols/SimpleMarkerSymbol';
+import { Observable, Subscription } from 'rxjs';
 import MapViewClickEventHandler = __esri.MapViewClickEventHandler;
 import MapViewClickEvent = __esri.MapViewClickEvent;
-import { Observable, Subscription } from 'rxjs';
-
-config.assetsPath = '/assets';
-
-// The Triumphal Arch
-export const centerCoordinate: Coordinate = {
-  latitude: 47.024758255143986,
-  longitude: 28.83263462925968,
-};
 
 const notSelectedSymbol = new SimpleMarkerSymbol({
   color: '#FFFFFF',

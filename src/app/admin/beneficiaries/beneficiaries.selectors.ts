@@ -39,9 +39,7 @@ export const selectBeneficiariesCount = createSelector(
 
 export const selectBeneficiaryDetails = createSelector(
   selectBeneficiaries,
-  (state: BeneficiariesState): Beneficiary => {
-    return state.details;
-  },
+  (state: BeneficiariesState) => state.details,
 );
 
 export const selectDemands = createSelector(

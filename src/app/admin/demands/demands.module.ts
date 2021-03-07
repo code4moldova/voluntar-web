@@ -7,7 +7,6 @@ import { SharedModule } from '@shared/shared.module';
 import { NgxMaskModule } from 'ngx-mask';
 import { RouterModule } from '@angular/router';
 import { demandsRoutes } from './demands.routes';
-import { DemandAddressFieldComponent } from './demand-details/demand-address-field/demand-address-field.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { DemandsMapComponent } from '@demands/shared/demands-map/demands-map.component';
 import { DemandsMap0PointsComponent } from '@demands/shared/demands-map-0-points/demands-map-0-points.component';
@@ -19,7 +18,6 @@ import { DemandsMap3CompleteComponent } from '@demands/shared/demands-map-3-comp
   declarations: [
     DemandDetailsComponent,
     DemandsListComponent,
-    DemandAddressFieldComponent,
     DemandsMapComponent,
     DemandsMap0PointsComponent,
     DemandsMap1SelectedComponent,

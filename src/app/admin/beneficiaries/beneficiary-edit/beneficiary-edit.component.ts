@@ -10,6 +10,7 @@ import { Beneficiary } from '../shared/beneficiary';
 import { COMMON_FIELDS } from '../beneficiary-new/beneficiary-new.component';
 import { zones } from '@shared/zone';
 import { specialConditions } from '@beneficiaries/shared/special-condition';
+import { isRecord } from '@shared/is-record';
 
 @Component({
   templateUrl: './beneficiary-edit.component.html',
@@ -39,7 +40,7 @@ export class BeneficiaryEditComponent implements OnInit, OnDestroy {
   ) {
     this.route.paramMap
       .pipe(
-        map((params) => params.get('id')),
+        map((params) => params.get('id') as string),
         tap((id) => (this.recordId = id)),
         takeUntil(this.componentDestroyed$),
       )
@@ -82,7 +83,7 @@ export class BeneficiaryEditComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.serviceFacade.beneficiaryDetails$
       .pipe(
-        filter((record) => !!record),
+        filter(isRecord),
         map((record) => (this.recordId ? record : ({} as Beneficiary))),
         takeUntil(this.componentDestroyed$),
       )

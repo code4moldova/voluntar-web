@@ -15,6 +15,12 @@ export type Coordinate = {
   longitude: number;
 };
 
+// The Triumphal Arch
+export const centerCoordinate: Coordinate = {
+  latitude: 47.024758255143986,
+  longitude: 28.83263462925968,
+};
+
 export const zonesCoordinates: Record<Zone, Coordinate> = {
   [Zone.centru]: {
     latitude: 47.01820503506154,

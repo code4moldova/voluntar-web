@@ -3,7 +3,7 @@
   addBtnLabel="add_demand"
   (importCallback)="onImport()"
   (exportCallback)="onExport()"
-  (addCallback)="openNewDemandDialog()"
+  (addCallback)="openDemandDialog()"
 ></app-admin-page-header>
 
 <form (ngSubmit)="searchSubmit()">
@@ -169,7 +169,7 @@
         <button
           mat-stroked-button
           class="float-right"
-          (click)="openNewDemandDialog(element)"
+          (click)="openDemandDialog(element)"
         >
           <mat-icon>settings</mat-icon>
           Edit
@@ -198,5 +198,3 @@
     ></mat-paginator>
   </mat-card-footer>
 </mat-card>
-
-<div #empty></div>
