@@ -9,142 +9,129 @@
   }
 }
 
-.mat-card-table {
-  min-height: 400px;
-  position: relative;
-  padding: 0 0 56px;
+tr.mat-row {
+  td.mat-cell {
+    position: relative;
+    height: 64px;
+    vertical-align: middle;
+    border-bottom-color: $color-border-divider;
 
-  .mat-card-footer {
-    width: 100%;
-    position: absolute;
-    left: 0;
-    bottom: 0;
-  }
+    &[class*="mat-column"]:first-child {
+      padding-left: 24px;
+    }
 
-  tr.mat-row {
-    td.mat-cell {
-      position: relative;
-      height: 64px;
-      vertical-align: middle;
-      border-bottom-color: $color-border-divider;
+    &[class*="mat-column"]:last-child {
+      padding-right: 24px;
+    }
 
-      &[class*="mat-column"]:first-child {
-        padding-left: 24px;
+    &[class*="mat-column"]:not(:first-child) {
+      padding-left: 20px;
+    }
+
+    &.mat-column-icons {
+      white-space: nowrap;
+      width: 80px;
+      padding: 0 10px 0 0;
+      text-align: center;
+
+      * {
+        &:first-child {
+          margin-left: 0;
+        }
+        margin-left: 5px;
       }
+    }
 
-      &[class*="mat-column"]:last-child {
-        padding-right: 24px;
+    &:not(.mat-column-icons) {
+      .mat-icon {
+        height: 14px;
+        width: 14px;
+
+        margin-right: 4px;
+
+        font-size: 14px;
+        color: $color-type-disabled;
       }
+    }
 
-      &[class*="mat-column"]:not(:first-child) {
-        padding-left: 20px;
-      }
+    &.mat-column-name {
+      font-weight: 500;
+    }
 
-      &.mat-column-icons {
-        white-space: nowrap;
-        width: 80px;
-        padding: 0 10px 0 0;
-        text-align: center;
+    &:not(.mat-column-name) {
+      color: $color-type-secondary;
+    }
 
-        * {
-          &:first-child {
-            margin-left: 0;
-          }
-          margin-left: 5px;
+    &.mat-column-status {
+      &.new {
+        .mat-chip {
+          color: $color-functional-info;
+          background-color: $color-functional-info-bg;
         }
       }
 
-      &:not(.mat-column-icons) {
-        .mat-icon {
-          height: 14px;
-          width: 14px;
+      &.done {
+        .mat-chip {
+          color: $color-functional-success;
+          background-color: $color-functional-success-bg;
+        }
+      }
 
-          margin-right: 4px;
+      &.onprogress {
+        .mat-chip {
+          background-color: lighten($color-functional-warning, 35%);
+          color: darken($color-functional-warning, 8%);
+        }
+      }
+
+      &.cancelled {
+        .mat-chip {
+          color: $color-functional-error;
+          background-color: $color-functional-error-bg;
+        }
+      }
+
+      .mat-chip {
+        font-size: 13px;
+        padding: 2px 8px;
+        min-height: 20px;
+        height: auto;
+      }
+    }
+
+    .mat-chip-list {
+      margin: 0;
+
+      .mat-chip {
+        padding: 0 6px;
+        min-height: 24px;
+
+        &:not(:first-child) {
+          margin-left: -12px;
+        }
+
+        .mat-icon {
+          width: 14px;
+          height: 14px;
+
+          margin: 0;
 
           font-size: 14px;
-          color: $color-type-disabled;
-        }
-      }
-
-      &.mat-column-name {
-        font-weight: 500;
-      }
-
-      &:not(.mat-column-name) {
-        color: $color-type-secondary;
-      }
-
-      &.mat-column-status {
-        &.new {
-          .mat-chip {
-            color: $color-functional-info;
-            background-color: $color-functional-info-bg;
-          }
         }
 
-        &.done {
-          .mat-chip {
-            color: $color-functional-success;
-            background-color: $color-functional-success-bg;
-          }
+        &.money {
+          color: $color-functional-success;
+          background-color: $color-functional-success-bg;
         }
 
-        &.onprogress {
-          .mat-chip {
-            background-color: lighten($color-functional-warning, 35%);
-            color: darken($color-functional-warning, 8%);
-          }
+        &.disabilities {
+          color: $color-functional-info;
+          background-color: $color-functional-info-bg;
         }
 
-        &.cancelled {
-          .mat-chip {
-            color: $color-functional-error;
-            background-color: $color-functional-error-bg;
-          }
-        }
-
-        .mat-chip {
-          font-size: 13px;
-          padding: 2px 8px;
-          min-height: 20px;
-          height: auto;
-        }
-      }
-
-      .mat-chip-list {
-        margin: 0;
-
-        .mat-chip {
-          padding: 0 6px;
-          min-height: 24px;
-
-          &:not(:first-child) {
-            margin-left: -12px;
-          }
-
-          .mat-icon {
-            width: 14px;
-            height: 14px;
-
-            margin: 0;
-
-            font-size: 14px;
-          }
-
-          &.money {
-            color: $color-functional-success;
-            background-color: $color-functional-success-bg;
-          }
-
-          &.disabilities {
-            color: $color-functional-info;
-            background-color: $color-functional-info-bg;
-          }
-
-          &.symptoms {
-            color: $color-functional-error;
-            background-color: $color-functional-error-bg;
-          }
+        &.symptoms {
+          color: $color-functional-error;
+          background-color: $color-functional-error-bg;
         }
       }
     }
@@ -191,12 +178,6 @@ tr {
 }
 
 ::ng-deep.mat-tab-group {
-  margin-top: 56px;
-
-  .mat-tab-body {
-    padding-top: 32px;
-  }
-
   &.mat-primary {
     &.selected-tab-all {
       .mat-tab-label-active {

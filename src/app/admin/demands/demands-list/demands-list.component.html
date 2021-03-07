@@ -44,157 +44,151 @@
   </mat-card>
 </form>
 
-<app-demands-map></app-demands-map>
+<app-demands-map class="mb-3"></app-demands-map>
 
 <mat-tab-group
   [selectedIndex]="selectedTabIndex$ | async"
-  mat-stretch-tabs
-  class="selected-tab-{{ selectedTab }}"
+  class="selected-tab-{{ selectedTab }} bg-white"
   (selectedTabChange)="onTabChanged($event)"
-  [disableRipple]="true"
 >
-  <mat-tab>
-    <ng-template mat-tab-label>
-      <span
-        matBadge="{{ (allStatusesCounts$ | async)[0] }}"
-        matBadgeOverlap="false"
-        class="primary"
-      >
-        All requests
-      </span>
-    </ng-template>
-  </mat-tab>
-
   <mat-tab *ngFor="let status of allStatuses; let i = index">
     <ng-template mat-tab-label>
       <span
-        matBadge="{{ (allStatusesCounts$ | async)[i + 1] }}"
+        matBadge="{{ (allStatusesCounts$ | async)[i] }}"
         matBadgeOverlap="false"
-        ngClass="{{ status._id }}"
+        ngClass="{{ status ? status : 'primary' }}"
       >
-        {{ status.label }}
+        {{ (status ? status : "all_demands") | translate }}
       </span>
     </ng-template>
   </mat-tab>
 </mat-tab-group>
 
-<mat-card class="mat-card-table">
-  <table mat-table [dataSource]="dataSource$ | async">
-    <ng-container matColumnDef="icons">
-      <th mat-header-cell *matHeaderCellDef></th>
-      <td mat-cell *matCellDef="let element">
-        <span
-          *ngIf="element.black_list"
-          matTooltip="Black List"
-          class="blacklist"
-        ></span>
-        <mat-chip-list>
-          <!-- //TODO to remove??? -->
-          <mat-chip
-            *ngIf="element.have_money"
-            [matTooltip]="'Has money'"
-            class="money"
-          >
-            <mat-icon>monetization_on</mat-icon>
-          </mat-chip>
-          <mat-chip
-            *ngIf="element.has_disabilities"
-            [matTooltip]="'Has disabilities'"
-            class="disabilities"
-          >
-            <mat-icon>accessible</mat-icon>
-          </mat-chip>
-          <mat-chip
-            *ngIf="element.has_symptoms"
-            [matTooltip]="'Has symtoms'"
-            class="symptoms"
-          >
-            <mat-icon>face</mat-icon>
-          </mat-chip>
-        </mat-chip-list>
-      </td>
-    </ng-container>
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef>Nume</th>
-      <td mat-cell *matCellDef="let element">
-        {{ element.beneficiary.first_name }} {{ element.beneficiary.last_name }}
-      </td>
-    </ng-container>
+<div class="position-relative">
+  <div class="table-responsive">
+    <table mat-table [dataSource]="dataSource$ | async">
+      <ng-container matColumnDef="icons">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+          <span
+            *ngIf="element.black_list"
+            matTooltip="Black List"
+            class="blacklist"
+          ></span>
+          <mat-chip-list>
+            <!-- //TODO to remove??? -->
+            <mat-chip
+              *ngIf="element.have_money"
+              [matTooltip]="'Has money'"
+              class="money"
+            >
+              <mat-icon>monetization_on</mat-icon>
+            </mat-chip>
+            <mat-chip
+              *ngIf="element.has_disabilities"
+              [matTooltip]="'Has disabilities'"
+              class="disabilities"
+            >
+              <mat-icon>accessible</mat-icon>
+            </mat-chip>
+            <mat-chip
+              *ngIf="element.has_symptoms"
+              [matTooltip]="'Has symtoms'"
+              class="symptoms"
+            >
+              <mat-icon>face</mat-icon>
+            </mat-chip>
+          </mat-chip-list>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Nume</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.beneficiary.first_name }}
+          {{ element.beneficiary.last_name }}
+        </td>
+      </ng-container>
 
-    <ng-container matColumnDef="phone">
-      <th mat-header-cell *matHeaderCellDef>Telefon</th>
-      <td mat-cell *matCellDef="let element">
-        <mat-icon>phone_in_talk</mat-icon>
-        {{ element.beneficiary.phone | mask: "00 000 000" }}
-      </td>
-    </ng-container>
+      <ng-container matColumnDef="phone">
+        <th mat-header-cell *matHeaderCellDef>Telefon</th>
+        <td mat-cell *matCellDef="let element">
+          <mat-icon>phone_in_talk</mat-icon>
+          {{ element.beneficiary.phone | mask: "00 000 000" }}
+        </td>
+      </ng-container>
 
-    <ng-container matColumnDef="sector">
-      <th mat-header-cell *matHeaderCellDef>Sector</th>
-      <td mat-cell *matCellDef="let element">
-        <mat-icon>location_on</mat-icon>
-        {{ element.beneficiary.zone | translate }}
-      </td>
-    </ng-container>
+      <ng-container matColumnDef="sector">
+        <th mat-header-cell *matHeaderCellDef>Sector</th>
+        <td mat-cell *matCellDef="let element">
+          <mat-icon>location_on</mat-icon>
+          {{ element.beneficiary.zone | translate }}
+        </td>
+      </ng-container>
 
-    <ng-container matColumnDef="createdDate">
-      <th mat-header-cell *matHeaderCellDef>Adaugat</th>
-      <td mat-cell *matCellDef="let element">
-        <mat-icon>today</mat-icon>
-        {{ element.created_at | date: "d MMM" }}
-      </td>
-    </ng-container>
+      <ng-container matColumnDef="createdDate">
+        <th mat-header-cell *matHeaderCellDef>Adaugat</th>
+        <td mat-cell *matCellDef="let element">
+          <mat-icon>today</mat-icon>
+          {{ element.created_at | date: "d MMM" }}
+        </td>
+      </ng-container>
 
-    <ng-container matColumnDef="status">
-      <th mat-header-cell *matHeaderCellDef>Status</th>
-      <td mat-cell *matCellDef="let element" class="{{ cast(element).status }}">
-        <mat-chip *ngIf="!cast(element).volunteer?.cluster_id">
-          {{ cast(element).status | translate }}
-        </mat-chip>
-        <a
-          mat-chip
-          *ngIf="cast(element).volunteer?.cluster_id"
-          style="cursor: pointer"
-          href="{{ getClusterUrl(element) }}"
-          target="_blank"
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          class="{{ cast(element).status }}"
         >
-          {{ cast(element).status | translate }}
-        </a>
-      </td>
-    </ng-container>
+          <mat-chip *ngIf="!cast(element).volunteer?.cluster_id">
+            {{ cast(element).status | translate }}
+          </mat-chip>
+          <a
+            mat-chip
+            *ngIf="cast(element).volunteer?.cluster_id"
+            style="cursor: pointer"
+            href="{{ getClusterUrl(element) }}"
+            target="_blank"
+          >
+            {{ cast(element).status | translate }}
+          </a>
+        </td>
+      </ng-container>
 
-    <ng-container matColumnDef="edit">
-      <th mat-header-cell *matHeaderCellDef>Edit</th>
-      <td mat-cell *matCellDef="let element">
-        <button
-          mat-stroked-button
-          class="float-right"
-          (click)="openDemandDialog(element)"
-        >
-          <mat-icon>settings</mat-icon>
-          Edit
-        </button>
-      </td>
-    </ng-container>
+      <ng-container matColumnDef="edit">
+        <th mat-header-cell *matHeaderCellDef>Edit</th>
+        <td mat-cell *matCellDef="let element">
+          <button
+            mat-stroked-button
+            class="float-right"
+            (click)="openDemandDialog(element)"
+          >
+            <mat-icon>settings</mat-icon>
+            Edit
+          </button>
+        </td>
+      </ng-container>
 
-    <tr
-      mat-row
-      *matRowDef="let row; columns: displayedColumns"
-      [ngClass]="{
-        cancelled: row.status === 'cancelled',
-        blacklist: row.black_list === true
-      }"
-    ></tr>
-  </table>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: displayedColumns"
+        [ngClass]="{
+          cancelled: row.status === 'cancelled',
+          blacklist: row.black_list === true
+        }"
+      ></tr>
+    </table>
 
-  <div class="loading-shade" *ngIf="isLoading$ | async">
-    <mat-spinner></mat-spinner>
+    <div class="loading-shade" *ngIf="isLoading$ | async">
+      <mat-spinner></mat-spinner>
+    </div>
   </div>
-  <mat-card-footer class="m-0">
-    <mat-paginator
-      (page)="onPageChange($event)"
-      [length]="count$ | async"
-      [pageSizeOptions]="[20, 50, 100]"
-    ></mat-paginator>
-  </mat-card-footer>
-</mat-card>
+</div>
+
+<mat-paginator
+  (page)="onPageChange($event)"
+  [length]="count$ | async"
+  [pageSizeOptions]="[20, 50, 100]"
+></mat-paginator>
+
+<div class="pb-5"></div>

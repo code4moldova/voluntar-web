@@ -1,7 +1,6 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  ElementRef,
   OnInit,
   ViewChild,
 } from '@angular/core';
@@ -25,6 +24,7 @@ import { DemandsService } from '@demands/demands.service';
 import { environment } from '../../../../environments/environment';
 import { CsvService } from '@app/admin/shared/csv.service';
 import { Zone, zones } from '@shared/zone';
+import { DemandStatus } from '@demands/shared/demand-status';
 
 @Component({
   templateUrl: './demands-list.component.html',
@@ -49,41 +49,15 @@ export class DemandsListComponent implements OnInit {
   lastFilter = {};
   page: DemandsPageParams = { pageSize: 20, pageIndex: 1 };
 
-  selectedTab = 'all';
-  selectedTabIndex$ = this.activeRoute.queryParams.pipe(
-    map((params) => {
-      const status = params.status;
-
-      if (status) {
-        this.selectedTab = status;
-
-        return (
-          this.allStatuses.findIndex((stats) => {
-            return stats._id === status;
-          }) + 1
-        );
-      }
-      return 0;
-    }),
-  );
+  selectedTab?: DemandStatus;
+  selectedTabIndex$ = 0;
 
   allStatuses = [
-    {
-      label: 'New',
-      _id: 'new',
-    },
-    {
-      label: 'In progress',
-      _id: 'onprogress',
-    },
-    {
-      label: 'Cancelled',
-      _id: 'cancelled',
-    },
-    {
-      label: 'Done',
-      _id: 'done',
-    },
+    undefined,
+    DemandStatus.new,
+    DemandStatus.in_process,
+    DemandStatus.canceled,
+    DemandStatus.solved,
   ];
 
   allStatusesCounts$ = new BehaviorSubject<number[]>([]);
@@ -107,8 +81,8 @@ export class DemandsListComponent implements OnInit {
   }
 
   getAllStatusesCount() {
-    const demands = [{}, ...this.allStatuses].map((status: any) =>
-      this.helperGetCountByStatus(status._id),
+    const demands = this.allStatuses.map((status) =>
+      this.helperGetCountByStatus(status),
     );
     forkJoin(demands)
       .pipe(take(1))
@@ -117,7 +91,7 @@ export class DemandsListComponent implements OnInit {
       });
   }
 
-  helperGetCountByStatus(status: string) {
+  helperGetCountByStatus(status?: DemandStatus) {
     return this.demandsFacade
       .getDemandsByStatus(status)
       .pipe(map((res) => res.count));
@@ -136,33 +110,15 @@ export class DemandsListComponent implements OnInit {
         this.searchFilterZone !== 'all' && this.searchFilterZone
           ? (this.searchFilterZone as Zone)
           : undefined,
-      // TODO: toGMTString is deprecated, backend should send in a better format
-      // @ts-ignore
       created_at: this.searchFilterDate?.toISOString(),
     });
   }
 
   onTabChanged(event: MatTabChangeEvent) {
-    let status = null;
-
-    if (typeof event.tab.textLabel !== 'string') {
-      // @ts-ignore TODO
-      status = event.tab.textLabel._id;
-      this.selectedTab = status;
-    }
-
-    this.helperGetCountByStatus(status).subscribe((count) => {
-      const counts = this.allStatusesCounts$.getValue();
-      counts[event.index] = count;
-      this.allStatusesCounts$.next(counts);
-    });
-
-    void this.router.navigate([], {
-      relativeTo: this.activeRoute,
-      queryParams: {
-        status,
-      },
-      queryParamsHandling: 'merge',
+    this.selectedTab = this.allStatuses[event.index];
+    this.paginator.firstPage();
+    this.demandsFacade.getDemands(this.page, {
+      status: this.selectedTab,
     });
   }
 
@@ -174,12 +130,18 @@ export class DemandsListComponent implements OnInit {
   queryResult(criteria: { [keys: string]: string | undefined }) {
     this.lastFilter = criteria;
     this.page = { pageSize: 20, pageIndex: 1 };
-    this.demandsFacade.getDemands(this.page, criteria);
+    this.demandsFacade.getDemands(this.page, {
+      ...criteria,
+      status: this.selectedTab,
+    });
   }
 
   onPageChange(event: PageEvent) {
     this.page = { pageSize: event.pageSize, pageIndex: event.pageIndex + 1 };
-    this.demandsFacade.getDemands(this.page, this.lastFilter);
+    this.demandsFacade.getDemands(this.page, {
+      ...this.lastFilter,
+      status: this.selectedTab,
+    });
   }
 
   onImport() {
@@ -203,7 +165,10 @@ export class DemandsListComponent implements OnInit {
     this.actions$
       .pipe(ofType(saveDemandSuccessAction), takeUntil(dialogRef.afterClosed()))
       .subscribe(() => {
-        this.demandsFacade.getDemands(this.page, this.lastFilter);
+        this.demandsFacade.getDemands(this.page, {
+          ...this.lastFilter,
+          status: this.selectedTab,
+        });
         this.getAllStatusesCount();
         dialogRef.close();
       });

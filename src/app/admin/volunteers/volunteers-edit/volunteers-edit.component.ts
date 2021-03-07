@@ -73,7 +73,7 @@ export class VolunteersEditComponent implements OnDestroy {
 
   getHours() {
     return this.hours.filter(
-      (h) => h.value > this.formGroup.get('availability_hours_start').value,
+      (h) => h.value > this.formGroup.get('availability_hours_start')?.value,
     );
   }
 
