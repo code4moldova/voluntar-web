@@ -24,6 +24,7 @@ import {
 } from 'rxjs/operators';
 import { BehaviorSubject, combineLatest, interval, Subject } from 'rxjs';
 import { Demand } from '@demands/shared/demand';
+import { DemandStatus } from '@demands/shared/demand-status';
 
 export type DemandsPageParams = { pageSize: number; pageIndex: number };
 
@@ -90,7 +91,7 @@ export class DemandsFacade {
     this.store.dispatch(getDemandsRequestAction({ page, filters }));
   }
 
-  getDemandsByStatus(status: string) {
+  getDemandsByStatus(status?: DemandStatus) {
     return this.demandsService.getDemands(
       {
         pageIndex: 0,
