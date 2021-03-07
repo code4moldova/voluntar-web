@@ -32,12 +32,12 @@ export class EsriMapComponent implements OnDestroy, AfterViewInit {
   constructor(
     private dialogRef: MatDialogRef<EsriMapComponent>,
     @Inject(MAT_DIALOG_DATA)
-    private data: { coors: [number, number]; address: string },
+    private data?: { coors: [number, number]; address: string },
   ) {}
 
   ngAfterViewInit() {
-    const center = this.data.coors ?? new Point(centerCoordinate);
-    const searchTerm = this.data.address ?? 'Arcul de triumf';
+    const center = this.data?.coors ?? new Point(centerCoordinate);
+    const searchTerm = this.data?.address ?? 'Arcul de triumf';
     this.mapView = new MapView({
       container: this.mapViewEl.nativeElement,
       center,

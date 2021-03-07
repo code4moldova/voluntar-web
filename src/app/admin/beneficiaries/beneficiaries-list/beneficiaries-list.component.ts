@@ -87,8 +87,7 @@ export class BeneficiariesListComponent implements OnInit {
 
   openNewBeneficiaryDialog() {
     const dialogRef = this.matDialog.open(BeneficiaryNewComponent, {
-      data: {},
-      maxWidth: '100%',
+      width: '550px',
     });
 
     this.actions$
