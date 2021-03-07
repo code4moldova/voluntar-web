@@ -1,6 +1,4 @@
-<app-admin-page-header
-  title="beneficiary_edit"
-></app-admin-page-header>
+<app-admin-page-header title="beneficiary_edit"></app-admin-page-header>
 
 <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="pb-4">
   <div class="bg-white p-4 mat-typography">
@@ -114,6 +112,14 @@
         >
           <mat-label translate>address</mat-label>
           <input matInput formControlName="address" title="" />
+          <button
+            mat-icon-button
+            matSuffix
+            type="button"
+            (click)="selectAddress()"
+          >
+            <mat-icon>explore</mat-icon>
+          </button>
           <mat-error translate>required_field</mat-error>
         </mat-form-field>
       </div>
@@ -177,7 +183,7 @@
 
     <div class="d-flex">
       <mat-slide-toggle class="mr-auto" formControlName="black_list">
-        {{ "black_list" | translate }}
+        {{ "block_list" | translate }}
       </mat-slide-toggle>
       <button class="ml-auto" mat-flat-button color="primary">
         {{ "save" | translate }}

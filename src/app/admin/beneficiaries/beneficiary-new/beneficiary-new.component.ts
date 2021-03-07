@@ -1,5 +1,5 @@
 import { Component, ElementRef } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { combineLatest } from 'rxjs';
@@ -8,6 +8,7 @@ import { filter, first } from 'rxjs/operators';
 import { BeneficiariesFacade } from '../beneficiaries.facade';
 import { zones } from '@shared/zone';
 import { specialConditions } from '@beneficiaries/shared/special-condition';
+import { EsriMapComponent } from '@shared/esri-map/esri-map.component';
 
 export const COMMON_FIELDS = {
   first_name: [null, Validators.required],
@@ -15,19 +16,14 @@ export const COMMON_FIELDS = {
   age: [null],
   zone: [null, Validators.required],
   address: [null, Validators.required],
+  latitude: [null, Validators.required],
+  longitude: [null, Validators.required],
   apartment: [null],
   entrance: [null],
   floor: [null],
-  phone: [
-    null,
-    [Validators.required, Validators.minLength(8), Validators.maxLength(8)],
-  ],
-  landline: [
-    null,
-    // because we add prefix 22 at form submit.
-    [Validators.required, Validators.minLength(6), Validators.maxLength(6)],
-  ],
-  special_condition: [null],
+  phone: ['', [Validators.required, Validators.pattern(/^[^0]([0-9]){7}$/)]],
+  landline: ['', [Validators.required, Validators.pattern(/^[^0]([0-9]){7}$/)]],
+  special_condition: ['', Validators.required],
 };
 
 @Component({
@@ -45,6 +41,7 @@ export class BeneficiaryNewComponent {
     private snackBar: MatSnackBar,
     private elementRef: ElementRef,
     public dialogRef: MatDialogRef<BeneficiaryNewComponent>,
+    private matDialog: MatDialog,
   ) {}
 
   closeDialog() {
@@ -52,39 +49,41 @@ export class BeneficiaryNewComponent {
   }
 
   onSubmit() {
-    if (this.form.valid) {
-      const payload = this.form.getRawValue();
-      payload.landline = `22${payload.landline}`;
+    if (this.form.invalid) return;
 
-      this.serviceFacade.saveBeneficiary(payload);
-      combineLatest([this.serviceFacade.isLoading$, this.serviceFacade.error$])
-        .pipe(
-          filter(([status, error]) => !status && !error),
-          first(),
-        )
-        .subscribe(() => {
-          this.snackBar.open('Beneficiarul a fost salvat cu success.', '', {
-            duration: 5000,
-            horizontalPosition: 'right',
-            verticalPosition: 'top',
-          });
-          this.closeDialog();
+    this.serviceFacade.saveBeneficiary({
+      ...this.form.value,
+      special_condition:
+        this.form.value.special_condition === 'none'
+          ? undefined
+          : this.form.value.special_condition,
+    });
+
+    combineLatest([this.serviceFacade.isLoading$, this.serviceFacade.error$])
+      .pipe(
+        filter(([status, error]) => !status && !error),
+        first(),
+      )
+      .subscribe(() => {
+        this.snackBar.open('Beneficiarul a fost salvat cu success.', '', {
+          duration: 5000,
+          horizontalPosition: 'right',
+          verticalPosition: 'top',
         });
-    } else {
-      this.snackBar.open('Introduceți cîmpurile obligatorii', '', {
-        duration: 5000,
-        panelClass: 'info',
-        horizontalPosition: 'right',
-        verticalPosition: 'top',
+        this.closeDialog();
       });
+  }
 
-      const element = this.elementRef.nativeElement.querySelector(
-        '.ng-invalid:not(form)',
-      );
-
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
+  selectAddress() {
+    this.matDialog
+      .open(EsriMapComponent, {
+        panelClass: 'cdk-overlay-pane-no-padding',
+        width: '80%',
+        height: '80%',
+        maxWidth: '100%',
+        maxHeight: '100%',
+      })
+      .afterClosed()
+      .subscribe((data) => data && this.form.patchValue(data));
   }
 }
