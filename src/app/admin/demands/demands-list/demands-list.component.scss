@@ -1,157 +1,6 @@
 @import "~@angular/material/theming";
 @import "../../../../styles/colors";
 
-.mat-flat-button {
-  .mat-icon {
-    width: 16px;
-    height: 16px;
-    font-size: 16px;
-  }
-}
-
-tr.mat-row {
-  td.mat-cell {
-    position: relative;
-    height: 64px;
-    vertical-align: middle;
-    border-bottom-color: $color-border-divider;
-
-    &[class*="mat-column"]:first-child {
-      padding-left: 24px;
-    }
-
-    &[class*="mat-column"]:last-child {
-      padding-right: 24px;
-    }
-
-    &[class*="mat-column"]:not(:first-child) {
-      padding-left: 20px;
-    }
-
-    &.mat-column-icons {
-      white-space: nowrap;
-      width: 80px;
-      padding: 0 10px 0 0;
-      text-align: center;
-
-      * {
-        &:first-child {
-          margin-left: 0;
-        }
-        margin-left: 5px;
-      }
-    }
-
-    &:not(.mat-column-icons) {
-      .mat-icon {
-        height: 14px;
-        width: 14px;
-
-        margin-right: 4px;
-
-        font-size: 14px;
-        color: $color-type-disabled;
-      }
-    }
-
-    &.mat-column-name {
-      font-weight: 500;
-    }
-
-    &:not(.mat-column-name) {
-      color: $color-type-secondary;
-    }
-
-    &.mat-column-status {
-      &.new {
-        .mat-chip {
-          color: $color-functional-info;
-          background-color: $color-functional-info-bg;
-        }
-      }
-
-      &.done {
-        .mat-chip {
-          color: $color-functional-success;
-          background-color: $color-functional-success-bg;
-        }
-      }
-
-      &.onprogress {
-        .mat-chip {
-          background-color: lighten($color-functional-warning, 35%);
-          color: darken($color-functional-warning, 8%);
-        }
-      }
-
-      &.cancelled {
-        .mat-chip {
-          color: $color-functional-error;
-          background-color: $color-functional-error-bg;
-        }
-      }
-
-      .mat-chip {
-        font-size: 13px;
-        padding: 2px 8px;
-        min-height: 20px;
-        height: auto;
-      }
-    }
-
-    .mat-chip-list {
-      margin: 0;
-
-      .mat-chip {
-        padding: 0 6px;
-        min-height: 24px;
-
-        &:not(:first-child) {
-          margin-left: -12px;
-        }
-
-        .mat-icon {
-          width: 14px;
-          height: 14px;
-
-          margin: 0;
-
-          font-size: 14px;
-        }
-
-        &.money {
-          color: $color-functional-success;
-          background-color: $color-functional-success-bg;
-        }
-
-        &.disabilities {
-          color: $color-functional-info;
-          background-color: $color-functional-info-bg;
-        }
-
-        &.symptoms {
-          color: $color-functional-error;
-          background-color: $color-functional-error-bg;
-        }
-      }
-    }
-  }
-}
-
-.mat-expansion-panel-header-description {
-  justify-content: flex-end;
-  align-items: center;
-}
-
-mat-accordion {
-  display: block;
-  margin-bottom: 25px;
-}
-
-mat-icon {
-  vertical-align: middle;
-}
-
 tr {
   &.cancelled {
     background-color: transparentize($color-functional-error-bg, 0.7);
@@ -179,7 +28,7 @@ tr {
 
 ::ng-deep.mat-tab-group {
   &.mat-primary {
-    &.selected-tab-all {
+    &.selected-tab- {
       .mat-tab-label-active {
         .mat-badge {
           color: $color-type-primary !important;
@@ -196,7 +45,7 @@ tr {
       }
     }
 
-    &.selected-tab-cancelled {
+    &.selected-tab-canceled {
       .mat-tab-label-active {
         .mat-badge {
           color: $color-functional-error !important;
@@ -230,7 +79,7 @@ tr {
       }
     }
 
-    &.selected-tab-onprogress {
+    &.selected-tab-in_process {
       .mat-tab-label-active {
         .mat-badge {
           color: darken($color-functional-warning, 5%) !important;
@@ -247,7 +96,7 @@ tr {
       }
     }
 
-    &.selected-tab-done {
+    &.selected-tab-solved {
       .mat-tab-label-active {
         .mat-badge {
           color: $color-functional-success !important;

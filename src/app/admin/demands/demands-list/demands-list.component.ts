@@ -181,4 +181,17 @@ export class DemandsListComponent implements OnInit {
   getClusterUrl(demand: Demand): string {
     return `${window.location.origin}/cluster/${demand.volunteer.cluster_id}`;
   }
+
+  getBadgeClassFromStatus(element: Demand): string {
+    return statusColors[element.status];
+  }
 }
+
+const statusColors: Record<DemandStatus, string> = {
+  [DemandStatus.archived]: '',
+  [DemandStatus.canceled]: 'red',
+  [DemandStatus.solved]: 'green',
+  [DemandStatus.in_process]: 'blue',
+  [DemandStatus.new]: 'light-blue',
+  [DemandStatus.confirmed]: 'green',
+};

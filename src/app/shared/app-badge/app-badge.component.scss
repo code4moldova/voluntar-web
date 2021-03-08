@@ -1,8 +1,10 @@
 /* Just copied from figma, I think it's ok till it's a isolated component */
 :host {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: 4px 12px;
-  border-radius: 12px;
+  border-radius: 999px;
   font-style: normal;
   font-weight: 600;
   font-size: 10px;

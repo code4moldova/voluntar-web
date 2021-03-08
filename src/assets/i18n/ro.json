@@ -48,6 +48,8 @@
   "personal_data": "Date personale",
   "create_volunteer": "Creează voluntar",
   "volunteer_role": "Rolul voluntarului",
+  "volunteer_info": "Informație despre voluntar",
+  "missing_volunteer": "Lipsă voluntar",
   "availability": "Disponibilitate",
   "confirm": "Confirmă",
   "days": "Zile",
@@ -163,6 +165,7 @@
   "date": "Dată",
   "add_current_address": "Adugă adresa curentă",
   "all_demands": "Toate cererile",
+  "cluster": "Grup",
   "hero": {
     "headline": "Inițiativa <span>împreună<br />împotriva COVID-19</span>",
     "description": "Rețea de voluntari și voluntare care oferă suport celor din zona de risc, în parteneriat cu Serviciile de Asistență Socială din Republica Moldova în contextul situației de criză creată de pandemia de COVID-19."

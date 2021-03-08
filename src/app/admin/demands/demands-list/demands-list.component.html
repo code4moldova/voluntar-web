@@ -65,124 +65,139 @@
 </mat-tab-group>
 
 <div class="position-relative">
-  <div class="table-responsive">
-    <table mat-table [dataSource]="dataSource$ | async">
-      <ng-container matColumnDef="icons">
-        <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let element">
-          <span
-            *ngIf="element.black_list"
-            matTooltip="Black List"
-            class="blacklist"
-          ></span>
-          <mat-chip-list>
-            <!-- //TODO to remove??? -->
-            <mat-chip
-              *ngIf="element.have_money"
-              [matTooltip]="'Has money'"
-              class="money"
-            >
-              <mat-icon>monetization_on</mat-icon>
-            </mat-chip>
-            <mat-chip
-              *ngIf="element.has_disabilities"
-              [matTooltip]="'Has disabilities'"
-              class="disabilities"
-            >
-              <mat-icon>accessible</mat-icon>
-            </mat-chip>
-            <mat-chip
-              *ngIf="element.has_symptoms"
-              [matTooltip]="'Has symtoms'"
-              class="symptoms"
-            >
-              <mat-icon>face</mat-icon>
-            </mat-chip>
-          </mat-chip-list>
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef>Nume</th>
-        <td mat-cell *matCellDef="let element">
-          {{ element.beneficiary.first_name }}
-          {{ element.beneficiary.last_name }}
-        </td>
-      </ng-container>
+  <mat-accordion [multi]="false">
+    <div class="table-responsive">
+      <table mat-table [dataSource]="dataSource$" style="min-width: 930px">
+        <ng-container matColumnDef="demand">
+          <td mat-cell *matCellDef="let element" class="px-0">
+            <mat-expansion-panel class="shadow-none">
+              <mat-expansion-panel-header>
+                <mat-panel-title class="d-flex align-items-center">
+                  <app-badge
+                    class="red p-1 mr-2"
+                    [style.visibility]="
+                      cast(element).has_symptoms ? 'visible' : 'hidden'
+                    "
+                    matTooltip="{{ 'has_symptoms' | translate }}"
+                  >
+                    <mat-icon>face</mat-icon>
+                  </app-badge>
 
-      <ng-container matColumnDef="phone">
-        <th mat-header-cell *matHeaderCellDef>Telefon</th>
-        <td mat-cell *matCellDef="let element">
-          <mat-icon>phone_in_talk</mat-icon>
-          {{ element.beneficiary.phone | mask: "00 000 000" }}
-        </td>
-      </ng-container>
+                  <span class="mx-2 w-25">
+                    {{ cast(element).beneficiary.first_name }}
+                    {{ cast(element).beneficiary.last_name }}
+                  </span>
 
-      <ng-container matColumnDef="sector">
-        <th mat-header-cell *matHeaderCellDef>Sector</th>
-        <td mat-cell *matCellDef="let element">
-          <mat-icon>location_on</mat-icon>
-          {{ element.beneficiary.zone | translate }}
-        </td>
-      </ng-container>
+                  <div
+                    class="d-flex align-items-center justify-content-between"
+                  >
+                    <mat-icon inline class="mr-1 text-secondary">
+                      phone_in_talk
+                    </mat-icon>
+                    <span
+                      class="mr-2 text-dark"
+                      style="width: 100px"
+                      *ngIf="!cast(element).beneficiary.phone"
+                    >
+                      {{ "missing_phone" | translate }}
+                    </span>
+                    <a
+                      class="mr-2 text-dark"
+                      style="width: 100px"
+                      *ngIf="cast(element).beneficiary.phone"
+                      href="tel:+373{{ cast(element).beneficiary.phone }}"
+                    >
+                      {{ cast(element).beneficiary.phone | mask: "00 000 000" }}
+                    </a>
 
-      <ng-container matColumnDef="createdDate">
-        <th mat-header-cell *matHeaderCellDef>Adaugat</th>
-        <td mat-cell *matCellDef="let element">
-          <mat-icon>today</mat-icon>
-          {{ element.created_at | date: "d MMM" }}
-        </td>
-      </ng-container>
+                    <mat-icon inline class="mr-1 text-secondary">
+                      location_on
+                    </mat-icon>
+                    <span class="mr-2" style="width: 75px">
+                      {{ cast(element).beneficiary.zone | translate }}
+                    </span>
 
-      <ng-container matColumnDef="status">
-        <th mat-header-cell *matHeaderCellDef>Status</th>
-        <td
-          mat-cell
-          *matCellDef="let element"
-          class="{{ cast(element).status }}"
-        >
-          <mat-chip *ngIf="!cast(element).volunteer?.cluster_id">
-            {{ cast(element).status | translate }}
-          </mat-chip>
-          <a
-            mat-chip
-            *ngIf="cast(element).volunteer?.cluster_id"
-            style="cursor: pointer"
-            href="{{ getClusterUrl(element) }}"
-            target="_blank"
-          >
-            {{ cast(element).status | translate }}
-          </a>
-        </td>
-      </ng-container>
+                    <mat-icon inline class="mr-1 text-secondary">
+                      today
+                    </mat-icon>
+                    <span class="mr-2">
+                      {{ cast(element).created_at | date: "d MMM" }}
+                    </span>
+                  </div>
 
-      <ng-container matColumnDef="edit">
-        <th mat-header-cell *matHeaderCellDef>Edit</th>
-        <td mat-cell *matCellDef="let element">
-          <button
-            mat-stroked-button
-            class="float-right"
-            (click)="openDemandDialog(element)"
-          >
-            <mat-icon>settings</mat-icon>
-            Edit
-          </button>
-        </td>
-      </ng-container>
+                  <app-badge
+                    class="ml-auto"
+                    [class]="getBadgeClassFromStatus(element)"
+                  >
+                    {{ cast(element).status | translate }}
+                  </app-badge>
+                  <button
+                    mat-stroked-button
+                    color="primary"
+                    class="ml-2"
+                    (click)="openDemandDialog(element)"
+                  >
+                    <mat-icon>settings</mat-icon>
+                    {{ "edit" | translate }}
+                  </button>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <mat-divider class="mx-n4 mb-3"></mat-divider>
 
-      <tr
-        mat-row
-        *matRowDef="let row; columns: displayedColumns"
-        [ngClass]="{
-          cancelled: row.status === 'cancelled',
-          blacklist: row.black_list === true
-        }"
-      ></tr>
-    </table>
+              <strong *ngIf="!cast(element).volunteer" translate>
+                missing_volunteer
+              </strong>
 
-    <div class="loading-shade" *ngIf="isLoading$ | async">
-      <mat-spinner></mat-spinner>
+              <ng-container *ngIf="cast(element).volunteer as volunteer">
+                <h6 translate>volunteer_info</h6>
+
+                <dl class="row">
+                  <ng-container
+                    *ngIf="volunteer.first_name || volunteer.last_name"
+                  >
+                    <dt class="col-sm-2">{{ "name" | translate }}</dt>
+                    <dd class="col-sm-10">
+                      {{ volunteer.first_name }} {{ volunteer.last_name }}
+                    </dd>
+                  </ng-container>
+
+                  <ng-container *ngIf="volunteer.phone">
+                    <dt class="col-sm-2">{{ "phone" | translate }}</dt>
+                    <dd class="col-sm-10">{{ volunteer.phone }}</dd>
+                  </ng-container>
+
+                  <ng-container *ngIf="volunteer.email">
+                    <dt class="col-sm-2">{{ "email" | translate }}</dt>
+                    <dd class="col-sm-10">
+                      {{ volunteer.email }}
+                    </dd>
+                  </ng-container>
+                  <ng-container *ngIf="cast(element).volunteer?.cluster_id">
+                    <dt class="col-sm-2">{{ "cluster" | translate }}</dt>
+                    <dd class="col-sm-10">
+                      <a href="{{ getClusterUrl(element) }}" target="_blank">
+                        {{ getClusterUrl(element) }}
+                      </a>
+                    </dd>
+                  </ng-container>
+                </dl>
+              </ng-container>
+            </mat-expansion-panel>
+          </td>
+        </ng-container>
+
+        <tr
+          mat-row
+          *matRowDef="let row; columns: ['demand']"
+          [ngClass]="{ cancelled: cast(row).status === 'cancelled' }"
+        ></tr>
+      </table>
+
+      <div class="loading-shade" *ngIf="isLoading$ | async">
+        <mat-spinner></mat-spinner>
+      </div>
     </div>
-  </div>
+  </mat-accordion>
 </div>
 
 <mat-paginator

@@ -48,6 +48,8 @@
   "personal_data": "Персональная информация",
   "create_volunteer": "Создать Волонтера",
   "volunteer_role": "Роль Волонтера",
+  "volunteer_info": "Informație despre voluntar",
+  "missing_volunteer": "Lipsă voluntar",
   "availability": "Доступность",
   "confirm": "Подтвердить",
   "days": "Дни",
@@ -163,6 +165,7 @@
   "date": "Dată",
   "add_current_address": "Adugă adresa curentă",
   "all_demands": "Toate cererile",
+  "cluster": "Grup",
   "hero": {
     "headline": "Инициатива <span>Вместе<br />против COVID-19</span>",
     "description": "Гражданский проект, который объединяет усилия и помогает людям в неблагоприятных ситуациях во время пандемии COVID-19"
