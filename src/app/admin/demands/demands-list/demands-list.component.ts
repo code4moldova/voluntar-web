@@ -54,11 +54,11 @@ export class DemandsListComponent implements OnInit {
 
   l10nDemandStatus = l10nDemandStatus;
   allStatuses = [
-    undefined,
     DemandStatus.new,
     DemandStatus.in_process,
     DemandStatus.canceled,
     DemandStatus.solved,
+    undefined,
   ];
 
   allStatusesCounts$ = new BehaviorSubject<number[]>([]);
