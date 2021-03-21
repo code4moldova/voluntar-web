@@ -46,10 +46,13 @@ export class DemandsMapComponent implements OnInit, OnDestroy {
 
     this.subscriptions.add(
       this.volunteersService
-        .getVolunteers({
-          pageIndex: 1,
-          pageSize: Number.MAX_SAFE_INTEGER,
-        })
+        .getVolunteers(
+          {
+            pageIndex: 1,
+            pageSize: Number.MAX_SAFE_INTEGER,
+          },
+          { status: 'active' },
+        )
         .subscribe((response) => {
           this.volunteers = response.list;
           this.filteredVolunteers = response.list;
