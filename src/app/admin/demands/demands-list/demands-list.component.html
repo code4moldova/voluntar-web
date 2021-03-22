@@ -129,7 +129,7 @@
                     class="ml-auto"
                     [class]="getBadgeClassFromStatus(element)"
                   >
-                    {{ cast(element).status | translate }}
+                    {{ l10nDemandStatus(cast(element).status) | translate }}
                   </app-badge>
                   <button
                     mat-stroked-button

@@ -195,7 +195,8 @@
               {{ "type" | translate }}: {{ cast(element).type | translate }}
 
               <mat-divider class="my-2"></mat-divider>
-              {{ "status" | translate }}: {{ cast(element).status | translate }}
+              {{ "status" | translate }}:
+              {{ l10nDemandStatus(cast(element).status) | translate }}
               <mat-divider class="my-2"></mat-divider>
               {{ "has_symptoms" | translate }}:
               {{ cast(element).has_symptoms ? "yes" : ("no" | translate) }}

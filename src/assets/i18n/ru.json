@@ -166,6 +166,14 @@
   "add_current_address": "Adugă adresa curentă",
   "all_demands": "Toate cererile",
   "cluster": "Grup",
+  "DemandStatus": {
+    "new": "Nou",
+    "confirmed": "Confirmat",
+    "in_process": "În proces",
+    "canceled": "Anulat",
+    "solved": "Rezolvat",
+    "archived": "Arhivat"
+  },
   "hero": {
     "headline": "Инициатива <span>Вместе<br />против COVID-19</span>",
     "description": "Гражданский проект, который объединяет усилия и помогает людям в неблагоприятных ситуациях во время пандемии COVID-19"

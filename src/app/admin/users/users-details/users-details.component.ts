@@ -9,6 +9,7 @@ import { DemandsService } from '@demands/demands.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Demand } from '@demands/shared/demand';
+import { l10nDemandStatus } from '@demands/shared/demand-status';
 
 @Component({
   templateUrl: './users-details.component.html',
@@ -16,6 +17,7 @@ import { Demand } from '@demands/shared/demand';
 export class UsersDetailsComponent implements OnDestroy, OnInit {
   private _destroy = new Subject<void>();
 
+  l10nDemandStatus = l10nDemandStatus;
   UserRole = UserRole;
   user$ = this.route.data.pipe<User>(map((data) => data.user));
 

@@ -6,3 +6,7 @@ export enum DemandStatus {
   solved = 'solved',
   archived = 'archived',
 }
+
+export function l10nDemandStatus(this: void, status: DemandStatus): string {
+  return `DemandStatus.${status}`;
+}

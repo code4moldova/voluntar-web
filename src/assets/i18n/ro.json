@@ -166,6 +166,14 @@
   "add_current_address": "Adugă adresa curentă",
   "all_demands": "Toate cererile",
   "cluster": "Grup",
+  "DemandStatus": {
+    "new": "Nou",
+    "confirmed": "Confirmat",
+    "in_process": "În proces",
+    "canceled": "Anulat",
+    "solved": "Rezolvat",
+    "archived": "Arhivat"
+  },
   "hero": {
     "headline": "Inițiativa <span>împreună<br />împotriva COVID-19</span>",
     "description": "Rețea de voluntari și voluntare care oferă suport celor din zona de risc, în parteneriat cu Serviciile de Asistență Socială din Republica Moldova în contextul situației de criză creată de pandemia de COVID-19."

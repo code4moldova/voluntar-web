@@ -24,7 +24,7 @@ import { DemandsService } from '@demands/demands.service';
 import { environment } from '../../../../environments/environment';
 import { CsvService } from '@app/admin/shared/csv.service';
 import { Zone, zones } from '@shared/zone';
-import { DemandStatus } from '@demands/shared/demand-status';
+import { DemandStatus, l10nDemandStatus } from '@demands/shared/demand-status';
 
 @Component({
   templateUrl: './demands-list.component.html',
@@ -52,6 +52,7 @@ export class DemandsListComponent implements OnInit {
   selectedTab?: DemandStatus;
   selectedTabIndex$ = 0;
 
+  l10nDemandStatus = l10nDemandStatus;
   allStatuses = [
     undefined,
     DemandStatus.new,
