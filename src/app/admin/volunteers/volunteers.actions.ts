@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { Volunteer } from './shared/volunteer';
+import { Demand } from '@demands/shared/demand';
 
 export enum ActionTypes {
   GET_VOLUNTEERS = '[Volunteers] Get Volunteers',
@@ -9,6 +10,10 @@ export enum ActionTypes {
   GET_VOLUNTEER = '[Volunteer] Get Volunteer',
   GET_VOLUNTEER_SUCCESS = '[Volunteer] Get Volunteer Success',
   GET_VOLUNTEER_FAILURE = '[Volunteer] Get Volunteer Failure',
+
+  GET_VOLUNTEER_DEMANDS = '[Volunteer] Get Volunteer Demands',
+  GET_VOLUNTEER_DEMANDS_SUCCESS = '[Volunteer] Get Volunteer Demands Success',
+  GET_VOLUNTEER_DEMANDS_FAILURE = '[Volunteer] Get Volunteer Demands Failure',
 
   GET_VOLUNTEERS_BY_FILTER = '[Volunteers] Get Volunteers By Filter',
   GET_VOLUNTEERS_BY_FILTER_SUCCESS = '[Volunteers] Get Volunteers By Filter Success',
@@ -87,5 +92,20 @@ export const getVolunteersByFilterSuccessAction = createAction(
 
 export const getVolunteersByFilterFailureAction = createAction(
   ActionTypes.GET_VOLUNTEERS_BY_FILTER_FAILURE,
+  props<{ error: any }>(),
+);
+
+export const getVolunteerDemandsAction = createAction(
+  ActionTypes.GET_VOLUNTEER_DEMANDS,
+  props<{ id: string; page: { pageSize: number; pageIndex: number } }>(),
+);
+
+export const getVolunteerDemandsSuccessAction = createAction(
+  ActionTypes.GET_VOLUNTEER_DEMANDS_SUCCESS,
+  props<{ payload: Demand[]; count: number }>(),
+);
+
+export const getVolunteerDemandsFailureAction = createAction(
+  ActionTypes.GET_VOLUNTEER_DEMANDS_FAILURE,
   props<{ error: any }>(),
 );

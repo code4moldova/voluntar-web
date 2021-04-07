@@ -17,6 +17,9 @@ import {
   getVolunteersByFilterAction,
   getVolunteersByFilterSuccessAction,
   getVolunteersByFilterFailureAction,
+  getVolunteerDemandsAction,
+  getVolunteerDemandsSuccessAction,
+  getVolunteerDemandsFailureAction,
 } from './volunteers.actions';
 import { VolunteersService } from './volunteers.service';
 
@@ -98,6 +101,25 @@ export class VolunteersEffects {
           }),
           catchError((error) =>
             of(getVolunteersByFilterFailureAction({ error })),
+          ),
+        ),
+      ),
+    );
+  });
+
+  getVolunteerDemandsEffect$: Observable<Action> = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(getVolunteerDemandsAction),
+      switchMap(({ page, id }) =>
+        this.volunteerService.getVolunteerDemands(page, id).pipe(
+          map((res) => {
+            return getVolunteerDemandsSuccessAction({
+              payload: res.list,
+              count: res.count,
+            });
+          }),
+          catchError((error) =>
+            of(getVolunteerDemandsFailureAction({ error })),
           ),
         ),
       ),

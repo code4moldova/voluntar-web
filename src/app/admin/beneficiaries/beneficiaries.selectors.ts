@@ -1,8 +1,9 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
-import { BeneficiariesState, LoadableState } from './beneficiaries.state';
+import { BeneficiariesState } from './beneficiaries.state';
 import { Beneficiary } from './shared/beneficiary';
 import { Demand } from '@demands/shared/demand';
+import { LoadableState } from '@app/admin/shared/shared-states';
 
 export const selectBeneficiaries = createFeatureSelector<
   any,

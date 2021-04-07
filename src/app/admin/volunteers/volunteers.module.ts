@@ -10,6 +10,7 @@ import { volunteersRoutes } from './volunteers.routes';
 import { VolunteersCreateComponent } from './volunteers-create/volunteers-create.component';
 import { VolunteerRoleComponent } from './shared/volunteer-role/volunteer-role.component';
 import { VolunteersEditComponent } from './volunteers-edit/volunteers-edit.component';
+import { AdminSharedModule } from '@app/admin/shared/admin-shared.module';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { VolunteersEditComponent } from './volunteers-edit/volunteers-edit.compo
     RouterModule.forChild(volunteersRoutes),
     MaterialComponentsModule,
     SharedModule,
+    AdminSharedModule,
     NgxMaskModule.forChild(),
   ],
 })

@@ -8,12 +8,11 @@ import { BeneficiaryDetailsComponent } from './beneficiary-details/beneficiary-d
 import { BeneficiaryNewComponent } from './beneficiary-new/beneficiary-new.component';
 import { BeneficiaryEditComponent } from './beneficiary-edit/beneficiary-edit.component';
 import { DisabilityComponent } from './shared/disability/disability.component';
-import { DemandStatusComponent } from './shared/demand-status/demand-status.component';
-import { DemandTypeComponent } from './shared/demand-type/demand-type.component';
 import { BeneficiaryListComponent } from './shared/beneficiary-list/beneficiary-list.component';
 import { RouterModule } from '@angular/router';
 import { beneficiariesRoutes } from './beneficiaries.routes';
 import { TranslateModule } from '@ngx-translate/core';
+import { AdminSharedModule } from '@app/admin/shared/admin-shared.module';
 
 @NgModule({
   declarations: [
@@ -22,8 +21,6 @@ import { TranslateModule } from '@ngx-translate/core';
     BeneficiaryNewComponent,
     BeneficiaryEditComponent,
     DisabilityComponent,
-    DemandStatusComponent,
-    DemandTypeComponent,
     BeneficiaryListComponent,
   ],
   imports: [
@@ -33,6 +30,7 @@ import { TranslateModule } from '@ngx-translate/core';
     SharedModule,
     NgxMaskModule.forChild(),
     TranslateModule,
+    AdminSharedModule,
   ],
 })
 export class BeneficiariesModule {}
