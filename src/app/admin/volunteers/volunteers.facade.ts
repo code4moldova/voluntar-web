@@ -3,6 +3,7 @@ import {
   saveVolunteerAction,
   updateVolunteerAction,
   getVolunteersByFilterAction,
+  getVolunteerDemandsAction,
 } from './volunteers.actions';
 import { Store, select } from '@ngrx/store';
 import { AppState } from '@app/app.state';
@@ -11,6 +12,8 @@ import {
   selectVolunteersData,
   selectIsLoading,
   selectVolunteersCount,
+  selectDemandsData,
+  selectDemandsCount,
 } from './volunteers.selectors';
 import { Volunteer } from './shared/volunteer';
 import { VolunteersService } from './volunteers.service';
@@ -25,6 +28,8 @@ export class VolunteersFacade {
 
   count$ = this.store.pipe(select(selectVolunteersCount));
   isLoading$ = this.store.pipe(select(selectIsLoading));
+  demandsData$ = this.store.pipe(select(selectDemandsData));
+  demandsCount$ = this.store.pipe(select(selectDemandsCount));
 
   constructor(
     private store: Store<AppState>,
@@ -62,5 +67,12 @@ export class VolunteersFacade {
         }
       : {};
     return this.volunteerService.getVolunteers(page, filters);
+  }
+
+  getVolunteerDemands(
+    page: { pageSize: number; pageIndex: number },
+    id: string,
+  ) {
+    this.store.dispatch(getVolunteerDemandsAction({ page, id }));
   }
 }

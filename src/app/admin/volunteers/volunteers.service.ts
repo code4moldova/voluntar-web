@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Volunteer } from './shared/volunteer';
 import { environment } from 'src/environments/environment';
+import { Demand } from '@demands/shared/demand';
 
 @Injectable({
   providedIn: 'root',
@@ -54,6 +55,22 @@ export class VolunteersService {
       {
         params,
       },
+    );
+  }
+
+  getVolunteerDemands(
+    page: { pageIndex: number; pageSize: number } = {
+      pageIndex: 1,
+      pageSize: 20,
+    },
+    id: string,
+  ) {
+    const params = new HttpParams({ fromObject: { v_id: id } });
+    return this.http.get<{ list: Demand[]; count: number }>(
+      `${environment.url}/requests/filters/${page.pageIndex || 1}/${
+        page.pageSize
+      }`,
+      { params },
     );
   }
 }

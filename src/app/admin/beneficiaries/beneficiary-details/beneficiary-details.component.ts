@@ -18,7 +18,6 @@ export class BeneficiaryDetailsComponent implements OnInit, OnDestroy {
   user: Beneficiary;
 
   demandsData$ = this.serviceFacade.demandsData$;
-  demandsCount$ = this.serviceFacade.demandsCount$;
   pageIndex = 1;
   pageSize = 20;
 

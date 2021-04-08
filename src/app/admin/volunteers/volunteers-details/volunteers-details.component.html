@@ -1,13 +1,10 @@
 <app-admin-page-header
-  *ngIf="volunteer$ | async as volunteer"
+  *ngIf="volunteer"
   title="view_volunteer"
   editLink="edit"
 ></app-admin-page-header>
 
-<div
-  class="bg-white p-4 mat-typography"
-  *ngIf="volunteer$ | async as volunteer"
->
+<div class="bg-white p-4 mat-typography" *ngIf="volunteer">
   <h4>
     <strong translate>personal_data</strong>
   </h4>
@@ -110,3 +107,9 @@
     </div>
   </div>
 </div>
+
+<app-demands-history
+  [demands]="demandsData$ | async"
+  [show]="'beneficiary'"
+  (page)="loadDemands($event)"
+></app-demands-history>

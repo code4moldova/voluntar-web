@@ -1,4 +1,4 @@
-import { createReducer, on, Action } from '@ngrx/store';
+import { createReducer, on } from '@ngrx/store';
 import { initialState, VolunteersState } from './volunteers.state';
 import {
   saveVolunteerAction,
@@ -16,6 +16,9 @@ import {
   updateVolunteerAction,
   updateVolunteerSuccessAction,
   updateVolunteerFailureAction,
+  getVolunteerDemandsAction,
+  getVolunteerDemandsSuccessAction,
+  getVolunteerDemandsFailureAction,
 } from './volunteers.actions';
 
 export const volunteersReducer = createReducer<VolunteersState>(
@@ -103,5 +106,19 @@ export const volunteersReducer = createReducer<VolunteersState>(
     ...state,
     isLoading: false,
     error,
+  })),
+
+  // Volunteer demands history
+  on(getVolunteerDemandsAction, (state) => ({
+    ...state,
+    demands: { ...state.demands, isLoading: true, error: null },
+  })),
+  on(getVolunteerDemandsSuccessAction, (state, { payload, count }) => ({
+    ...state,
+    demands: { ...state.demands, isLoading: false, data: payload, count },
+  })),
+  on(getVolunteerDemandsFailureAction, (state, { error }) => ({
+    ...state,
+    demands: { ...state.demands, isLoading: false, error },
   })),
 );
