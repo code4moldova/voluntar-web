@@ -1,0 +1,38 @@
+<div class="secondary-title">
+  {{ "demands_history" | translate }}
+  <span class="count">({{ demands.length }})</span>
+</div>
+
+<mat-accordion multi displayMode="flat">
+  <mat-expansion-panel *ngFor="let req of demands" displayMode="flat">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <div class="number" style="width: 100px">#{{ req.number }}</div>
+        <div class="type" style="width: 300px">
+          <app-demand-type [type]="req.type"></app-demand-type>
+        </div>
+        <div class="date" style="width: 200px">
+          <mat-icon>event</mat-icon>
+          {{ req.created_at | prettyDate }}
+        </div>
+        <div style="width: 170px">
+          <app-demand-status [status]="req.status"></app-demand-status>
+        </div>
+        <div style="width: 183px">
+          <span *ngIf="entity(req)">
+            <mat-icon>perm_identity</mat-icon>
+            {{ entity(req).last_name }} {{ entity(req).first_name }}
+          </span>
+        </div>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    {{ req.comments }}
+  </mat-expansion-panel>
+</mat-accordion>
+
+<mat-paginator
+  (page)="this.page.emit($event)"
+  [length]="demands.length"
+  [pageSizeOptions]="[20, 50, 100]"
+></mat-paginator>

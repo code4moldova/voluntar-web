@@ -1,26 +1,20 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { VolunteersFacade } from '../volunteers.facade';
-import { filter, map, takeUntil, tap } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { Volunteer } from '../shared/volunteer';
 import { TranslateService } from '@ngx-translate/core';
 import { volunteerRoles } from '../shared/volunteer-role';
 import { PageEvent } from '@angular/material/paginator';
-import { isRecord } from '@shared/is-record';
 
 @Component({
-  styleUrls: ['./volunteers-details.component.scss'],
   templateUrl: './volunteers-details.component.html',
 })
-export class VolunteersDetailsComponent implements OnInit, OnDestroy {
+export class VolunteersDetailsComponent implements OnDestroy {
   volunteerRoles = volunteerRoles;
-  volunteer$ = this.route.data.pipe<Volunteer>(map((data) => data.volunteer));
+  volunteer: Volunteer;
   demandsData$ = this.volunteerFacade.demandsData$;
-  demandsCount$ = this.volunteerFacade.demandsCount$;
-  pageIndex = 1;
-  pageSize = 20;
-  recordId: string;
 
   _destroy = new Subject();
   isLoading$ = this.volunteerFacade.isLoading$;
@@ -30,29 +24,10 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
     private volunteerFacade: VolunteersFacade,
     private translateService: TranslateService,
   ) {
-    this.route.paramMap
-      .pipe(
-        map((params) => params.get('id') as string),
-        tap((id) => (this.recordId = id)),
-        takeUntil(this._destroy),
-      )
-      .subscribe((id) => {
-        this.recordId = id;
-        if (id) {
-          this.volunteerFacade.getVolunteerById(id);
-          this.loadDemands(id);
-        }
-      });
-  }
-
-  ngOnInit() {
-    this.volunteer$
-      .pipe(
-        filter(isRecord),
-        map((record) => (this.recordId ? record : ({} as Volunteer))),
-        takeUntil(this._destroy),
-      )
-      .subscribe();
+    this.route.data.pipe(take(1)).subscribe((data) => {
+      this.volunteer = data.volunteer;
+      this.loadDemands({ pageIndex: 1, pageSize: 20, length: 20 });
+    });
   }
 
   ngOnDestroy() {
@@ -75,17 +50,10 @@ export class VolunteersDetailsComponent implements OnInit, OnDestroy {
           .join(', ');
   }
 
-  private loadDemands(id: string) {
-    console.log(id);
+  public loadDemands($event: PageEvent): void {
     this.volunteerFacade.getVolunteerDemands(
-      { pageIndex: this.pageIndex, pageSize: this.pageSize },
-      id,
+      { pageIndex: $event.pageIndex, pageSize: $event.pageSize },
+      this.volunteer._id,
     );
-  }
-
-  onPageChange($event: PageEvent) {
-    this.pageIndex = $event.pageIndex;
-    this.pageSize = $event.pageSize;
-    this.loadDemands(this.recordId);
   }
 }

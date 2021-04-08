@@ -6,10 +6,12 @@ import { HeaderComponent } from '@app/admin/shared/header/header.component';
 import { MaterialComponentsModule } from '@shared/material.module';
 import { SharedModule } from '@shared/shared.module';
 import { RouterModule } from '@angular/router';
+import { DemandsHistoryComponent } from './demands-history/demands-history.component';
 
 const components = [
   DemandTypeComponent,
   DemandStatusComponent,
+  DemandsHistoryComponent,
   HeaderComponent,
 ];
 

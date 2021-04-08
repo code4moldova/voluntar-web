@@ -1,13 +1,10 @@
 <app-admin-page-header
-  *ngIf="volunteer$ | async as volunteer"
+  *ngIf="volunteer"
   title="view_volunteer"
   editLink="edit"
 ></app-admin-page-header>
 
-<div
-  class="bg-white p-4 mat-typography"
-  *ngIf="volunteer$ | async as volunteer"
->
+<div class="bg-white p-4 mat-typography" *ngIf="volunteer">
   <h4>
     <strong translate>personal_data</strong>
   </h4>
@@ -111,42 +108,8 @@
   </div>
 </div>
 
-<div class="secondary-title">
-  Istoric Cereri
-  <span class="count">({{ demandsCount$ | async }})</span>
-</div>
-<mat-accordion multi displayMode="flat">
-  <mat-expansion-panel
-    *ngFor="let req of demandsData$ | async"
-    displayMode="flat"
-  >
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        <div class="number" style="width: 100px">#{{ req.number }}</div>
-        <div class="type" style="width: 300px">
-          <app-demand-type [type]="req.type"></app-demand-type>
-        </div>
-        <div class="date" style="width: 200px">
-          <mat-icon>event</mat-icon>
-          {{ req.created_at | prettyDate }}
-        </div>
-        <div class="status" style="width: 170px">
-          <app-demand-status [status]="req.status"></app-demand-status>
-        </div>
-        <div class="volunteer" style="width: 183px">
-          <span *ngIf="req.volunteer">
-            <mat-icon>perm_identity</mat-icon>
-            {{ req.volunteer.last_name }} {{ req.volunteer.first_name }}
-          </span>
-        </div>
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-
-    {{ req.comments }}
-  </mat-expansion-panel>
-</mat-accordion>
-<mat-paginator
-  (page)="onPageChange($event)"
-  [length]="demandsCount$ | async"
-  [pageSizeOptions]="[20, 50, 100]"
-></mat-paginator>
+<app-demands-history
+  [demands]="demandsData$ | async"
+  [show]="'beneficiary'"
+  (page)="loadDemands($event)"
+></app-demands-history>

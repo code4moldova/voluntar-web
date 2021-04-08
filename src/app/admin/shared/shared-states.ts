@@ -7,12 +7,8 @@ export interface LoadableState<T> {
   data: T[];
 }
 
-export interface BaseState<T> {
-  data: T[];
-  count: number;
+export interface BaseState<T> extends LoadableState<T> {
   details: T | null;
-  isLoading: boolean;
-  error: string | null;
   demands: LoadableState<Demand>;
 }
 
