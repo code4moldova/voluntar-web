@@ -1,6 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { VolunteersFacade } from '../volunteers.facade';
-import { take } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { Volunteer } from '../shared/volunteer';
@@ -24,7 +24,7 @@ export class VolunteersDetailsComponent implements OnDestroy {
     private volunteerFacade: VolunteersFacade,
     private translateService: TranslateService,
   ) {
-    this.route.data.pipe(take(1)).subscribe((data) => {
+    this.route.data.pipe(takeUntil(this._destroy)).subscribe((data) => {
       this.volunteer = data.volunteer;
       this.loadDemands({ pageIndex: 1, pageSize: 20, length: 20 });
     });
