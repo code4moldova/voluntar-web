@@ -1,6 +1,6 @@
 <app-admin-page-header title="volunteer_edit"></app-admin-page-header>
 
-<form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup)" class="pb-4">
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="pb-4">
   <div class="bg-white p-4 mat-typography">
     <h4 class="d-flex justify-content-between">
       <strong translate>personal_data</strong>
@@ -14,6 +14,7 @@
         <mat-slide-toggle
           class="pl-3"
           formControlName="is_active"
+          (change)="toggleActive($event)"
         ></mat-slide-toggle>
       </span>
     </h4>
@@ -251,7 +252,11 @@
     <mat-divider class="my-4"></mat-divider>
 
     <div class="d-flex">
-      <mat-slide-toggle class="mr-auto" formControlName="black_list">
+      <mat-slide-toggle
+        class="mr-auto"
+        formControlName="blacklist"
+        (change)="toggleBlacklist($event)"
+      >
         {{ "black_list" | translate }}
       </mat-slide-toggle>
       <button class="ml-auto" mat-flat-button color="primary">

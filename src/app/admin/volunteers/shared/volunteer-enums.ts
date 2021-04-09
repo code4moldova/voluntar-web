@@ -7,3 +7,11 @@ export enum VolunteerRole {
 }
 
 export const volunteerRoles = Object.values(VolunteerRole);
+
+export enum VolunteerStatus {
+  active = 'active',
+  inactive = 'inactive',
+  blacklist = 'blacklist',
+}
+
+export const volunteerStatuses = Object.values(VolunteerStatus);

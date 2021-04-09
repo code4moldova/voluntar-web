@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { Volunteer } from '../shared/volunteer';
 import { TranslateService } from '@ngx-translate/core';
-import { volunteerRoles } from '../shared/volunteer-role';
+import { volunteerRoles } from '../shared/volunteer-enums';
 import { PageEvent } from '@angular/material/paginator';
 
 @Component({

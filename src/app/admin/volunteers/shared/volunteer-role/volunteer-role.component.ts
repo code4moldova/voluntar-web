@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { VolunteerRole } from '../volunteer-role';
+import { VolunteerRole } from '../volunteer-enums';
 
 @Component({
   selector: 'app-volunteer-role',

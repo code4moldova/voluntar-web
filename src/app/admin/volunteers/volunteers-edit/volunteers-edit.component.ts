@@ -1,14 +1,15 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
 import { generateHoursRange } from '@shared/generate-hours-range';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
 import { weekDays } from '@shared/week-day';
 import { Volunteer } from '../shared/volunteer';
 import { VolunteersService } from '../volunteers.service';
-import { volunteerRoles } from '../shared/volunteer-role';
+import { volunteerRoles, VolunteerStatus } from '../shared/volunteer-enums';
 import { zones } from '@shared/zone';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 
 @Component({
   templateUrl: './volunteers-edit.component.html',
@@ -20,11 +21,12 @@ export class VolunteersEditComponent implements OnDestroy {
   hours = generateHoursRange(8, 20);
   zones = zones;
   roles = volunteerRoles;
+  status = VolunteerStatus;
   volunteer: Volunteer;
 
   formGroup = this.fb.group({
     is_active: this.fb.control(false),
-    black_list: this.fb.control(false),
+    blacklist: this.fb.control(false),
     first_name: this.fb.control('', Validators.required),
     last_name: this.fb.control('', Validators.required),
     phone: this.fb.control('', [
@@ -61,6 +63,8 @@ export class VolunteersEditComponent implements OnDestroy {
       this.volunteer = data.volunteer;
       this.formGroup.patchValue({
         ...this.volunteer,
+        is_active: this.volunteer.status === this.status.active,
+        blacklist: this.volunteer.status === this.status.blacklist,
         role: this.volunteer.role[0],
       });
     });
@@ -77,14 +81,37 @@ export class VolunteersEditComponent implements OnDestroy {
     );
   }
 
-  onSubmit(formGroup: FormGroup) {
-    if (formGroup.invalid) return;
+  toggleBlacklist($event: MatSlideToggleChange): void {
+    if ($event.checked) this.formGroup.patchValue({ status: false });
+  }
+
+  toggleActive($event: MatSlideToggleChange): void {
+    if ($event.checked) this.formGroup.patchValue({ blacklist: false });
+  }
+
+  getStatus(): VolunteerStatus {
+    if (this.formGroup.get('blacklist').value) {
+      return VolunteerStatus.blacklist;
+    }
+
+    return this.formGroup.get('is_active').value
+      ? VolunteerStatus.active
+      : VolunteerStatus.inactive;
+  }
+
+  onSubmit() {
+    if (this.formGroup.invalid) return;
+
+    const value = this.formGroup.getRawValue();
+    delete value.blacklist;
+    delete value.is_active;
 
     this.volunteerService
       .updateVolunteer({
-        ...formGroup.value,
+        ...value,
+        status: this.getStatus(),
         // Backend receives an array of roles
-        role: [formGroup.value.role],
+        role: [this.formGroup.value.role],
         _id: this.volunteer._id,
       })
       .pipe(takeUntil(this._destroy))
