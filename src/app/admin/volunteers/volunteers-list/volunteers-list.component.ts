@@ -12,7 +12,11 @@ import { saveVolunteerSuccessAction } from '../volunteers.actions';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 import { VolunteersCreateComponent } from '../volunteers-create/volunteers-create.component';
-import { VolunteerRole, volunteerRoles } from '../shared/volunteer-role';
+import {
+  VolunteerRole,
+  volunteerRoles,
+  VolunteerStatus,
+} from '../shared/volunteer-enums';
 import { Zone, zones } from '@shared/zone';
 import { VolunteersService } from '@volunteers/volunteers.service';
 import { CsvService } from '@app/admin/shared/csv.service';
@@ -30,10 +34,10 @@ export class VolunteersListComponent implements OnInit {
   count$ = this.volunteersFacade.count$;
   allStatusesCounts$ = new BehaviorSubject<number[]>([]);
   tabs: Tab[] = [
-    { label: 'Activi', status: 'active' },
-    { label: 'Inactivi', status: 'inactive' },
-    { label: 'Blacklist', status: 'blacklist' },
-    { label: 'Toti', status: undefined },
+    { label: 'active', status: VolunteerStatus.active },
+    { label: 'inactive', status: VolunteerStatus.inactive },
+    { label: 'black_list', status: VolunteerStatus.blacklist },
+    { label: 'all.masculine', status: undefined },
   ];
   activeTab = this.tabs[0];
   page: VolunteerPageParams = { pageSize: 20, pageIndex: 1 };

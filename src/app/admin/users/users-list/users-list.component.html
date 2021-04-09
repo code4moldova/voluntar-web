@@ -20,7 +20,7 @@
       class="mx-1"
       [(value)]="searchFilterRole"
     >
-      <mat-option value="all">{{ "all" | translate }}</mat-option>
+      <mat-option value="all">{{ "all.feminine" | translate }}</mat-option>
       <mat-option *ngFor="let role of userRoles" [value]="role">
         {{ role | translate }}
       </mat-option>

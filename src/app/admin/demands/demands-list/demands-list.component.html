@@ -22,7 +22,7 @@
       class="mx-1"
       [(value)]="searchFilterZone"
     >
-      <mat-option value="all">{{ "all" | translate }}</mat-option>
+      <mat-option value="all">{{ "all.feminine" | translate }}</mat-option>
       <mat-option *ngFor="let zone of zones" [value]="zone">
         {{ zone | translate }}
       </mat-option>
@@ -58,7 +58,7 @@
         matBadgeOverlap="false"
         ngClass="{{ status ? status : 'primary' }}"
       >
-        {{ (status ? status : "all_demands") | translate }}
+        {{ (status ? status : "all.feminine") | translate }}
       </span>
     </ng-template>
   </mat-tab>

@@ -11,7 +11,7 @@
         (selectionChange)="filterChanged()"
       >
         <mat-option value="all">
-          {{ "all" | translate }}
+          {{ "all.feminine" | translate }}
         </mat-option>
         <mat-option *ngFor="let zone of zones" [value]="zone">
           {{ zone | translate }}
@@ -25,7 +25,7 @@
         (selectionChange)="filterChanged()"
       >
         <mat-option value="all">
-          {{ "all" | translate }}
+          {{ "all.feminine" | translate }}
         </mat-option>
         <mat-option *ngFor="let demand of demandTypes" [value]="demand">
           {{ demand | translate }}
