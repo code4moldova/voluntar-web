@@ -22,7 +22,7 @@
       class="mx-1"
       [(value)]="searchFilterZone"
     >
-      <mat-option value="all">{{ "all" | translate }}</mat-option>
+      <mat-option value="all">{{ "all.feminine" | translate }}</mat-option>
       <mat-option *ngFor="let zone of zones" [value]="zone">
         {{ zone | translate }}
       </mat-option>
@@ -32,7 +32,7 @@
       class="mx-1"
       [(value)]="searchFilterRole"
     >
-      <mat-option value="all">{{ "all" | translate }}</mat-option>
+      <mat-option value="all">{{ "all.feminine" | translate }}</mat-option>
       <mat-option *ngFor="let role of volunteerRoles" [value]="role">
         {{ role | translate }}
       </mat-option>
@@ -50,7 +50,7 @@
     (click)="onTabChange(tab)"
     [active]="activeTab === tab"
   >
-    {{ tab.label }}
+    {{ tab.label | translate }}
     <app-badge class="ml-2 small" [class.light-blue]="activeTab === tab">
       {{ (allStatusesCounts$ | async)[i] }}
     </app-badge>

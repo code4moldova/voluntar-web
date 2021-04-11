@@ -1,5 +1,9 @@
-import { VolunteerRole } from './volunteer-role';
 import { Zone } from '@shared/zone';
+import {
+  VolunteerRole,
+  VolunteerStatus,
+} from '@volunteers/shared/volunteer-enums';
+import { WeekDay } from '@shared/week-day';
 
 export interface Volunteer {
   _id?: string;
@@ -7,22 +11,22 @@ export interface Volunteer {
   activity_types: string[];
   address: string;
   age: number;
-  availability: number;
   created_at: string;
   email: string;
   facebook_profile: string;
   first_name: string;
-  is_active: boolean;
   last_name: string;
   latitude: number;
   longitude: number;
   phone: string;
-  black_list: boolean;
   role: VolunteerRole[];
+  status: VolunteerStatus;
   zone: Zone;
   distance?: number;
   accepted_offer?: boolean;
-  availability_days?: string[];
+  availability_days?: WeekDay[];
+  availability_hours_start?: number;
+  availability_hours_end?: number;
   telegram_chat_id?: string;
   count?: number;
 }

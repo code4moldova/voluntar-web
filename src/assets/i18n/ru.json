@@ -82,7 +82,7 @@
   "back": "Назад",
   "active": "Активные",
   "inactive": "Неактивные",
-  "block_list": "Блок список",
+  "black_list": "Блок список",
   "card": "Удостоверение",
   "no_users": "Нет пользователей",
   "no_volunteers": "Нет волонтеров",
@@ -148,7 +148,10 @@
   "details": "Детали",
   "demand_details": "Detalii cerere",
   "demand_type": "Are nevoie de",
-  "all": "Toate",
+  "all": {
+    "masculine": "Toți",
+    "feminine": "Toate"
+  },
   "new_assignment": "Asignare noua",
   "link_sent_to_volunteer_email": "Link-ul a fost trimis voluntarului pe email.",
   "task_in_process": "Sarcina este în Proces.",
@@ -164,7 +167,6 @@
   "search_by_phone_and_name": "Cautare (Telefon, Nume, Prenume)",
   "date": "Dată",
   "add_current_address": "Adugă adresa curentă",
-  "all_demands": "Toate cererile",
   "cluster": "Grup",
   "DemandStatus": {
     "new": "Nou",
