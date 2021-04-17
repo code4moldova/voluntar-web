@@ -190,6 +190,18 @@ export class DemandsListComponent implements OnInit {
   getBadgeClassFromStatus(element: Demand): string {
     return statusColors[element.status];
   }
+
+  setSearchDate(value: Date) {
+    // Below we try to compensate timezone hours
+    // e.g.
+    // value is Sun Mar 07 2021 00:00:00 GMT+0200 (Eastern European Standard Time)
+    // value.toISOString() is 2021-03-06T22:00:00.000Z
+    // Server will try to give us demands from 2021-03-06 instead of 2021-03-07
+    const newDate = new Date(value);
+    const timezoneHours = (newDate.getTimezoneOffset() * -1) / 60;
+    newDate.setHours(newDate.getHours() + timezoneHours);
+    this.searchFilterDate = newDate;
+  }
 }
 
 const statusColors: Record<DemandStatus, string> = {

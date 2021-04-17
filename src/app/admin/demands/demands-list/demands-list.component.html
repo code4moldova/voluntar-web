@@ -33,7 +33,7 @@
         placeholder="{{ 'date' | translate }}"
         title=""
         [matDatepicker]="datePicker"
-        (dateChange)="searchFilterDate = $any($event).value"
+        (dateChange)="setSearchDate($any($event).value)"
       />
       <mat-datepicker-toggle [for]="datePicker"></mat-datepicker-toggle>
       <mat-datepicker #datePicker></mat-datepicker>
