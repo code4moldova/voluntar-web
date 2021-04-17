@@ -23,7 +23,7 @@ export const COMMON_FIELDS = {
   floor: [null],
   phone: ['', [Validators.required, Validators.pattern(/^[^0]([0-9]){7}$/)]],
   landline: ['', [Validators.required, Validators.pattern(/^[^0]([0-9]){7}$/)]],
-  special_condition: ['', Validators.required],
+  special_condition: [null],
 };
 
 @Component({
@@ -55,7 +55,7 @@ export class BeneficiaryNewComponent {
       ...this.form.value,
       special_condition:
         this.form.value.special_condition === 'none'
-          ? undefined
+          ? null
           : this.form.value.special_condition,
     });
 

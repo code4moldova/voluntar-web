@@ -56,7 +56,13 @@ export class BeneficiaryEditComponent implements OnInit, OnDestroy {
   onSubmit() {
     if (this.formGroup.valid) {
       const payload = this.formGroup.getRawValue();
-      this.serviceFacade.saveBeneficiary(payload);
+      this.serviceFacade.saveBeneficiary({
+        ...payload,
+        special_condition:
+          payload.special_condition === 'none'
+            ? null
+            : payload.special_condition,
+      });
       combineLatest([this.serviceFacade.isLoading$, this.serviceFacade.error$])
         .pipe(
           filter(([status, error]) => !status && !error),
@@ -90,7 +96,10 @@ export class BeneficiaryEditComponent implements OnInit, OnDestroy {
       )
       .subscribe((record) => {
         this.beneficiary = record;
-        this.formGroup.patchValue(record);
+        this.formGroup.patchValue({
+          ...record,
+          special_condition: record.special_condition ?? 'none',
+        });
       });
   }
 

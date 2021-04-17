@@ -75,7 +75,7 @@ export class DemandDetailsComponent implements OnInit, OnDestroy {
           entrance: this.fb.control(null, Validators.pattern(/^[0-9]+$/)),
           floor: this.fb.control(null, Validators.pattern(/^[0-9]+$/)),
           apartment: this.fb.control(null, Validators.pattern(/^[0-9]+$/)),
-          special_condition: this.fb.control('', [Validators.required]),
+          special_condition: this.fb.control(null),
           // These two are not showed in UI, we add them so we can patch
           latitude: this.fb.control(null, [Validators.required]),
           longitude: this.fb.control(null, [Validators.required]),
@@ -134,7 +134,7 @@ export class DemandDetailsComponent implements OnInit, OnDestroy {
         ...this.form.value.beneficiary,
         special_condition:
           this.form.value.beneficiary.special_condition === 'none'
-            ? undefined
+            ? null
             : this.form.value.beneficiary.special_condition,
       });
     }
