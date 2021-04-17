@@ -6,7 +6,12 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  ValidationErrors,
+  Validators,
+} from '@angular/forms';
 import { DemandsFacade } from '../demands.facade';
 import { BeneficiariesService } from '@beneficiaries/beneficiaries.service';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
@@ -63,14 +68,17 @@ export class DemandDetailsComponent implements OnInit, OnDestroy {
           last_name: this.fb.control('', [Validators.required]),
           age: this.fb.control(null, Validators.required),
           zone: this.fb.control(null, [Validators.required]),
-          address: this.fb.control(null, [Validators.required]),
-          // These two are not showed in UI, we add them so we can patch
-          latitude: this.fb.control(null, [Validators.required]),
-          longitude: this.fb.control(null, [Validators.required]),
+          address: this.fb.control(null, [
+            Validators.required,
+            missingCoordinatesValidator,
+          ]),
           entrance: this.fb.control(null, Validators.pattern(/^[0-9]+$/)),
           floor: this.fb.control(null, Validators.pattern(/^[0-9]+$/)),
           apartment: this.fb.control(null, Validators.pattern(/^[0-9]+$/)),
           special_condition: this.fb.control('', [Validators.required]),
+          // These two are not showed in UI, we add them so we can patch
+          latitude: this.fb.control(null, [Validators.required]),
+          longitude: this.fb.control(null, [Validators.required]),
         })
       : undefined,
     type: this.fb.control(null, [Validators.required]),
@@ -112,6 +120,10 @@ export class DemandDetailsComponent implements OnInit, OnDestroy {
           this.cdr.detectChanges();
         }),
     );
+  }
+
+  get addressErrors() {
+    return this.form.get('beneficiary.address').errors ?? {};
   }
 
   onSubmit(status: DemandStatus = DemandStatus.confirmed) {
@@ -216,6 +228,25 @@ export class DemandDetailsComponent implements OnInit, OnDestroy {
         maxHeight: '100%',
       })
       .afterClosed()
-      .subscribe((data) => this.form.get('beneficiary')?.patchValue(data));
+      .subscribe(({ longitude, latitude, address }) => {
+        const beneficiary = this.form.get('beneficiary');
+        // Patch coords and address separately because of validation
+        // Patching all at once, `missingCoordinatesValidator` will miss new coordinates
+        beneficiary?.patchValue({ longitude, latitude });
+        beneficiary?.patchValue({ address });
+      });
   }
+}
+
+function missingCoordinatesValidator(
+  control: AbstractControl,
+): ValidationErrors | null {
+  const latitude = control.parent?.value.latitude ?? null;
+  const longitude = control.parent?.value.longitude ?? null;
+
+  if (latitude && longitude) return null;
+
+  return {
+    missingCoordinates: true,
+  };
 }
