@@ -56,14 +56,14 @@ export class DemandDetailsComponent implements OnInit, OnDestroy {
   form = this.fb.group({
     beneficiary: !this.demand
       ? this.fb.group({
-          phone: this.fb.control(null, [
-            Validators.required,
-            Validators.pattern(/^[^0]([0-9]){7}$/),
-          ]),
-          landline: this.fb.control(null, [
-            Validators.required,
-            Validators.pattern(/^[^0]([0-9]){7}$/),
-          ]),
+          phone: this.fb.control(
+            null,
+            atLeastOnePhoneValidatorFactory('landline'),
+          ),
+          landline: this.fb.control(
+            null,
+            atLeastOnePhoneValidatorFactory('phone'),
+          ),
           first_name: this.fb.control('', [Validators.required]),
           last_name: this.fb.control('', [Validators.required]),
           age: this.fb.control(null, Validators.required),
@@ -248,5 +248,27 @@ function missingCoordinatesValidator(
 
   return {
     missingCoordinates: true,
+  };
+}
+
+function atLeastOnePhoneValidatorFactory(name: string) {
+  const validRegex = /^[^0]([0-9]){7}$/;
+  return (control: AbstractControl): ValidationErrors | null => {
+    const anotherValue = control.parent?.get(name).value ?? '';
+    const validAnotherValue = validRegex.test(anotherValue);
+
+    if (validAnotherValue) return null;
+
+    const value = control.value ?? '';
+    const validValue = validRegex.test(value);
+
+    if (validValue) {
+      control.parent.get(name).updateValueAndValidity();
+      return null;
+    }
+
+    return {
+      required: true,
+    };
   };
 }
