@@ -25,6 +25,7 @@ import { environment } from '../../../../environments/environment';
 import { CsvService } from '@app/admin/shared/csv.service';
 import { Zone, zones } from '@shared/zone';
 import { DemandStatus, l10nDemandStatus } from '@demands/shared/demand-status';
+import { SpecialCondition } from '@beneficiaries/shared/special-condition';
 
 @Component({
   templateUrl: './demands-list.component.html',
@@ -49,9 +50,7 @@ export class DemandsListComponent implements OnInit {
   lastFilter = {};
   page: DemandsPageParams = { pageSize: 20, pageIndex: 1 };
 
-  selectedTab?: DemandStatus;
-  selectedTabIndex$ = 0;
-
+  SpecialCondition = SpecialCondition;
   l10nDemandStatus = l10nDemandStatus;
   allStatuses = [
     DemandStatus.new,
@@ -62,6 +61,9 @@ export class DemandsListComponent implements OnInit {
   ];
 
   allStatusesCounts$ = new BehaviorSubject<number[]>([]);
+
+  selectedTab?: DemandStatus = this.allStatuses[0];
+  selectedTabIndex$ = 0;
 
   zones = zones;
   searchFilterQuery = '';
@@ -124,7 +126,9 @@ export class DemandsListComponent implements OnInit {
   }
 
   fetchDemands() {
-    this.demandsFacade.getDemands(this.page);
+    this.demandsFacade.getDemands(this.page, {
+      status: this.selectedTab,
+    });
     this.demandsFacade.resetNewDemands();
   }
 
