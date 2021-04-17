@@ -5,13 +5,14 @@ import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { Volunteer } from '../shared/volunteer';
 import { TranslateService } from '@ngx-translate/core';
-import { volunteerRoles } from '../shared/volunteer-enums';
+import { volunteerRoles, VolunteerStatus } from '../shared/volunteer-enums';
 import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   templateUrl: './volunteers-details.component.html',
 })
 export class VolunteersDetailsComponent implements OnDestroy {
+  VolunteerStatus = VolunteerStatus;
   volunteerRoles = volunteerRoles;
   volunteer: Volunteer;
   demandsData$ = this.volunteerFacade.demandsData$;
