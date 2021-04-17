@@ -217,7 +217,17 @@
             >
               <mat-icon>explore</mat-icon>
             </button>
-            <mat-error translate>required_field</mat-error>
+            <mat-error *ngIf="addressErrors.required" translate>
+              required_field
+            </mat-error>
+            <mat-error
+              *ngIf="
+                addressErrors.missingCoordinates && !addressErrors.required
+              "
+              translate
+            >
+              address_missing_coordinates
+            </mat-error>
           </mat-form-field>
         </div>
 

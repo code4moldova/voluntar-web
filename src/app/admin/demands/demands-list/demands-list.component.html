@@ -33,7 +33,7 @@
         placeholder="{{ 'date' | translate }}"
         title=""
         [matDatepicker]="datePicker"
-        (dateChange)="searchFilterDate = $any($event).value"
+        (dateChange)="setSearchDate($any($event).value)"
       />
       <mat-datepicker-toggle [for]="datePicker"></mat-datepicker-toggle>
       <mat-datepicker #datePicker></mat-datepicker>
@@ -73,14 +73,30 @@
             <mat-expansion-panel class="shadow-none">
               <mat-expansion-panel-header>
                 <mat-panel-title class="d-flex align-items-center">
-                  <app-badge
-                    class="red p-1 mr-2"
-                    [style.visibility]="
-                      cast(element).has_symptoms ? 'visible' : 'hidden'
-                    "
-                    matTooltip="{{ 'has_symptoms' | translate }}"
-                  >
-                    <mat-icon>face</mat-icon>
+                  <app-badge class="p-1 mr-2">
+                    <ng-container
+                      [ngSwitch]="cast(element).beneficiary.special_condition"
+                    >
+                      <mat-icon *ngSwitchDefault></mat-icon>
+                      <mat-icon
+                        *ngSwitchCase="SpecialCondition.blind_weak_seer"
+                        svgIcon="blind_weak_seer"
+                        matTooltip="{{ 'blind_weak_seer' | translate }}"
+                        matTooltipPosition="right"
+                      ></mat-icon>
+                      <mat-icon
+                        *ngSwitchCase="SpecialCondition.deaf_mute"
+                        svgIcon="deaf_mute"
+                        matTooltip="{{ 'deaf_mute' | translate }}"
+                        matTooltipPosition="right"
+                      ></mat-icon>
+                      <mat-icon
+                        *ngSwitchCase="SpecialCondition.disability"
+                        svgIcon="disability"
+                        matTooltip="{{ 'disability' | translate }}"
+                        matTooltipPosition="right"
+                      ></mat-icon>
+                    </ng-container>
                   </app-badge>
 
                   <span class="mx-2 w-25">

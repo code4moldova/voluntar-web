@@ -14,6 +14,6 @@ export interface Beneficiary {
   apartment: string;
   latitude: number;
   longitude: number;
-  special_condition: SpecialCondition;
+  special_condition?: SpecialCondition;
   created_at: string | Date;
 }

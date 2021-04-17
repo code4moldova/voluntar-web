@@ -5,8 +5,21 @@
 ></app-admin-page-header>
 
 <div class="bg-white p-4 mat-typography" *ngIf="volunteer">
-  <h4>
+  <h4 class="d-flex justify-content-between">
     <strong translate>personal_data</strong>
+    <span class="ml-auto">
+      <span *ngIf="volunteer.status === VolunteerStatus.inactive">
+        {{ "inactive" | translate }}
+      </span>
+      <span *ngIf="volunteer.status === VolunteerStatus.active">
+        {{ "active" | translate }}
+      </span>
+      <mat-slide-toggle
+        class="pl-3"
+        [checked]="volunteer.status === VolunteerStatus.active"
+        disabled
+      ></mat-slide-toggle>
+    </span>
   </h4>
 
   <div class="row">

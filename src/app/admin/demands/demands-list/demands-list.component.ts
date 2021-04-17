@@ -25,6 +25,7 @@ import { environment } from '../../../../environments/environment';
 import { CsvService } from '@app/admin/shared/csv.service';
 import { Zone, zones } from '@shared/zone';
 import { DemandStatus, l10nDemandStatus } from '@demands/shared/demand-status';
+import { SpecialCondition } from '@beneficiaries/shared/special-condition';
 
 @Component({
   templateUrl: './demands-list.component.html',
@@ -49,9 +50,7 @@ export class DemandsListComponent implements OnInit {
   lastFilter = {};
   page: DemandsPageParams = { pageSize: 20, pageIndex: 1 };
 
-  selectedTab?: DemandStatus;
-  selectedTabIndex$ = 0;
-
+  SpecialCondition = SpecialCondition;
   l10nDemandStatus = l10nDemandStatus;
   allStatuses = [
     DemandStatus.new,
@@ -62,6 +61,9 @@ export class DemandsListComponent implements OnInit {
   ];
 
   allStatusesCounts$ = new BehaviorSubject<number[]>([]);
+
+  selectedTab?: DemandStatus = this.allStatuses[0];
+  selectedTabIndex$ = 0;
 
   zones = zones;
   searchFilterQuery = '';
@@ -124,7 +126,9 @@ export class DemandsListComponent implements OnInit {
   }
 
   fetchDemands() {
-    this.demandsFacade.getDemands(this.page);
+    this.demandsFacade.getDemands(this.page, {
+      status: this.selectedTab,
+    });
     this.demandsFacade.resetNewDemands();
   }
 
@@ -185,6 +189,18 @@ export class DemandsListComponent implements OnInit {
 
   getBadgeClassFromStatus(element: Demand): string {
     return statusColors[element.status];
+  }
+
+  setSearchDate(value: Date) {
+    // Below we try to compensate timezone hours
+    // e.g.
+    // value is Sun Mar 07 2021 00:00:00 GMT+0200 (Eastern European Standard Time)
+    // value.toISOString() is 2021-03-06T22:00:00.000Z
+    // Server will try to give us demands from 2021-03-06 instead of 2021-03-07
+    const newDate = new Date(value);
+    const timezoneHours = (newDate.getTimezoneOffset() * -1) / 60;
+    newDate.setHours(newDate.getHours() + timezoneHours);
+    this.searchFilterDate = newDate;
   }
 }
 

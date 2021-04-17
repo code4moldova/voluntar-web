@@ -1,7 +1,12 @@
 <app-hero>
   <app-public-header [inverted]="true"></app-public-header>
 </app-hero>
-<app-help-guide></app-help-guide>
-<app-make-donation id="{{ navSvc.makeDonationSectionId }}"></app-make-donation>
-<app-partners></app-partners>
-<app-public-footer></app-public-footer>
+
+<div class="bg-white">
+  <app-help-guide></app-help-guide>
+  <app-make-donation
+    id="{{ navSvc.makeDonationSectionId }}"
+  ></app-make-donation>
+  <app-partners></app-partners>
+  <app-public-footer></app-public-footer>
+</div>

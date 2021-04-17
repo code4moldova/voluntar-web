@@ -65,6 +65,7 @@
   "telecentru": "Telecentru",
   "suburbii": "Suburbii",
   "required_field": "Câmp obligatoriu",
+  "address_missing_coordinates": "Selectati manual pe harta pentru a depista locatia, apoi ajustati adresa",
   "eight_digits": "8 cifre, fără 0 la început",
   "invalid_email": "Email invalid",
   "between16and50": "Doar vârsta cu valorile între 16 și 50 este acceptată",

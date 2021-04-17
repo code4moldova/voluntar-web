@@ -93,6 +93,7 @@
         >
           <mat-label translate>special_condition</mat-label>
           <mat-select formControlName="special_condition">
+            <mat-option value="none">{{ "none" | translate }}</mat-option>
             <mat-option
               *ngFor="let condition of specialConditions"
               [value]="condition"

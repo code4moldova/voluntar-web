@@ -7,7 +7,7 @@ import { Volunteer } from '@volunteers/shared/volunteer';
 import { VolunteersService } from '@volunteers/volunteers.service';
 import { Cluster } from '@demands/shared/cluster';
 import { TranslateService } from '@ngx-translate/core';
-import { weekDays } from '@shared/week-day';
+import { weekDaysSundayFirst } from '@shared/week-day';
 import { Coordinate, zonesCoordinates } from '@shared/zone';
 
 enum DemandAssignStep {
@@ -169,7 +169,7 @@ export class DemandsMapComponent implements OnInit, OnDestroy {
 
     this.filteredVolunteers = this.volunteers.filter((volunteer) => {
       const dayOfWeek = $event.getDay();
-      const enumDayOfWeek = weekDays[dayOfWeek];
+      const enumDayOfWeek = weekDaysSundayFirst[dayOfWeek];
       return (volunteer.availability_days ?? []).includes(enumDayOfWeek);
     });
   }

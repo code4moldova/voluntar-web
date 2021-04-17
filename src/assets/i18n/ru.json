@@ -65,6 +65,7 @@
   "telecentru": "Телецентр",
   "suburbii": "Пригороды",
   "required_field": "Обязательное поле",
+  "address_missing_coordinates": "Selectati manual pe harta pentru a depista locatia, apoi ajustati adresa",
   "eight_digits": "8 цифр, без 0 в начале",
   "invalid_email": "Неверный адрес электронной почты",
   "between16and50": "Разрешены только возраста в промежутке от 16 до 50",
