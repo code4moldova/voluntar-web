@@ -17,8 +17,7 @@ import {
 } from './volunteers.selectors';
 import { Volunteer } from './shared/volunteer';
 import { VolunteersService } from './volunteers.service';
-
-export type VolunteerPageParams = { pageSize: number; pageIndex: number };
+import { PageParams } from '@app/admin/shared/interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -44,7 +43,7 @@ export class VolunteersFacade {
     }
   }
 
-  getVolunteers(page: VolunteerPageParams, filters?: any) {
+  getVolunteers(page: PageParams, filters?: any) {
     this.store.dispatch(getVolunteersAction({ page, filters }));
   }
 

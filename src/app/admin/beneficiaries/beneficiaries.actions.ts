@@ -2,6 +2,7 @@ import { createAction, props } from '@ngrx/store';
 
 import { Beneficiary } from './shared/beneficiary';
 import { Demand } from '@demands/shared/demand';
+import { PageParams } from '@app/admin/shared/interfaces';
 
 export enum ActionTypes {
   GET_BENEFICIARIES = '[Beneficiaries] Get Beneficiaries',
@@ -35,7 +36,7 @@ export enum ActionTypes {
 
 export const getBeneficiariesAction = createAction(
   ActionTypes.GET_BENEFICIARIES,
-  props<{ page: { pageSize: number; pageIndex: number }; filters?: any }>(),
+  props<{ page: PageParams; filters?: any }>(),
 );
 export const getBeneficiariesFailureAction = createAction(
   ActionTypes.GET_BENEFICIARIES_FAILURE,
@@ -61,7 +62,7 @@ export const getBeneficiaryFailureAction = createAction(
 
 export const getBeneficiaryDemandsAction = createAction(
   ActionTypes.GET_BENEFICIARY_DEMANDS,
-  props<{ id: string; page: { pageSize: number; pageIndex: number } }>(),
+  props<{ id: string; page: PageParams }>(),
 );
 
 export const getBeneficiaryDemandsSuccessAction = createAction(
@@ -118,7 +119,7 @@ export const getBeneficiariesByFilterFailureAction = createAction(
 export const getBeneficiaryBlockListAction = createAction(
   ActionTypes.GET_BENEFICIARY_BLOCK_LIST,
   props<{
-    page: { pageSize: number; pageIndex: number };
+    page: PageParams;
     filters: Record<string, string>;
   }>(),
 );

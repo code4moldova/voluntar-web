@@ -1,16 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
-import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 
-import { VolunteerPageParams, VolunteersFacade } from '../volunteers.facade';
+import { VolunteersFacade } from '../volunteers.facade';
 import { Volunteer } from '../shared/volunteer';
 import { ActionsSubject } from '@ngrx/store';
 import { ofType } from '@ngrx/effects';
-import { map, take, takeUntil } from 'rxjs/operators';
+import { map, takeUntil } from 'rxjs/operators';
 import { saveVolunteerSuccessAction } from '../volunteers.actions';
-import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder } from '@angular/forms';
 import { VolunteersCreateComponent } from '../volunteers-create/volunteers-create.component';
 import {
   VolunteerRole,
@@ -18,9 +16,9 @@ import {
   VolunteerStatus,
 } from '../shared/volunteer-enums';
 import { Zone, zones } from '@shared/zone';
-import { VolunteersService } from '@volunteers/volunteers.service';
 import { CsvService } from '@app/admin/shared/csv.service';
 import { environment } from '../../../../environments/environment';
+import { PageParams, Tab } from '@app/admin/shared/interfaces';
 
 @Component({
   templateUrl: './volunteers-list.component.html',
@@ -29,18 +27,33 @@ import { environment } from '../../../../environments/environment';
 export class VolunteersListComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   displayedColumns = ['name', 'phone', 'zone', 'icons', 'details'];
-  dataSource$: Observable<Volunteer[]>;
+  dataSource$ = this.volunteersFacade.volunteers$;
   isLoading$ = this.volunteersFacade.isLoading$;
   count$ = this.volunteersFacade.count$;
-  allStatusesCounts$ = new BehaviorSubject<number[]>([]);
   tabs: Tab[] = [
-    { label: 'active', status: VolunteerStatus.active },
-    { label: 'inactive', status: VolunteerStatus.inactive },
-    { label: 'black_list', status: VolunteerStatus.blacklist },
-    { label: 'all.masculine', status: undefined },
+    {
+      label: 'active',
+      status: VolunteerStatus.active,
+      count$: this.getCountByStatus(VolunteerStatus.active),
+    },
+    {
+      label: 'inactive',
+      status: VolunteerStatus.inactive,
+      count$: this.getCountByStatus(VolunteerStatus.inactive),
+    },
+    {
+      label: 'black_list',
+      status: VolunteerStatus.blacklist,
+      count$: this.getCountByStatus(VolunteerStatus.blacklist),
+    },
+    {
+      label: 'all.masculine',
+      status: undefined,
+      count$: this.getCountByStatus(),
+    },
   ];
   activeTab = this.tabs[0];
-  page: VolunteerPageParams = { pageSize: 20, pageIndex: 1 };
+  page: PageParams = { pageSize: 20, pageIndex: 1 };
   lastFilter = {};
   zones = zones;
   volunteerRoles = volunteerRoles;
@@ -50,19 +63,13 @@ export class VolunteersListComponent implements OnInit {
   searchFilterRole = '';
 
   constructor(
-    private fb: FormBuilder,
     private volunteersFacade: VolunteersFacade,
-    private volunteerService: VolunteersService,
     private matDialog: MatDialog,
     private actions$: ActionsSubject,
-    private activeRoute: ActivatedRoute,
-    private router: Router,
     private csvService: CsvService,
   ) {}
 
   ngOnInit() {
-    this.getAllStatusesCount();
-    this.dataSource$ = this.volunteersFacade.volunteers$;
     this.onTabChange(this.activeTab);
   }
 
@@ -88,18 +95,7 @@ export class VolunteersListComponent implements OnInit {
       .subscribe();
   }
 
-  getAllStatusesCount() {
-    const demands = this.tabs.map((tab) =>
-      this.helperGetCountByStatus(tab.status),
-    );
-    forkJoin(demands)
-      .pipe(take(1))
-      .subscribe((res) => {
-        this.allStatusesCounts$.next(res);
-      });
-  }
-
-  helperGetCountByStatus(status?: string) {
+  getCountByStatus(status?: string) {
     return this.volunteersFacade
       .getByStatus(status)
       .pipe(map((res) => res.count));
@@ -144,11 +140,6 @@ export class VolunteersListComponent implements OnInit {
     return volunteer as Volunteer;
   }
 }
-
-type Tab = {
-  label: string;
-  status?: string;
-};
 
 function getValue<T extends string>(value: string): T | undefined {
   return value !== 'all' && value ? (value as T) : undefined;
