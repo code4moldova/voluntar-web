@@ -25,6 +25,7 @@ import {
   selectIsLoading,
 } from './beneficiaries.selectors';
 import { Beneficiary } from './shared/beneficiary';
+import { PageParams } from '@app/admin/shared/interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -53,24 +54,15 @@ export class BeneficiariesFacade {
     }
   }
 
-  getBeneficiaries(
-    page: { pageSize: number; pageIndex: number },
-    filters?: any,
-  ) {
+  getBeneficiaries(page: PageParams, filters?: any) {
     this.store.dispatch(getBeneficiariesAction({ page, filters }));
   }
 
-  getBeneficiaryDemands(
-    page: { pageSize: number; pageIndex: number },
-    id: string,
-  ) {
+  getBeneficiaryDemands(page: PageParams, id: string) {
     this.store.dispatch(getBeneficiaryDemandsAction({ page, id }));
   }
 
-  getBeneficiaryBlockList(
-    page: { pageSize: number; pageIndex: number },
-    filters: Record<string, string>,
-  ) {
+  getBeneficiaryBlockList(page: PageParams, filters: Record<string, string>) {
     this.store.dispatch(getBeneficiaryBlockListAction({ page, filters }));
   }
 

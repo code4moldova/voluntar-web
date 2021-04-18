@@ -5,7 +5,6 @@ import { PageEvent } from '@angular/material/paginator';
 import { Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ofType } from '@ngrx/effects';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { Beneficiary } from '../shared/beneficiary';
 import { BeneficiariesFacade } from '../beneficiaries.facade';
@@ -15,26 +14,31 @@ import { Zone, zones } from '@shared/zone';
 import { BeneficiariesService } from '@beneficiaries/beneficiaries.service';
 import { environment } from '../../../../environments/environment';
 import { CsvService } from '@app/admin/shared/csv.service';
+import { PageParams, Tab } from '@app/admin/shared/interfaces';
 
 @Component({
   templateUrl: './beneficiaries-list.component.html',
   styleUrls: ['./beneficiaries-list.component.scss'],
 })
 export class BeneficiariesListComponent implements OnInit {
-  tabIndex = 0;
-  dataSource$: Observable<Beneficiary[]>;
-  count$ = this.beneficiariesFacade.count$;
-  isLoading$ = this.beneficiariesFacade.isLoading$;
-  pageSize = 20;
-  pageIndex = 1;
-  filters = {};
+  tabs: Tab[] = [
+    {
+      label: 'all.masculine',
+      status: undefined,
+      count$: this.beneficiariesFacade.count$,
+    },
+    {
+      label: 'black_list',
+      status: 'blacklist',
+      count$: this.beneficiariesFacade.blockListCount$,
+    },
+  ];
+  activeTab = this.tabs[0];
 
-  blockListDataSource$: Observable<Beneficiary[]>;
-  blockListCount$ = this.beneficiariesFacade.blockListCount$;
-  blockListIsLoading$ = this.beneficiariesFacade.blockListIsLoading$;
-  blockListPageSize = 20;
-  blockListPageIndex = 1;
-  blockListFilters = {};
+  dataSource$: Observable<Beneficiary[]>;
+  isLoading$ = this.beneficiariesFacade.isLoading$;
+  page: PageParams = { pageSize: 20, pageIndex: 1 };
+  filters = {};
 
   // Search bar
   zones = zones;
@@ -45,44 +49,36 @@ export class BeneficiariesListComponent implements OnInit {
     private beneficiariesFacade: BeneficiariesFacade,
     private beneficiariesService: BeneficiariesService,
     private matDialog: MatDialog,
-    private snackBar: MatSnackBar,
     private actions$: ActionsSubject,
     private csvService: CsvService,
   ) {}
 
   ngOnInit(): void {
-    this.reloadBeneficiaries();
-    this.reloadBlockList();
-    this.dataSource$ = this.beneficiariesFacade.beneficiaries$;
-    this.blockListDataSource$ = this.beneficiariesFacade.blockListData$;
+    this._reloadDataSource();
+    this._reloadBlockList();
   }
 
-  reloadBeneficiaries() {
-    const { pageSize, pageIndex } = this;
-    this.beneficiariesFacade.getBeneficiaries(
-      { pageSize, pageIndex },
-      this.filters,
-    );
+  private _reloadDataSource(): void {
+    if (this.activeTab.status === undefined) {
+      this.dataSource$ = this._reloadBeneficiaries();
+    } else {
+      this.dataSource$ = this._reloadBlockList();
+    }
   }
 
-  reloadBlockList() {
-    const { blockListPageSize: pageSize, blockListPageIndex: pageIndex } = this;
-    this.beneficiariesFacade.getBeneficiaryBlockList(
-      { pageSize, pageIndex },
-      this.filters,
-    );
+  private _reloadBeneficiaries(): Observable<Beneficiary[]> {
+    this.beneficiariesFacade.getBeneficiaries(this.page, this.filters);
+    return this.beneficiariesFacade.beneficiaries$;
+  }
+
+  private _reloadBlockList(): Observable<Beneficiary[]> {
+    this.beneficiariesFacade.getBeneficiaryBlockList(this.page, this.filters);
+    return this.beneficiariesFacade.blockListData$;
   }
 
   onPageChange(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.pageIndex = event.pageIndex + 1;
-    this.reloadBeneficiaries();
-  }
-
-  onBlockListPageChange(event: PageEvent) {
-    this.blockListPageSize = event.pageSize;
-    this.blockListPageIndex = event.pageIndex + 1;
-    this.reloadBlockList();
+    this.page = { pageSize: event.pageSize, pageIndex: event.pageIndex + 1 };
+    this._reloadDataSource();
   }
 
   openNewBeneficiaryDialog() {
@@ -97,8 +93,8 @@ export class BeneficiariesListComponent implements OnInit {
       )
       .subscribe(() => {
         dialogRef.close();
-        this.reloadBeneficiaries();
-        this.reloadBlockList();
+        this._reloadBeneficiaries();
+        this._reloadBlockList();
       });
   }
 
@@ -111,8 +107,10 @@ export class BeneficiariesListComponent implements OnInit {
       .subscribe();
   }
 
-  onTabChange(index: number) {
-    this.tabIndex = index;
+  onTabChange(tab: Tab) {
+    this.activeTab = tab;
+    this.page = { pageSize: 20, pageIndex: 1 };
+    this._reloadDataSource();
   }
 
   searchSubmit() {
@@ -124,11 +122,10 @@ export class BeneficiariesListComponent implements OnInit {
           : undefined,
     };
 
-    if (this.tabIndex === 0) {
-      this.reloadBeneficiaries();
+    if (this.activeTab.status === undefined) {
+      this._reloadBeneficiaries();
     } else {
-      // Block list
-      this.reloadBlockList();
+      this._reloadBlockList();
     }
   }
 }

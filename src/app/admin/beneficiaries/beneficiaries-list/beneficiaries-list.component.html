@@ -32,36 +32,23 @@
   </mat-card>
 </form>
 
-<mat-tab-group
-  mat-align-tabs="start"
-  class="b-list"
-  (selectedIndexChange)="onTabChange($event)"
->
-  <mat-tab>
-    <ng-template mat-tab-label>
-      Toți
-      <span class="badge-counter">{{ count$ | async }}</span>
-    </ng-template>
+<nav mat-tab-nav-bar class="bg-white">
+  <a
+    mat-tab-link
+    *ngFor="let tab of tabs"
+    (click)="onTabChange(tab)"
+    [active]="activeTab === tab"
+  >
+    {{ tab.label | translate }}
+    <app-badge class="ml-2 small" [class.light-blue]="activeTab === tab">
+      {{ tab.count$ | async }}
+    </app-badge>
+  </a>
+</nav>
 
-    <app-beneficiary-list
-      [dataSource]="dataSource$"
-      [count]="count$"
-      [isLoading]="isLoading$"
-      (pageChangeEvent)="onPageChange($event)"
-    ></app-beneficiary-list>
-  </mat-tab>
-
-  <mat-tab>
-    <ng-template mat-tab-label>
-      Blocați
-      <span class="badge-counter">{{ blockListCount$ | async }}</span>
-    </ng-template>
-
-    <app-beneficiary-list
-      [dataSource]="blockListDataSource$"
-      [count]="blockListCount$"
-      [isLoading]="blockListIsLoading$"
-      (pageChangeEvent)="onBlockListPageChange($event)"
-    ></app-beneficiary-list>
-  </mat-tab>
-</mat-tab-group>
+<app-beneficiary-list
+  [dataSource]="dataSource$"
+  [count]="this.activeTab.count$"
+  [isLoading]="isLoading$"
+  (pageChangeEvent)="onPageChange($event)"
+></app-beneficiary-list>
